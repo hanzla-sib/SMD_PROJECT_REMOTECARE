@@ -47,7 +47,7 @@
             android:name=".Doc_Prescription"
             android:exported="false" />
         <activity
-            android:name=".Doc_Patient_Details"
+            android:name=".Doc_Appointments"
             android:exported="false" />
         <activity
             android:name=".Doc_Profile"

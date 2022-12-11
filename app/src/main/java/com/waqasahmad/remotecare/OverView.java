@@ -8,10 +8,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+
 public class OverView extends AppCompatActivity {
 
     CardView step,heart_beat,test_record,calorie;
     DrawerLayout drawerLayout;
+
+    //for logging out
+    DatabaseReference reference1;
+    FirebaseAuth auth1;
+    FirebaseDatabase database1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +36,11 @@ public class OverView extends AppCompatActivity {
         heart_beat = findViewById(R.id.heartbeat_card);
         test_record = findViewById(R.id.testrecord_card);
         calorie = findViewById(R.id.calories_card);
+
+        // for logging out
+        auth1=FirebaseAuth.getInstance();
+        database1 = FirebaseDatabase.getInstance();
+        reference1 = database1.getReference("Users");
 
 
 //        step.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +101,32 @@ public class OverView extends AppCompatActivity {
     public void ClickPrescriptionDetails (View view){
         MainActivity2.redirectActivity(this, Prescription_Details.class);
     }
+    public void ClickChat(View view){
+        MainActivity2.redirectActivity(this,messagemain.class);
+    }
+
+    public void ClickLogout(View view){
+
+        String savecurrentdate;
+        Calendar calendar=Calendar.getInstance();
+        SimpleDateFormat currentdate=new SimpleDateFormat("MMM dd,yyyy");
+        savecurrentdate=currentdate.format(calendar.getTime());
+        SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
+        String savetime=currentTime.format(calendar.getTime());
+        HashMap<String,Object> onlinestatus=new HashMap<>();
+        onlinestatus.put("time",savetime);
+        onlinestatus.put("date",savecurrentdate);
+        onlinestatus.put("status","offline");
+        onlinestatus.put("player_id","");
+        String curruserid=auth1.getUid();
+        reference1.child(curruserid).updateChildren(onlinestatus);
+        auth1.signOut();
+
+        finish();
+
+        startActivity(new Intent(OverView.this, MainActivity_signin.class));
+    }
+
 
 
     @Override

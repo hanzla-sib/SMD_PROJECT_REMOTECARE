@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,6 +31,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,14 +43,18 @@ public class Profile extends AppCompatActivity {
     DrawerLayout drawerLayout;
     CircleImageView profile_circle;
     Uri image = null;
-private Bitmap imagetoStore;
+    private Bitmap imagetoStore;
     ImageButton update_btn;
 
-DatabaseHandler objectdatabasehandler;
+
+    //for logging out
+    DatabaseReference reference1;
+    FirebaseAuth auth1;
+    FirebaseDatabase database1;
 
 
-//    EditText change_name , change_password;
-//    String change_name_str , change_password_str;
+    DatabaseHandler objectdatabasehandler;
+
 
     // validating user id
     FirebaseAuth mAuth;
@@ -83,6 +90,12 @@ DatabaseHandler objectdatabasehandler;
 
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
+
+
+        // for logging out
+        auth1=FirebaseAuth.getInstance();
+        database1 = FirebaseDatabase.getInstance();
+        reference1 = database1.getReference("Users");
 
         reference = db.collection("users").document(currentemail);
         reference.get()
@@ -194,6 +207,30 @@ DatabaseHandler objectdatabasehandler;
     }
     public void ClickOverview(View view){
         MainActivity2.redirectActivity(this,OverView.class);
+    }
+    public void ClickChat(View view){
+        MainActivity2.redirectActivity(this,messagemain.class);
+    }
+    public void ClickLogout(View view){
+
+        String savecurrentdate;
+        Calendar calendar=Calendar.getInstance();
+        SimpleDateFormat currentdate=new SimpleDateFormat("MMM dd,yyyy");
+        savecurrentdate=currentdate.format(calendar.getTime());
+        SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
+        String savetime=currentTime.format(calendar.getTime());
+        HashMap<String,Object> onlinestatus=new HashMap<>();
+        onlinestatus.put("time",savetime);
+        onlinestatus.put("date",savecurrentdate);
+        onlinestatus.put("status","offline");
+        onlinestatus.put("player_id","");
+        String curruserid=auth1.getUid();
+        reference1.child(curruserid).updateChildren(onlinestatus);
+        auth1.signOut();
+
+        finish();
+
+        startActivity(new Intent(Profile.this, MainActivity_signin.class));
     }
 
 

@@ -25,9 +25,9 @@ import java.util.HashMap;
 
 public class messagemain extends AppCompatActivity {
 
-    FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference reference;
+    FirebaseAuth auth;
     ArrayList<userchat> userslist;
     RecyclerView rv;
     UsersAdapter usersAdapter;
@@ -42,8 +42,6 @@ public class messagemain extends AppCompatActivity {
         reference = database.getReference("Users");
         rv=findViewById(R.id.recViewbottom);
         userslist=new ArrayList<>();
-
-
         logout=findViewById(R.id.logout);
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +64,7 @@ public class messagemain extends AppCompatActivity {
 
                 startActivity(new Intent(messagemain.this, MainActivity_signin.class));
 
+                finish();
 
             }
         });

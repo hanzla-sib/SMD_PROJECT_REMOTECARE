@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,6 +55,12 @@ public class Doc_Profile extends AppCompatActivity {
     FirebaseFirestore db;
     DocumentReference reference;
 
+
+    //for logging out
+    DatabaseReference reference1;
+    FirebaseAuth auth1;
+    FirebaseDatabase database1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +70,10 @@ public class Doc_Profile extends AppCompatActivity {
         logo=findViewById(R.id.rclogo);
         profile_circle=findViewById(R.id.doc_profile_circle);
 
-
+        // for logging out
+        auth1=FirebaseAuth.getInstance();
+        database1 = FirebaseDatabase.getInstance();
+        reference1 = database1.getReference("Users");
 
 
 
@@ -149,9 +161,9 @@ public class Doc_Profile extends AppCompatActivity {
         Intent intent = new Intent(this, Doctor1.class);
         startActivity(intent);
     }
-    public void ClickPatientDetails (View view){
+    public void ClickAppointmentsDoc (View view){
 
-        Intent intent = new Intent(this, Doc_Patient_Details.class);
+        Intent intent = new Intent(this, Doc_Appointments.class);
         startActivity(intent);
     }
     public void ClickPrescriptionDetailsDoc (View view){
@@ -160,6 +172,34 @@ public class Doc_Profile extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void ClickChatDoc (View view){
+
+        Intent intent = new Intent(this, messagemain.class);
+        startActivity(intent);
+    }
+
+
+    public void ClickLogoutDoc (View view){
+
+        String savecurrentdate;
+        Calendar calendar=Calendar.getInstance();
+        SimpleDateFormat currentdate=new SimpleDateFormat("MMM dd,yyyy");
+        savecurrentdate=currentdate.format(calendar.getTime());
+        SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
+        String savetime=currentTime.format(calendar.getTime());
+        HashMap<String,Object> onlinestatus=new HashMap<>();
+        onlinestatus.put("time",savetime);
+        onlinestatus.put("date",savecurrentdate);
+        onlinestatus.put("status","offline");
+        onlinestatus.put("player_id","");
+        String curruserid=auth1.getUid();
+        reference1.child(curruserid).updateChildren(onlinestatus);
+        auth1.signOut();
+        finish();
+
+        startActivity(new Intent(Doc_Profile.this, MainActivity_signin.class));
+
+    }
 
 
 

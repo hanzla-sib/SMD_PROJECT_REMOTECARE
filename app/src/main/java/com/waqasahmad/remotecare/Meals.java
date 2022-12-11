@@ -6,6 +6,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -24,12 +25,16 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +48,11 @@ public class Meals extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
+
+    //for logging out
+    DatabaseReference reference1;
+    FirebaseAuth auth1;
+    FirebaseDatabase database1;
 
     RecyclerView rv;
     List<MyModel> ls=new ArrayList<>();
@@ -64,6 +74,11 @@ public class Meals extends AppCompatActivity {
 
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
+
+        // for logging out
+        auth1=FirebaseAuth.getInstance();
+        database1 = FirebaseDatabase.getInstance();
+        reference1 = database1.getReference("Users");
 
         String currentemail = mAuth.getCurrentUser().getEmail();
 
@@ -222,6 +237,32 @@ public class Meals extends AppCompatActivity {
     public void ClickPrescriptionDetails (View view){
         MainActivity2.redirectActivity(this, Prescription_Details.class);
     }
+    public void ClickChat(View view){
+        MainActivity2.redirectActivity(this,messagemain.class);
+    }
+
+    public void ClickLogout(View view){
+
+        String savecurrentdate;
+        Calendar calendar=Calendar.getInstance();
+        SimpleDateFormat currentdate=new SimpleDateFormat("MMM dd,yyyy");
+        savecurrentdate=currentdate.format(calendar.getTime());
+        SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
+        String savetime=currentTime.format(calendar.getTime());
+        HashMap<String,Object> onlinestatus=new HashMap<>();
+        onlinestatus.put("time",savetime);
+        onlinestatus.put("date",savecurrentdate);
+        onlinestatus.put("status","offline");
+        onlinestatus.put("player_id","");
+        String curruserid=auth1.getUid();
+        reference1.child(curruserid).updateChildren(onlinestatus);
+        auth1.signOut();
+
+        finish();
+
+        startActivity(new Intent(Meals.this, MainActivity_signin.class));
+    }
+
 
     @Override
     protected void onPause() {

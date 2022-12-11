@@ -6,14 +6,28 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class Doc_Prescription extends AppCompatActivity {
 
 
     DrawerLayout doc_drawerLayout;
     ImageView Menu,logo;
+
+    //for logging out
+    DatabaseReference reference1;
+    FirebaseAuth auth1;
+    FirebaseDatabase database1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +37,17 @@ public class Doc_Prescription extends AppCompatActivity {
         doc_drawerLayout = findViewById(R.id.doc_prescription);
         Menu = findViewById(R.id.menu);
         logo=findViewById(R.id.rclogo);
+
+        // for logging out
+        auth1=FirebaseAuth.getInstance();
+        database1 = FirebaseDatabase.getInstance();
+        reference1 = database1.getReference("Users");
+
+
+
+//        String useremail = mAuth.getCurrentUser().getEmail();
+//        Log.d("useremail" , useremail);
+
 
 
         Menu.setOnClickListener(new View.OnClickListener() {
@@ -65,15 +90,42 @@ public class Doc_Prescription extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void ClickPatientDetails (View view){
+    public void ClickAppointmentsDoc (View view){
 
-        Intent intent = new Intent(this, Doc_Patient_Details.class);
+        Intent intent = new Intent(this, Doc_Appointments.class);
         startActivity(intent);
 
     }
 
+    public void ClickChatDoc (View view){
+
+        Intent intent = new Intent(this, messagemain.class);
+        startActivity(intent);
+    }
+
+    public void ClickLogoutDoc (View view){
+
+        String savecurrentdate;
+        Calendar calendar=Calendar.getInstance();
+        SimpleDateFormat currentdate=new SimpleDateFormat("MMM dd,yyyy");
+        savecurrentdate=currentdate.format(calendar.getTime());
+        SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
+        String savetime=currentTime.format(calendar.getTime());
+        HashMap<String,Object> onlinestatus=new HashMap<>();
+        onlinestatus.put("time",savetime);
+        onlinestatus.put("date",savecurrentdate);
+        onlinestatus.put("status","offline");
+        onlinestatus.put("player_id","");
+        String curruserid=auth1.getUid();
+        reference1.child(curruserid).updateChildren(onlinestatus);
+        auth1.signOut();
+
+        finish();
+
+        startActivity(new Intent(Doc_Prescription.this, MainActivity_signin.class));
 
 
+    }
 
 
 
