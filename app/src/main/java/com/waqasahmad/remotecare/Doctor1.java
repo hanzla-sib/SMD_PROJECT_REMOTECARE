@@ -8,12 +8,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 public class Doctor1 extends AppCompatActivity {
 
     DrawerLayout doc_drawerLayout;
     ImageView Menu,logo;
+    Button msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,14 @@ public class Doctor1 extends AppCompatActivity {
         doc_drawerLayout = findViewById(R.id.doctor_drawer_layout);
         Menu = findViewById(R.id.menu);
         logo=findViewById(R.id.rclogo);
-
+        msg=findViewById(R.id.messageall);
+        msg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Doctor1.this,messagemain.class);
+                startActivity(intent);
+            }
+        });
         Menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

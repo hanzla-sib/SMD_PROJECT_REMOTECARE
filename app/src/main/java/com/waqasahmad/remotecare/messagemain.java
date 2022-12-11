@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -70,31 +71,50 @@ public class messagemain extends AppCompatActivity {
         });
 
 
-
-
+        final String[] Typeuser = {""};
         reference.addValueEventListener(new ValueEventListener() {
             @Override
+
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    String checkuid,mauthuid;
+
+                    String checkuid,mauthuid,types;
                     checkuid=dataSnapshot.child("uid").getValue().toString();
+                    types=dataSnapshot.child("type").getValue().toString();
                     mauthuid=auth.getUid();
+                    if(checkuid.equals(mauthuid)){
+                        Typeuser[0] =dataSnapshot.child("type").getValue().toString();
+                    }
+                }
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    String checkuid,mauthuid,Type;
+                    checkuid=dataSnapshot.child("uid").getValue().toString();
+                    Type=dataSnapshot.child("type").getValue().toString();
+                    mauthuid=auth.getUid();
+//                    Log.d("typesofuser",Typeuser[0]);
+                    Log.d("typesofuser",Type);
                     if(checkuid.equals(mauthuid)){
 
                     }
                     else{
-                        userchat uchat=new userchat();
-                        String name=dataSnapshot.child("name").getValue().toString();
-                        String uid=dataSnapshot.child("uid").getValue().toString();
-                        String status=dataSnapshot.child("status").getValue().toString();
-                        String lastscene=dataSnapshot.child("time").getValue().toString();
-                        String p_id=dataSnapshot.child("player_id").getValue().toString();
-                        uchat.setName(name);
-                        uchat.setUid(uid);
-                        uchat.setOnlinestatus(status);
-                        uchat.setLastseen(lastscene);
-                        uchat.setP_id(p_id);
-                        userslist.add(uchat);
+                        if(Type.equals(Typeuser[0])){
+
+                        }
+                        else{
+                            userchat uchat=new userchat();
+                            String name=dataSnapshot.child("name").getValue().toString();
+                            String uid=dataSnapshot.child("uid").getValue().toString();
+                            String status=dataSnapshot.child("status").getValue().toString();
+                            String lastscene=dataSnapshot.child("time").getValue().toString();
+                            String p_id=dataSnapshot.child("player_id").getValue().toString();
+                            uchat.setName(name);
+                            uchat.setUid(uid);
+                            uchat.setOnlinestatus(status);
+                            uchat.setLastseen(lastscene);
+                            uchat.setP_id(p_id);
+                            userslist.add(uchat);
+                        }
+
                     }
                 }
 
