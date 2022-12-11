@@ -1,0 +1,231 @@
+package com.waqasahmad.remotecare;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
+import android.util.ArrayMap;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Meals extends AppCompatActivity {
+
+    DrawerLayout drawerLayout;
+    String Query1, namefood_str, calorie_str ;
+    EditText input_query ;
+    ImageButton Enter_button;
+
+    FirebaseAuth mAuth;
+    FirebaseFirestore db;
+
+    RecyclerView rv;
+    List<MyModel> ls=new ArrayList<>();
+
+    JSONObject obj;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.meals);
+
+        drawerLayout=findViewById(R.id.drawer_layout);
+        input_query = findViewById(R.id.input_query);
+        Query1 = input_query.getText().toString();
+        Enter_button = findViewById(R.id.Enter_button);
+
+        //Initializing Firebase MAuth instance
+        mAuth=FirebaseAuth.getInstance();
+
+        //Initializing Firebase MAuth instance
+        db = FirebaseFirestore.getInstance();
+
+        String currentemail = mAuth.getCurrentUser().getEmail();
+
+        Enter_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Query1 = input_query.getText().toString();
+                // Concatenating header with the API and getting calories in JSON file format
+                {
+                    StringRequest myReq = new StringRequest(Request.Method.GET,
+                            "https://api.calorieninjas.com/v1/nutrition?query=" + Query1,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        obj =new JSONObject(response);
+
+                                        Log.d("dataa",obj.toString());
+
+//                                       Log.d("json data === " , String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("name")));
+//                                       Log.d("json data === " , String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("calories")));
+
+
+
+                                        namefood_str = String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("name"));
+                                        calorie_str = String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("calories"));
+
+
+                                        Map<String, Object> food = new HashMap<>();
+                                        food.put("foodname", namefood_str);
+                                        food.put("calorie", calorie_str);
+
+
+                                      db.collection("users").
+                                              document(currentemail).
+                                                collection("calorie").
+                                                    document(String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("name")))
+                                                          .set(food)
+                                              .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Toast.makeText(
+                                                                Meals.this,
+                                                                "Successfully Added Food Intake",
+                                                                Toast.LENGTH_SHORT
+                                                        ).show();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(
+                                                                Meals.this,
+                                                                "Failed to Add Food Intake",
+                                                                Toast.LENGTH_SHORT
+                                                        ).show();
+                                                    }
+                                                });
+
+                                        rv=findViewById(R.id.rv);
+
+                                        try {
+
+                                            ls.add(new MyModel(String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("name")),
+                                                    String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("calories"))));
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        MyAdapter adapter = new MyAdapter(ls, Meals.this);
+                                        RecyclerView.LayoutManager lm = new LinearLayoutManager(Meals.this);
+                                        rv.setLayoutManager(lm);
+                                        rv.setAdapter(adapter);
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+
+
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(Meals.this,error.toString(),Toast.LENGTH_LONG).show();
+                                    Log.d("dataa",error.toString());
+
+                                }
+                            })
+                    {
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String, String> mHeaders = new ArrayMap<String, String>();
+                            mHeaders.put("Content-Type", "application/json");
+                            mHeaders.put("X-Api-Key", "syfXOOkubhTjCgJFOr6KGQ==mYTrMBkvTiw6piBu");
+                            return mHeaders;
+                        }
+                    };
+
+                    RequestQueue requestQueue  = Volley.newRequestQueue(Meals.this);
+                    requestQueue.add(myReq);
+
+                }
+
+
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void ClickMeals (View view){
+        recreate();
+    }
+
+    public void ClickMenu (View view){
+        MainActivity2.openDrawer(drawerLayout);
+    }
+    public void ClickLogo(View view){
+        MainActivity2.closeDrawer(drawerLayout);
+    }
+    public void ClickPro(View view){
+        MainActivity2.redirectActivity(this,MainActivity2.class);
+    }
+    public void ClickProfile(View view){
+        MainActivity2.redirectActivity(this, Profile.class);
+    }
+    public void ClickOverview(View view){
+        MainActivity2.redirectActivity(this,OverView.class);
+    }
+    public void ClickPrescriptionDetails (View view){
+        MainActivity2.redirectActivity(this, Prescription_Details.class);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MainActivity2.closeDrawer(drawerLayout);
+    }
+}

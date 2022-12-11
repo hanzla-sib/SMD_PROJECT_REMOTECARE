@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.waqasahmad.remotecare">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.RemoteCare"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".sql_lite_offline_sigin"
+            android:exported="false" />
+        <activity
+            android:name=".ShowimagesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Add_records"
+            android:exported="false" />
+        <activity
+            android:name=".Activitychat"
+            android:exported="false" />
+        <activity
+            android:name=".messagemain"
+            android:exported="false" />
+        <activity
+            android:name=".Step_count"
+            android:exported="false" />
+        <activity
+            android:name=".Appointments_Patient"
+            android:exported="false" />
+        <activity
+            android:name=".Doc_Prescription"
+            android:exported="false" />
+        <activity
+            android:name=".Doc_Patient_Details"
+            android:exported="false" />
+        <activity
+            android:name=".Doc_Profile"
+            android:exported="false" />
+        <activity
+            android:name=".Doctor1"
+            android:exported="false" />
+        <activity
+            android:name=".Calories"
+            android:exported="false" />
+        <activity
+            android:name=".Test_Record"
+            android:exported="false" />
+        <activity
+            android:name=".Heart_Beat"
+            android:exported="false" />
+        <activity
+            android:name=".OverView"
+            android:exported="false" />
+        <activity
+            android:name=".Meals"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity_signin"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity_signup"
+            android:exported="false" />
+        <activity
+            android:name=".Prescription_Details"
+            android:exported="false" />
+        <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".StartScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service
+            android:name=".notification.MyFirebaseService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="calorieninjas.com"
+            android:value="syfXOOkubhTjCgJFOr6KGQ==mYTrMBkvTiw6piBu" />
+    </application>
+
+</manifest>

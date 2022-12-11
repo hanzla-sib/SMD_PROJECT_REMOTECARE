@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".Appointments_Patient"
+    android:paddingHorizontal="25dp"
+    android:paddingVertical="20dp"
+    >
+
+    <TextView
+        android:id="@+id/appointmenttext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Appointment screen"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_appointments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appointmenttext"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp" />
+
+</RelativeLayout>
+
+
+

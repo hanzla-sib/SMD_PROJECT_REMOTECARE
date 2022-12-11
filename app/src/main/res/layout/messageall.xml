@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:backgroundTint="@color/white"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/messageimg"
+            android:background="@color/black"
+            android:padding="20dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            >
+            <TextView
+                android:layout_weight="3"
+                android:id="@+id/nameid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="hanzla"
+                android:layout_marginLeft="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/onlinestatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="right"
+                />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/lastseen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="lastscne"
+
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="right"
+                />
+
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
