@@ -6,25 +6,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".Appointments_Patient"
-    android:paddingHorizontal="25dp"
-    android:paddingVertical="20dp"
-    >
 
-    <TextView
-        android:id="@+id/appointmenttext"
+    >
+    <LinearLayout
+
+        android:id="@+id/tool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Appointment screen"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        />
+        android:orientation="horizontal"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="12dp"
+        android:gravity="center_vertical"
+        android:background="#3874B5">
+
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Appointments"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="23sp"
+            android:textColor="@color/black" />
+
+
+
+
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
+        android:padding="20dp"
         android:id="@+id/rv_appointments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/appointmenttext"
+        android:layout_below="@+id/tool"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="20dp" />
 

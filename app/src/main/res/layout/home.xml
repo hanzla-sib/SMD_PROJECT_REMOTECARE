@@ -23,7 +23,7 @@
             android:id="@+id/steps_card"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            app:cardBackgroundColor="#FFAA8282"
+            app:cardBackgroundColor="#81A8D3"
             app:cardCornerRadius="20dp"
             >
 
@@ -35,12 +35,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Steps and Calories"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
                     android:padding="10dp"
-                    />
+                    android:text="Steps "
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
 
                 <ImageView
@@ -59,7 +58,7 @@
         <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        app:cardBackgroundColor="#FFAA8282"
+        app:cardBackgroundColor="#81A8D3"
         app:cardCornerRadius="20dp"
             android:layout_marginTop="10dp"
         >
@@ -96,7 +95,7 @@
         <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        app:cardBackgroundColor="#FFAA8282"
+        app:cardBackgroundColor="#81A8D3"
         app:cardCornerRadius="20dp"
         android:layout_marginTop="10dp"
         android:id="@+id/appointmentcard"
@@ -133,7 +132,7 @@
         android:layout_width="match_parent"
         android:id="@+id/display_records"
         android:layout_height="120dp"
-        app:cardBackgroundColor="#FFAA8282"
+        app:cardBackgroundColor="#81A8D3"
         app:cardCornerRadius="20dp"
         android:layout_marginTop="10dp"
         >

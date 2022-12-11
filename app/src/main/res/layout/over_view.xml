@@ -18,6 +18,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -28,7 +29,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:cardBackgroundColor="#FFAA8282"
+            app:cardBackgroundColor="#81A8D3"
             app:cardCornerRadius="20dp"
             android:layout_marginTop="20dp"
             android:id="@+id/steps_card"
@@ -59,7 +60,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:cardBackgroundColor="#FFAA8282"
+            app:cardBackgroundColor="#81A8D3"
             app:cardCornerRadius="20dp"
             android:layout_marginTop="20dp"
             android:id="@+id/heartbeat_card"
@@ -87,7 +88,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:cardBackgroundColor="#FFAA8282"
+            app:cardBackgroundColor="#81A8D3"
             app:cardCornerRadius="20dp"
             android:layout_marginTop="20dp"
             android:id="@+id/testrecord_card"
@@ -116,7 +117,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:cardBackgroundColor="#FFAA8282"
+            app:cardBackgroundColor="#81A8D3"
             app:cardCornerRadius="20dp"
             android:layout_marginTop="20dp"
             android:id="@+id/calories_card"

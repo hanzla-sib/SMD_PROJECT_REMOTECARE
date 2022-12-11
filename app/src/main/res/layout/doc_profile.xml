@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/main_toolbar"
+            layout="@layout/toolbar"
             />
 
         <RelativeLayout
@@ -36,7 +36,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#FFAA8282"
+                app:cardBackgroundColor="#81A8D3"
                 app:cardCornerRadius="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/doc_profile_circle"
