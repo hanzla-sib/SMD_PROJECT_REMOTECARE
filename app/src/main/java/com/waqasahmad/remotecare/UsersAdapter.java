@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder> {
@@ -39,9 +41,17 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.name.setText(ls.get(position).getName());
-        holder.lastseen.setText(ls.get(position).getLastseen());
-        holder.onlinestatus.setText(ls.get(position).getOnlinestatus());
+            if(ls.get(position).getOnlinestatus().equals("offline")){
+                holder.name.setText(ls.get(position).getName());
+                holder.lastseen.setText(ls.get(position).getLastseen());
+                holder.onlinestatus.setVisibility(View.GONE);
+            }
+            else{
+                holder.name.setText(ls.get(position).getName());
+                holder.lastseen.setVisibility(View.GONE);
+                holder.onlinestatus.setText(ls.get(position).getOnlinestatus());
+
+            }
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

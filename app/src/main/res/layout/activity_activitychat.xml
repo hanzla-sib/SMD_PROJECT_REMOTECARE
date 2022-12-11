@@ -5,15 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activitychat"
-    android:padding="10dp"
     android:orientation="vertical"
     android:weightSum="12">
+    <LinearLayout
+        android:id="@+id/userChatAppBar"
+        android:layout_width="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:gravity="center_vertical"
+        android:background="#3874B5"
+        android:elevation="10dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/userMainChatActivityBackArrowBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#3874B5"
+            android:padding="0dp"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            />
+
+        <LinearLayout
+            android:layout_weight="8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/userMainChatActivityProfileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Haris"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:layout_toRightOf="@+id/userMainChatActivityProfileImage"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
+        android:background="#8692BD"
+
         >
 
         <androidx.appcompat.widget.SearchView
@@ -28,36 +73,14 @@
 
 
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/L1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="40sp"
-            android:textColor="@color/black"
-            android:text="waqasss"
-            android:id="@+id/chatusername"
-            android:gravity="center"
-            />
-
-
-
-
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/L2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@id/L1"
-        android:layout_weight="9"
-
+        android:padding="10dp"
+        android:layout_weight="9.7"
         >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/insidechatrv"
@@ -68,7 +91,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="1"
+        android:padding="4dp"
+        android:layout_weight="0.8"
         android:id="@+id/L3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -82,23 +106,27 @@
             android:id="@+id/edit1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/purple_200"
-            android:hint="Enter Message "
-            android:layout_weight="3"
+            android:background="@drawable/roundedittext"
+            android:hint="   Enter Message "
+            android:paddingLeft="20dp"
+            android:layout_gravity="center"
+            android:layout_weight="3.9"
+
             />
 
-        <TextView
-            android:layout_weight="1"
+        <ImageButton
+            android:layout_weight="0.1"
             android:id="@+id/send1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:text="send"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/send_button_background_design"
+            android:elevation="5dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_send_24" />
 
-            />
 
     </LinearLayout>
 </LinearLayout>

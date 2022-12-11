@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +43,8 @@ public class Activitychat extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference mref ;
     private static final String notify="http://"+Ip_server.getIpServer()+"/smd_project/notify.php";
-    TextView username,send1;
+    TextView username,userMainChatActivityProfileName;
+    ImageButton send1;
     EditText editText1;
 
     String rname , ruid , suid,P_id;
@@ -77,7 +80,7 @@ public class Activitychat extends AppCompatActivity {
 
         send1 = findViewById(R.id.send1);
         editText1 = findViewById(R.id.edit1);
-        username = findViewById(R.id.chatusername);
+        userMainChatActivityProfileName = findViewById(R.id.userMainChatActivityProfileName);
         recyclerView = findViewById(R.id.insidechatrv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
@@ -87,13 +90,13 @@ public class Activitychat extends AppCompatActivity {
         messagesAdapter = new MessagesAdapter(Activitychat.this, messagesArrayList);
 
         recyclerView.setAdapter(messagesAdapter);
-
-        username.setText(rname);
+        rname = getIntent().getStringExtra("name");
+        userMainChatActivityProfileName.setText(rname);
 
         mauth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
-        rname = getIntent().getStringExtra("name");
+
         ruid = getIntent().getStringExtra("uid");
         P_id=getIntent().getStringExtra("p_id");
 

@@ -6,34 +6,42 @@
     android:layout_marginVertical="10dp"
     >
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@color/black"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/img1"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/messageprofile"
         />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="waqss hello"
-        android:textColor="@color/black"
-        android:textStyle="bold"
         android:id="@+id/txtMessages"
-        android:layout_toLeftOf="@+id/img1"
-        />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/img1"
+        android:background="@drawable/round"
+        android:padding="10dp"
+        android:text="waqss hello"
+        android:textColor="@color/white"
         android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/time1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img1"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/img1"
+        android:paddingTop="20dp"
         android:text="time"
         android:textColor="@color/black"
+        android:textSize="10sp"
         android:textStyle="bold"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/time1"
+
         />
 
 </RelativeLayout>

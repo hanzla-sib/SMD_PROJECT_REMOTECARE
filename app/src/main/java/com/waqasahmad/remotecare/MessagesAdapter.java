@@ -13,6 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MessagesAdapter extends RecyclerView.Adapter {
 
     Context context;
@@ -103,6 +105,7 @@ public class MessagesAdapter extends RecyclerView.Adapter {
     class ReceiverViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtmessage,timestamp;
+        CircleImageView img;
 
 
         public ReceiverViewHolder(@NonNull View itemView) {
@@ -110,6 +113,7 @@ public class MessagesAdapter extends RecyclerView.Adapter {
 
             txtmessage = itemView.findViewById(R.id.txtMessages);
             timestamp =itemView.findViewById(R.id.time1);
+            img=itemView.findViewById(R.id.img1);
 
 
 
