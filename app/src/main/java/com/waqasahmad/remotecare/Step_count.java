@@ -23,8 +23,8 @@ public class Step_count extends AppCompatActivity  implements SensorEventListene
     private Sensor mStepCounter;
     private boolean isCounterSensorPresent;
     private TextView tv_steps;
-    private TextView time_set;
-    private TextView daily_steps;
+//    private TextView time_set;
+//    private TextView daily_steps;
     int stepCount=0;
     int numSteps = 0;
     int today_Steps = 0;
@@ -41,8 +41,8 @@ public class Step_count extends AppCompatActivity  implements SensorEventListene
         setContentView(R.layout.activity_step_count);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         tv_steps=findViewById(R.id.tv_steps);
-        time_set = findViewById(R.id.time_set);
-        daily_steps = findViewById(R.id.daily_steps);
+//        time_set = findViewById(R.id.time_set);
+//        daily_steps = findViewById(R.id.daily_steps);
         updateTimeOnEachSecond();
 //        if (ContextCompat.checkSelfPermission(Steps.this,
 //                Manifest.permission.ACTIVITY_RECOGNITION)
@@ -139,14 +139,14 @@ public class Step_count extends AppCompatActivity  implements SensorEventListene
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        time_set.setText(h+":"+mm+":"+ss+" "+a);
+//                        time_set.setText(h+":"+mm+":"+ss+" "+a);
                         if((h.equals("9")) && (mm.equals("52")) && (a.equals("pm"))){
                             if (flag==false)
                             {
                                 flag = true;
                                 today_Steps = stepCount - numSteps;
                                 numSteps = stepCount;
-                                daily_steps.setText(String.valueOf(today_Steps));
+//                                daily_steps.setText(String.valueOf(today_Steps));
                             }
                         }
                         else{

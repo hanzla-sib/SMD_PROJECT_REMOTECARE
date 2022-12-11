@@ -9,15 +9,6 @@
     android:id="@+id/doc_patient_details"
     >
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="doctor patient details screen"-->
-<!--        android:textSize="34sp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textStyle="bold"-->
-<!--        android:gravity="center"-->
-<!--        />-->
 
 
     <LinearLayout
