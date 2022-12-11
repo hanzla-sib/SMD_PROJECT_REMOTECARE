@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/send/baseline_send_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/event_note/baseline_event_note_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,8 +33,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="636363" />
-                            <entry key="outputName" value="send" />
+                            <entry key="color" value="0e0d0d" />
+                            <entry key="outputName" value="appoint" />
                             <entry key="sourceFile" value="C:\Users\Style Setters\AndroidStudioProjects\RemoteCare" />
                           </map>
                         </option>

@@ -79,11 +79,10 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/heartbeat"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 android:padding="10dp"
-                />
+                android:src="@drawable/heartbeat" />
 
         </RelativeLayout>
 
@@ -104,31 +103,22 @@
             >
 
             <TextView
+                android:id="@+id/appointment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Appointments"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="24sp"
+                android:textStyle="bold" />
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 android:padding="10dp"
-                android:id="@+id/appointment"
-                />
-
-<!--            <TextView-->
-<!--                android:layout_below="@+id/set_appointment"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Doctor : "-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="24sp"-->
-<!--                android:padding="10dp"-->
-<!--                />-->
-
-
-
-
-
+                android:src="@drawable/appointmentr" />
 
         </RelativeLayout>
 
@@ -157,6 +147,15 @@
                 android:padding="10dp"
 
                 />
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:padding="10dp"
+                android:src="@drawable/testrecord" />
+
 
         </RelativeLayout>
 
