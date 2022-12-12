@@ -24,15 +24,24 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class StartScreen extends AppCompatActivity {
-//    private static final String TAG = "PushNotification";
-//    private static final String CHANNEL_ID="101";
 
+    FirebaseAuth mAuth;
+    FirebaseFirestore db;
+    String strdoctor = "Doctor";
+    String strpatient = "Patient";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,80 +52,52 @@ public class StartScreen extends AppCompatActivity {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if(user!=null)
             {
-//
 
-                startActivity(new Intent(StartScreen.this, MainActivity2.class));
+                mAuth= FirebaseAuth.getInstance();
+                db = FirebaseFirestore.getInstance();
+                String useremail = mAuth.getCurrentUser().getEmail();
+                Log.d("userrrr",useremail);
+                db.collection("users").
+                        document(useremail).get().
+                        addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                                DocumentSnapshot document = task.getResult();
+
+                                JSONObject obj;
+                                obj = new JSONObject(document.getData());
+
+                                try {
+                                    String usertype = obj.getString("User_Type");
+
+
+                                    if(usertype.equals(strpatient)){
+//                                        Log.d("USER_TYPE",usertype);
+                                        startActivity(new Intent(StartScreen.this, MainActivity2.class)); // for patient view
+
+                                    }
+                                    else if (usertype.equals(strdoctor)){
+                                        Intent intent=new Intent(StartScreen.this,Doctor1.class);
+                                        startActivity(intent);
+//
+                                        Log.d("USER_TYPE",usertype);
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+
+
             }
             else
             {
                 startActivity(new Intent(StartScreen.this, MainActivity_signin.class));
-
             }
 
-
-            finish();
         }, 1000);
     }
-//
-//    private void getToken() {
-//        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-//            @Override
-//            public void onComplete(@NonNull Task<String> task) {
-//                //if task is failed then
-//                if(!task.isSuccessful()){
-//                    Log.d(TAG, "onComplete: Failed to get token");
-//                }
-//                String token = task.getResult();
-//                Log.d(TAG, "onComplete: "+ token + "      : hahhaha");
-////                StringRequest request=new StringRequest(Request.Method.POST, notify, new Response.Listener<String>() {
-////                    @Override
-////                    public void onResponse(String response) {
-////
-////                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-////                        Log.d("responseeeeee ",response);
-//////                            if(response.equals("success")){
-////
-////
-////
-//////
-////
-////                    }
-////                }, new Response.ErrorListener() {
-////                    @Override
-////                    public void onErrorResponse(VolleyError error) {
-////                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-////                    }
-////                }){
-////                    @Nullable
-////                    @Override
-////                    protected Map<String, String> getParams() throws AuthFailureError {
-////                        Map<String,String> param=new HashMap<String,String>();
-////
-//////
-////                        param.put("tokeni",token);
-//////
-////
-////                        return param;
-////                    }
-////                };
-////                RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-////                queue.add(request);
-//            }
-//        });
-//    }
-//    private void createNotificationChannel() {
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//
-//            CharSequence name="firebaseNotifChannel";
-//
-//            String description="Receive Firebase Notification";
-//            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-//            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-//            channel.setDescription(description);
-//
-//            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-//            notificationManager.createNotificationChannel(channel);
-//        }
-//    }
 }
