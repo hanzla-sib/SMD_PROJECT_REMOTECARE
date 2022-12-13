@@ -57,7 +57,7 @@ public class Test_Record extends AppCompatActivity {
     TextView add_img;
     TextView add_details;
     EditText details;
-
+    Uri image = null;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     FirebaseDatabase database ;
@@ -94,9 +94,11 @@ public class Test_Record extends AppCompatActivity {
                 if(result.getResultCode()== Activity.RESULT_OK){
                     Intent data=result.getData();
                     Uri uri=data.getData();
+                    Picasso.get().load(uri).into(dp);
+
                     try {
                         bitmap= MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
-//    IMAGEVIEW.setiamgebirmap(bitmap);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -113,7 +115,6 @@ public class Test_Record extends AppCompatActivity {
                 Intent intent=new Intent(Intent.ACTION_PICK);
                 intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 activityResultLauncher.launch(intent);
-
 
             }
         });
@@ -142,15 +143,12 @@ public class Test_Record extends AppCompatActivity {
                         public void onResponse(String response) {
 
                             Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-                            Log.d("responseeeeee","a"+response+"a");
-//                            if(response.equals("success")){
+
+//
                             Toast.makeText(getApplicationContext(),"uploaded sucesfully",Toast.LENGTH_LONG).show();
 
 
-//                            }
-//                            else{
-//                                Toast.makeText(getApplicationContext(),"not uploaded",Toast.LENGTH_LONG).show();
-//                            }
+//
 
                         }
                     }, new Response.ErrorListener() {

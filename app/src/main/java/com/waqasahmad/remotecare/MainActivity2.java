@@ -102,7 +102,7 @@ public class MainActivity2 extends AppCompatActivity {
         appointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity2.this, Appointments_Patient.class)); // for patient view
+                startActivity(new Intent(MainActivity2.this, Patient_All_appointments.class)); // for patient view
             }
         });
 

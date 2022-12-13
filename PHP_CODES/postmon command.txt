@@ -1,3 +1,0 @@
-http://localhost/smd_project/insert_steps_weekly.php
-
-set parameters on body->form-data

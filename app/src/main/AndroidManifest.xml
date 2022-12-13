@@ -23,6 +23,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Patient_pending_appointments"
+            android:exported="false" />
+        <activity
+            android:name=".Patient_accepted_appointments"
+            android:exported="false" />
+        <activity
+            android:name=".Patient_All_appointments"
+            android:exported="false" />
+        <activity
             android:name=".sql_lite_offline_sigin"
             android:exported="false" />
         <activity
@@ -94,11 +103,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".notification.MyFirebaseService"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 

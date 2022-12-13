@@ -10,10 +10,19 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,6 +39,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -51,11 +61,11 @@ public class Profile extends AppCompatActivity {
     DatabaseReference reference1;
     FirebaseAuth auth1;
     FirebaseDatabase database1;
-
+    Bitmap bitmap;
 
     DatabaseHandler objectdatabasehandler;
 
-
+    private static final String saveimageuser="http://"+Ip_server.getIpServer()+"/smd_project/imageupload.php";
     // validating user id
     FirebaseAuth mAuth;
 
@@ -178,6 +188,7 @@ public class Profile extends AppCompatActivity {
                 intent.setType("image/*");
                 startActivityForResult(intent, 30);
 
+
             }
         });
     }
@@ -248,11 +259,58 @@ public class Profile extends AppCompatActivity {
 
             image = data.getData();
             try {
+                bitmap= MediaStore.Images.Media.getBitmap(getContentResolver(),image);
                 imagetoStore= MediaStore.Images.Media.getBitmap(getContentResolver(),image);
                 objectdatabasehandler.storeImage(new ModelClassoffline(currentemail,imagetoStore));
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            ByteArrayOutputStream byteArrayOutputStream;
+            byteArrayOutputStream=new ByteArrayOutputStream();
+            if(bitmap != null){
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+                byte[] bytes=byteArrayOutputStream.toByteArray();
+                final String base64Image= Base64.encodeToString(bytes,Base64.DEFAULT);
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
+                String strDate =mdformat.format(calendar.getTime());
+
+
+
+
+                StringRequest request=new StringRequest(Request.Method.POST, saveimageuser, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+
+//
+                        Toast.makeText(getApplicationContext(),"uploaded sucesfully",Toast.LENGTH_LONG).show();
+
+
+//
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> param=new HashMap<String,String>();
+
+                        param.put("image",base64Image);
+
+                        param.put("email",currentemail);
+
+                        return param;
+                    }
+                };
+                RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                queue.add(request);
             Calendar c = Calendar.getInstance();
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference ref = storage.getReference().child("dp/" +c.getTimeInMillis()+ ".jpg");
@@ -314,4 +372,4 @@ public class Profile extends AppCompatActivity {
 
 
 
-}
+}}
