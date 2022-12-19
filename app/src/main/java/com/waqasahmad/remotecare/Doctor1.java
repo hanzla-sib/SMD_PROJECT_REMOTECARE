@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -72,8 +71,6 @@ public class Doctor1 extends AppCompatActivity {
 
         String useremail1 = auth1.getCurrentUser().getEmail();
 
-
-
         String useremail = mAuth.getCurrentUser().getEmail();
         Log.d("useremail" , useremail);
 
@@ -108,7 +105,7 @@ public class Doctor1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(Doctor1.this, Doc_Appointments.class));
+                startActivity(new Intent(Doctor1.this, Doc_All_Appointments.class));
 
             }
         });
@@ -142,9 +139,6 @@ public class Doctor1 extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
     public void ClickPro (View view) {
@@ -160,7 +154,7 @@ public class Doctor1 extends AppCompatActivity {
     }
     public void ClickAppointmentsDoc (View view){
 
-        Intent intent = new Intent(this, Doc_Appointments.class);
+        Intent intent = new Intent(this, Doc_Appointments_pending.class);
         startActivity(intent);
     }
     public void ClickPrescriptionDetailsDoc (View view){

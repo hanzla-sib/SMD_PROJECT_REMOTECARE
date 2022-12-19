@@ -6,7 +6,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -92,7 +91,7 @@ public class Doc_Prescription extends AppCompatActivity {
 
     public void ClickAppointmentsDoc (View view){
 
-        Intent intent = new Intent(this, Doc_Appointments.class);
+        Intent intent = new Intent(this, Doc_Appointments_pending.class);
         startActivity(intent);
 
     }

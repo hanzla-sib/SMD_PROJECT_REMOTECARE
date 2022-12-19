@@ -33,8 +33,7 @@
         android:layout_gravity="start"
         android:background="@color/white">
 
-        <include
-            layout="@layout/drawer"/>
+        <include layout="@layout/drawer" />
 
     </RelativeLayout>
 

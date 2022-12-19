@@ -9,7 +9,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -163,7 +162,7 @@ public class Doc_Profile extends AppCompatActivity {
     }
     public void ClickAppointmentsDoc (View view){
 
-        Intent intent = new Intent(this, Doc_Appointments.class);
+        Intent intent = new Intent(this, Doc_Appointments_pending.class);
         startActivity(intent);
     }
     public void ClickPrescriptionDetailsDoc (View view){

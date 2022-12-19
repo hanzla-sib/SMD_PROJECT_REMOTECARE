@@ -23,6 +23,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Doc_appointments_accepted"
+            android:exported="false" />
+        <activity
+            android:name=".Doc_All_Appointments"
+            android:exported="false" />
+        <activity
             android:name=".Patient_pending_appointments"
             android:exported="false" />
         <activity
@@ -56,7 +62,7 @@
             android:name=".Doc_Prescription"
             android:exported="false" />
         <activity
-            android:name=".Doc_Appointments"
+            android:name=".Doc_Appointments_pending"
             android:exported="false" />
         <activity
             android:name=".Doc_Profile"
