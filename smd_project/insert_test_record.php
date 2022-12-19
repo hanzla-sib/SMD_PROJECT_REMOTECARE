@@ -14,7 +14,7 @@ if(!empty($_POST['email'])){
     {
       $sql = "INSERT INTO `test_record`(`Temail`, `imageurl`, `details`) VALUES ('$email','$path','$details')";
       if ($con->query($sql)) {
-        echo"success";
+        echo $path;
       } else {
         echo "Error updating record: ".$con->error;
       }

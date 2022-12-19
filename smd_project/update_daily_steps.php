@@ -11,16 +11,11 @@ if(isset($_POST["email"],$_POST["steps"]))
 	$query="UPDATE `daily_steps` SET `steps_daily`='$steps' where `Demail`='$email'";
 	$res=mysqli_query($con,$query);
 
-	if($res)
-	{
-		$response['email']=$email;
-		$response['reqmsg']="user updated!";
-		$response['reqcode']="1";
+	if($res){
+		echo "Steps updated";
 	}
 	else{
-		$response['email']=$email;
-		$response['reqmsg']="Error updating user!";
-		$response['reqcode']="0";
+		echo "Steps not updated";	
 	}
 }
 else
@@ -28,10 +23,8 @@ else
 	$response['email']="NA";
 	$response['reqmsg']="Incomplete Request!";
 	$response['reqcode']="0";
+	$x=json_encode($response);
+	echo $x;
 }
-
-$x=json_encode($response);
-echo $x;
-
 
 ?>

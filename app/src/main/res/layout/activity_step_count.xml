@@ -87,18 +87,28 @@
 
 
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/time_set"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="24sp"-->
-<!--            android:paddingTop="30dp"-->
-<!--            android:text="time"-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time_set"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:paddingTop="30dp"
+            android:text="time"
+            />
 
 
-<!--            />-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time_after"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:paddingTop="30dp"
+            android:text="after time"
+            />
 
 
 

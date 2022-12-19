@@ -2,13 +2,35 @@
 
 include "config.php";
 $response=array();
-$email=$_POST['email'];
+
+$p_email=$_POST['p_email'];
+$p_name=$_POST['p_name'];
+$d_email=$_POST['d_email'];
+$d_name=$_POST['d_name'];
+
+$sql = "INSERT INTO `patient_appointment`(`p_name`, `p_email`, `appoint_status`, `d_name` , `d_email` ) 
+VALUES ('$p_name' , '$p_email', 'Pending' , '$d_name', '$d_email'  )";
+
+if ($con->query($sql)) 
+{
+
+    $sql = "INSERT INTO `doctor_appointment`(`d_name`, `d_email`, `appoint_status`, `p_name` , `p_email` ) 
+    VALUES ('$d_name' , '$d_email', 'Pending' , '$p_name', '$p_email'  )";
+
+    if ($con->query($sql)) 
+    {
+        echo"successful";
+    }
+    else 
+    {
+      echo "Error updating ".$con->error;
+    }
+}
+else 
+{
+  echo "Error updating ".$con->error;
+}
 
 
-// $sql = "CREATE TABLE patient_appointment (p_name VARCHAR(128), p_email VARCHAR(128) , appoint_status VARCHAR(128) ,d_name VARCHAR(128), d_email VARCHAR(128) , PRIMARY KEY(p_email,d_email)  );  ";
-
-$sql = "CREATE TABLE patient_appointment (p_name VARCHAR(128), p_email VARCHAR(128) , appoint_status VARCHAR(128) ,d_name VARCHAR(128), d_email VARCHAR(128) , PRIMARY KEY(p_email,d_email)  );  ";
-
-
-  echo "hello Successfully";
+  // echo "hello Successfully";
 ?>

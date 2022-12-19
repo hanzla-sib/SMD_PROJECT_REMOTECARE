@@ -34,3 +34,22 @@ CREATE TABLE Test_record(
   	PRIMARY KEY(id)
 );
 
+
+CREATE TABLE Patient_Appointment (
+	p_name VARCHAR(128),
+	p_email VARCHAR(128),
+	appoint_status VARCHAR(128),
+	d_name VARCHAR(128),
+	d_email VARCHAR(128),
+	PRIMARY KEY(p_email,d_email)
+);
+
+CREATE TABLE Doctor_Appointment (
+	d_name VARCHAR(128),
+	d_email VARCHAR(128),
+	appoint_status VARCHAR(128),
+	p_name VARCHAR(128),
+	p_email VARCHAR(128),
+	PRIMARY KEY(d_email,p_email)
+);
+

@@ -1,7 +1,10 @@
 package com.waqasahmad.remotecare;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
@@ -9,12 +12,32 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,28 +46,39 @@ public class Step_count extends AppCompatActivity  implements SensorEventListene
     private Sensor mStepCounter;
     private boolean isCounterSensorPresent;
     private TextView tv_steps;
-//    private TextView time_set;
-//    private TextView daily_steps;
+    private TextView time_set;
+    private TextView daily_steps;
     int stepCount=0;
     int numSteps = 0;
     int today_Steps = 0;
     String ss;
-
+    String useremail="";
     boolean flag = false;
 
-    private static final String insert_user_url ="http://"+Ip_server.getIpServer()+"/smd_project/insert.php";
+    private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
+
+    FirebaseFirestore db;
+    FirebaseAuth mAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_count);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         tv_steps=findViewById(R.id.tv_steps);
-//        time_set = findViewById(R.id.time_set);
-//        daily_steps = findViewById(R.id.daily_steps);
+        time_set = findViewById(R.id.time_set);
+        daily_steps = findViewById(R.id.time_after);
+
+        db = FirebaseFirestore.getInstance();
+        mAuth= FirebaseAuth.getInstance();
+        useremail = mAuth.getCurrentUser().getEmail();
+        //Initializing Firebase MAuth instance
+
+
         updateTimeOnEachSecond();
-//        if (ContextCompat.checkSelfPermission(Steps.this,
+//        if (ContextCompat.checkSelfPermission(Step_count.this,
 //                Manifest.permission.ACTIVITY_RECOGNITION)
 //                != PackageManager.PERMISSION_GRANTED) {
 //            Toast.makeText(this, "permission not granted", Toast.LENGTH_SHORT).show();
@@ -77,20 +111,44 @@ public class Step_count extends AppCompatActivity  implements SensorEventListene
             stepCount=(int)sensorEvent.values[0];
 
             tv_steps.setText(String.valueOf(stepCount));
-//            time_set.setText(h+":"+mm+":"+ss+" "+a);
 
-//            if((h.equals("9")) && (mm.equals("24")) && (a.equals("pm"))){
-//                if (flag==false)
-//                {
-//                    flag = true;
-//                    today_Steps = stepCount - numSteps;
-//                    numSteps = stepCount;
-//                    daily_steps.setText(String.valueOf(today_Steps));
-//                }
-//            }
-//            else{
-//                flag = false;
-//            }
+
+//================================================
+
+            StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
+            {
+                @Override
+                public void onResponse(String response)
+                {
+                    Log.d("respons11111111" ,response );
+                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+
+                }
+            }, new Response.ErrorListener()
+            {
+                @Override
+                public void onErrorResponse(VolleyError error)
+                {
+                    Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                }
+            })
+            {
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> param=new HashMap<String,String>();
+                    param.put("email",useremail);
+                    param.put("steps",String.valueOf(stepCount - numSteps));
+                    return param;
+                }
+            };
+            RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+            queue.add(request);
+
+//==========================================
+
+
+
         }
     }
 
@@ -146,7 +204,7 @@ public class Step_count extends AppCompatActivity  implements SensorEventListene
                                 flag = true;
                                 today_Steps = stepCount - numSteps;
                                 numSteps = stepCount;
-//                                daily_steps.setText(String.valueOf(today_Steps));
+                                daily_steps.setText(String.valueOf(today_Steps));
                             }
                         }
                         else{
