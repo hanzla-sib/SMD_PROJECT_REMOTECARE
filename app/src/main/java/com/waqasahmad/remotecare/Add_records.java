@@ -71,7 +71,8 @@ public class Add_records extends AppCompatActivity {
                     int check=0;
 
                     JSONArray array = new JSONArray(response);
-                    for(int i=0;i<array.length();i++){
+                    for(int i=0;i<array.length();i++)
+                    {
 
                         Record_Model record = new Record_Model();
                         JSONObject object=array.getJSONObject(i);
@@ -94,17 +95,22 @@ public class Add_records extends AppCompatActivity {
                     RecyclerView.LayoutManager lm = new LinearLayoutManager(Add_records.this);
                     rv.setLayoutManager(lm);
                     rv.setAdapter(adapter);
-                }catch (Exception e){
+                }
+                catch (Exception e)
+                {
 
                 }
 
             }
-        }, new Response.ErrorListener() {
+        }, new Response.ErrorListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError error)
+            {
                 Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
             }
-        }){
+        })
+        {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {

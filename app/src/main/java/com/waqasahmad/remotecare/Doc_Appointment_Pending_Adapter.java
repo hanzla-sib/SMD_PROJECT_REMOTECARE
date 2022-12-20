@@ -54,8 +54,6 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
         return new Doc_Appointment_Pending_Adapter.MyViewHolder(row);
     }
 
-
-
     @Override
     public void onBindViewHolder(@NonNull Doc_Appointment_Pending_Adapter.MyViewHolder holder, int position) {
 
@@ -79,6 +77,11 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
 
                 String pname= ls_doc2.get(i).getName_patient();
                 String pemail= ls_doc2.get(i).getEmail_patient();
+
+                ls_doc2.remove(i);
+                notifyItemRemoved(i);
+
+                ////////////////////////////////////////////
 
                 StringRequest request=new StringRequest(Request.Method.POST, accept_doctor_appointment, new Response.Listener<String>()
                 {

@@ -113,7 +113,7 @@ public class Doc_appointments_accepted extends AppCompatActivity {
 
                     }
 
-                    Doc_Appointment_Pending_Adapter adapter = new Doc_Appointment_Pending_Adapter(ls2 , Doc_appointments_accepted.this);
+                    Doc_Appointments_Accepted_Adapter adapter = new Doc_Appointments_Accepted_Adapter(ls2 , Doc_appointments_accepted.this);
                     RecyclerView.LayoutManager lm = new LinearLayoutManager(Doc_appointments_accepted.this);
                     rv.setLayoutManager(lm);
                     rv.setAdapter(adapter);

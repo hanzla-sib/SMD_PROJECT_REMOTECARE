@@ -46,6 +46,8 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
     String currentemail="";
     String currentname="";
 
+
+
     private static final String patient_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_appointment.php";
 
 
@@ -65,6 +67,9 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
     @Override
     public void onBindViewHolder(@NonNull Appointment_Adapter.MyViewHolder holder, int position)
     {
+
+
+        int i=position;
 
         //Initializing Firebase MAuth instance
         mAuth=FirebaseAuth.getInstance();
@@ -92,17 +97,16 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
                             e.printStackTrace();
                         }
 
-//                        Log.d("name11111111111", currentname);
-
                     }
                 });
 
 
 
 
-        holder.doctor_name.setText(ls_doc.get(position).getName_doc());
-        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
-        int i=position;
+
+        holder.doctor_name.setText(ls_doc.get(i).getName_doc());
+        holder.doctor_email.setText(ls_doc.get(i).getEmail_doc());
+
 
         holder.itemView.findViewById(R.id.request_appointment).
                 setOnClickListener(new View.OnClickListener() {
@@ -112,6 +116,12 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
 
                String dname= ls_doc.get(i).getName_doc();
                String demail= ls_doc.get(i).getEmail_doc();
+
+                ls_doc.remove(i);
+                notifyItemRemoved(i);
+
+
+
 
 
                 StringRequest request=new StringRequest(Request.Method.POST, patient_appointment, new Response.Listener<String>()
@@ -164,6 +174,7 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
             super(itemView);
             doctor_name=itemView.findViewById(R.id.doc_name2);
             doctor_email=itemView.findViewById(R.id.doc_email2);
+
         }
     }
 

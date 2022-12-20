@@ -39,8 +39,6 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
 
     private static final String doctor_appointment_accepted="http://"+Ip_server.getIpServer()+"/smd_project/doctor_appointment_accepted.php";
 
-
-
     public Doc_Appointments_Accepted_Adapter(List<Doc_Appointment_Model> ls_doc2, Context c_doc2) {
         this.ls_doc2 = ls_doc2;
         this.c_doc2 = c_doc2;
@@ -51,7 +49,7 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
     @NonNull
     @Override
     public Doc_Appointments_Accepted_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View row = LayoutInflater.from(c_doc2).inflate(R.layout.patient_row, parent, false);
+        View row = LayoutInflater.from(c_doc2).inflate(R.layout.patient_row_accepted_appointments, parent, false);
         return new Doc_Appointments_Accepted_Adapter.MyViewHolder(row);
     }
 
@@ -71,57 +69,8 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
         holder.patient_name.setText(ls_doc2.get(position).getName_patient());
         holder.patient_email.setText(ls_doc2.get(position).getEmail_patient());
         int i=position;
-        //
-
-        holder.itemView.findViewById(R.id.accept_appointment).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String pname= ls_doc2.get(i).getName_patient();
-                String pemail= ls_doc2.get(i).getEmail_patient();
-
-                StringRequest request=new StringRequest(Request.Method.POST, doctor_appointment_accepted, new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        Log.d("respons11111111" ,response );
-
-                        Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
-
-
-                    }
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
-                    }
-                })
-                {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> param=new HashMap<String,String>();
-                        param.put("p_name",pname);
-                        param.put("p_email",pemail);
-                        param.put("d_email",currentemail);
-                        return param;
-                    }
-                };
-                RequestQueue queue= Volley.newRequestQueue(c_doc2);
-                queue.add(request);
-
-                //////////////////////////////////////////////
-
-            }
-        });
 
     }
-
-
-
 
     @Override
     public int getItemCount() {
@@ -134,8 +83,8 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            patient_name=itemView.findViewById(R.id.patient_name2);
-            patient_email=itemView.findViewById(R.id.patient_email2);
+            patient_name=itemView.findViewById(R.id.patient_name_accepted);
+            patient_email=itemView.findViewById(R.id.patient_email_accepted);
         }
     }
 }
