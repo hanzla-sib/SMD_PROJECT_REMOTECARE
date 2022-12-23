@@ -24,19 +24,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View row = LayoutInflater.from(c).inflate(R.layout.row, parent, false);
         return new MyViewHolder(row);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
+    {
         holder.name.setText(ls.get(position).getName());
         holder.calorie.setText(ls.get(position).getCalorie());
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return ls.size();
     }
 

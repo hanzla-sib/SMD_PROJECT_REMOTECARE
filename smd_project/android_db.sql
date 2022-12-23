@@ -53,3 +53,11 @@ CREATE TABLE Doctor_Appointment (
 	PRIMARY KEY(d_email,p_email)
 );
 
+
+CREATE TABLE Consumed_Calories (
+    id INT NOT NULL AUTO_INCREMENT,  
+	p_email VARCHAR(128),
+    date_log date,
+	Calories INT NOT NULL,
+	PRIMARY KEY(id)
+);
