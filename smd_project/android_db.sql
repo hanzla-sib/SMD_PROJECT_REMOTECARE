@@ -39,6 +39,8 @@ CREATE TABLE Patient_Appointment (
 	p_name VARCHAR(128),
 	p_email VARCHAR(128),
 	appoint_status VARCHAR(128),
+	Time1 VARCHAR(100) NULL,
+	Date1 varchar(100) NULL,
 	d_name VARCHAR(128),
 	d_email VARCHAR(128),
 	PRIMARY KEY(p_email,d_email)
@@ -48,6 +50,8 @@ CREATE TABLE Doctor_Appointment (
 	d_name VARCHAR(128),
 	d_email VARCHAR(128),
 	appoint_status VARCHAR(128),
+	Time1 VARCHAR(100) NULL,
+	Date1 varchar(100) NULL,
 	p_name VARCHAR(128),
 	p_email VARCHAR(128),
 	PRIMARY KEY(d_email,p_email)
