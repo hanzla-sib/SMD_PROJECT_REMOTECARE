@@ -34,20 +34,13 @@
             android:textStyle="bold"
             android:paddingVertical="10dp"
             />
-        <com.jjoe64.graphview.GraphView
+
+
+        <com.github.mikephil.charting.charts.BarChart
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:id="@+id/graph2"
             />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,12 +50,15 @@
             android:textStyle="bold"
             android:paddingVertical="10dp"
             />
-        <com.jjoe64.graphview.GraphView
+        
+        <com.github.mikephil.charting.charts.BarChart
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:id="@+id/graph3"
             />
 
     </LinearLayout>
+
+
 
 </LinearLayout>

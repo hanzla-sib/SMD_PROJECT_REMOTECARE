@@ -43,7 +43,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.4.0'
     implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
 
-
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     testImplementation 'junit:junit:4.13.2'
     implementation 'com.jjoe64:graphview:4.2.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
