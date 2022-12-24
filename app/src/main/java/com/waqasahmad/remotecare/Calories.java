@@ -98,7 +98,7 @@ public class Calories extends AppCompatActivity {
                     try {
                         obj2 = new JSONArray(response);
 
-                        for(int i=1;i<obj2.length();i++){
+                        for(int i=0;i<obj2.length();i++){
                             JSONObject jsonObject = obj2.getJSONObject(i);
                             String date = jsonObject.getString("date");
                             String halfdate="";

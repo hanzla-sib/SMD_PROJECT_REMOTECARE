@@ -69,7 +69,7 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
     {
 
 
-        int i=position;
+
 
         //Initializing Firebase MAuth instance
         mAuth=FirebaseAuth.getInstance();
@@ -104,8 +104,8 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
 
 
 
-        holder.doctor_name.setText(ls_doc.get(i).getName_doc());
-        holder.doctor_email.setText(ls_doc.get(i).getEmail_doc());
+        holder.doctor_name.setText(ls_doc.get(position).getName_doc());
+        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
 
 
         holder.itemView.findViewById(R.id.request_appointment).
@@ -113,7 +113,7 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
             @Override
             public void onClick(View v)
             {
-
+                int i=holder.getAdapterPosition();
                String dname= ls_doc.get(i).getName_doc();
                String demail= ls_doc.get(i).getEmail_doc();
 

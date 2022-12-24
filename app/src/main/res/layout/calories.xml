@@ -35,12 +35,12 @@
             android:paddingVertical="10dp"
             />
 
-
         <com.github.mikephil.charting.charts.BarChart
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:id="@+id/graph2"
             />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
