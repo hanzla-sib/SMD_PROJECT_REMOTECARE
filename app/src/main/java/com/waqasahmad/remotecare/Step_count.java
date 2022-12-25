@@ -41,19 +41,17 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Step_count extends AppCompatActivity  implements SensorEventListener {
+public class Step_count extends AppCompatActivity{
     private SensorManager sensorManager;
-    private Sensor mStepCounter;
-    private boolean isCounterSensorPresent;
+    private double MagnitudePrevious=0;
+    private Integer stepCount=0;
     private TextView tv_steps;
     private TextView time_set;
     private TextView daily_steps;
-    int stepCount=0;
-    int numSteps = 0;
-    int today_Steps = 0;
-    String ss;
+    private final static long MICROSECONDS_IN_ONE_MINUTE = 60000000;
+
     String useremail="";
-    boolean flag = false;
+
 
     private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
 
@@ -77,7 +75,7 @@ public class Step_count extends AppCompatActivity  implements SensorEventListene
         //Initializing Firebase MAuth instance
 
 
-        updateTimeOnEachSecond();
+
 //        if (ContextCompat.checkSelfPermission(Step_count.this,
 //                Manifest.permission.ACTIVITY_RECOGNITION)
 //                != PackageManager.PERMISSION_GRANTED) {
@@ -88,133 +86,42 @@ public class Step_count extends AppCompatActivity  implements SensorEventListene
 //            Toast.makeText(this, "permission  granted", Toast.LENGTH_SHORT).show();
 //        }
         sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
-            mStepCounter=sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-            isCounterSensorPresent=true;
+        Sensor sensor=sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        SensorEventListener stepDetector=new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+                if(sensorEvent!=null){
+                    float x_accel=sensorEvent.values[0];
+                    float y_accel=sensorEvent.values[1];
+                    float z_accel=sensorEvent.values[2];
 
-        }
-        else{
-            tv_steps.setText("Counter not found");
-            isCounterSensorPresent=false;
-        }
+                    double Magnitude=Math.sqrt(x_accel*x_accel+y_accel*y_accel+z_accel*z_accel);
+                    double MagnitudeDelta=Magnitude-MagnitudePrevious;
+                    MagnitudePrevious=Magnitude;
 
-    }
+                    if(MagnitudeDelta>=1 && MagnitudeDelta<=9){
+                        stepCount++;
+                        tv_steps.setText(stepCount.toString());
+                        time_set.setText("Walking");
 
-    private void stopSelf() {
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-
-        if(sensorEvent.sensor==mStepCounter){
-
-            stepCount=(int)sensorEvent.values[0];
-
-            tv_steps.setText(String.valueOf(stepCount));
-
-
-//================================================
-
-            StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
-            {
-                @Override
-                public void onResponse(String response)
-                {
-                    Log.d("respons11111111" ,response );
-                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                    }
+                    else if(MagnitudeDelta>=10){
+                        stepCount++;
+                        tv_steps.setText(stepCount.toString());
+                        time_set.setText("Running");
+                    }
 
                 }
-            }, new Response.ErrorListener()
-            {
-                @Override
-                public void onErrorResponse(VolleyError error)
-                {
-                    Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                else{
+
                 }
-            })
-            {
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String,String> param=new HashMap<String,String>();
-                    param.put("email",useremail);
-                    param.put("steps",String.valueOf(stepCount - numSteps));
-                    return param;
-                }
-            };
-            RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-            queue.add(request);
-
-//==========================================
-
-
-
-        }
-    }
-
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
-//            sensorManager.registerListener(this,mStepCounter,SensorManager.SENSOR_DELAY_NORMAL);
-            sensorManager.registerListener(this,mStepCounter,SensorManager.SENSOR_DELAY_FASTEST);
-        }
-
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
-            sensorManager.registerListener(this,mStepCounter,SensorManager.SENSOR_DELAY_FASTEST);
-        }
-    }
-
-    public void updateTimeOnEachSecond() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+            }
 
             @Override
-            public void run() {
-                Date currentTime = Calendar.getInstance().getTime();
-                int hours = currentTime.getHours();
-
-
-                SimpleDateFormat sdf4_h = new SimpleDateFormat("h");
-                SimpleDateFormat sdf4_mm = new SimpleDateFormat("mm");
-                SimpleDateFormat sdf4_a = new SimpleDateFormat("a");
-                SimpleDateFormat sdf4_ss = new SimpleDateFormat("ss");
-                String h = sdf4_h.format(new Date());
-                String mm = sdf4_mm.format(new Date());
-                String a = sdf4_a.format(new Date());
-                String ss = sdf4_ss.format(new Date());
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        time_set.setText(h+":"+mm+":"+ss+" "+a);
-                        if((h.equals("9")) && (mm.equals("52")) && (a.equals("pm"))){
-                            if (flag==false)
-                            {
-                                flag = true;
-                                today_Steps = stepCount - numSteps;
-                                numSteps = stepCount;
-                                daily_steps.setText(String.valueOf(today_Steps));
-                            }
-                        }
-                        else{
-                            flag = false;
-                        }
-                    }
-                });
+            public void onAccuracyChanged(Sensor sensor, int i) {
 
             }
-        }, 0, 1000);
-
+        };
+        sensorManager.registerListener(stepDetector,sensor,SensorManager.SENSOR_STATUS_ACCURACY_HIGH);
     }
 }
