@@ -7,9 +7,8 @@ if(isset($_POST["email"],$_POST["steps"]))
 {
 	$steps=$_POST["steps"];
 	$email=$_POST["email"];
-	$motion=$_POST["Motion"];
 
-	$query="UPDATE `daily_steps` SET `steps_daily`='$steps',`motion`='$motion' where `Demail`='$email'";
+	$query="UPDATE `daily_steps` SET `steps_daily`='$steps' where `Demail`='$email'";
 	$res=mysqli_query($con,$query);
 
 	if($res){

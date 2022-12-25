@@ -13,7 +13,7 @@ if(isset($_POST["name"],$_POST["email"],$_POST["password"],$_POST["type"],$_POST
 	$query="INSERT INTO `user`(`name`, `email`, `password`, `user_type`,`gender` ) VALUES ('$name','$email','$password','$type','$gender')";
 
 	$res=mysqli_query($con,$query);
-    $query="INSERT INTO `daily_steps`( `Demail`, `steps_daily`,`motion`) VALUES ('$email','0','Resting')";
+    $query="INSERT INTO `daily_steps`( `Demail`, `steps_daily`) VALUES ('$email','0')";
 
 	$res=mysqli_query($con,$query);
 

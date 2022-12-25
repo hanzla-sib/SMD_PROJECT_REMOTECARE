@@ -15,14 +15,18 @@ $result = $con->query($sql);
     {
         $oldcalories=$row["Calories"];
         $oldcalories=$oldcalories+$calories;
+
         $query="UPDATE `consumed_calories` SET `Calories`='$oldcalories' WHERE `p_email`= '$email' and `date_log`='$date'";
         $res=mysqli_query($con,$query);
-        if($res){
-            echo "updated in consumed calories"
+
+        if($res)
+        {
+            echo "updated in consumed calories";
         }
     
     }
-  } else {
+   } 
+   else {
     $query="INSERT INTO `consumed_calories`(`p_email`, `date_log`, `Calories` ) VALUES ('$email','$date','$calories')";
 
     $res=mysqli_query($con,$query);
@@ -33,9 +37,5 @@ $result = $con->query($sql);
         echo "not inserted error";
     }
   }
-
-
-
-
 
 ?>

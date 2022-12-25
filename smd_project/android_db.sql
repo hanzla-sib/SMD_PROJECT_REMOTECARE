@@ -15,7 +15,6 @@ CREATE TABLE Daily_steps(
 	id INT NOT NULL AUTO_INCREMENT,  
   	Demail VARCHAR(128),
     steps_daily int,
-	motion varchar(40),
   	PRIMARY KEY(id)
 );
 
