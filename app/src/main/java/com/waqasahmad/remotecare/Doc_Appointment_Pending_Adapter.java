@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -131,7 +132,7 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
         holder.itemView.findViewById(R.id.accept_appointment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Time1.equals("") && date1.equals("")){
+                if(Time1.equals("") || date1.equals("")){
                     Toast.makeText(c_doc2.getApplicationContext(), "EMPTYYYYY",Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -249,7 +250,7 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView patient_name,patient_email;
-        Button btnDatePicker, btnTimePicker;
+        ImageView btnDatePicker, btnTimePicker;
         EditText txtDate, txtTime;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
