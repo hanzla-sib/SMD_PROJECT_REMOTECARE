@@ -48,12 +48,14 @@ public class Step_count extends AppCompatActivity{
     private TextView tv_steps;
     private TextView time_set;
     private TextView daily_steps;
+    JSONArray obj;
     private final static long MICROSECONDS_IN_ONE_MINUTE = 60000000;
-
+private String motion="";
     String useremail="";
 
 
     private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
+    private static final String initial_steps_from_DB ="http://"+Ip_server.getIpServer()+"/smd_project/initial_steps_from_DB.php";
 
     FirebaseFirestore db;
     FirebaseAuth mAuth;
@@ -74,6 +76,54 @@ public class Step_count extends AppCompatActivity{
         useremail = mAuth.getCurrentUser().getEmail();
         //Initializing Firebase MAuth instance
 
+
+        //cathcing steps from DB
+
+        StringRequest request=new StringRequest(Request.Method.POST, initial_steps_from_DB, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+
+//
+                try {
+                    obj = new JSONArray(response);
+                    for(int i=0;i<obj.length()-1;i++){
+                        JSONObject jsonObject = obj.getJSONObject(i);
+                        String stepsss = jsonObject.getString("steps");
+                        stepCount=Integer.parseInt(stepsss);
+                    }
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//
+//
+
+
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("email",useremail);
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+        //
 
 
 //        if (ContextCompat.checkSelfPermission(Step_count.this,
@@ -99,17 +149,60 @@ public class Step_count extends AppCompatActivity{
                     double MagnitudeDelta=Magnitude-MagnitudePrevious;
                     MagnitudePrevious=Magnitude;
 
-                    if(MagnitudeDelta>=1 && MagnitudeDelta<=9){
+                    if(MagnitudeDelta>=2 && MagnitudeDelta<=6){
                         stepCount++;
                         tv_steps.setText(stepCount.toString());
                         time_set.setText("Walking");
+                        motion="Walking";
+
 
                     }
-                    else if(MagnitudeDelta>=10){
+                    else if(MagnitudeDelta>=7){
                         stepCount++;
                         tv_steps.setText(stepCount.toString());
                         time_set.setText("Running");
+                        motion="Running";
                     }
+                    else if(MagnitudeDelta>=0 && MagnitudeDelta<=1){
+                        time_set.setText("Resting");
+                        motion="Resting";
+                    }
+
+//                    Log.d("motion",motion);
+//                    Log.d("motion",stepCount.toString());
+
+
+                    StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
+                    {
+                        @Override
+                        public void onResponse(String response)
+                        {
+//                            Log.d("respons11111111" ,response );
+//                            Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+
+                        }
+                    }, new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error)
+                        {
+                            Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    {
+                        @Nullable
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String,String> param=new HashMap<String,String>();
+                            param.put("email",useremail);
+                            param.put("steps",stepCount.toString());
+                            param.put("Motion",motion);
+                            return param;
+                        }
+                    };
+                    RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                    queue.add(request);
+
 
                 }
                 else{
