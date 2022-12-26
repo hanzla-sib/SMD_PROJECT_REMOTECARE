@@ -149,7 +149,7 @@ private String motion="";
                     double MagnitudeDelta=Magnitude-MagnitudePrevious;
                     MagnitudePrevious=Magnitude;
 
-                    if(MagnitudeDelta>=2 && MagnitudeDelta<=6){
+                    if(MagnitudeDelta>=1 && MagnitudeDelta<=6){
                         stepCount++;
                         tv_steps.setText(stepCount.toString());
                         time_set.setText("Walking");
@@ -163,7 +163,7 @@ private String motion="";
                         time_set.setText("Running");
                         motion="Running";
                     }
-                    else if(MagnitudeDelta>=0 && MagnitudeDelta<=1){
+                    else if(MagnitudeDelta>=0 && MagnitudeDelta<1){
                         time_set.setText("Resting");
                         motion="Resting";
                     }
