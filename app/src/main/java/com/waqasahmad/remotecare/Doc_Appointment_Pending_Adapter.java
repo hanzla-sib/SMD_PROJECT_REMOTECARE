@@ -74,10 +74,10 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
 
         //getting email of logged in user
         currentemail = mAuth.getCurrentUser().getEmail();
-
         holder.patient_name.setText(ls_doc2.get(position).getName_patient());
         holder.patient_email.setText(ls_doc2.get(position).getEmail_patient());
-        int i=position;
+//        int i=position;
+
 
         holder.itemView.findViewById(R.id.btn_date).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,13 +136,15 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
                     Toast.makeText(c_doc2.getApplicationContext(), "EMPTYYYYY",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    String pname= ls_doc2.get(i).getName_patient();
-                    String pemail= ls_doc2.get(i).getEmail_patient();
+                    String pname= ls_doc2.get(holder.getAdapterPosition()).getName_patient();
+                    String pemail= ls_doc2.get(holder.getAdapterPosition()).getEmail_patient();
 
-                    ls_doc2.remove(i);
-                    notifyItemRemoved(i);
-
-                    ////////////////////////////////////////////
+                    ls_doc2.remove(holder.getAdapterPosition());
+                    notifyItemRemoved(holder.getAdapterPosition());
+                    notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
+//                    holder.itemView.setVisibility(View.GONE);
+                    ///////////////////////////////////////////
+                     holder.itemView.setVisibility(View.GONE);
 
                     StringRequest request=new StringRequest(Request.Method.POST, accept_doctor_appointment, new Response.Listener<String>()
                     {
@@ -152,6 +154,7 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
                             Log.d("respons11111111" ,response );
 
                             Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
+
 
 
                         }
@@ -184,6 +187,8 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
                 }
 
 
+//                ls_doc2.remove(remove_record_num);
+//                notifyItemRemoved(remove_record_num);
                 //////////////////////////////////////////////
 
             }
@@ -198,9 +203,14 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
             @Override
             public void onClick(View v) {
 
-                String pname= ls_doc2.get(i).getName_patient();
-                String pemail= ls_doc2.get(i).getEmail_patient();
-
+                String pname= ls_doc2.get(holder.getAdapterPosition()).getName_patient();
+                String pemail= ls_doc2.get(holder.getAdapterPosition()).getEmail_patient();
+                ls_doc2.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
+//                    holder.itemView.setVisibility(View.GONE);
+                ///////////////////////////////////////////
+                holder.itemView.setVisibility(View.GONE);
                 StringRequest request=new StringRequest(Request.Method.POST, reject_doctor_appointment, new Response.Listener<String>()
                 {
                     @Override

@@ -68,3 +68,7 @@ CREATE TABLE Consumed_Calories (
 	Calories INT NOT NULL,
 	PRIMARY KEY(id)
 );
+
+
+ALTER TABLE daily_steps
+ADD COLUMN Burnt_Calories FLOAT

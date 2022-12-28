@@ -14,7 +14,7 @@ if(isset($_POST["email"],$_POST["steps"]))
 	$sql = "SELECT * FROM `daily_steps` where `Demail`= '$email' and `date_log`='$date' ";
 	$result = $con->query($sql);
 	if ($result->num_rows > 0) {
-		$query="UPDATE `daily_steps` SET `steps_daily`='$steps',`motion`='$motion' where `Demail`='$email'";
+		$query="UPDATE `daily_steps` SET `steps_daily`='$steps',`motion`='$motion',`Burnt_Calories`='$calories_burnt' where `Demail`='$email'";
 		$res=mysqli_query($con,$query);
 		if($res){
 			echo "Steps updated";

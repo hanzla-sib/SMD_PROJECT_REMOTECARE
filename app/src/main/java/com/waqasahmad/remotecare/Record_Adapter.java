@@ -71,18 +71,15 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
         //getting email of logged in user
         currentemail = mAuth.getCurrentUser().getEmail();
 
-        Integer remove_record_num = Integer.valueOf(position);
+        Record_Model model = arrayList.get(holder.getAdapterPosition());
+        Integer rec = Integer.valueOf(holder.getAdapterPosition()+1);
 
-
-        Record_Model model = arrayList.get(position);
-        Integer rec = Integer.valueOf(position);
-        rec = rec+1;
 
 //      holder.image_record.setImageURI(Picasso.get());
 
         Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+model.getImage_url()).into(holder.image_record);
         holder.details.setText(model.getDetails());
-        holder.record_num.setText("Record # " + rec);
+        holder.record_num.setText("Record # " + (holder.getAdapterPosition()+1));
 
                 holder
                 .itemView
@@ -93,7 +90,13 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
                     public void onClick(View v)
                     {
 
-                        ////////////////////////////////////////////
+
+                        arrayList.remove(holder.getAdapterPosition());
+                        notifyItemRemoved(holder.getAdapterPosition());
+                        notifyItemRangeChanged(holder.getAdapterPosition(), arrayList.size());
+
+                        holder.itemView.setVisibility(View.GONE);
+
 
                         StringRequest request=new StringRequest(Request.Method.POST, delete_test_record, new Response.Listener<String>()
                         {
@@ -133,8 +136,7 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
 
                         //////////////////////////////////////////////
 
-                        arrayList.remove(remove_record_num);
-                        notifyItemRemoved(remove_record_num);
+
 
                     }
                 });

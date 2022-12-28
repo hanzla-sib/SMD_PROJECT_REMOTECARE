@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,7 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
 
     //private
 
-    private static final String doctor_appointment_accepted="http://"+Ip_server.getIpServer()+"/smd_project/doctor_appointment_accepted.php";
+    private static final String delete_appointed_appoint_from_doctorside="http://"+Ip_server.getIpServer()+"/smd_project/delete_appointed_appoint_from_doctorside.php";
 
     public Doc_Appointments_Accepted_Adapter(List<Doc_Appointment_Model> ls_doc2, Context c_doc2) {
         this.ls_doc2 = ls_doc2;
@@ -66,9 +67,61 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
         //getting email of logged in user
         currentemail = mAuth.getCurrentUser().getEmail();
 
-        holder.patient_name.setText(ls_doc2.get(position).getName_patient());
-        holder.patient_email.setText(ls_doc2.get(position).getEmail_patient());
-        int i=position;
+        holder.patient_name.setText(ls_doc2.get(holder.getAdapterPosition()).getName_patient());
+        holder.patient_email.setText(ls_doc2.get(holder.getAdapterPosition()).getEmail_patient());
+        Doc_Appointment_Model model = ls_doc2.get(holder.getAdapterPosition());
+        holder.deleteappoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ls_doc2.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
+
+                holder.itemView.setVisibility(View.GONE);
+                StringRequest request=new StringRequest(Request.Method.POST, delete_appointed_appoint_from_doctorside, new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
+
+
+//
+                    }
+                }, new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+//                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                })
+                {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> param=new HashMap<String,String>();
+
+                        param.put("d_email",currentemail);
+                        param.put("p_email",model.getEmail_patient());
+
+                        return param;
+                    }
+                };
+                RequestQueue queue= Volley.newRequestQueue(c_doc2);
+                queue.add(request);
+
+                //////////////////////////////////////////////
+
+
+
+
+            }
+        });
+
+
+
 
     }
 
@@ -80,11 +133,12 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView patient_name,patient_email;
-
+        Button deleteappoint;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             patient_name=itemView.findViewById(R.id.patient_name_accepted);
             patient_email=itemView.findViewById(R.id.patient_email_accepted);
+            deleteappoint=itemView.findViewById(R.id.deleteappoint);
         }
     }
 }
