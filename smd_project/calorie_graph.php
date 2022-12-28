@@ -10,7 +10,7 @@ $email=$_POST['p_email'];
 // where `p_email`= '$email'
 
 
-$sql = "SELECT * FROM `consumed_calories` where `p_email`= '$email'";
+$sql = "SELECT * FROM `consumed_calories` ";
 $result = $con->query($sql);
 
 if ($result->num_rows > 0) 
@@ -18,7 +18,7 @@ if ($result->num_rows > 0)
   while($row = $result->fetch_assoc()) 
   {
 
-      $temp=array();
+     $temp=array();
       $temp['date']=$row["date_log"];
       $temp['calorie']=$row["Calories"];
       array_push($response,$temp);

@@ -15,15 +15,17 @@ CREATE TABLE Daily_steps(
 	id INT NOT NULL AUTO_INCREMENT,  
   	Demail VARCHAR(128),
     steps_daily int,
+	date_log date NULL,
 	motion varchar(40),
   	PRIMARY KEY(id)
 );
 
 CREATE TABLE Weekly_steps(
-	id INT NOT NULL AUTO_INCREMENT,  
-  	Memail VARCHAR(128),
-    date_log date,
-    steps_monthly int,
+id INT NOT NULL AUTO_INCREMENT,  
+  	Demail VARCHAR(128),
+    steps_daily int,
+	date_log date NULL,
+	motion varchar(40),
   	PRIMARY KEY(id)
 );
 

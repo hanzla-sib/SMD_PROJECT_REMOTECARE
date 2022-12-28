@@ -5,19 +5,62 @@ $response=array();
 
 if(isset($_POST["email"],$_POST["steps"]))
 {
+	$date=date("Y-m-d");
+	
 	$steps=$_POST["steps"];
 	$email=$_POST["email"];
 	$motion=$_POST["Motion"];
-
-	$query="UPDATE `daily_steps` SET `steps_daily`='$steps',`motion`='$motion' where `Demail`='$email'";
-	$res=mysqli_query($con,$query);
-
-	if($res){
-		echo "Steps updated";
+	$sql = "SELECT * FROM `daily_steps` where `Demail`= '$email' and `date_log`='$date' ";
+	$result = $con->query($sql);
+	if ($result->num_rows > 0) {
+		$query="UPDATE `daily_steps` SET `steps_daily`='$steps',`motion`='$motion' where `Demail`='$email'";
+		$res=mysqli_query($con,$query);
+		if($res){
+			echo "Steps updated";
+		}
+		else{
+			echo "Steps not updated";	
+		}
 	}
 	else{
-		echo "Steps not updated";	
+		$query="UPDATE `daily_steps` SET `steps_daily`='0',`motion`='$motion',`date_log`='$date' where `Demail`='$email'";
+		$res=mysqli_query($con,$query);
+		if($res){
+			echo "Steps updated";
+		}
+		else{
+			echo "Steps not updated";	
+		}
 	}
+
+	
+
+	$sql = "SELECT * FROM `weekly_steps` where `Demail`= '$email' and `date_log`='$date' ";
+	$result = $con->query($sql);
+	if ($result->num_rows > 0) {
+		$query="UPDATE `weekly_steps` SET `steps_daily`='$steps',`motion`='$motion' where `Demail`='$email' and `date_log`='$date'";
+		$res=mysqli_query($con,$query);
+		if($res){
+			echo "Steps updated";
+		}
+		else{
+			echo "Steps not updated";	
+		}
+	}
+	else{
+		$query="INSERT INTO `weekly_steps`(`Demail`, `date_log`, `steps_daily` ) VALUES ('$email','$date','$steps')";
+		$res=mysqli_query($con,$query);
+		if($res){
+			echo "insereted in Weeklytable";
+		}
+		else{
+			echo "not inserted error";
+		}
+	}
+
+
+
+
 }
 else
 {
