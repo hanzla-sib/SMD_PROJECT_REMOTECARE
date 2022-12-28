@@ -25,7 +25,7 @@ id INT NOT NULL AUTO_INCREMENT,
   	Demail VARCHAR(128),
     steps_daily int,
 	date_log date NULL,
-	motion varchar(40),
+	Burnt_Calories FLOAT,
   	PRIMARY KEY(id)
 );
 

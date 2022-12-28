@@ -48,6 +48,7 @@ public class Step_count extends AppCompatActivity{
     private TextView tv_steps;
     private TextView time_set;
     private TextView daily_steps;
+    double caloriesburnt=0.0;
     JSONArray obj;
     Boolean checkrep=false;
     private final static long MICROSECONDS_IN_ONE_MINUTE = 60000000;
@@ -87,6 +88,7 @@ private String motion="";
             {
 
 //
+
                 Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
                 try {
                     obj = new JSONArray(response);
@@ -149,9 +151,10 @@ private String motion="";
                     double Magnitude=Math.sqrt(x_accel*x_accel+y_accel*y_accel+z_accel*z_accel);
                     double MagnitudeDelta=Magnitude-MagnitudePrevious;
                     MagnitudePrevious=Magnitude;
-
-                    if(MagnitudeDelta>=1 && MagnitudeDelta<=6){
+                    caloriesburnt=0.04;
+                    if(MagnitudeDelta>=2 && MagnitudeDelta<=6){
                         stepCount++;
+                        caloriesburnt=caloriesburnt*stepCount;
                         tv_steps.setText(stepCount.toString());
                         time_set.setText("Walking");
                         motion="Walking";
@@ -162,7 +165,7 @@ private String motion="";
                             @Override
                             public void onResponse(String response)
                             {
-
+//                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
 
                             }
                         }, new Response.ErrorListener()
@@ -178,8 +181,10 @@ private String motion="";
                             @Override
                             protected Map<String, String> getParams() throws AuthFailureError {
                                 Map<String,String> param=new HashMap<String,String>();
+
                                 param.put("email",useremail);
                                 param.put("steps",stepCount.toString());
+                                param.put("calories_burn",Double.toString(caloriesburnt));
                                 param.put("Motion",motion);
                                 return param;
                             }
@@ -196,6 +201,7 @@ private String motion="";
                         time_set.setText("Running");
                         motion="Running";
                         checkrep=false;
+                        caloriesburnt=caloriesburnt*stepCount;
 
                         StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
                         {
@@ -221,6 +227,7 @@ private String motion="";
                                 param.put("email",useremail);
                                 param.put("steps",stepCount.toString());
                                 param.put("Motion",motion);
+                                param.put("calories_burn",Double.toString(caloriesburnt));
                                 return param;
                             }
                         };
@@ -230,10 +237,10 @@ private String motion="";
 
 
                     }
-                    else if(MagnitudeDelta>=0 && MagnitudeDelta<1){
+                    else if(MagnitudeDelta>=-7 && MagnitudeDelta<1){
                         time_set.setText("Resting");
                         motion="Resting";
-
+                        caloriesburnt=caloriesburnt*stepCount;
 
                         if(checkrep==false){
                             Log.d("cehcngedddddd",String.valueOf(MagnitudeDelta));
@@ -262,6 +269,7 @@ private String motion="";
                                     param.put("email",useremail);
                                     param.put("steps",stepCount.toString());
                                     param.put("Motion",motion);
+                                    param.put("calories_burn",Double.toString(caloriesburnt));
                                     return param;
                                 }
                             };

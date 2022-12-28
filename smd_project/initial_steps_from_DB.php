@@ -1,8 +1,10 @@
 <?php
   include "config.php";
   $email=$_POST['email'];
-  $date=date("Y-m-d");
-  
+  // $date=date("Y-m-d");
+  $date = new DateTime("now", new DateTimeZone('Asia/Karachi') );
+  $date=$date->format('Y-m-d');
+
 
   $userimage=array();
   $sql = "SELECT * FROM `daily_steps` where `Demail`= '$email' and `date_log`='$date'";

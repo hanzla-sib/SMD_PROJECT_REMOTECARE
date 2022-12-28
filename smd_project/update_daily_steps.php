@@ -5,8 +5,9 @@ $response=array();
 
 if(isset($_POST["email"],$_POST["steps"]))
 {
-	$date=date("Y-m-d");
-	
+	$date = new DateTime("now", new DateTimeZone('Asia/Karachi') );
+	$date=$date->format('Y-m-d');
+	$calories_burnt=$_POST["calories_burn"];
 	$steps=$_POST["steps"];
 	$email=$_POST["email"];
 	$motion=$_POST["Motion"];
@@ -38,7 +39,7 @@ if(isset($_POST["email"],$_POST["steps"]))
 	$sql = "SELECT * FROM `weekly_steps` where `Demail`= '$email' and `date_log`='$date' ";
 	$result = $con->query($sql);
 	if ($result->num_rows > 0) {
-		$query="UPDATE `weekly_steps` SET `steps_daily`='$steps',`motion`='$motion' where `Demail`='$email' and `date_log`='$date'";
+		$query="UPDATE `weekly_steps` SET `steps_daily`='$steps',`Burnt_Calories`='$calories_burnt' where `Demail`='$email' and `date_log`='$date'";
 		$res=mysqli_query($con,$query);
 		if($res){
 			echo "Steps updated";
