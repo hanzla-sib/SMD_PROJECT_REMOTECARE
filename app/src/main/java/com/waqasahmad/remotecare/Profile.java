@@ -92,7 +92,7 @@ public class Profile extends AppCompatActivity {
     DocumentReference reference;
 
     //
-    String new_name_str,current_password_str,new_password_str;
+    String current_password_str,new_password_str;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,7 +241,9 @@ public class Profile extends AppCompatActivity {
                                                         ).show();
                                                     }
                                                 });
+
                                                         ////////////////////////////////////////
+
                                     }
                                 });
                             }

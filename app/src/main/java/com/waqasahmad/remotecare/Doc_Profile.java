@@ -10,14 +10,27 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
@@ -54,11 +67,27 @@ public class Doc_Profile extends AppCompatActivity {
     FirebaseFirestore db;
     DocumentReference reference;
 
+    //
+    EditText current_password,new_password;
+
+    //
+    TextView Name,Email,Gender,U_Type;
+    ImageButton update_btn;
 
     //for logging out
     DatabaseReference reference1;
     FirebaseAuth auth1;
     FirebaseDatabase database1;
+
+
+    //
+    String current_password_str,new_password_str;
+
+    //
+    private FirebaseUser user;
+
+    private static final String update_password_doc="http://"+Ip_server.getIpServer()+"/smd_project/update_password.php";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +103,17 @@ public class Doc_Profile extends AppCompatActivity {
         database1 = FirebaseDatabase.getInstance();
         reference1 = database1.getReference("Users");
 
+
+        //
+        Name=findViewById(R.id.Name);
+        Email=findViewById(R.id.Email);
+        Gender=findViewById(R.id.Gender);
+        U_Type=findViewById(R.id.U_Type);
+
+        //
+        current_password = findViewById(R.id.current_password);
+        new_password = findViewById(R.id.new_password);
+        update_btn = findViewById(R.id.update_btn);
 
 
         //Initializing Firebase MAuth instance
@@ -94,6 +134,11 @@ public class Doc_Profile extends AppCompatActivity {
 
                         if(task.getResult().exists())
                         {
+                            Name.setText("Name             " + task.getResult().getString("Name"));
+                            Email.setText("Email              " +task.getResult().getString("Email"));
+                            Gender.setText("Gender           " +task.getResult().getString("Gender"));
+                            U_Type.setText("User Type      " +task.getResult().getString("User_Type"));
+
                             String Dplink = task.getResult().getString("Dp");
                             Picasso.get().load(Dplink).into(profile_circle);
                         }
@@ -110,6 +155,108 @@ public class Doc_Profile extends AppCompatActivity {
 
                     }
                 });
+
+
+        update_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                current_password_str = current_password.getText().toString();
+                new_password_str = new_password.getText().toString();
+
+                if( !(current_password_str.equals("") && new_password_str.equals("")) )
+                {
+                    user = FirebaseAuth.getInstance().getCurrentUser();
+                    final String email = user.getEmail();
+                    AuthCredential credential = EmailAuthProvider.getCredential(email,current_password_str);
+
+                    user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful())
+                            {
+
+
+                                user.updatePassword(new_password_str).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(!task.isSuccessful())
+                                        {
+                                            Toast.makeText(getApplicationContext()," Password not Updated" , Toast.LENGTH_SHORT).show();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(getApplicationContext(),"Password updated" , Toast.LENGTH_SHORT).show();
+                                            StringRequest request=new StringRequest(Request.Method.POST, update_password_doc, new Response.Listener<String>() {
+                                                @Override
+                                                public void onResponse(String response) {
+
+                                                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+
+                                                }
+                                            }, new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    Toast.makeText(
+                                                            getApplicationContext(),
+                                                            error.toString(),Toast.LENGTH_LONG).show();
+                                                }
+                                            }){
+                                                @Nullable
+                                                @Override
+                                                protected Map<String, String> getParams() throws AuthFailureError {
+                                                    Map<String,String> param=new HashMap<String,String>();
+                                                    param.put("password",new_password_str);
+                                                    param.put("email",email);
+                                                    return param;
+                                                }
+                                            };
+                                            RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                                            queue.add(request);
+                                        }
+
+                                        /////////////////////
+                                        Map<String, Object> new_password_obj = new HashMap<>();
+                                        new_password_obj.put("Password", new_password_str);
+
+                                        // Add a new document
+                                        // reference.set(map , SetOptions.merge())
+                                        db.collection("users").document(email).set(new_password_obj, SetOptions.merge())
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Toast.makeText(
+                                                                Doc_Profile.this,
+                                                                "updated in firebase",
+                                                                Toast.LENGTH_SHORT
+                                                        ).show();
+                                                    }
+                                                });
+
+                                        ////////////////////////////////////////
+
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        " Authentication Failed for password" ,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+                else
+                {
+
+                    Toast.makeText(getApplicationContext(),"Password is empty" , Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
 
 
         profile_circle.setOnClickListener(new View.OnClickListener() {

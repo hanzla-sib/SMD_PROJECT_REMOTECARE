@@ -79,6 +79,9 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
                 notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
 
                 holder.itemView.setVisibility(View.GONE);
+
+
+                /////////////////////////////////
                 StringRequest request=new StringRequest(Request.Method.POST, delete_appointed_appoint_from_doctorside, new Response.Listener<String>()
                 {
                     @Override

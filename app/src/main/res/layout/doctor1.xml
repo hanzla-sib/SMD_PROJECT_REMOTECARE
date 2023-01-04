@@ -36,7 +36,7 @@
             android:paddingHorizontal="25dp"
             android:paddingVertical="5dp"
             android:orientation="vertical"
-            >
+            android:layout_marginLeft="70dp"            >
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/appointments_doc"
@@ -49,27 +49,19 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/appointments_image_card"
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Appointments"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:textSize="24sp"
                         android:padding="10dp"
                         />
 
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/appoint"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:padding="10dp"
-                        />
 
                 </RelativeLayout>
 
@@ -77,15 +69,13 @@
 
         </LinearLayout>
 
-
-
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="25dp"
             android:paddingVertical="5dp"
             android:orientation="vertical"
+            android:layout_marginRight="70dp"
             >
 
             <androidx.cardview.widget.CardView
@@ -99,25 +89,15 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    >
+                    android:background="@drawable/chat_card">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Chat"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:textSize="24sp"
-                        android:padding="10dp"
-                        />
-
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/chat"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
                         android:padding="10dp"
                         />
 
@@ -127,18 +107,7 @@
 
         </LinearLayout>
 
-
-
-
     </LinearLayout>
-
-
-
-
-
-
-
-
 
     <RelativeLayout
         android:layout_width="300dp"
