@@ -1,5 +1,6 @@
 package com.waqasahmad.remotecare;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -33,6 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,7 +43,11 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Step_count extends AppCompatActivity{
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+
+public class    Step_count extends AppCompatActivity{
     private SensorManager sensorManager;
     private double MagnitudePrevious=0;
     private Integer stepCount=0;
@@ -55,7 +61,9 @@ public class Step_count extends AppCompatActivity{
 private String motion="";
     String useremail="";
 
-
+    String ip_url = "http://192.168.28.213:5000/";
+    String consumer_url="";
+    String producer_url="";
     private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
     private static final String initial_steps_from_DB ="http://"+Ip_server.getIpServer()+"/smd_project/initial_steps_from_DB.php";
 
@@ -80,6 +88,37 @@ private String motion="";
 
 
         //cathcing steps from DB
+
+        //===========================================================================================
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        consumer_url = ip_url+"consumer";
+//        consumer_url = ip_url+"one";
+        okhttp3.Request request1= new okhttp3.Request.Builder().url(consumer_url).build();
+        okHttpClient.newCall(request1).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+                Log.d("valuee", "network success");
+//                tv.setText(response.body().string());
+            }
+        });
+
+
+
+
+
+
+
+        //============================================================================================
+
+
+
+
 
         StringRequest request=new StringRequest(Request.Method.POST, initial_steps_from_DB, new Response.Listener<String>()
         {
@@ -159,6 +198,27 @@ private String motion="";
                         time_set.setText("Walking");
                         motion="Walking";
                         checkrep=false;
+
+
+                        //==================================================================================
+                        OkHttpClient okHttpClient = new OkHttpClient();
+
+                        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
+                        //        producer_url = ip_url+ip_url+"two";
+                        okhttp3.Request request2= new okhttp3.Request.Builder().url(producer_url).build();
+                        okHttpClient.newCall(request2).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+                            }
+                            @Override
+                            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+                                Log.d("valuee", "network success");
+                                //               tv.setText(response.body().string());
+                            }
+                        });
+                        //===============================================================================
+
 
                         StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
                         {
@@ -280,8 +340,23 @@ private String motion="";
 
                     }
 
-
-
+//                //==================================================================================
+//                    OkHttpClient okHttpClient = new OkHttpClient();
+//                    producer_url = ip_url+"producer/Umaid/"+String.valueOf(stepCount);
+//                //        producer_url = ip_url+ip_url+"two";
+//                    okhttp3.Request request= new okhttp3.Request.Builder().url(producer_url).build();
+//                    okHttpClient.newCall(request).enqueue(new Callback() {
+//                        @Override
+//                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
+//                            Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+//                        }
+//                        @Override
+//                        public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+//                            Log.d("valuee", "network success");
+//                            //               tv.setText(response.body().string());
+//                        }
+//                    });
+//                    //===============================================================================
 
 
 

@@ -18,7 +18,7 @@ $result = $con->query($sql);
         $query="UPDATE `consumed_calories` SET `Calories`='$oldcalories' WHERE `p_email`= '$email' and `date_log`='$date'";
         $res=mysqli_query($con,$query);
         if($res){
-            echo "updated in consumed calories"
+            echo "updated in consumed calories";
         }
     
     }
