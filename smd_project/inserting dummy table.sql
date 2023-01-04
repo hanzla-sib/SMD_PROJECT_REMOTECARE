@@ -1,0 +1,16 @@
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-20','1000');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-21','3000');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-22','1500');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-23','2000');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-24','500');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-25','900');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-26','1800');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-27','2022');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-28','2200');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-29','1200');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-30','1700');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2022-12-31','1900');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2023-01-01','1000');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2023-01-02','550');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2023-01-03','900');
+INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2023-01-04','1100');

@@ -72,3 +72,4 @@ CREATE TABLE Consumed_Calories (
 
 ALTER TABLE daily_steps
 ADD COLUMN Burnt_Calories FLOAT
+
