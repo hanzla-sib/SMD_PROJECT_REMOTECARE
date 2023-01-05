@@ -10,7 +10,7 @@ $email=$_POST['p_email'];
 // where `p_email`= '$email'
 
 
-$sql = "SELECT * FROM `consumed_calories` ";
+$sql = "SELECT * FROM `consumed_calories` where `p_email`= '$email' ";
 $result = $con->query($sql);
 
 if ($result->num_rows > 0) 
