@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class OverView extends AppCompatActivity {
 
-    CardView step,heart_beat,test_record,calorie;
+    CardView step,Calories_Burnt_card,test_record,calorie;
     DrawerLayout drawerLayout;
 
     //for logging out
@@ -33,7 +33,7 @@ public class OverView extends AppCompatActivity {
         drawerLayout=findViewById(R.id.drawer_layout);
 
         step = findViewById(R.id.steps_card);
-        heart_beat = findViewById(R.id.heartbeat_card);
+        Calories_Burnt_card = findViewById(R.id.Calories_Burnt_card);
         test_record = findViewById(R.id.testrecord_card);
         calorie = findViewById(R.id.calories_card);
 
@@ -43,17 +43,17 @@ public class OverView extends AppCompatActivity {
         reference1 = database1.getReference("Users");
 
 
-//        step.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(OverView.this, Steps.class));
-//            }
-//        });
-
-        heart_beat.setOnClickListener(new View.OnClickListener() {
+        step.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OverView.this, Heart_Beat.class));
+                startActivity(new Intent(OverView.this, Steps_Graph.class));
+            }
+        });
+
+        Calories_Burnt_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(OverView.this, Calories_Burnt.class));
             }
         });
 

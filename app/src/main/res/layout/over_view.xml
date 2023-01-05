@@ -63,7 +63,7 @@
             app:cardBackgroundColor="#81A8D3"
             app:cardCornerRadius="20dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/heartbeat_card"
+            android:id="@+id/Calories_Burnt_card"
             >
 
             <RelativeLayout
@@ -74,12 +74,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Heart Beat"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
                     android:padding="10dp"
-                    />
+                    android:text="Calories Burnt"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 

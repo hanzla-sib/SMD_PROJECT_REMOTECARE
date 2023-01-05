@@ -14,3 +14,21 @@ INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@g
 INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2023-01-02','550');
 INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2023-01-03','900');
 INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('u@gmail.com','2023-01-04','1100');
+
+
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','500','2022-12-20','500');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','1000','2022-12-21','200');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','3000','2022-12-22','550');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','2000','2022-12-23','600');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','1500','2022-12-24','670');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','1100','2022-12-25','679');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','1400','2022-12-26','170');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','1900','2022-12-27','800');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','1800','2022-12-28','1000');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','2200','2022-12-29','1400');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','2400','2022-12-30','1000');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','2700','2022-12-31','2300');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','3000','2023-01-01','2300');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','3200','2023-01-02','2400');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','400','2023-01-03','900');
+INSERT INTO `weekly_steps`( `Demail`,`steps_daily`, `date_log`, `Burnt_Calories`) VALUES ('u@gmail.com','1000','2023-01-04','1100');

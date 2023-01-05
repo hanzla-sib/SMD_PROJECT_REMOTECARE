@@ -23,6 +23,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Calories_Burnt"
+            android:exported="false" />
+        <activity
+            android:name=".Steps_Graph"
+            android:exported="false" />
+        <activity
             android:name=".Doc_appointments_accepted"
             android:exported="false" />
         <activity

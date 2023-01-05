@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/Remote_care_SMD/app/src/main/res/layout/startscreen.xml" value="0.115625" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_calories_burnt.xml" value="0.1125" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_main.xml" value="0.115625" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_steps_graph.xml" value="0.1125" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/appointments_patient.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/calories.xml" value="0.115625" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/doc_all_appointments.xml" value="0.25833333333333336" />
@@ -13,6 +15,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/doc_row.xml" value="0.4" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/doctor1.xml" value="0.115625" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/main_toolbar.xml" value="0.115625" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/over_view.xml" value="0.1125" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/patient_accepted_appointments.xml" value="0.115625" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/patient_all_appointments.xml" value="0.115625" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/patient_row.xml" value="0.2" />
