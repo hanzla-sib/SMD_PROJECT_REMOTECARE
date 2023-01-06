@@ -151,20 +151,19 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/appointments_image_card"
+                            android:background="@drawable/running3"
 
                             >
 
                             <TextView
+                                android:id="@+id/steps"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:padding="10dp"
                                 android:text="Steps Graph"
                                 android:textColor="@color/black"
-                                android:textStyle="bold"
                                 android:textSize="24sp"
-                                android:padding="10dp"
-                                android:id="@+id/steps"
-                                />
+                                android:textStyle="bold" />
 
                         </RelativeLayout>
 
@@ -180,7 +179,8 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/appointments_image_card"
+                            android:background="@drawable/stairs_card2"
+
 
                             >
 
@@ -217,7 +217,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/appointments_image_card"
+                            android:background="@drawable/testrecord"
 
                             >
 
@@ -225,7 +225,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
-                                android:text="Upload\ntest\nrecord"
+                                android:text="Upload test record"
                                 android:textColor="@color/black"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -245,14 +245,14 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/appointments_image_card"
+                            android:background="@drawable/foodimg"
                             >
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
-                                android:text="Calories Consumed Graph"
+                                android:text="Consumed Calories\nGraph"
                                 android:textColor="@color/black"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />

@@ -61,7 +61,7 @@ public class    Step_count extends AppCompatActivity{
 private String motion="";
     String useremail="";
 
-    String ip_url = "http://192.168.28.213:5000/";
+    String ip_url = "http://192.168.100.53:5000/";
     String consumer_url="";
     String producer_url="";
     private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
