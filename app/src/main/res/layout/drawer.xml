@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#D8DAE4"
+
     >
 
         <LinearLayout
@@ -44,6 +46,7 @@
                 android:textStyle="bold"
                 android:padding="12dp"
                 android:layout_marginStart="16dp"
+                android:textColor="@color/black"
                 />
 
             <ImageView
@@ -74,6 +77,8 @@
                 android:text="Profile"
                 android:textStyle="bold"
                 android:padding="12dp"
+                android:textColor="@color/black"
+
                 android:layout_marginStart="16dp"/>
 
             <ImageView
@@ -103,6 +108,8 @@
                 android:layout_weight="1"
                 android:text="Meals"
                 android:textStyle="bold"
+                android:textColor="@color/black"
+
                 android:padding="12dp"
                 android:layout_marginStart="16dp" />
 
@@ -133,6 +140,8 @@
                 android:layout_weight="1"
                 android:text="Overview"
                 android:textStyle="bold"
+                android:textColor="@color/black"
+
                 android:padding="12dp"
                 android:layout_marginStart="16dp" />
 
@@ -166,6 +175,8 @@
                 android:text="Prescription Details"
                 android:textStyle="bold"
                 android:padding="12dp"
+                android:textColor="@color/black"
+
                 android:layout_marginStart="16dp"
                 />
 
@@ -198,6 +209,8 @@
             android:text="Chat"
             android:textStyle="bold"
             android:padding="12dp"
+            android:textColor="@color/black"
+
             android:layout_marginStart="16dp"
             />
 
@@ -229,6 +242,8 @@
                 android:layout_weight="1"
                 android:text="Logout"
                 android:textStyle="bold"
+                android:textColor="@color/black"
+
                 android:padding="12dp"
                 android:layout_marginStart="16dp"
                 />

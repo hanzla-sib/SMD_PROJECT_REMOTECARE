@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".Patient_accepted_appointments"
+    android:background="#D8DAE4"
     >
 
     <LinearLayout

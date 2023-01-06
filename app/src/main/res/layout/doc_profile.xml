@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".Doc_Profile"
     android:id="@+id/doc_profile"
+    android:background="#D8DAE4"
+
     >
 
     <LinearLayout
@@ -132,13 +134,14 @@
                 android:layout_gravity="center"
                 >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/update_btn"
                     android:layout_width="200dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/white"
-                    android:src="@drawable/roundedittext" />
+                    android:background="#D8DAE4"
+                    android:src="@drawable/roundedittext"
+                    android:layout_centerInParent="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"

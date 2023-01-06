@@ -5,21 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     tools:context=".messagemain"
-    android:weightSum="10"
     android:background="#3874B5"
     >
 
     <LinearLayout
-        android:layout_weight="0.8"
         android:id="@+id/mainAppBarLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
 
 
@@ -34,8 +32,8 @@
             android:layout_toEndOf="@+id/mainAppBarSearchButton"
             android:text="@string/app_name"
             android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="26sp" />
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
         <ImageView
 
@@ -44,6 +42,7 @@
             android:backgroundTint="#3874B5"
             android:layout_height="30dp"
             android:src="@drawable/ic_baseline_exit_to_app_24" />
+
     </LinearLayout>
 
 
@@ -54,7 +53,8 @@
         android:layout_height="0dp"
         android:layout_weight="9.2"
         android:weightSum="4"
-        android:background="@color/white"
+        android:background="#D8DAE4"
+
         >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recViewbottom"

@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".Step_count"
     android:orientation="vertical"
+    android:background="@drawable/step_counter_img"
+
     >
 
     <LinearLayout
@@ -43,6 +45,7 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -53,16 +56,14 @@
                 />
 
             <TextView
+                android:id="@+id/time_set"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Step counts"
-                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:text="Steps"
                 android:textColor="@color/black"
-                android:textSize="24sp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/tv_info"
-                />
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,14 +72,13 @@
                 android:id="@+id/tv_steps"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="30sp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/tv_info"
+                android:layout_below="@+id/time_set"
                 android:paddingTop="80dp"
-
-
                 />
+
         </RelativeLayout>
 
 
@@ -87,28 +87,7 @@
 
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/time_set"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:paddingTop="30dp"
-            android:text="time"
-            />
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/time_after"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:paddingTop="30dp"
-            android:text="after time"
-            />
 
 
 

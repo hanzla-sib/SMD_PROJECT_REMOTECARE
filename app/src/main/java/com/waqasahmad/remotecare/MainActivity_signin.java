@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ import java.util.HashMap;
 public class MainActivity_signin extends AppCompatActivity {
     TextView signup;
     EditText email,password;
-    ImageButton signin;
+    ImageView signin;
     FirebaseAuth mAuth;
 
     //
@@ -76,26 +77,7 @@ public class MainActivity_signin extends AppCompatActivity {
         password=findViewById(R.id.password2);
 
 
-        //
 
-        boolean b=isNetworkConnected();
-        String str1 = new Boolean(b). toString();
-
-//        Log.d("wwwwwwwwwwwwwwwwwwwwwwwww",str1);
-
-
-        if (str1.equals("true"))
-        {
-
-        }
-        else {
-
-        //
-        Intent intent = new Intent(MainActivity_signin.this,sql_lite_offline_sigin.class);
-        startActivity(intent);
-        //
-
-        }
 
         //
 

@@ -34,6 +34,8 @@ public class MainActivity2 extends AppCompatActivity {
     DrawerLayout drawerLayout;
     CardView appointment;
     CardView steps;
+    CardView step,Calories_Burnt_card,test_record,calorie;
+
 
 //    Button but,signout;
 
@@ -57,6 +59,11 @@ public class MainActivity2 extends AppCompatActivity {
 
         steps = findViewById(R.id.steps_card);
         mAuth=FirebaseAuth.getInstance();
+
+        step = findViewById(R.id.steps_graph_card);
+        Calories_Burnt_card = findViewById(R.id.Calories_Burnt_card);
+        test_record = findViewById(R.id.testrecord_card);
+        calorie = findViewById(R.id.calories_card);
 
         // for logging out
         auth1=FirebaseAuth.getInstance();
@@ -117,6 +124,34 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity2.this, Step_count.class));
+            }
+        });
+
+        step.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity2.this, Steps_Graph.class));
+            }
+        });
+
+        Calories_Burnt_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity2.this, Calories_Burnt.class));
+            }
+        });
+
+        test_record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity2.this, Test_Record.class));
+            }
+        });
+
+        calorie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity2.this, Calories.class));
             }
         });
 

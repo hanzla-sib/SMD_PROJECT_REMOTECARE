@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Test_Record"
     android:orientation="vertical"
+    android:background="#D8DAE4"
+
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +37,7 @@
         android:id="@+id/patientname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hi, Patient Name"
+        android:text="Upload test record here"
         android:textSize="24sp"
         android:textColor="@color/black"
         android:textStyle="bold"

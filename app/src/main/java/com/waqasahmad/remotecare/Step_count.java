@@ -79,7 +79,6 @@ private String motion="";
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         tv_steps=findViewById(R.id.tv_steps);
         time_set = findViewById(R.id.time_set);
-        daily_steps = findViewById(R.id.time_after);
 
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();

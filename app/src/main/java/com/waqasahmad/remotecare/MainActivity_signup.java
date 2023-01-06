@@ -38,7 +38,7 @@ import java.util.Map;
 public class MainActivity_signup extends AppCompatActivity {
 
     EditText name,email,password;
-    ImageButton signup;
+    ImageView signup;
     String genderstr,user_type;
     TextView signin;
 

@@ -44,12 +44,6 @@
             android:name=".Patient_All_appointments"
             android:exported="false" />
         <activity
-            android:name=".sql_lite_offline_sigin"
-            android:exported="false" />
-        <activity
-            android:name=".ShowimagesActivity"
-            android:exported="false" />
-        <activity
             android:name=".Add_records"
             android:exported="false" />
         <activity

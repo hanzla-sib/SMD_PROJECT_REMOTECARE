@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Doc_Prescription"
-    android:id="@+id/doc_prescription">
+    android:id="@+id/doc_prescription"
+    android:background="#D8DAE4"
+    >
 
     <TextView
         android:layout_width="match_parent"

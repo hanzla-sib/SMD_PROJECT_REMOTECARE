@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".Activitychat"
     android:orientation="vertical"
-    android:weightSum="12">
+    android:weightSum="12"
+    android:background="#D8DAE4"
+    >
+
     <LinearLayout
         android:id="@+id/userChatAppBar"
         android:layout_width="match_parent"

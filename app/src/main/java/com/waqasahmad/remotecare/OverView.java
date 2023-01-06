@@ -32,7 +32,7 @@ public class OverView extends AppCompatActivity {
         setContentView(R.layout.over_view);
         drawerLayout=findViewById(R.id.drawer_layout);
 
-        step = findViewById(R.id.steps_card);
+        step = findViewById(R.id.steps_graph_card);
         Calories_Burnt_card = findViewById(R.id.Calories_Burnt_card);
         test_record = findViewById(R.id.testrecord_card);
         calorie = findViewById(R.id.calories_card);
@@ -57,7 +57,6 @@ public class OverView extends AppCompatActivity {
             }
         });
 
-
         test_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,8 +70,6 @@ public class OverView extends AppCompatActivity {
                 startActivity(new Intent(OverView.this, Calories.class));
             }
         });
-
-
 
 
     }

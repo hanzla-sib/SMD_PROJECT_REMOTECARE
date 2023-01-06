@@ -7,6 +7,8 @@
     tools:context=".Heart_Beat"
     android:padding="20dp"
     android:orientation="vertical"
+    android:background="#D8DAE4"
+
     >
 
     <TextView

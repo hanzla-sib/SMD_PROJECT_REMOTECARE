@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity_signup"
     android:orientation="vertical"
+    android:background="#D8DAE4"
+
     >
 
     <LinearLayout
@@ -140,12 +142,15 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/gendercircle"
                     android:id="@+id/male"
+
                     />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/male2" />
+                    android:src="@drawable/male2"
+                    android:background="#D8DAE4"
+                    />
 
             </RelativeLayout>
 
@@ -161,12 +166,15 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/gendercircle"
                     android:id="@+id/female"
+
                     />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/female2" />
+                    android:src="@drawable/female2"
+                    android:background="#D8DAE4"
+                    />
 
             </RelativeLayout>
 
@@ -188,7 +196,9 @@
                     android:id="@+id/image1screen2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/binary2" />
+                    android:src="@drawable/binary2"
+                    android:background="#D8DAE4"
+                    />
             </RelativeLayout>
 
         </LinearLayout>
@@ -214,9 +224,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="30dp"
             android:paddingVertical="20dp"
             android:weightSum="2"
+            android:background="#D8DAE4"
             >
 
 
@@ -224,14 +235,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#D8DAE4"
+                android:paddingHorizontal="10dp"
+
                 >
 
                 <ImageView
                     android:id="@+id/patient"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:src="@drawable/user_type" />
+                    android:src="@drawable/user_type"
+                    android:layout_centerInParent="true"/>
 
 
                 <TextView
@@ -247,13 +261,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingHorizontal="10dp"
+
                 >
 
                 <ImageView
                     android:id="@+id/doctor"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
                     android:src="@drawable/user_type" />
 
 
@@ -266,6 +281,8 @@
                     android:textSize="28sp" />
             </RelativeLayout>
 
+
+
         </LinearLayout>
 
     </LinearLayout>
@@ -275,11 +292,12 @@
         android:layout_height="wrap_content"
         >
 
-        <ImageButton
+        <ImageView
             android:id="@+id/signup"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="#D8DAE4"
             android:src="@drawable/sign_upbutton" />
 
 

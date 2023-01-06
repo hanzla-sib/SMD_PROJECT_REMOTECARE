@@ -72,7 +72,7 @@ public class Doc_Profile extends AppCompatActivity {
 
     //
     TextView Name,Email,Gender,U_Type;
-    ImageButton update_btn;
+    ImageView update_btn;
 
     //for logging out
     DatabaseReference reference1;

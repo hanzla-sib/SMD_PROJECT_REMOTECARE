@@ -7,7 +7,7 @@
     android:paddingVertical="6dp"
     android:paddingHorizontal="12dp"
     android:gravity="center_vertical"
-    android:background="#3874B5">
+    android:background="#8691CD">
 
     <ImageView
         android:layout_width="wrap_content"

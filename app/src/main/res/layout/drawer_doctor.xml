@@ -43,6 +43,7 @@
             android:layout_weight="1"
             android:text="Home"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:padding="12dp"
             android:layout_marginStart="16dp"
             />
@@ -76,6 +77,8 @@
             android:text="Profile"
             android:textStyle="bold"
             android:padding="12dp"
+            android:textColor="@color/black"
+
             android:layout_marginStart="16dp"/>
 
         <ImageView
@@ -105,6 +108,8 @@
             android:layout_weight="1"
             android:text="Appointments"
             android:textStyle="bold"
+            android:textColor="@color/black"
+
             android:padding="12dp"
             android:layout_marginStart="16dp" />
 
@@ -136,6 +141,8 @@
             android:text="Prescription Details"
             android:textStyle="bold"
             android:padding="12dp"
+            android:textColor="@color/black"
+
             android:layout_marginStart="16dp" />
 
         <ImageView
@@ -165,6 +172,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Chat"
+            android:textColor="@color/black"
+
             android:textStyle="bold"
             android:padding="12dp"
             android:layout_marginStart="16dp" />
@@ -197,6 +206,8 @@
             android:layout_weight="1"
             android:text="Logout"
             android:textStyle="bold"
+            android:textColor="@color/black"
+
             android:padding="12dp"
             android:layout_marginStart="16dp" />
 

@@ -32,7 +32,7 @@
             app:cardBackgroundColor="#81A8D3"
             app:cardCornerRadius="20dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/steps_card"
+            android:id="@+id/steps_graph_card"
             >
 
             <RelativeLayout

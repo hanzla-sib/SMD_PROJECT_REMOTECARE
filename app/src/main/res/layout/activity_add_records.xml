@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     tools:context=".Add_records"
     android:orientation="vertical"
+    android:background="#D8DAE4"
     >
 
     <LinearLayout

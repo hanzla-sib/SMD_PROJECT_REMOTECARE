@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Doc_All_Appointments"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#D8DAE4"
+    >
 
     <LinearLayout
         android:id="@+id/tool"

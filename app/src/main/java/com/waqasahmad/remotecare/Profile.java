@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,7 +61,7 @@ public class Profile extends AppCompatActivity {
     CircleImageView profile_circle;
     Uri image = null;
     private Bitmap imagetoStore;
-    ImageButton update_btn;
+    ImageView update_btn;
 
     //
     TextView Name,Email,Gender,U_Type;
