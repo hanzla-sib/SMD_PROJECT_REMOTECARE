@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +36,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapter.MyViewHolder>
 {
@@ -105,7 +108,8 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
 
 
         holder.doctor_name.setText(ls_doc.get(position).getName_doc());
-        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
+//        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
+        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
 
 
         holder.itemView.findViewById(R.id.request_appointment).
@@ -169,11 +173,12 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView doctor_name,doctor_email;
-
+CircleImageView img;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             doctor_name=itemView.findViewById(R.id.doc_name2);
-            doctor_email=itemView.findViewById(R.id.doc_email2);
+            img=itemView.findViewById(R.id.doc_img);
+//            doctor_email=itemView.findViewById(R.id.doc_email2);
 
         }
     }

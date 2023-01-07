@@ -3,13 +3,23 @@ package com.waqasahmad.remotecare;
 
 public class Appointment_Model {
 
-    String name_doc,email_doc;
+    String name_doc,email_doc,image_doc;
 
 
-    public Appointment_Model(String name_doc, String email_doc)
+    public String getImage_doc() {
+        return image_doc;
+    }
+
+    public void setImage_doc(String image_doc) {
+        this.image_doc = image_doc;
+    }
+
+    public Appointment_Model(String name_doc, String email_doc, String image_doc)
     {
         this.name_doc = name_doc;
         this.email_doc = email_doc;
+        this.image_doc=image_doc;
+
     }
     public Appointment_Model()
     {

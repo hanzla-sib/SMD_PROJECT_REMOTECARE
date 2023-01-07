@@ -75,34 +75,34 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         StringRequest request=new StringRequest(Request.Method.POST, fetch_patient_withdocs, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-            if(response.equals("No entry")){
+                if(response.equals("No entry")){
 
-            }
-            else{
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
 
-                try {
-                    obj2 = new JSONArray(response);
+                    try {
+                        obj2 = new JSONArray(response);
 
-                    for(int i=0;i<obj2.length();i++) {
-                        JSONObject jsonObject = obj2.getJSONObject(i);
-                        String mail = jsonObject.getString("p_email");
-                        paths.add(mail);
+                        for(int i=0;i<obj2.length();i++) {
+                            JSONObject jsonObject = obj2.getJSONObject(i);
+                            String mail = jsonObject.getString("p_email");
+                            paths.add(mail);
+                        }
+
+                        spinner = (Spinner)findViewById(R.id.spinner);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Steps_Progress_Doctor_side.this,
+                                android.R.layout.simple_spinner_item,paths);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner.setAdapter(adapter);
+                        spinner.setOnItemSelectedListener(Steps_Progress_Doctor_side.this);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
 
-                    spinner = (Spinner)findViewById(R.id.spinner);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(Steps_Progress_Doctor_side.this,
-                            android.R.layout.simple_spinner_item,paths);
 
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinner.setAdapter(adapter);
-                    spinner.setOnItemSelectedListener(Steps_Progress_Doctor_side.this);
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-
-
-            }
 
             }
         }, new Response.ErrorListener() {

@@ -76,30 +76,30 @@ public class Doctor1 extends AppCompatActivity {
         Log.d("useremail" , useremail);
 
         db.collection("users").document(useremail1).get()
-                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
 
-                                DocumentSnapshot document = task.getResult();
+                        DocumentSnapshot document = task.getResult();
 
-                                JSONObject obj;
-                                obj = new JSONObject(document.getData());
+                        JSONObject obj;
+                        obj = new JSONObject(document.getData());
 
-                                try
-                                {
-                                    String dname = obj.getString("Name");
-                                    doctor_name.setText("Hi, Dr." + dname);
+                        try
+                        {
+                            String dname = obj.getString("Name");
+                            doctor_name.setText("Hi, Dr." + dname);
 
-                                }
-                                catch (JSONException e)
-                                {
-                                    e.printStackTrace();
-                                }
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
 
 
-                            }
-                        });
+                    }
+                });
 
         CaloriesConsumed.setOnClickListener(new View.OnClickListener() {
             @Override

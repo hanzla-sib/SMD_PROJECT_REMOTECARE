@@ -11,6 +11,7 @@
         android:orientation="horizontal"
         android:background="#D8DAE4"
         >
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="80dp"
             android:layout_height="80dp"

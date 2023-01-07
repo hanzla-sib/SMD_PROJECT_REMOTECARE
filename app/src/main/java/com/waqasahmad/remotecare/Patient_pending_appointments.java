@@ -40,7 +40,6 @@ public class Patient_pending_appointments extends AppCompatActivity {
 
     private static final String patient_pending_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_pending_appointment.php";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,10 +75,14 @@ public class Patient_pending_appointments extends AppCompatActivity {
 
                         String name = jsonObject.getString("d_name");
                         String email = jsonObject.getString("d_email");
+                        String image = jsonObject.getString("imageurl");
+
 
                         Appointment_Model doc_model = new Appointment_Model();
                         doc_model.setName_doc(name);
                         doc_model.setEmail_doc(email);
+                        doc_model.setImage_doc(image);
+
                         ls.add(doc_model);
 
                     }

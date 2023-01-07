@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Style%20Setters/AppData/Local/Android/Sdk/icons/material/materialicons/chat/baseline_chat_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Style%20Setters/AppData/Local/Android/Sdk/icons/material/materialicons/done/baseline_done_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -34,7 +34,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="0e0d0d" />
-                            <entry key="outputName" value="chat" />
+                            <entry key="outputName" value="meal_tick" />
                             <entry key="sourceFile" value="C:\Users\Style Setters\AndroidStudioProjects\RemoteCare" />
                           </map>
                         </option>

@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_accepted_appointments_adapter.MyViewHolder>
 {
@@ -54,8 +57,10 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
         currentemail = mAuth.getCurrentUser().getEmail();
 
         //
-        holder.doctor_name.setText(ls_doc.get(position).getName_doc());
-        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
+        holder.doctor_name.setText("Dr." + ls_doc.get(position).getName_doc());
+        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
+
+//        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
     }
 
     @Override
@@ -63,13 +68,18 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
         return ls_doc.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder
+    {
         TextView doctor_name,doctor_email;
+        CircleImageView img;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             doctor_name=itemView.findViewById(R.id.doc_name2);
-            doctor_email=itemView.findViewById(R.id.doc_email2);
+            img=itemView.findViewById(R.id.doc_img);
+
+//            doctor_email=itemView.findViewById(R.id.doc_email2);
         }
     }
 

@@ -88,10 +88,14 @@ public class Appointments_Patient extends AppCompatActivity {
 
                         String name = jsonObject.getString("name");
                         String email = jsonObject.getString("email");
+                        String image = jsonObject.getString("imageurl");
+
 
                         Appointment_Model doc_model = new Appointment_Model();
                         doc_model.setName_doc(name);
                         doc_model.setEmail_doc(email);
+                        doc_model.setImage_doc(image);
+
                         ls.add(doc_model);
 
                     }
@@ -126,55 +130,6 @@ public class Appointments_Patient extends AppCompatActivity {
         queue.add(request);
 
         //*********************************
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //*********************************
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 //            @Override

@@ -18,6 +18,15 @@ $result = $con->query($sql);
         $temp=array();
         $temp['d_email']=$row["d_email"];
         $temp['d_name']=$row["d_name"];
+        $emaillll=$row["d_email"];
+
+        $sqll = "SELECT * FROM `user` where `user_type`= '2' and `email`='$emaillll'";
+        $result2 = $con->query($sqll);
+        while($row2 = $result2->fetch_assoc()) 
+        {
+          $temp['imageurl']=$row2["imageurl"]; 
+        }
+      
         array_push($response,$temp);
         }
   } 

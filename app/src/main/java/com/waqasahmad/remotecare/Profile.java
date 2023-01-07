@@ -366,19 +366,14 @@ public class Profile extends AppCompatActivity {
 
 
 
+                ///////////////////////////////////////////////////////
 
                 StringRequest request=new StringRequest(Request.Method.POST, saveimageuser, new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response) {
-
+                    public void onResponse(String response)
+                    {
                         Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-
-//
                         Toast.makeText(getApplicationContext(),"uploaded sucesfully",Toast.LENGTH_LONG).show();
-
-
-//
-
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -388,18 +383,20 @@ public class Profile extends AppCompatActivity {
                 }){
                     @Nullable
                     @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
+                    protected Map<String, String> getParams() throws AuthFailureError
+                    {
                         Map<String,String> param=new HashMap<String,String>();
-
                         param.put("image",base64Image);
-
                         param.put("email",currentemail);
-
                         return param;
                     }
                 };
                 RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
                 queue.add(request);
+
+
+                ////////////////////////////////////////////////
+
             Calendar c = Calendar.getInstance();
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference ref = storage.getReference().child("dp/" +c.getTimeInMillis()+ ".jpg");

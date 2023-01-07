@@ -18,7 +18,7 @@ $check=FALSE;
             }
             if($my_user_type=="1")
             {
-                $sql = "SELECT `name`,`email` FROM `user` where `user_type`= '2'";
+                $sql = "SELECT * FROM `user` where `user_type`= '2'";
                 $result = $con->query($sql);
                         if ($result->num_rows > 0) 
                         {
@@ -35,6 +35,15 @@ $check=FALSE;
                                     $temp=array();
                                     $temp['name']=$row["name"];
                                     $temp['email']=$row["email"];
+                                  
+                                    $emaillll=$row["email"];
+                                    $sqll = "SELECT * FROM `user` where `user_type`= '2' and `email`='$emaillll'";
+                                    $result2 = $con->query($sqll);
+                                    while($row2 = $result2->fetch_assoc()) 
+                                    {
+                                      $temp['imageurl']=$row2["imageurl"];
+                                     
+                                    }
                                     array_push($response,$temp);
                                   }          
                                 }

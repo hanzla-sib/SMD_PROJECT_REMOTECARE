@@ -48,7 +48,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="170dp"
                 app:cardBackgroundColor="#FFAA8282"
                 app:cardCornerRadius="20dp"
                 android:id="@+id/patient_accepted_appointments"
@@ -57,6 +57,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/appointment2"
                     >
 
                     <TextView
@@ -87,7 +88,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="170dp"
                 app:cardBackgroundColor="#FFAA8282"
                 app:cardCornerRadius="20dp"
                 android:id="@+id/patient_all_appointments"
@@ -96,13 +97,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/appoint_doctor"
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Appoint a Doctor"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:textSize="24sp"
                         android:padding="10dp"
@@ -124,7 +126,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="170dp"
             app:cardBackgroundColor="#FFAA8282"
             app:cardCornerRadius="20dp"
             android:id="@+id/patient_pending_appointments"
@@ -133,6 +135,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/pending"
                 >
 
                 <TextView
