@@ -45,7 +45,7 @@ public class Doctor1 extends AppCompatActivity {
     String name;
 
 
-    CardView appointment,chat;
+    CardView appointment,chat,Steps_pat,Calories_Burnt,CaloriesConsumed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +55,11 @@ public class Doctor1 extends AppCompatActivity {
         Menu = findViewById(R.id.menu);
         logo=findViewById(R.id.rclogo);
         doctor_name=findViewById(R.id.doctor_name);
-
+        Steps_pat=findViewById(R.id.Steps_progress);
+        Calories_Burnt=findViewById(R.id.CaloriesBurnt);
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
-
+        CaloriesConsumed=findViewById(R.id.CaloriesConsumed);
 
         // for logging out
         auth1=FirebaseAuth.getInstance();
@@ -100,6 +101,12 @@ public class Doctor1 extends AppCompatActivity {
                             }
                         });
 
+        CaloriesConsumed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doctor1.this, Consumed_calories_Progress_Doctor_side.class));
+            }
+        });
 
         appointment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +117,12 @@ public class Doctor1 extends AppCompatActivity {
             }
         });
 
+        Steps_pat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doctor1.this, Steps_Progress_Doctor_side.class));
+            }
+        });
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +130,14 @@ public class Doctor1 extends AppCompatActivity {
                 startActivity(new Intent(Doctor1.this, messagemain.class));
 
 
+            }
+        });
+
+        Calories_Burnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Doctor1.this, Burnt_calories_Progress_Doctor_side.class);
+                startActivity(intent);
             }
         });
 

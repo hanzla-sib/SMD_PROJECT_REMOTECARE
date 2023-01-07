@@ -23,6 +23,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Burnt_calories_Progress_Doctor_side"
+            android:exported="false" />
+        <activity
+            android:name=".Consumed_calories_Progress_Doctor_side"
+            android:exported="false" />
+        <activity
+            android:name=".Steps_Progress_Doctor_side"
+            android:exported="false" />
+        <activity
             android:name=".Calories_Burnt"
             android:exported="false" />
         <activity

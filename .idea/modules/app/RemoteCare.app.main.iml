@@ -131,7 +131,7 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-firestore:24.4.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:protolite-well-known-types:18.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-android:1.48.1@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.onesignal:OneSignal:4.8.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.onesignal:OneSignal:4.8.4@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-messaging:23.1.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.datatransport:transport-api:3.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.datatransport:transport-backend-cct:3.1.8@aar" level="project" />
