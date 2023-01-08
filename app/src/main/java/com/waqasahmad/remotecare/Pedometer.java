@@ -240,7 +240,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
                 cehckcount = 22;
             if((acceleration[0]>=-1 && acceleration[0]<=1) && (acceleration[1]>1 && acceleration[1]<=9) && (acceleration[2]>=5 && acceleration[2]<=11) ) {
 
-                if ((Math.abs(magprevious - acceleration[1]) > 0.6) && !numberig) {
+                if ((Math.abs(magprevious - acceleration[1]) > 0.5) && !numberig) {
                     stepCount++;
                     stepView.setText("Step Count: " + stepCount);
 
