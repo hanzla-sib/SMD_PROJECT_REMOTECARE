@@ -91,20 +91,20 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         useremail = mAuth.getCurrentUser().getEmail();
         OkHttpClient okHttpClient = new OkHttpClient();
         consumer_url = ip_url+"consumer";
-//        consumer_url = ip_url+"one";
-//        okhttp3.Request request1= new okhttp3.Request.Builder().url(consumer_url).build();
-//        okHttpClient.newCall(request1).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-//                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
-//            }
-//
-//            @Override
-//            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
-//                Log.d("valuee", "network success");
-////                tv.setText(response.body().string());
-//            }
-//        });
+        consumer_url = ip_url+"one";
+        okhttp3.Request request1= new okhttp3.Request.Builder().url(consumer_url).build();
+        okHttpClient.newCall(request1).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+                Log.d("valuee", "network success");
+//                tv.setText(response.body().string());
+            }
+        });
 
         StringRequest request=new StringRequest(Request.Method.POST, initial_steps_from_DB, new Response.Listener<String>()
         {
@@ -248,23 +248,23 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
                     caloriesburnt=0.04;
                     caloriesburnt=caloriesburnt*stepCount;
 
-                    //==================================================================================
-//                        OkHttpClient okHttpClient = new OkHttpClient();
-//
-//                        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
-//                        //        producer_url = ip_url+ip_url+"two";
-//                        okhttp3.Request request2= new okhttp3.Request.Builder().url(producer_url).build();
-//                        okHttpClient.newCall(request2).enqueue(new Callback() {
-//                            @Override
-//                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-//                                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
-//                            }
-//                            @Override
-//                            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
-//                                Log.d("valuee", "network success");
-//                                //               tv.setText(response.body().string());
-//                            }
-//                        });
+//                    ==================================================================================
+                        OkHttpClient okHttpClient = new OkHttpClient();
+
+                        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
+                        //        producer_url = ip_url+ip_url+"two";
+                        okhttp3.Request request2= new okhttp3.Request.Builder().url(producer_url).build();
+                        okHttpClient.newCall(request2).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+                            }
+                            @Override
+                            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+                                Log.d("valuee", "network success");
+                                //               tv.setText(response.body().string());
+                            }
+                        });
                     //===============================================================================
 
                     StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
