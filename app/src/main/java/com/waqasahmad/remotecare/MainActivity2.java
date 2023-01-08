@@ -161,8 +161,10 @@ public class MainActivity2 extends AppCompatActivity {
         steps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity2.this, Step_count.class));
+//                startActivity(new Intent(MainActivity2.this, Step_count.class));
+                startActivity(new Intent(MainActivity2.this, Pedometer.class));
             }
+
         });
 
         step.setOnClickListener(new View.OnClickListener() {

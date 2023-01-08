@@ -58,7 +58,7 @@ public class    Step_count extends AppCompatActivity{
     JSONArray obj;
     Boolean checkrep=false;
     private final static long MICROSECONDS_IN_ONE_MINUTE = 60000000;
-private String motion="";
+    private String motion="";
     String useremail="";
 
     String ip_url = "http://192.168.100.53:5000/";
@@ -167,15 +167,6 @@ private String motion="";
         //
 
 
-//        if (ContextCompat.checkSelfPermission(Step_count.this,
-//                Manifest.permission.ACTIVITY_RECOGNITION)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            Toast.makeText(this, "permission not granted", Toast.LENGTH_SHORT).show();
-////
-//        }
-//        else{
-//            Toast.makeText(this, "permission  granted", Toast.LENGTH_SHORT).show();
-//        }
         sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor sensor=sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         SensorEventListener stepDetector=new SensorEventListener() {
@@ -190,32 +181,33 @@ private String motion="";
                     double MagnitudeDelta=Magnitude-MagnitudePrevious;
                     MagnitudePrevious=Magnitude;
                     caloriesburnt=0.04;
-                    if(MagnitudeDelta>=2 && MagnitudeDelta<=6){
+                    if((MagnitudeDelta>=2) && MagnitudeDelta<7){
                         stepCount++;
                         caloriesburnt=caloriesburnt*stepCount;
                         tv_steps.setText(stepCount.toString());
                         time_set.setText("Walking");
                         motion="Walking";
                         checkrep=false;
+                        Log.d("magnitudeee ",Double.toString(MagnitudeDelta));
 
 
                         //==================================================================================
-                        OkHttpClient okHttpClient = new OkHttpClient();
-
-                        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
-                        //        producer_url = ip_url+ip_url+"two";
-                        okhttp3.Request request2= new okhttp3.Request.Builder().url(producer_url).build();
-                        okHttpClient.newCall(request2).enqueue(new Callback() {
-                            @Override
-                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
-                            }
-                            @Override
-                            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
-                                Log.d("valuee", "network success");
-                                //               tv.setText(response.body().string());
-                            }
-                        });
+//                        OkHttpClient okHttpClient = new OkHttpClient();
+//
+//                        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
+//                        //        producer_url = ip_url+ip_url+"two";
+//                        okhttp3.Request request2= new okhttp3.Request.Builder().url(producer_url).build();
+//                        okHttpClient.newCall(request2).enqueue(new Callback() {
+//                            @Override
+//                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+//                                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+//                            }
+//                            @Override
+//                            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+//                                Log.d("valuee", "network success");
+//                                //               tv.setText(response.body().string());
+//                            }
+//                        });
                         //===============================================================================
 
 
@@ -260,8 +252,8 @@ private String motion="";
                         time_set.setText("Running");
                         motion="Running";
                         checkrep=false;
+                        Log.d("magnitudeee ",Double.toString(MagnitudeDelta));
                         caloriesburnt=caloriesburnt*stepCount;
-
                         StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
                         {
                             @Override
@@ -296,44 +288,45 @@ private String motion="";
 
 
                     }
-                    else if(MagnitudeDelta>=-7 && MagnitudeDelta<1){
+                    else{
                         time_set.setText("Resting");
                         motion="Resting";
                         caloriesburnt=caloriesburnt*stepCount;
 
                         if(checkrep==false){
-                            Log.d("cehcngedddddd",String.valueOf(MagnitudeDelta));
-                            StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
+                            checkrep=true;
+                            Log.d("magnitudeeestop ",Double.toString(MagnitudeDelta));
+                        StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
+                        {
+                            @Override
+                            public void onResponse(String response)
                             {
-                                @Override
-                                public void onResponse(String response)
-                                {
 
-                                    checkrep=true;
 
-                                }
-                            }, new Response.ErrorListener()
+
+                            }
+                        }, new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error)
                             {
-                                @Override
-                                public void onErrorResponse(VolleyError error)
-                                {
-                                    Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                                }
-                            })
-                            {
-                                @Nullable
-                                @Override
-                                protected Map<String, String> getParams() throws AuthFailureError {
-                                    Map<String,String> param=new HashMap<String,String>();
-                                    param.put("email",useremail);
-                                    param.put("steps",stepCount.toString());
-                                    param.put("Motion",motion);
-                                    param.put("calories_burn",Double.toString(caloriesburnt));
-                                    return param;
-                                }
-                            };
-                            RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-                            queue.add(request);
+                                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        {
+                            @Nullable
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String,String> param=new HashMap<String,String>();
+                                param.put("email",useremail);
+                                param.put("steps",stepCount.toString());
+                                param.put("Motion",motion);
+                                param.put("calories_burn",Double.toString(caloriesburnt));
+                                return param;
+                            }
+                        };
+                        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                        queue.add(request);
 
                         }
 
