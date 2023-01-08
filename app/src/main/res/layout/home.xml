@@ -6,13 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingHorizontal="15dp"
-    android:paddingVertical="5dp"
-    >
-
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        >-->
+    android:paddingVertical="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -100,10 +94,7 @@
                     android:layout_height="130dp"
                     app:cardCornerRadius="20dp"
                     android:id="@+id/display_records"
-                    app:cardBackgroundColor="#81A8D3"
-
-
-                    >
+                    app:cardBackgroundColor="#81A8D3">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -153,7 +144,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/running3"
-
                             >
 
                             <TextView
@@ -169,6 +159,7 @@
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="130dp"
@@ -181,8 +172,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/stairs_card2"
-
-
                             >
 
                             <TextView
@@ -232,10 +221,10 @@
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
-
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="130dp"
@@ -258,7 +247,6 @@
                                 android:textColor="@color/black"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
-
 
                         </RelativeLayout>
 
@@ -329,15 +317,10 @@
 
                     </RelativeLayout>
 
-
-
-
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-
-<!--    </ScrollView>-->
 
 </LinearLayout>

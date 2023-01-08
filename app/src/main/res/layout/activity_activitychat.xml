@@ -82,13 +82,13 @@
         android:id="@+id/L2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="10dp"
         android:layout_weight="9.7"
         >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/insidechatrv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/chat_bg2"
             />
 
     </LinearLayout>
@@ -102,6 +102,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:weightSum="4"
+        android:background="@drawable/chat_bg2"
         >
 
 
