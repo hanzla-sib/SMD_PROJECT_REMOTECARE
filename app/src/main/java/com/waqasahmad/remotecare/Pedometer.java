@@ -60,7 +60,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     boolean check=false;
     private float[] filteredacceleration = new float[3];
 
-    String ip_url = "http://192.168.100.53:5000/";
+    String ip_url = "http://192.168.28.213:5000/";
     String consumer_url="";
     String producer_url="";
     double caloriesburnt=0.0;
