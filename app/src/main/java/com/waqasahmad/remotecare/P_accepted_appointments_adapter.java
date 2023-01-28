@@ -58,6 +58,9 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
 
         //
         holder.doctor_name.setText("Dr." + ls_doc.get(position).getName_doc());
+        holder.doctor_time.setText(ls_doc.get(position).getTime_doc());
+        holder.doctor_date.setText(ls_doc.get(position).getDate_doc());
+
         Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
 
 //        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
@@ -70,14 +73,17 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
 
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
-        TextView doctor_name,doctor_email;
+        TextView doctor_name,doctor_email, doctor_date, doctor_time;
         CircleImageView img;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             doctor_name=itemView.findViewById(R.id.doc_name2);
+            doctor_date = itemView.findViewById(R.id.doc_date);
+            doctor_time = itemView.findViewById(R.id.doc_time);
             img=itemView.findViewById(R.id.doc_img);
+
 
 //            doctor_email=itemView.findViewById(R.id.doc_email2);
         }

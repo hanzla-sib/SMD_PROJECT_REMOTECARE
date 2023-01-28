@@ -18,7 +18,12 @@ $result = $con->query($sql);
         $temp=array();
         $temp['d_email']=$row["d_email"];
         $temp['d_name']=$row["d_name"];
+        
+        $temp['Date1']=$row["Date1"];
+        $temp['Time1']=$row["Time1"];
+        
         $emaillll=$row["d_email"];
+
 
         $sqll = "SELECT * FROM `user` where `user_type`= '2' and `email`='$emaillll'";
         $result2 = $con->query($sqll);
@@ -35,5 +40,5 @@ $result = $con->query($sql);
   }
   echo json_encode($response);
 
-  // echo "hello Successfully";
+  echo "hello Successfully";
 ?>

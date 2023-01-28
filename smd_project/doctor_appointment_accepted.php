@@ -18,6 +18,10 @@ $result = $con->query($sql);
             $temp['name']=$row["p_name"];
             $temp['email']=$row["p_email"];
             $temp['status']=$row["appoint_status"];
+            
+
+            $temp['time']=$row["Time1"];
+            $temp['date']=$row["Date1"];
             array_push($response,$temp);
     }      
 

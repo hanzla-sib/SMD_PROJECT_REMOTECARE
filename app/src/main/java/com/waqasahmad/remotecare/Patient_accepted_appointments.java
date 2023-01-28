@@ -80,11 +80,18 @@ public class Patient_accepted_appointments extends AppCompatActivity {
                         String email = jsonObject.getString("d_email");
                         String image = jsonObject.getString("imageurl");
 
+                        String date = jsonObject.getString("Date1");
+                        String time = jsonObject.getString("Time1");
+
+
 
                         Appointment_Model doc_model = new Appointment_Model();
                         doc_model.setName_doc(name);
                         doc_model.setEmail_doc(email);
                         doc_model.setImage_doc(image);
+                        doc_model.setDate_doc(date);
+                        doc_model.setTime_doc(time);
+
                         ls.add(doc_model);
 
                     }

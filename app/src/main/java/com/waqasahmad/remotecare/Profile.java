@@ -412,6 +412,8 @@ public class Profile extends AppCompatActivity {
                                 public void onSuccess(Uri uri) {
                                     Picasso.get().load(uri.toString()).into(profile_circle);
 
+                                    Log.d("profileeeee",uri.toString());
+
                                     reference = db.collection("users").document(currentemail);
 
                                     Map<String,Object> map =new HashMap<>();

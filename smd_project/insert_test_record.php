@@ -8,11 +8,11 @@ if(!empty($_POST['email'])){
     $details=$_POST['details'];
     $email=$_POST['email'];
     $imageurl=$_POST['image'];
-	// echo $details;
+    $image_link = $_POST['link'];
   
     if(file_put_contents($path,base64_decode($_POST['image'])))
     {
-      $sql = "INSERT INTO `test_record`(`Temail`, `imageurl`, `details`) VALUES ('$email','$path','$details')";
+      $sql = "INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('$email','$path','$details','$image_link')";
       if ($con->query($sql)) {
         echo $path;
       } else {
