@@ -34,7 +34,7 @@ CREATE TABLE Test_record(
   	Temail VARCHAR(128),
     imageurl text NULL,
 	details VARCHAR(1000),
-	image_link text NULL,
+	image_link VARCHAR(3000),
   	PRIMARY KEY(id)
 );
 

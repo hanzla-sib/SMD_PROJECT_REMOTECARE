@@ -8,12 +8,12 @@ INSERT INTO `user`(`name`, `email`, `password`, `user_type`, `gender`, `imageurl
 
 
 
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`) VALUES ('umaid@gmail.com','07-01-2023-1673128546-48021.jpg','sale');
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`) VALUES ('umaid@gmail.com','07-01-2023-1673128574-92854.jpg','internship');
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`) VALUES ('umaid@gmail.com','07-01-2023-1673128594-44076.jpg','mosam');
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`) VALUES ('hanzla@gmail.com','07-01-2023-1673128683-34068.jpg','calender');
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`) VALUES ('hanzla@gmail.com','07-01-2023-1673128712-59094.jpg','specs');
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`) VALUES ('hanzla@gmail.com','07-01-2023-1673128728-21843.jpg','jersey');
+INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('umaid@gmail.com','07-01-2023-1673128574-92854.jpg','internship','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
+INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('umaid@gmail.com','07-01-2023-1673128594-44076.jpg','mosam','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
+INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('hanzla@gmail.com','07-01-2023-1673128683-34068.jpg','calender','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
+INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('umaid@gmail.com','07-01-2023-1673128546-48021.jpg','sale','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
+INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('hanzla@gmail.com','07-01-2023-1673128712-59094.jpg','specs','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
+INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('hanzla@gmail.com','07-01-2023-1673128728-21843.jpg','jersey','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
 
 
 INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('umaid@gmail.com','2022-12-20','1000');
