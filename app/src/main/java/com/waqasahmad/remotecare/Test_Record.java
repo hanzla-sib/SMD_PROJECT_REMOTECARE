@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ public class Test_Record extends AppCompatActivity {
 
     Bitmap bitmap;
     ImageView dp;
+    LinearLayout back_btn;
     TextView add_img;
     TextView add_details;
     EditText details;
@@ -87,6 +89,7 @@ public class Test_Record extends AppCompatActivity {
         dp = findViewById(R.id.dp);
 
         details = findViewById(R.id.details);
+        back_btn = findViewById(R.id.back_btn);
 
         //Initializing Firebase MAuth instance
         mAuth=FirebaseAuth.getInstance();
@@ -115,6 +118,13 @@ public class Test_Record extends AppCompatActivity {
                     }
 
                 }
+            }
+        });
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 

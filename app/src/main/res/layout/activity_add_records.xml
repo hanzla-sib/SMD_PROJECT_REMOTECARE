@@ -25,10 +25,9 @@
             android:layout_weight="1"
             android:text="Test Records"
             android:textAlignment="center"
-            android:textStyle="bold"
-            android:textSize="23sp"
             android:textColor="@color/black"
-            />
+            android:textSize="23sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

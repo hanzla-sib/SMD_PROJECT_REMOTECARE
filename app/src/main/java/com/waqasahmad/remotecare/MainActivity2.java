@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ public class MainActivity2 extends AppCompatActivity {
     EditText input_query ;
     ImageButton Enter_button;
 
+    LinearLayout btn1,btn2,btn3,btn4;
 
     FirebaseFirestore db;
 
@@ -103,6 +105,14 @@ public class MainActivity2 extends AppCompatActivity {
         input_query = findViewById(R.id.input_query);
         Query1 = input_query.getText().toString();
         Enter_button = findViewById(R.id.Enter_button);
+
+        btn1=findViewById(R.id.home_btn);
+        btn2=findViewById(R.id.appointment_btn);
+        btn3=findViewById(R.id.record_btn);
+        btn4=findViewById(R.id.chat_btn);
+
+
+
         // for logging out
         auth1=FirebaseAuth.getInstance();
         database1 = FirebaseDatabase.getInstance();
@@ -194,6 +204,32 @@ public class MainActivity2 extends AppCompatActivity {
                 startActivity(new Intent(MainActivity2.this, Calories.class));
             }
         });
+
+
+
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+             startActivity(new Intent(MainActivity2.this, Patient_All_appointments.class));
+         }
+     });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity2.this, Add_records.class));
+            }
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity2.this, messagemain.class));
+            }
+        });
+
+
 
         Enter_button.setOnClickListener(new View.OnClickListener()
         {

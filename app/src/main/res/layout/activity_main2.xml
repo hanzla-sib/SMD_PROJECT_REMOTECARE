@@ -28,11 +28,6 @@
 
         </ScrollView>
 
-
-
-
-
-
     </LinearLayout>
 
     <RelativeLayout
@@ -50,4 +45,21 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        >
+    <include
+        layout="@layout/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+
+    </include>
+    </RelativeLayout>
+
+
 </androidx.drawerlayout.widget.DrawerLayout>
+

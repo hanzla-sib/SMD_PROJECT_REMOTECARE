@@ -262,6 +262,7 @@
                 android:layout_height="180dp"
                 app:cardCornerRadius="20dp"
                 android:id="@+id/meals_card"
+                android:layout_marginBottom="50dp"
                 >
 
                 <RelativeLayout
