@@ -61,6 +61,17 @@ CREATE TABLE Doctor_Appointment (
 	PRIMARY KEY(d_email,p_email)
 );
 
+CREATE TABLE Appointment_History (
+	id INT NOT NULL AUTO_INCREMENT,  
+	d_name VARCHAR(128),
+	d_email VARCHAR(128),
+	Time1 VARCHAR(100) NULL,
+	Date1 varchar(100) NULL,
+	p_name VARCHAR(128),
+	p_email VARCHAR(128),
+	PRIMARY KEY(id)
+);
+
 
 CREATE TABLE Consumed_Calories (
     id INT NOT NULL AUTO_INCREMENT,  

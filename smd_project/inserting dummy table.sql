@@ -7,15 +7,6 @@ INSERT INTO `user`(`name`, `email`, `password`, `user_type`, `gender`, `imageurl
 
 
 
-
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('umaid@gmail.com','07-01-2023-1673128574-92854.jpg','internship','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('umaid@gmail.com','07-01-2023-1673128594-44076.jpg','mosam','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('hanzla@gmail.com','07-01-2023-1673128683-34068.jpg','calender','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('umaid@gmail.com','07-01-2023-1673128546-48021.jpg','sale','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('hanzla@gmail.com','07-01-2023-1673128712-59094.jpg','specs','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
-INSERT INTO `test_record`(`Temail`, `imageurl`, `details`,`image_link`) VALUES ('hanzla@gmail.com','07-01-2023-1673128728-21843.jpg','jersey','https://images.unsplash.com/photo-1597431824273-fd1ec691a0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3NTAwNTU3Mw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080');
-
-
 INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('umaid@gmail.com','2022-12-20','1000');
 INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('umaid@gmail.com','2022-12-21','3000');
 INSERT INTO `consumed_calories`( `p_email`, `date_log`, `Calories`) VALUES ('umaid@gmail.com','2022-12-22','1500');
@@ -121,3 +112,21 @@ INSERT INTO `doctor_appointment`(`d_name`, `d_email`, `appoint_status`, `p_name`
 INSERT INTO `doctor_appointment`(`d_name`, `d_email`, `appoint_status`, `Time1`, `Date1`, `p_name`, `p_email`) VALUES ('Taha','taha@gmail.com','Accepted','9:40','13-1-2023','Hanzla Sibghat','hanzla@gmail.com');
 INSERT INTO `doctor_appointment`(`d_name`, `d_email`, `appoint_status`, `Time1`, `Date1`, `p_name`, `p_email`) VALUES ('Taha','taha@gmail.com','Accepted','6:40','13-1-2023','Umaid Khakwani','umaid@gmail.com');
 INSERT INTO `doctor_appointment`(`d_name`, `d_email`, `appoint_status`, `p_name`, `p_email`) VALUES ('Waqas Ahmad','waqas@gmail.com','Pending','Umaid Khakwani','umaid@gmail.com');
+
+
+
+INSERT INTO `test_record` ( `Temail`, `imageurl`, `details`, `image_link`) VALUES
+('umaid@gmail.com', '30-01-2023-1675091446-96838.jpg', 'waqas birthday', 'https://firebasestorage.googleapis.com/v0/b/remotecare-e1d52.appspot.com/o/test_record%2F1675091444061.jpg?alt=media&token=6a898731-db96-4a6d-94d8-b313884aec93'),
+('umaid@gmail.com', '30-01-2023-1675091511-88052.jpg', 'restaurant chatkhara', 'https://firebasestorage.googleapis.com/v0/b/remotecare-e1d52.appspot.com/o/test_record%2F1675091494386.jpg?alt=media&token=04d3ec64-8770-44f0-94bc-30cb44976ce2'),
+( 'umaid@gmail.com', '30-01-2023-1675091545-88420.jpg', 'Fast', 'https://firebasestorage.googleapis.com/v0/b/remotecare-e1d52.appspot.com/o/test_record%2F1675091539331.jpg?alt=media&token=d4ef90c5-9d3e-47a3-9a91-78a273138b29'),
+( 'umaid@gmail.com', '30-01-2023-1675091577-28690.jpg', 'last day of semester', 'https://firebasestorage.googleapis.com/v0/b/remotecare-e1d52.appspot.com/o/test_record%2F1675091570583.jpg?alt=media&token=9a08bf53-0b8a-4297-afbc-a71bb08e8cdc'),
+( 'umaid@gmail.com', '30-01-2023-1675091610-80441.jpg', 'weather update', 'https://firebasestorage.googleapis.com/v0/b/remotecare-e1d52.appspot.com/o/test_record%2F1675091604628.jpg?alt=media&token=ba6f1639-fea7-46f6-9b34-178c777cfa63');
+
+
+
+INSERT INTO `appointment_history` (`d_name`, `d_email`, `Time1`, `Date1`, `p_name`, `p_email`) VALUES
+('Waqas Ahmad', 'waqas@gmail.com', '20:2', '27-1-2023', 'Umaid Khakwani', 'umaid@gmail.com'),
+('Waqas Ahmad', 'waqas@gmail.com', '18:2', '28-1-2023', 'Hanzla Sibghat', 'hanzla@gmail.com'),
+('Ahmad Arif', 'ahmad@gmail.com', '13:7', '23-1-2023', 'Umaid Khakwani', 'umaid@gmail.com'),
+('Ahmad Arif', 'ahmad@gmail.com', '17:20', '26-1-2023', 'Hanzla Sibghat', 'hanzla@gmail.com'),
+('Taha', 'taha@gmail.com', '15:25', '29-1-2023', 'Umaid Khakwani', 'umaid@gmail.com');
