@@ -4,25 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".Calories"
-    android:padding="20dp"
     android:orientation="vertical"
     android:background="#D8DAE4"
     >
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/tool"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Calories Consumed"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:paddingVertical="10dp"
-        />
-<ScrollView
+        android:layout_height="0dp"
+        android:paddingVertical="12dp"
+        android:gravity="center_vertical"
+        android:background="#3874B5"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        >
+
+        <include
+            layout="@layout/back_button"
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content">
+        </include>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Calories Consumed"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:paddingVertical="10dp"
+            />
+
+    </LinearLayout>
+
+    <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        android:layout_weight="8"
+    android:layout_height="0dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +85,20 @@
     </LinearLayout>
 </ScrollView>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
 
+        <include
+            layout="@layout/navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+        </include>
+    </RelativeLayout>
 
 
 </LinearLayout>

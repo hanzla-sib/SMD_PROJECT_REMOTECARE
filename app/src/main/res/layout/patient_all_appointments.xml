@@ -24,6 +24,14 @@
 
         >
 
+
+        <include
+            layout="@layout/back_button"
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content">
+        </include>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -155,6 +163,22 @@
 
 
         </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        >
+
+        <include
+            layout="@layout/navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+        </include>
+    </RelativeLayout>
 
 
 </LinearLayout>

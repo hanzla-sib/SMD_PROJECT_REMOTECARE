@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -49,6 +50,9 @@ public class Appointments_Patient extends AppCompatActivity {
     FirebaseAuth mAuth;
     String strdoctor = "Doctor";
 
+    LinearLayout back_btn;
+    LinearLayout btn1,btn2,btn3,btn4;
+
     private static final String readuser="http://"+Ip_server.getIpServer()+"/smd_project/userlist.php";
 
 
@@ -60,6 +64,14 @@ public class Appointments_Patient extends AppCompatActivity {
 
         rv=findViewById(R.id.rv_appointments);
         req_app = findViewById(R.id.request_appointment);
+
+
+        back_btn = findViewById(R.id.back_btn);
+        btn1=findViewById(R.id.home_btn2);
+        btn2=findViewById(R.id.appointment_btn);
+        btn3=findViewById(R.id.record_btn);
+        btn4=findViewById(R.id.chat_btn);
+
 
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
@@ -193,6 +205,41 @@ public class Appointments_Patient extends AppCompatActivity {
 //
 //            }
 //            });
+
+
+
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Appointments_Patient.this, MainActivity2.class));
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Appointments_Patient.this, Patient_All_appointments.class));
+            }
+        });
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Appointments_Patient.this, Add_records.class));
+            }
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Appointments_Patient.this, messagemain.class));
+            }
+        });
+
 
     }
 }

@@ -1,8 +1,6 @@
 package com.waqasahmad.remotecare;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +51,7 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.record,parent,false);
+                .inflate(R.layout.record_row,parent,false);
                 return new MyViewHolder(view);
     }
 

@@ -7,18 +7,26 @@
     android:orientation="vertical"
     tools:context=".messagemain"
     android:background="#3874B5"
+    android:weightSum="10"
     >
 
     <LinearLayout
         android:id="@+id/mainAppBarLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingRight="10dp"
         android:orientation="horizontal"
         >
 
+
+        <include
+            layout="@layout/back_button"
+            android:layout_width="60dp"
+            android:layout_weight="0.1"
+            android:layout_height="wrap_content">
+        </include>
 
 
         <TextView
@@ -48,7 +56,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9.2"
+        android:layout_weight="8"
         android:weightSum="4"
         android:background="@drawable/chat_bg2"
 
@@ -61,5 +69,21 @@
 
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <include
+            layout="@layout/navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+        </include>
+
+    </RelativeLayout>
 
 </LinearLayout>

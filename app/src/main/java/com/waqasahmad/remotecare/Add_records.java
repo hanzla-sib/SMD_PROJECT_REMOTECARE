@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -40,6 +43,9 @@ public class Add_records extends AppCompatActivity {
     DatabaseReference reference ;
     FirebaseFirestore db;
 
+    LinearLayout back_btn;
+    LinearLayout btn1,btn2,btn3,btn4;
+
 
     private static final String retreive_img="http://"+Ip_server.getIpServer()+"/smd_project/retireveimage.php";
 
@@ -52,11 +58,49 @@ public class Add_records extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         arrayList= new ArrayList<>();
         rv = findViewById(R.id.rv);
+        back_btn = findViewById(R.id.back_btn);
+        btn1=findViewById(R.id.home_btn2);
+        btn2=findViewById(R.id.appointment_btn);
+        btn3=findViewById(R.id.record_btn);
+        btn4=findViewById(R.id.chat_btn);
 
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         email1 = user.getEmail();
+
+
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Add_records.this, MainActivity2.class));
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Add_records.this, Patient_All_appointments.class));
+            }
+        });
+//        btn3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(Add_records.this, Add_records.class));
+//            }
+//        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Add_records.this, messagemain.class));
+            }
+        });
 
 
 

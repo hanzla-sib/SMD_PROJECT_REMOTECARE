@@ -10,6 +10,8 @@
     android:background="#D8DAE4"
     >
 
+
+
     <LinearLayout
         android:id="@+id/tool"
         android:layout_width="match_parent"
@@ -17,7 +19,15 @@
         android:paddingVertical="12dp"
         android:gravity="center_vertical"
         android:background="#3874B5"
+        android:orientation="horizontal"
         >
+
+        <include
+            layout="@layout/back_button"
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content">
+        </include>
 
         <TextView
             android:layout_width="0dp"
@@ -31,12 +41,41 @@
 
     </LinearLayout>
 
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
+        android:layout_weight="9"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/record"
+        android:layout_height="0dp"
+        tools:listitem="@layout/record_row"
         android:padding="20dp"
         />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <include
+            layout="@layout/navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+        </include>
+    </RelativeLayout>
+</LinearLayout>
+
+
 
 </LinearLayout>
+
+
+
+

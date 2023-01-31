@@ -3,8 +3,11 @@ package com.waqasahmad.remotecare;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,6 +39,10 @@ import java.util.Map;
 public class Calories_Burnt extends AppCompatActivity {
 
     BarChart weekly_barchart,monthly_barchart;
+
+    LinearLayout back_btn;
+    LinearLayout btn1,btn2,btn3,btn4;
+
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     String currentemail="";
@@ -60,8 +67,50 @@ public class Calories_Burnt extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         weekly_barchart = findViewById(R.id.graph2);
         monthly_barchart=findViewById(R.id.graph3);
+
+        back_btn = findViewById(R.id.back_btn);
+        btn1=findViewById(R.id.home_btn2);
+        btn2=findViewById(R.id.appointment_btn);
+        btn3=findViewById(R.id.record_btn);
+        btn4=findViewById(R.id.chat_btn);
+
         //
         currentemail = mAuth.getCurrentUser().getEmail();
+
+
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Calories_Burnt.this, MainActivity2.class));
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Calories_Burnt.this, Patient_All_appointments.class));
+            }
+        });
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Calories_Burnt.this, Add_records.class));
+            }
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Calories_Burnt.this, messagemain.class));
+            }
+        });
+
+
 //
         StringRequest request=new StringRequest(Request.Method.POST, burnt_cal_graph, new Response.Listener<String>()
         {

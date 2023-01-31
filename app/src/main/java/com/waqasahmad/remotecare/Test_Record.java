@@ -7,14 +7,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -42,15 +38,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -63,7 +55,13 @@ public class Test_Record extends AppCompatActivity {
 
     Bitmap bitmap;
     ImageView dp;
+
+
     LinearLayout back_btn;
+    LinearLayout btn1,btn2,btn3,btn4;
+
+
+
     TextView add_img;
     TextView add_details;
     EditText details;
@@ -83,13 +81,17 @@ public class Test_Record extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_record);
+        setContentView(R.layout.upload_test_record);
 
         add_img = findViewById(R.id.add_img);
         dp = findViewById(R.id.dp);
 
         details = findViewById(R.id.details);
         back_btn = findViewById(R.id.back_btn);
+        btn1=findViewById(R.id.home_btn2);
+        btn2=findViewById(R.id.appointment_btn);
+        btn3=findViewById(R.id.record_btn);
+        btn4=findViewById(R.id.chat_btn);
 
         //Initializing Firebase MAuth instance
         mAuth=FirebaseAuth.getInstance();
@@ -127,6 +129,39 @@ public class Test_Record extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Test_Record.this, MainActivity2.class));
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Test_Record.this, Patient_All_appointments.class));
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Test_Record.this, Add_records.class));
+            }
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Test_Record.this, messagemain.class));
+            }
+        });
+
+
+
+
 
 
         dp.setOnClickListener(new View.OnClickListener() {

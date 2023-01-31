@@ -16,6 +16,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,9 @@ import okhttp3.OkHttpClient;
 public class Pedometer extends AppCompatActivity implements SensorEventListener {
 
     private float[] acceleration = new float[3];
+
+    LinearLayout back_btn;
+
 
     private SensorManager sensorManager;
     private Sensor accSensor;
@@ -82,6 +86,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         walking = (TextView) findViewById((R.id.time_set));
         resting=(TextView) findViewById(R.id.resting);
         stepView = (TextView) findViewById((R.id.tv_steps));
+        back_btn = findViewById(R.id.back_btn);
         stepCount = 0;
         cehckcount = 5;
         numberig = true;
@@ -103,6 +108,14 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
             public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
                 Log.d("valuee", "network success");
 //                tv.setText(response.body().string());
+            }
+        });
+
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
@@ -307,4 +320,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
+
+
+
 }
