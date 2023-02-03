@@ -1,4 +1,5 @@
 
+INSERT INTO `user`(`name`, `email`, `password`, `user_type`, `gender`, `imageurl`) VALUES ('ADMIN','admin@gmail.com','123456','0','Male','');
 INSERT INTO `user`(`name`, `email`, `password`, `user_type`, `gender`, `imageurl`) VALUES ('Umaid Khakwani','umaid@gmail.com','123456','1','Male','07-01-2023-1673128609-54295.jpg');
 INSERT INTO `user`(`name`, `email`, `password`, `user_type`, `gender`, `imageurl`) VALUES ('Hanzla Sibghat','hanzla@gmail.com','123456','1','Male','07-01-2023-1673128736-93895.jpg');
 INSERT INTO `user`(`name`, `email`, `password`, `user_type`, `gender`, `imageurl`) VALUES ('Waqas Ahmad','waqas@gmail.com','123456','2','Male','07-01-2023-1673128814-20872.jpg');
