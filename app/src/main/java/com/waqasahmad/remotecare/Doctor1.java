@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,6 +45,7 @@ public class Doctor1 extends AppCompatActivity {
     TextView doctor_name;
     String name;
 
+    LinearLayout btn1,btn2,btn3,btn4;
 
     CardView appointment,chat,Steps_pat,Calories_Burnt,CaloriesConsumed;
 
@@ -61,6 +63,15 @@ public class Doctor1 extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         CaloriesConsumed=findViewById(R.id.CaloriesConsumed);
 
+
+        btn1=findViewById(R.id.home_btn2);
+        btn2=findViewById(R.id.appointment_btn);
+        btn3=findViewById(R.id.record_btn);
+        btn4=findViewById(R.id.chat_btn);
+
+
+
+
         // for logging out
         auth1=FirebaseAuth.getInstance();
         database1 = FirebaseDatabase.getInstance();
@@ -74,6 +85,35 @@ public class Doctor1 extends AppCompatActivity {
 
         String useremail = mAuth.getCurrentUser().getEmail();
         Log.d("useremail" , useremail);
+
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doctor1.this, Doctor1.class));
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doctor1.this, Doc_All_Appointments.class));
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doctor1.this, Profile.class));
+            }
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doctor1.this, messagemain.class));
+            }
+        });
 
         db.collection("users").document(useremail1).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

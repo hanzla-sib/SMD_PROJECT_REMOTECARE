@@ -15,12 +15,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingVertical="12dp"
         android:paddingHorizontal="12dp"
         android:gravity="center_vertical"
         android:background="#3874B5"
         >
-
+        <include
+            layout="@layout/back_button"
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content">
+        </include>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -115,6 +119,22 @@
 
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        >
+
+        <include
+            layout="@layout/doc_navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+        </include>
+    </RelativeLayout>
+
 
 
 </LinearLayout>

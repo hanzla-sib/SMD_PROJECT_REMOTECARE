@@ -14,11 +14,9 @@
         android:id="@+id/tool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#3874B5"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="12dp">
+        android:gravity="center_vertical"
+        android:background="#3874B5">
 
         <include
             layout="@layout/back_button"

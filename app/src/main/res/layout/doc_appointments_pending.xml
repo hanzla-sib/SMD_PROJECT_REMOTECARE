@@ -8,38 +8,69 @@
     tools:context=".Doc_Appointments_pending"
     android:id="@+id/doc_appointments_pending"
     android:background="#D8DAE4"
-
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <include
-            layout="@layout/toolbar"
-            />
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/tool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#3874B5"
+            >
+            <include
+                layout="@layout/back_button"
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
+                android:layout_height="wrap_content">
+            </include>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pending Appointments"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="23sp"
+                android:textColor="@color/black"
+                />
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_weight="8"
             android:id="@+id/doc_rv_appointments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="20dp" />
 
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/white">
 
         <include
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            layout="@layout/doc_navigation_bar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/drawer_doctor"/>
+            android:layout_alignParentBottom="true">
 
-    </RelativeLayout>
+        </include>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

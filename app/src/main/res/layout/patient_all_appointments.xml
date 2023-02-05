@@ -8,8 +8,6 @@
     tools:context=".Patient_All_appointments"
     android:orientation="vertical"
     android:background="#D8DAE4"
-
-
     >
 
     <LinearLayout
@@ -17,12 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingVertical="12dp"
-        android:paddingHorizontal="12dp"
         android:gravity="center_vertical"
-        android:background="#3874B5"
-
-        >
+        android:background="#3874B5">
 
 
         <include

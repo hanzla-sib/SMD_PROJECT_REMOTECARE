@@ -8,25 +8,39 @@
     tools:context=".MainActivity2"
     android:id="@+id/drawer_layout"
     android:background="#D8DAE4"
+
     >
 
     <LinearLayout
+        android:weightSum="9"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include
-            layout="@layout/toolbar"/>
+            layout="@layout/toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
 
         <ScrollView
+            android:layout_weight="9"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="16dp">
 
             <include
                 layout="@layout/home"/>
 
         </ScrollView>
+
+        <include
+            android:layout_weight="1"
+            layout="@layout/navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+        </include>
 
     </LinearLayout>
 
@@ -35,7 +49,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#D8DAE4"
-
         >
 
         <include
@@ -44,22 +57,5 @@
             layout="@layout/drawer"/>
 
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        >
-
-        <include
-            layout="@layout/navigation_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-
-        </include>
-    </RelativeLayout>
-
-
 </androidx.drawerlayout.widget.DrawerLayout>
 

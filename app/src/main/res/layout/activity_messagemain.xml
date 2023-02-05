@@ -56,34 +56,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"
-        android:weightSum="4"
+        android:layout_weight="9"
         android:background="@drawable/chat_bg2"
 
         >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recViewbottom"
-            android:layout_weight="4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        >
-
-        <include
-            layout="@layout/navigation_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-
-        </include>
-
-    </RelativeLayout>
 
 </LinearLayout>

@@ -14,7 +14,6 @@
         android:id="@+id/tool"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingVertical="12dp"
         android:gravity="center_vertical"
         android:background="#3874B5"
         android:orientation="horizontal"
