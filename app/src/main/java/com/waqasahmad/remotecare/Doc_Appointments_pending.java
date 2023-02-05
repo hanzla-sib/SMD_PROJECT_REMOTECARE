@@ -125,7 +125,7 @@ public class Doc_Appointments_pending extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Doc_Appointments_pending.this, Profile.class));
+                startActivity(new Intent(Doc_Appointments_pending.this, Doc_Profile.class));
             }
         });
 

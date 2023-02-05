@@ -45,7 +45,7 @@ public class Doctor1 extends AppCompatActivity {
     TextView doctor_name;
     String name;
 
-    LinearLayout btn1,btn2,btn3,btn4;
+    LinearLayout btn2,btn3,btn4;
 
     CardView appointment,chat,Steps_pat,Calories_Burnt,CaloriesConsumed;
 
@@ -64,7 +64,6 @@ public class Doctor1 extends AppCompatActivity {
         CaloriesConsumed=findViewById(R.id.CaloriesConsumed);
 
 
-        btn1=findViewById(R.id.home_btn2);
         btn2=findViewById(R.id.appointment_btn);
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
@@ -87,12 +86,7 @@ public class Doctor1 extends AppCompatActivity {
         Log.d("useremail" , useremail);
 
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Doctor1.this, Doctor1.class));
-            }
-        });
+
 
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +98,7 @@ public class Doctor1 extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Doctor1.this, Profile.class));
+                startActivity(new Intent(Doctor1.this, Doc_Profile.class));
             }
         });
 
@@ -215,7 +209,7 @@ public class Doctor1 extends AppCompatActivity {
     }
     public void ClickAppointmentsDoc (View view){
 
-        Intent intent = new Intent(this, Doc_Appointments_pending.class);
+        Intent intent = new Intent(this, Doc_All_Appointments.class);
         startActivity(intent);
     }
     public void ClickPrescriptionDetailsDoc (View view){

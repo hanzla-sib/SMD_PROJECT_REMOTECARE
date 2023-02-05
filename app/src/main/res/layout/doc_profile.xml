@@ -14,18 +14,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="10"
+        >
 
         <include
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             layout="@layout/toolbar"
             />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:paddingHorizontal="25dp"
-            android:paddingVertical="20dp"
+            android:paddingVertical="5dp"
             android:id="@+id/top_profile"
+            android:layout_weight="7"
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -104,8 +110,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="25dp"
-            android:paddingVertical="10dp"
+            android:paddingVertical="5dp"
             android:orientation="vertical"
+            android:layout_weight="2"
             >
 
             <EditText
@@ -152,14 +159,19 @@
                     android:textSize="28sp" />
             </RelativeLayout>
 
-
-
-
         </LinearLayout>
 
+        <include
+            android:layout_weight="1"
+            layout="@layout/doc_navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
 
+        </include>
 
     </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="300dp"

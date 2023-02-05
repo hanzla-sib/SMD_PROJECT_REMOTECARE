@@ -3,11 +3,13 @@ package com.waqasahmad.remotecare;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -50,6 +52,9 @@ public class Consumed_calories_Progress_Doctor_side extends AppCompatActivity im
     FirebaseDatabase database1;
     BarChart weekly_barchart,monthly_barchart;
 
+    LinearLayout back_btn;
+    LinearLayout btn1,btn2,btn3,btn4;
+
     String currentemail="";
 
     ArrayList<CaloriesModal> CAL_MODAL_weekly=new ArrayList<>();
@@ -72,6 +77,50 @@ public class Consumed_calories_Progress_Doctor_side extends AppCompatActivity im
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
         String useremail = mAuth.getCurrentUser().getEmail();
+
+        back_btn = findViewById(R.id.back_btn);
+        btn1=findViewById(R.id.home_btn2);
+        btn2=findViewById(R.id.appointment_btn);
+        btn3=findViewById(R.id.record_btn);
+        btn4=findViewById(R.id.chat_btn);
+
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Consumed_calories_Progress_Doctor_side.this, Doctor1.class));
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Consumed_calories_Progress_Doctor_side.this, Doc_All_Appointments.class));
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Consumed_calories_Progress_Doctor_side.this, Doc_Profile.class));
+            }
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Consumed_calories_Progress_Doctor_side.this, messagemain.class));
+            }
+        });
+
+        //////////////////////////////////////////////////////////////
         StringRequest request=new StringRequest(Request.Method.POST, fetch_patient_withdocs, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

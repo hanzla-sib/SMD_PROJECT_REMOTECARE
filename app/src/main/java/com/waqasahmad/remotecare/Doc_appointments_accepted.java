@@ -12,6 +12,7 @@ package com.waqasahmad.remotecare;
         import android.util.Log;
         import android.view.View;
         import android.widget.ImageView;
+        import android.widget.LinearLayout;
         import android.widget.Toast;
 
         import com.android.volley.AuthFailureError;
@@ -55,6 +56,10 @@ public class Doc_appointments_accepted extends AppCompatActivity {
     FirebaseAuth auth1;
     FirebaseDatabase database1;
 
+
+    LinearLayout back_btn;
+    LinearLayout btn1,btn2,btn3,btn4;
+
     //
     List<String> list = new ArrayList<>();
 
@@ -83,9 +88,55 @@ public class Doc_appointments_accepted extends AppCompatActivity {
         database1 = FirebaseDatabase.getInstance();
         reference1 = database1.getReference("Users");
 
+
+
+
+        back_btn = findViewById(R.id.back_btn);
+        btn1=findViewById(R.id.home_btn2);
+        btn2=findViewById(R.id.appointment_btn);
+        btn3=findViewById(R.id.record_btn);
+        btn4=findViewById(R.id.chat_btn);
+
+
         String useremail = mAuth.getCurrentUser().getEmail();
         Log.d("useremail" , useremail);
 
+
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doc_appointments_accepted.this, Doctor1.class));
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doc_appointments_accepted.this, Doc_All_Appointments.class));
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doc_appointments_accepted.this, Doc_Profile.class));
+            }
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doc_appointments_accepted.this, messagemain.class));
+            }
+        });
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -145,23 +196,6 @@ public class Doc_appointments_accepted extends AppCompatActivity {
         //*********************************
 
 
-        Menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                doc_drawerLayout.openDrawer(GravityCompat.START);
-
-            }
-        });
-        logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (doc_drawerLayout.isDrawerOpen(GravityCompat.START)) {
-
-                    doc_drawerLayout.closeDrawer(GravityCompat.START);
-                }
-            }
-        });
 
     }
 

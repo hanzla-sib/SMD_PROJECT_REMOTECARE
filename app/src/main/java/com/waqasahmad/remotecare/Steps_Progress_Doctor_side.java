@@ -52,9 +52,6 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
     FirebaseDatabase database1;
     BarChart weekly_barchart,monthly_barchart;
 
-
-
-
     LinearLayout back_btn;
     LinearLayout btn1,btn2,btn3,btn4;
 
@@ -113,7 +110,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Steps_Progress_Doctor_side.this, Profile.class));
+                startActivity(new Intent(Steps_Progress_Doctor_side.this, Doc_Profile.class));
             }
         });
 

@@ -14,14 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="10">
+        android:weightSum="10"
+        >
 
         <LinearLayout
-            android:layout_weight="1"
             android:id="@+id/tool"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
             android:gravity="center_vertical"
             android:background="#3874B5"
             >
@@ -45,16 +46,15 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_weight="8"
+            android:layout_weight="10"
             android:id="@+id/doc_rv_appointments"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="20dp" />
-
+            android:layout_marginTop="5dp" />
 
         <include
-            android:layout_weight="1"
+            android:layout_weight="0"
             layout="@layout/doc_navigation_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,15 +62,6 @@
 
         </include>
 
-
-
-
-
-
-
     </LinearLayout>
-
-
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,12 +85,14 @@ public class Doc_Profile extends AppCompatActivity {
     FirebaseAuth auth1;
     FirebaseDatabase database1;
 
-
     //
     String current_password_str, new_password_str;
 
     //
     private FirebaseUser user;
+
+    LinearLayout btn1,btn2,btn4;
+
 
     Bitmap bitmap;
     DatabaseHandler objectdatabasehandler;
@@ -136,6 +139,36 @@ public class Doc_Profile extends AppCompatActivity {
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
 
+
+        btn1=findViewById(R.id.home_btn2);
+        btn2=findViewById(R.id.appointment_btn);
+        btn4=findViewById(R.id.chat_btn);
+
+
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doc_Profile.this, Doctor1.class));
+            }
+        });
+
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doc_Profile.this, Doc_All_Appointments.class));
+            }
+        });
+
+
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doc_Profile.this, messagemain.class));
+            }
+        });
 
         reference = db.collection("users").document(currentemail);
         reference.get()
