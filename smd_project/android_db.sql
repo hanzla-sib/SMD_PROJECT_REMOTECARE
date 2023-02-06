@@ -83,5 +83,9 @@ CREATE TABLE Consumed_Calories (
 
 
 ALTER TABLE daily_steps
-ADD COLUMN Burnt_Calories FLOAT
+ADD COLUMN Burnt_Calories FLOAT;
+
+
+ALTER TABLE user 
+ADD COLUMN doc_type VARCHAR(20) NULL;
 

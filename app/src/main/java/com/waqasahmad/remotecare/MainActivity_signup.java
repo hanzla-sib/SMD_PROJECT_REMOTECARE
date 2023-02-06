@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,10 +36,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-public class MainActivity_signup extends AppCompatActivity {
+public class MainActivity_signup extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText name,email,password;
     ImageView signup;
@@ -52,6 +57,11 @@ public class MainActivity_signup extends AppCompatActivity {
     DatabaseReference reference ;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
+String user_t="";
+    private Spinner spinner2;
+    ArrayList<String> paths = new ArrayList();
+
+
 
 
     private static final String insert_user_url ="http://"+Ip_server.getIpServer()+"/smd_project/insert.php";
@@ -94,14 +104,30 @@ public class MainActivity_signup extends AppCompatActivity {
         patient = findViewById(R.id.patient);
         doctor = findViewById(R.id.doctor);
 
-//
-//        //
-//
-//        Intent intent = new Intent(MainActivity_signup.this,ShowimagesActivity.class);
-//        startActivity(intent);
-//
-//
-//        //
+
+        ///////////////////////////
+
+        paths.add("Allergists");
+        paths.add("Cardiologists");
+        paths.add("Gastroenterologists");
+        paths.add("Dermatologists");
+        paths.add("Neurologists");
+        paths.add("Physiatrists");
+        paths.add("Plastic Surgeons");
+        paths.add("Radiologists");
+
+        Log.d("11111111111111111111" , paths.toString());
+
+        spinner2 = (Spinner)findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity_signup.this,
+                android.R.layout.simple_spinner_dropdown_item,paths);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adapter);
+        spinner2.setOnItemSelectedListener(MainActivity_signup.this);
+
+
+
 
         //Gender selection
         male.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +187,9 @@ public class MainActivity_signup extends AppCompatActivity {
             public void onClick(View v) {
                 user_type="Doctor";
                 user_type_id = "2";
+
+                spinner2.setVisibility(View.VISIBLE);
+
                 Toast.makeText(
                         MainActivity_signup.this,
                         "Doctor",
@@ -300,6 +329,9 @@ public class MainActivity_signup extends AppCompatActivity {
                                 param.put("password",password2);
                                 param.put("type",user_type_id);
                                 param.put("gender",genderstr);
+                                param.put("user_t",user_t);
+
+                                Log.d("user_t" , user_t.toString());
 
 
                                 return param;
@@ -326,4 +358,16 @@ public class MainActivity_signup extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
+        user_t= (String) parent.getItemAtPosition(position);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent)
+    {
+
+    }
 }

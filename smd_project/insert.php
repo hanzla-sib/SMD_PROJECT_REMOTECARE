@@ -9,8 +9,14 @@ if(isset($_POST["name"],$_POST["email"],$_POST["password"],$_POST["type"],$_POST
 	$email=$_POST["email"];
     $type=$_POST["type"];
     $gender=$_POST["gender"];
+	$doc_type=$_POST["user_t"];
 
-	$query="INSERT INTO `user`(`name`, `email`, `password`, `user_type`,`gender` ) VALUES ('$name','$email','$password','$type','$gender')";
+
+
+	
+
+
+	$query="INSERT INTO `user`(`name`, `email`, `password`, `user_type`,`gender` , `doc_type`  ) VALUES ('$name','$email','$password','$type','$gender' , '$doc_type')";
 
 	$res=mysqli_query($con,$query);
     $query="INSERT INTO `daily_steps`( `Demail`, `steps_daily`,`motion`) VALUES ('$email','0','Resting')";

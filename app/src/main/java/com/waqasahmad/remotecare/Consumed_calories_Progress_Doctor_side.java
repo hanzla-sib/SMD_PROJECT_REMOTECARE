@@ -146,7 +146,8 @@ public class Consumed_calories_Progress_Doctor_side extends AppCompatActivity im
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinner.setAdapter(adapter);
                         spinner.setOnItemSelectedListener(Consumed_calories_Progress_Doctor_side.this);
-                    } catch (JSONException e) {
+                    } catch (JSONException e)
+                    {
                         e.printStackTrace();
                     }
 

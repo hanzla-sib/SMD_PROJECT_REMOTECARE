@@ -135,10 +135,6 @@ public class Calories_Burnt extends AppCompatActivity {
                     barEntryArrayList.clear();
                     Labelsname.clear();
 
-
-
-
-
                     try {
                         obj2 = new JSONArray(response);
                         int totalsize=obj2.length();
@@ -158,7 +154,8 @@ public class Calories_Burnt extends AppCompatActivity {
 //
                         }
 
-                        for(int i=0;i<burnt_cal_MODAL_weekly.size();i++){
+                        for(int i=0; i<burnt_cal_MODAL_weekly.size(); i++)
+                        {
                             String date=burnt_cal_MODAL_weekly.get(i).getDate();
                             float calories_burnt=burnt_cal_MODAL_weekly.get(i).getCalories_burnt();
                             barEntryArrayList.add(new BarEntry(i,calories_burnt));
@@ -248,7 +245,7 @@ public class Calories_Burnt extends AppCompatActivity {
                             JSONObject jsonObject = obj2.getJSONObject(i);
                             String date = jsonObject.getString("month");
                             String Calorie = jsonObject.getString("totalBurntcalssum");
-                            burnt_cal_MODAL_monthly.add(new Calories_burnt_modal(date,Float.parseFloat(Calorie)));
+                            burnt_cal_MODAL_monthly.add(new Calories_burnt_modal(date, Float.parseFloat(Calorie)));
 //
                         }
                         for(int i=0;i<burnt_cal_MODAL_monthly.size();i++){
