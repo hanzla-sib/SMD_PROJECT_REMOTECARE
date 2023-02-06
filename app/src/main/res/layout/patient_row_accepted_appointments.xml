@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#D8DAE4"
-
     >
 
     <LinearLayout
@@ -13,7 +12,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
-
         >
 
         <TextView
@@ -67,15 +65,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="50dp"
         >
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete Appointment"
-            android:id="@+id/deleteappoint"/>
+            android:text="Delete \nAppointment"
+            android:id="@+id/deleteappoint"
+            />
+
+        <Button
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Complete \nAppointment"
+            android:id="@+id/completeappoint"
+            />
+
+
 
     </LinearLayout>
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"

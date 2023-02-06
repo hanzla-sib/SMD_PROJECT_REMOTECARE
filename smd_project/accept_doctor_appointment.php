@@ -37,14 +37,14 @@ $sql = "UPDATE doctor_appointment SET appoint_status= 'Accepted', Date1= '$date'
             }
           }
          
-          $sql2 = "INSERT into appointment_history (`d_name`, `d_email`, `Time1`, `Date1`, `p_name`, `p_email`) VALUES ('$d_name','$d_email','$time','$date','$p_name','$p_email')";
-          $res=mysqli_query($con,$sql2);
-          if($res){
-              echo "insereted in Appointment History Table";
-          }
-          else{
-              echo "not inserted error";
-          }
+          // $sql2 = "INSERT into appointment_history (`d_name`, `d_email`, `Time1`, `Date1`, `p_name`, `p_email`) VALUES ('$d_name','$d_email','$time','$date','$p_name','$p_email')";
+          // $res=mysqli_query($con,$sql2);
+          // if($res){
+          //     echo "insereted in Appointment History Table";
+          // }
+          // else{
+          //     echo "not inserted error";
+          // }
          } 
          else 
          {
