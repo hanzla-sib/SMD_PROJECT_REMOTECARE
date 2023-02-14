@@ -48,8 +48,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity2 extends AppCompatActivity {
 
+public class MainActivity2 extends AppCompatActivity {
+String useremail1="";
     DrawerLayout drawerLayout;
     String Query1, namefood_str, calorie_str ;
     EditText input_query ;
@@ -69,6 +70,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     JSONObject obj;
     private static final String consumed_calories="http://"+Ip_server.getIpServer()+"/smd_project/consumed_calories.php";
+    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
 
     CardView appointment;
     CardView steps;
@@ -126,8 +128,10 @@ public class MainActivity2 extends AppCompatActivity {
         display_records = findViewById(R.id.display_records);
 
 
-        String useremail1 = auth1.getCurrentUser().getEmail();
+        
+     
         String currentemail = mAuth.getCurrentUser().getEmail();
+        useremail1=currentemail;
         db.collection("users").document(useremail1).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -363,7 +367,8 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
 
-    public void ClickLogout(View view){
+    public void ClickLogout(View view)
+    {
 
         String savecurrentdate;
         Calendar calendar=Calendar.getInstance();
@@ -378,9 +383,42 @@ public class MainActivity2 extends AppCompatActivity {
         onlinestatus.put("player_id","");
         String curruserid=auth1.getUid();
         reference1.child(curruserid).updateChildren(onlinestatus);
+        StringRequest request=new StringRequest(Request.Method.POST, user_token_delete, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+
+                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("email",useremail1);
+
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+
+
         auth1.signOut();
 
+
+
         finish();
+
 
         startActivity(new Intent(MainActivity2.this, MainActivity_signin.class));
     }

@@ -1,6 +1,7 @@
 package com.waqasahmad.remotecare;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +12,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 public class messagemain extends AppCompatActivity {
 
@@ -33,8 +43,18 @@ public class messagemain extends AppCompatActivity {
     RecyclerView rv;
     UsersAdapter usersAdapter;
     ImageView logout;
-
+    FirebaseAuth auth1;
     LinearLayout back_btn;
+    String useremail1="" ;
+
+
+    //for logging out
+    DatabaseReference reference1;
+
+    FirebaseDatabase database1;
+
+
+    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +62,16 @@ public class messagemain extends AppCompatActivity {
         setContentView(R.layout.activity_messagemain);
 
         auth=FirebaseAuth.getInstance();
+        auth1=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Users");
         rv=findViewById(R.id.recViewbottom);
         userslist=new ArrayList<>();
         logout=findViewById(R.id.logout);
         back_btn = findViewById(R.id.back_btn);
+
+        useremail1 = auth1.getCurrentUser().getEmail();
+
 
         back_btn.setOnClickListener(new View.OnClickListener()
         {
@@ -75,6 +99,35 @@ public class messagemain extends AppCompatActivity {
                 onlinestatus.put("player_id","");
                 String curruserid=auth.getUid();
                 reference.child(curruserid).updateChildren(onlinestatus);
+
+                StringRequest request=new StringRequest(Request.Method.POST, user_token_delete, new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+
+                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                })
+                {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> param=new HashMap<String,String>();
+                        param.put("email",useremail1);
+                        return param;
+                    }
+                };
+                RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                queue.add(request);
+
                 auth.signOut();
 
                 startActivity(new Intent(messagemain.this, MainActivity_signin.class));

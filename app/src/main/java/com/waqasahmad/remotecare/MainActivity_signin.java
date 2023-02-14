@@ -1,7 +1,10 @@
 package com.waqasahmad.remotecare;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -18,6 +21,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,12 +43,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity_signin extends AppCompatActivity {
     TextView signup;
@@ -57,6 +69,9 @@ public class MainActivity_signin extends AppCompatActivity {
     String userstr="";
     String strdoctor = "Doctor";
     String strpatient = "Patient";
+
+    private static final String user_token="http://"+Ip_server.getIpServer()+"/smd_project/user_token.php";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +108,7 @@ public class MainActivity_signin extends AppCompatActivity {
             }
         }
         );
-        signin.setOnClickListener(new View.OnClickListener(){
+        signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                     mAuth.signInWithEmailAndPassword(
@@ -105,7 +120,7 @@ public class MainActivity_signin extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
 
-                        //
+
 
                         String savecurrentdate;
                         Calendar calendar=Calendar.getInstance();
@@ -134,6 +149,34 @@ public class MainActivity_signin extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                                         DocumentSnapshot document = task.getResult();
+                                        StringRequest request=new StringRequest(Request.Method.POST, user_token, new Response.Listener<String>()
+                                        {
+                                            @Override
+                                            public void onResponse(String response)
+                                            {
+
+                                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                                            }
+                                        }, new Response.ErrorListener()
+                                        {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error)
+                                            {
+                                                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                                            }
+                                        })
+                                        {
+                                            @Nullable
+                                            @Override
+                                            protected Map<String, String> getParams() throws AuthFailureError {
+                                                Map<String,String> param=new HashMap<String,String>();
+                                                param.put("email",useremail);
+                                                param.put("Token",token);
+                                                return param;
+                                            }
+                                        };
+                                        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                                        queue.add(request);
 
                                         JSONObject obj;
                                         obj = new JSONObject(document.getData());
@@ -168,6 +211,8 @@ public class MainActivity_signin extends AppCompatActivity {
                         }
                     });
                 } // onclick of sign in button ends here
+
+
 
 
             }

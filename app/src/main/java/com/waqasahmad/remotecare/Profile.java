@@ -82,6 +82,7 @@ public class Profile extends AppCompatActivity {
     private static final String saveimageuser="http://"+Ip_server.getIpServer()+"/smd_project/imageupload.php";
     private static final String update_password="http://"+Ip_server.getIpServer()+"/smd_project/update_password.php";
 
+    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
 
     // validating user id
     FirebaseAuth mAuth;
@@ -311,7 +312,9 @@ public class Profile extends AppCompatActivity {
     public void ClickChat(View view){
         MainActivity2.redirectActivity(this,messagemain.class);
     }
-    public void ClickLogout(View view){
+
+    public void ClickLogout(View view)
+    {
 
         String savecurrentdate;
         Calendar calendar=Calendar.getInstance();
@@ -326,6 +329,35 @@ public class Profile extends AppCompatActivity {
         onlinestatus.put("player_id","");
         String curruserid=auth1.getUid();
         reference1.child(curruserid).updateChildren(onlinestatus);
+
+        StringRequest request=new StringRequest(Request.Method.POST, user_token_delete, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+
+                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("email",currentemail);
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+
         auth1.signOut();
 
         finish();
