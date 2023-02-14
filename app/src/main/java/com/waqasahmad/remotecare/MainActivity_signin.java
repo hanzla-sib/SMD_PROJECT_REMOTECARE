@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -15,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -70,6 +74,8 @@ public class MainActivity_signin extends AppCompatActivity {
     String strdoctor = "Doctor";
     String strpatient = "Patient";
 
+
+
     private static final String user_token="http://"+Ip_server.getIpServer()+"/smd_project/user_token.php";
 
 
@@ -90,12 +96,6 @@ public class MainActivity_signin extends AppCompatActivity {
         signin=findViewById(R.id.signinbutton);
         email=findViewById(R.id.email2);
         password=findViewById(R.id.password2);
-
-
-
-
-        //
-
 
 
         signup.setOnClickListener(new View.OnClickListener() {
