@@ -89,3 +89,7 @@ ADD COLUMN Burnt_Calories FLOAT;
 ALTER TABLE user 
 ADD COLUMN doc_type VARCHAR(20) NULL;
 
+
+ALTER TABLE user 
+ADD COLUMN user_token VARCHAR(400) NULL;
+
