@@ -55,17 +55,13 @@ public class Pedometer extends Activity implements SensorEventListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedometer);
 
-        mStepsSinceReboot =
-                (TextView)findViewById(R.id.tv_steps);
+        mStepsSinceReboot = (TextView)findViewById(R.id.tv_steps);
 
         mSensorManager = (SensorManager)
                 this.getSystemService(Context.SENSOR_SERVICE);
-        if(mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-                != null)
+        if(mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null)
         {
-
-            mSensor =
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
             isSensorPresent = true;
         }
         else
@@ -80,8 +76,7 @@ public class Pedometer extends Activity implements SensorEventListener{
         super.onResume();
         if(isSensorPresent)
         {
-            mSensorManager.registerListener(this, mSensor,
-                    SensorManager.SENSOR_DELAY_FASTEST);
+            mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
         }
     }
 
