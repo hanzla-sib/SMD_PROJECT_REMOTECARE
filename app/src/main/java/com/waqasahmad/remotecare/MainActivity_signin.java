@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -61,6 +63,7 @@ public class MainActivity_signin extends AppCompatActivity {
     EditText email,password;
     ImageView signin;
     FirebaseAuth mAuth;
+    CheckBox bt_show;
 
     //
     FirebaseDatabase database ;
@@ -73,6 +76,7 @@ public class MainActivity_signin extends AppCompatActivity {
     String userstr="";
     String strdoctor = "Doctor";
     String strpatient = "Patient";
+
 
 
 
@@ -96,6 +100,7 @@ public class MainActivity_signin extends AppCompatActivity {
         signin=findViewById(R.id.signinbutton);
         email=findViewById(R.id.email2);
         password=findViewById(R.id.password2);
+        bt_show = findViewById(R.id.bt_show);
 
 
         signup.setOnClickListener(new View.OnClickListener() {
@@ -106,8 +111,20 @@ public class MainActivity_signin extends AppCompatActivity {
                 startActivity(new Intent(MainActivity_signin.this, MainActivity_signup.class));
 
             }
-        }
-        );
+        });
+
+        bt_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                else{
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
+
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

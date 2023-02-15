@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -52,6 +56,7 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
     ImageView male,female, other;
     ImageView patient,doctor;
     String user_type_id;
+    CheckBox bt_show;
 
     FirebaseDatabase database ;
     DatabaseReference reference ;
@@ -103,6 +108,7 @@ String user_t="";
 
         patient = findViewById(R.id.patient);
         doctor = findViewById(R.id.doctor);
+        bt_show = findViewById(R.id.bt_show);
 
 
         ///////////////////////////
@@ -128,6 +134,17 @@ String user_t="";
 
 
 
+        bt_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                else{
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
 
         //Gender selection
         male.setOnClickListener(new View.OnClickListener() {

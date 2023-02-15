@@ -57,6 +57,7 @@ public class StartScreen extends AppCompatActivity {
                 db = FirebaseFirestore.getInstance();
                 String useremail = mAuth.getCurrentUser().getEmail();
                 Log.d("userrrr",useremail);
+
                 db.collection("users").
                         document(useremail).get().
                         addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -64,6 +65,7 @@ public class StartScreen extends AppCompatActivity {
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                                 DocumentSnapshot document = task.getResult();
+                                Log.d("docccc", document.toString());
 
                                 JSONObject obj;
                                 obj = new JSONObject(document.getData());
