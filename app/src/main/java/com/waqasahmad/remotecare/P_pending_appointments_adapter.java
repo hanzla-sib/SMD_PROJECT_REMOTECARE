@@ -56,7 +56,7 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
         currentemail = mAuth.getCurrentUser().getEmail();
 
         //
-        holder.doctor_name.setText("Dr." + ls_doc.get(position).getName_doc());
+        holder.doctor_name.setText("Dr. " + ls_doc.get(position).getName_doc());
         Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
 
 

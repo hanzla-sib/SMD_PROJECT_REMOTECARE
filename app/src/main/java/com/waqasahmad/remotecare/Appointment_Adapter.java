@@ -107,7 +107,7 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
 
 
 
-        holder.doctor_name.setText(ls_doc.get(position).getName_doc());
+        holder.doctor_name.setText( "Dr. " +ls_doc.get(position).getName_doc());
 //        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
         Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
 
@@ -173,7 +173,7 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView doctor_name,doctor_email;
-CircleImageView img;
+        CircleImageView img;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             doctor_name=itemView.findViewById(R.id.doc_name2);

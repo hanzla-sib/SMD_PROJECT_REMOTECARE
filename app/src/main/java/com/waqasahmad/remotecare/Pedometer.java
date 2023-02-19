@@ -1,103 +1,102 @@
 package com.waqasahmad.remotecare;
-
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Map;
-
-import android.app.Activity;
-import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+public class Pedometer extends AppCompatActivity implements SensorEventListener {
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+    private static final float STRIDE_LENGTH = 0.7f; // in meters
+    private static final float RESTING_THRESHOLD = 2.0f; // km/h
+    private static final float RUNNING_THRESHOLD = 8.0f; // km/h
+    private static final long MILLISECONDS_IN_SECOND = 1000;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-public class Pedometer extends Activity implements SensorEventListener{
+    private SensorManager sensorManager;
+    private Sensor stepDetectorSensor;
 
-    private SensorManager mSensorManager;
-    private Sensor mSensor;
-    private boolean isSensorPresent = false;
-    private TextView mStepsSinceReboot;
+    private int stepCount = 0;
+    private float distanceCovered = 0.0f;
+    private long startTime = 0;
+    private long endTime = 0;
+    private long elapsedTime = 0;
+    private float pace = 0.0f;
 
+    private TextView motionTextView;
+    private TextView stepCountTextView;
+    private TextView distanceTextView;
+    private TextView paceTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedometer);
 
-        mStepsSinceReboot = (TextView)findViewById(R.id.tv_steps);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
 
-        mSensorManager = (SensorManager)
-                this.getSystemService(Context.SENSOR_SERVICE);
-        if(mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null)
-        {
-            mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-            isSensorPresent = true;
-        }
-        else
-        {
-            isSensorPresent = false;
-        }
-
+        motionTextView = findViewById(R.id.motion);
+        stepCountTextView = findViewById(R.id.tv_steps);
+        distanceTextView = findViewById(R.id.distance);
+        paceTextView = findViewById(R.id.speed);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(isSensorPresent)
-        {
-            mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
-        }
+        sensorManager.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(isSensorPresent)
-        {
-            mSensorManager.unregisterListener(this);
-        }
+        sensorManager.unregisterListener(this, stepDetectorSensor);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        mStepsSinceReboot.setText(String.valueOf(event.values[0]));
-        Log.d("fount","sads");
+        if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
+            stepCount++;
+            stepCountTextView.setText(String.valueOf(stepCount));
 
+            distanceCovered = STRIDE_LENGTH * stepCount;
+            distanceTextView.setText(String.format("%.2f m", distanceCovered));
+
+            if (startTime == 0) {
+                startTime = System.currentTimeMillis();
+            } else {
+                endTime = System.currentTimeMillis();
+                elapsedTime = endTime - startTime;
+                updatePace();
+                updateMotionType();
+            }
+        }
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do nothing
+    }
 
+    private void updatePace() {
+        if (elapsedTime > 0 && distanceCovered > 0) {
+            pace = distanceCovered / ((float)elapsedTime / MILLISECONDS_IN_SECOND); // m/s
+            pace = pace * 3.6f; // km/h
+            pace = Math.round(pace * 100) / 100.0f; // round to two decimal places
+            paceTextView.setText(String.format("%.2f km/h", pace));
+        }
+    }
+
+    private void updateMotionType() {
+        String motionType = "Resting";
+        if (pace > RUNNING_THRESHOLD) {
+            motionType = "Running";
+        } else if (pace > RESTING_THRESHOLD) {
+            motionType = "Walking";
+        }
+        motionTextView.setText(motionType);
     }
 }

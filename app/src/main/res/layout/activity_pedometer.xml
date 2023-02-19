@@ -60,22 +60,34 @@
                 />
 
             <TextView
-                android:id="@+id/time_set"
+                android:id="@+id/motion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
                 android:text="Walking"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/resting"
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+
+                android:layout_marginTop="36dp"
+                android:text="DIstance"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="70dp"
-                android:text="Resting"
+                android:text="Pace"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -93,18 +105,6 @@
                 android:textStyle="bold" />
 
         </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-
     </LinearLayout>
 
 </RelativeLayout>

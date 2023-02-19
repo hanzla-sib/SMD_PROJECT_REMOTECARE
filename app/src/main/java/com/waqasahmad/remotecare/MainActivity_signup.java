@@ -62,11 +62,9 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
     DatabaseReference reference ;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
-String user_t="";
+    String user_t="";
     private Spinner spinner2;
     ArrayList<String> paths = new ArrayList();
-
-
 
 
     private static final String insert_user_url ="http://"+Ip_server.getIpServer()+"/smd_project/insert.php";
@@ -78,8 +76,6 @@ String user_t="";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
-
-
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Users");
 
@@ -88,13 +84,6 @@ String user_t="";
 
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
-
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if(user!=null){
-//            startActivity(new Intent(MainActivity_signup.this, MainActivity2.class));
-//        }
-
-
 
         name=findViewById(R.id.name);
         email=findViewById(R.id.email);
@@ -133,6 +122,8 @@ String user_t="";
         spinner2.setOnItemSelectedListener(MainActivity_signup.this);
 
 
+        ////////
+        password.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
         bt_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

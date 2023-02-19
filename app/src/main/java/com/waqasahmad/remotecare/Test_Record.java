@@ -1,5 +1,7 @@
 package com.waqasahmad.remotecare;
 
+import static com.waqasahmad.remotecare.R.id.add_img;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -56,11 +58,8 @@ public class Test_Record extends AppCompatActivity {
     Bitmap bitmap;
     ImageView dp;
 
-
     LinearLayout back_btn;
     LinearLayout btn1,btn2,btn3,btn4;
-
-
 
     TextView add_img;
     TextView add_details;
@@ -177,10 +176,12 @@ public class Test_Record extends AppCompatActivity {
 
         add_img.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 details1 = details.getText().toString();
 
                 Log.d("detailllll",details.getText().toString());
+
                 ByteArrayOutputStream byteArrayOutputStream;
                 byteArrayOutputStream=new ByteArrayOutputStream();
                 if(bitmap != null){
@@ -205,29 +206,36 @@ public class Test_Record extends AppCompatActivity {
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                                     Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
-                                    task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    task.addOnSuccessListener(new OnSuccessListener<Uri>()
+                                    {
                                         @Override
                                         public void onSuccess(Uri uri) {
 
                                             Log.d("p33333",uri.toString());
 
 
-                                            StringRequest request=new StringRequest(Request.Method.POST, insert_img_url, new Response.Listener<String>() {
+                                            StringRequest request=new StringRequest(Request.Method.POST, insert_img_url, new Response.Listener<String>()
+                                            {
                                                 @Override
-                                                public void onResponse(String response) {
+                                                public void onResponse(String response)
+                                                {
                                                     Log.d("res1111", response.toString());
                                                     Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
                                                     Toast.makeText(getApplicationContext(),"uploaded sucesfully",Toast.LENGTH_LONG).show();
                                                 }
-                                            }, new Response.ErrorListener() {
+                                            }, new Response.ErrorListener()
+                                            {
                                                 @Override
-                                                public void onErrorResponse(VolleyError error) {
+                                                public void onErrorResponse(VolleyError error)
+                                                {
                                                     Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
                                                 }
-                                            }){
+                                            })
+                                            {
                                                 @Nullable
                                                 @Override
-                                                protected Map<String, String> getParams() throws AuthFailureError {
+                                                protected Map<String, String> getParams() throws AuthFailureError
+                                                {
                                                     Map<String,String> param=new HashMap<String,String>();
                                                     Log.d("detailllll222",uri.toString());
                                                     param.put("link", uri.toString());
@@ -245,7 +253,8 @@ public class Test_Record extends AppCompatActivity {
                                     });
                                 }
                             })
-                            .addOnFailureListener(new OnFailureListener() {
+                            .addOnFailureListener(new OnFailureListener()
+                            {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Toast.makeText(Test_Record.this,
@@ -259,9 +268,14 @@ public class Test_Record extends AppCompatActivity {
 
 
                 }
-                else{
-                    Toast.makeText(getApplicationContext(),"select iamge first",Toast.LENGTH_SHORT).show();
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"error uploading image",Toast.LENGTH_SHORT).show();
                 }
+
+                dp.setImageResource(R.drawable.add);
+                details.setText("");
+
             }
         });
     }

@@ -57,7 +57,7 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
         currentemail = mAuth.getCurrentUser().getEmail();
 
         //
-        holder.doctor_name.setText("Dr." + ls_doc.get(position).getName_doc());
+        holder.doctor_name.setText("Dr. " + ls_doc.get(position).getName_doc());
         holder.doctor_time.setText(ls_doc.get(position).getTime_doc());
         holder.doctor_date.setText(ls_doc.get(position).getDate_doc());
 

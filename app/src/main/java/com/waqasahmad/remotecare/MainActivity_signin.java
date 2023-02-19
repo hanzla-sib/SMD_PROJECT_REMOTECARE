@@ -103,6 +103,7 @@ public class MainActivity_signin extends AppCompatActivity {
         bt_show = findViewById(R.id.bt_show);
 
 
+
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +113,8 @@ public class MainActivity_signin extends AppCompatActivity {
 
             }
         });
+
+        password.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
         bt_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
