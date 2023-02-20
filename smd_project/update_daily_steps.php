@@ -27,10 +27,10 @@ if(isset($_POST["email"],$_POST["steps"]))
 		$query="UPDATE `daily_steps` SET `steps_daily`='0',`motion`='$motion',`date_log`='$date' where `Demail`='$email'";
 		$res=mysqli_query($con,$query);
 		if($res){
-			echo "Steps updated";
+			echo "Steps updated ";
 		}
 		else{
-			echo "Steps not updated";	
+			echo "Steps not updated ";	
 		}
 	}
 
@@ -39,13 +39,14 @@ if(isset($_POST["email"],$_POST["steps"]))
 	$sql = "SELECT * FROM `weekly_steps` where `Demail`= '$email' and `date_log`='$date' ";
 	$result = $con->query($sql);
 	if ($result->num_rows > 0) {
+		
 		$query="UPDATE `weekly_steps` SET `steps_daily`='$steps',`Burnt_Calories`='$calories_burnt' where `Demail`='$email' and `date_log`='$date'";
 		$res=mysqli_query($con,$query);
 		if($res){
-			echo "Steps updated";
+			echo "Weekly Steps updated ";
 		}
 		else{
-			echo "Steps not updated";	
+			echo "Weekly Steps not updated";	
 		}
 	}
 	else{
@@ -55,7 +56,7 @@ if(isset($_POST["email"],$_POST["steps"]))
 			echo "insereted in Weeklytable";
 		}
 		else{
-			echo "not inserted error";
+			echo "not inserted in Weekly table error";
 		}
 	}
 
