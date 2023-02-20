@@ -4,9 +4,35 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 
 public class Pedometer extends AppCompatActivity implements SensorEventListener {
 
@@ -30,8 +56,25 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     private TextView distanceTextView;
     private TextView paceTextView;
 
+    String consumer_url="";
+    String producer_url="";
+    FirebaseFirestore db;
+    FirebaseAuth mAuth;
+
+    //
+
+    private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
+    private static final String initial_steps_from_DB ="http://"+Ip_server.getIpServer()+"/smd_project/initial_steps_from_DB.php";
+    String ip_url = "";
+    JSONArray obj;
+    //
+    double caloriesburnt=0.0;
+    String useremail="";
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedometer);
 
@@ -42,28 +85,135 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         stepCountTextView = findViewById(R.id.tv_steps);
         distanceTextView = findViewById(R.id.distance);
         paceTextView = findViewById(R.id.speed);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////
+
+        db = FirebaseFirestore.getInstance();
+        mAuth= FirebaseAuth.getInstance();
+        useremail = mAuth.getCurrentUser().getEmail();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        ip_url = "http://"+Ip_server.getIpServer()+":5000/";
+        consumer_url = ip_url+"consumer";
+        consumer_url = ip_url+"one";
+        okhttp3.Request request1= new okhttp3.Request.Builder().url(consumer_url).build();
+        okHttpClient.newCall(request1).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+            }
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+                Log.d("valuee", "network success");
+//                tv.setText(response.body().string());
+            }
+        });
+
+
+        StringRequest request=new StringRequest(Request.Method.POST, initial_steps_from_DB, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+
+                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
+                try {
+                    obj = new JSONArray(response);
+                    for(int i=0;i<obj.length()-1;i++){
+                        JSONObject jsonObject = obj.getJSONObject(i);
+                        String stepsss = jsonObject.getString("steps");
+                        stepCount=Integer.parseInt(stepsss);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("email",useremail);
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
         sensorManager.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         super.onPause();
         sensorManager.unregisterListener(this, stepDetectorSensor);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
+        if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR)
+        {
             stepCount++;
+            caloriesburnt = 0.04*stepCount;
             stepCountTextView.setText(String.valueOf(stepCount));
+
 
             distanceCovered = STRIDE_LENGTH * stepCount;
             distanceTextView.setText(String.format("%.2f m", distanceCovered));
+
+            /////////////////////////////////////////////////////////////////////
+
+
+            StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
+            {
+                @Override
+                public void onResponse(String response)
+                {
+                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                }
+            }, new Response.ErrorListener()
+            {
+                @Override
+                public void onErrorResponse(VolleyError error)
+                {
+                    Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                }
+            })
+            {
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> param=new HashMap<String,String>();
+                    param.put("email",useremail);
+                    param.put("steps",Integer.toString(stepCount));
+                    param.put("calories_burn",Double.toString(caloriesburnt));
+                    param.put("Motion","Resting");
+                    return param;
+                }
+            };
+            RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+            queue.add(request);
+
+
+            /////////////////////////////////////////////////////////////////////
 
             if (startTime == 0) {
                 startTime = System.currentTimeMillis();
@@ -77,11 +227,13 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    public void onAccuracyChanged(Sensor sensor, int accuracy)
+    {
         // Do nothing
     }
 
-    private void updatePace() {
+    private void updatePace()
+    {
         if (elapsedTime > 0 && distanceCovered > 0) {
             pace = distanceCovered / ((float)elapsedTime / MILLISECONDS_IN_SECOND); // m/s
             pace = pace * 3.6f; // km/h
@@ -90,13 +242,71 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         }
     }
 
-    private void updateMotionType() {
+    private void updateMotionType()
+    {
         String motionType = "Resting";
-        if (pace > RUNNING_THRESHOLD) {
+        if (pace > RUNNING_THRESHOLD)
+        {
             motionType = "Running";
-        } else if (pace > RESTING_THRESHOLD) {
+        } else if (pace > RESTING_THRESHOLD)
+        {
             motionType = "Walking";
         }
         motionTextView.setText(motionType);
+
+        ////////////////////////////////////////////////////////////////////////
+
+        StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                Log.d("checking",response.toString());
+//                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("email",useremail);
+                param.put("steps",Integer.toString(stepCount));
+                param.put("calories_burn",Double.toString(caloriesburnt));
+                param.put("Motion","Resting");
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+
+        //==================================================================================
+        OkHttpClient okHttpClient = new OkHttpClient();
+        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
+        //        producer_url = ip_url+ip_url+"two";
+        okhttp3.Request request2= new okhttp3.Request.Builder().url(producer_url).build();
+        okHttpClient.newCall(request2).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+            }
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+                Log.d("valuee", "network success");
+                //               tv.setText(response.body().string());
+            }
+        });
+        //===================================================================
+
+
+        ///////////////////////////////////////////////////////////////
+
     }
 }
