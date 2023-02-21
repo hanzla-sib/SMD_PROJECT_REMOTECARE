@@ -147,6 +147,7 @@
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_about_us.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_add_records.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_doc_appointments_accepted.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_ip_change.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_main2.xml" value="0.12" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_main_signin.xml" value="0.22" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_main_signup.xml" value="0.20416666666666666" />
@@ -185,7 +186,8 @@
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/record.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/row.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/sender_layout_item.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/signup.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/signin.xml" value="0.11684782608695653" />
+        <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/signup.xml" value="0.25" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/steps_progress_doctor_side.xml" value="0.1" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/tab_layout_p_appointment.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/test_record.xml" value="0.20416666666666666" />

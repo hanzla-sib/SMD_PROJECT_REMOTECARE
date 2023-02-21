@@ -48,8 +48,28 @@
                 android:layout_marginTop="25dp"
                 android:text="Sign In"
                 android:textAlignment="textEnd"
-                android:textColor="#636363"
+                android:textColor="@color/black"
                 android:textSize="30sp" />
+
+
+            <TextView
+                android:id="@+id/ip_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="15dp"
+                android:text="Change IP"
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_below="@+id/signin"
+                />
+
+
+
+
+
 
         </RelativeLayout>
 

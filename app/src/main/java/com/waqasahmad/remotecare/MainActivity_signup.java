@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -49,7 +50,7 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
     EditText name,email,password;
     ImageView signup;
     String genderstr,user_type;
-    TextView signin;
+    TextView signin,ip_change;
 
     String name2,email2,password2;
 
@@ -67,8 +68,10 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
     ArrayList<String> paths = new ArrayList();
 
 
-    private static final String insert_user_url ="http://"+Ip_server.getIpServer()+"/smd_project/insert.php";
-    private static final String insert_dailySteps_url ="http://"+Ip_server.getIpServer()+"/smd_project/insert_daily_steps.php";
+    String insert_user_url;
+//
+//    private final String insert_user_url ="http://"+Ip_signup+"/smd_project/insert.php";
+//    private  final String insert_dailySteps_url ="http://"+Ip_signup+"/smd_project/insert_daily_steps.php";
 
 
     @Override
@@ -100,6 +103,8 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
         bt_show = findViewById(R.id.bt_show);
 
 
+        ip_change=findViewById(R.id.ip_change);
+
         ///////////////////////////
 
         paths.add("Allergists");
@@ -124,6 +129,28 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
 
         ////////
         password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+        ////////////////////////////
+        ip_change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity_signup.this, ip_change.class));
+            }
+        });
+
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+
+        Log.d("s1" , s1);
+
+
+
+
+         insert_user_url ="http://"+s1+"/smd_project/insert.php";
+       
+
+
+        ////////////////////////////
 
         bt_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
