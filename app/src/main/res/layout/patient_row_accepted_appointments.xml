@@ -61,12 +61,37 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+
+        <EditText
+            android:id="@+id/recommend_steps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Recommend daily steps"
+            />
+
+        <Button
+            android:id="@+id/enter_recommend_steps"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter"
+            />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="15dp"
         >
 
         <Button
@@ -87,9 +112,6 @@
 
 
     </LinearLayout>
-
-
-
 
     <LinearLayout
         android:layout_width="match_parent"

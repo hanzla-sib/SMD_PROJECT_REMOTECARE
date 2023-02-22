@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,10 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
     FirebaseAuth mAuth;
     FirebaseFirestore db;
 
+
+
+    String recommend_steps_string="";
+
     //private
 
 //    private static final String delete_appointed_appoint_from_doctorside="http://"+Ip_server.getIpServer()+"/smd_project/delete_appointed_appoint_from_doctorside.php";
@@ -63,6 +68,8 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
         SharedPreferences sh = c_doc2.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
         String url1 ="http://"+s1+"/smd_project/delete_appointed_appoint_from_doctorside.php";
+        String url2 ="http://"+s1+"/smd_project/doctor_recommended_steps.php";
+
         //Initializing Firebase MAuth instance
         mAuth = FirebaseAuth.getInstance();
 
@@ -75,7 +82,13 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
         holder.patient_name.setText(ls_doc2.get(holder.getAdapterPosition()).getName_patient());
         holder.patient_email.setText(ls_doc2.get(holder.getAdapterPosition()).getEmail_patient());
         Doc_Appointment_Model model = ls_doc2.get(holder.getAdapterPosition());
-        holder.deleteappoint.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+        /////////
+        holder.deleteappoint.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
 
@@ -93,9 +106,6 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
                     public void onResponse(String response)
                     {
                         Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
-
-
-//
                     }
                 }, new Response.ErrorListener()
                 {
@@ -128,9 +138,10 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
             }
         });
 
+/////////////////////
 
-
-        holder.completeappoint.setOnClickListener(new View.OnClickListener() {
+        holder.completeappoint.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
 
@@ -176,7 +187,60 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
             }
         });
 
+        /////
 
+        holder.enter_recommend_steps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                recommend_steps_string = holder.recommend_steps.getText().toString();
+
+                if(recommend_steps_string.equals(""))
+                {
+                    Log.d("recommend_steps_string " ,"null");
+                }
+                else
+                {
+                    Log.d("recommend_steps_string " , recommend_steps_string);
+                }
+
+                /////////////////////////////////
+                StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+//                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                })
+                {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> param=new HashMap<String,String>();
+
+                        param.put("d_email",currentemail);
+                        param.put("p_email",model.getEmail_patient());
+                        param.put("steps",recommend_steps_string);
+
+                        return param;
+                    }
+                };
+                RequestQueue queue= Volley.newRequestQueue(c_doc2);
+                queue.add(request);
+
+                //////////////////////////////////////////////
+
+            }
+        });
 
 
     }
@@ -191,6 +255,9 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
         TextView patient_name,patient_email;
         Button deleteappoint;
         Button completeappoint;
+        EditText recommend_steps;
+        Button enter_recommend_steps;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -198,6 +265,10 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
             patient_email=itemView.findViewById(R.id.patient_email_accepted);
             deleteappoint=itemView.findViewById(R.id.deleteappoint);
             completeappoint=itemView.findViewById(R.id.completeappoint);
+            recommend_steps=itemView.findViewById(R.id.recommend_steps);
+            enter_recommend_steps=itemView.findViewById(R.id.enter_recommend_steps);
+
+
 
 
         }

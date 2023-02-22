@@ -81,6 +81,13 @@ CREATE TABLE Consumed_Calories (
 	PRIMARY KEY(id)
 );
 
+CREATE TABLE Doctor_Recommendation (
+	p_email VARCHAR(128),
+	steps_recommended int,	
+	d_email VARCHAR(128),
+	PRIMARY KEY(p_email)
+);
+
 
 ALTER TABLE daily_steps
 ADD COLUMN Burnt_Calories FLOAT;
