@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -58,10 +59,10 @@ public class Calories extends AppCompatActivity {
     ArrayList<String> Labelsname;
     ArrayList<BarEntry> barEntryArrayListmonthly;
     ArrayList<String> Labelsnamemonthly;
-    private static final String calorie_graph="http://"+Ip_server.getIpServer()+"/smd_project/calorie_graph.php";
-    private static final String calorie_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlycaloriesgraph.php";
+//    private static final String calorie_graph="http://"+Ip_server.getIpServer()+"/smd_project/calorie_graph.php";
+//    private static final String calorie_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlycaloriesgraph.php";
 
-
+    String url1="",url2="";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -83,6 +84,11 @@ public class Calories extends AppCompatActivity {
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
 
+
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/calorie_graph.php";
+        url2 ="http://"+s1+"/smd_project/monthlycaloriesgraph.php";
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,7 +120,7 @@ public class Calories extends AppCompatActivity {
             }
         });
 //
-        StringRequest request=new StringRequest(Request.Method.POST, calorie_graph, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
@@ -216,7 +222,7 @@ public class Calories extends AppCompatActivity {
 
 
         //===================MONTHLY
-        StringRequest request1=new StringRequest(Request.Method.POST, calorie_graph_month, new Response.Listener<String>()
+        StringRequest request1=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)

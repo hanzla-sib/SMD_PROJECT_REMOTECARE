@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,8 +47,8 @@ public class Add_records extends AppCompatActivity {
     LinearLayout back_btn;
     LinearLayout btn1,btn2,btn3,btn4;
 
-
-    private static final String retreive_img="http://"+Ip_server.getIpServer()+"/smd_project/retireveimage.php";
+String url="";
+//    private static final String retreive_img="http://"+Ip_server.getIpServer()+"/smd_project/retireveimage.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,9 @@ public class Add_records extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         email1 = user.getEmail();
 
-
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url ="http://"+s1+"/smd_project/retireveimage.php";
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +108,7 @@ public class Add_records extends AppCompatActivity {
 
 
         Record_Model record = new Record_Model();
-        StringRequest request=new StringRequest(Request.Method.POST, retreive_img, new Response.Listener<String>() {
+        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

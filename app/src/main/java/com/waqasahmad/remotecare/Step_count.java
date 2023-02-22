@@ -64,8 +64,8 @@ public class    Step_count extends AppCompatActivity{
     String ip_url = "http://192.168.100.53:5000/";
     String consumer_url="";
     String producer_url="";
-    private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
-    private static final String initial_steps_from_DB ="http://"+Ip_server.getIpServer()+"/smd_project/initial_steps_from_DB.php";
+    private static final String update_user_steps ="http://"+"Ip_server.getIpServer()"+"/smd_project/update_daily_steps.php";
+    private static final String initial_steps_from_DB ="http://"+"Ip_server.getIpServer()"+"/smd_project/initial_steps_from_DB.php";
 
     FirebaseFirestore db;
     FirebaseAuth mAuth;

@@ -1,5 +1,6 @@
 package com.waqasahmad.remotecare;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,9 +50,9 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
     String currentemail="";
     String currentname="";
 
+    String url="";
 
-
-    private static final String patient_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_appointment.php";
+//    private static final String patient_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_appointment.php";
 
 
     public Appointment_Adapter(List<Appointment_Model> ls_doc, Context c_doc)
@@ -106,10 +107,13 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
 
 
 
+        SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
+        String s2 = sh.getString("Ip", "");
 
         holder.doctor_name.setText( "Dr. " +ls_doc.get(position).getName_doc());
 //        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
-        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
+//        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
+        Picasso.get().load("http://"+s2+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
 
 
         holder.itemView.findViewById(R.id.request_appointment).
@@ -125,10 +129,12 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
                 notifyItemRemoved(i);
 
 
+                SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
+                String s1 = sh.getString("Ip", "");
+                url ="http://"+s1+"/smd_project/patient_appointment.php";
 
 
-
-                StringRequest request=new StringRequest(Request.Method.POST, patient_appointment, new Response.Listener<String>()
+                StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
                 {
                     @Override
                     public void onResponse(String response)

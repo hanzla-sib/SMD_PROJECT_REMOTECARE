@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -99,9 +100,10 @@ public class Doc_Profile extends AppCompatActivity {
     private Bitmap imagetoStore;
 
 
-    private static final String saveimagedoc = "http://" + Ip_server.getIpServer() + "/smd_project/imageupload.php";
-    private static final String update_password_doc = "http://" + Ip_server.getIpServer() + "/smd_project/update_password.php";
+//    private static final String saveimagedoc = "http://" + Ip_server.getIpServer() + "/smd_project/imageupload.php";
+//    private static final String update_password_doc = "http://" + Ip_server.getIpServer() + "/smd_project/update_password.php";
 
+    String url1="",url2="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +113,11 @@ public class Doc_Profile extends AppCompatActivity {
         Menu = findViewById(R.id.menu);
         logo = findViewById(R.id.rclogo);
         profile_circle = findViewById(R.id.doc_profile_circle);
+
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/imageupload.php";
+        url2 ="http://"+s1+"/smd_project/update_password.php";
 
         // for logging out
         auth1 = FirebaseAuth.getInstance();
@@ -225,7 +232,7 @@ public class Doc_Profile extends AppCompatActivity {
                                             Toast.makeText(getApplicationContext(), " Password not Updated", Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(getApplicationContext(), "Password updated", Toast.LENGTH_SHORT).show();
-                                            StringRequest request = new StringRequest(Request.Method.POST, update_password_doc, new Response.Listener<String>() {
+                                            StringRequest request = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
                                                 @Override
                                                 public void onResponse(String response) {
 
@@ -409,7 +416,7 @@ public class Doc_Profile extends AppCompatActivity {
 
                 ///////////////////////////////////////////////////////
 
-                StringRequest request = new StringRequest(Request.Method.POST, saveimagedoc, new Response.Listener<String>() {
+                StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();

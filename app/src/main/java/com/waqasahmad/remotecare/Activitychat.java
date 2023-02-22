@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,7 +43,8 @@ public class Activitychat extends AppCompatActivity {
     FirebaseAuth mauth;
     FirebaseDatabase database;
     DatabaseReference mref ;
-    private static final String notify="http://"+Ip_server.getIpServer()+"/smd_project/notify.php";
+//    private static final String notify="http://"+Ip_server.getIpServer()+"/smd_project/notify.php";
+    String url="";
     TextView username,userMainChatActivityProfileName;
     ImageButton send1;
     EditText editText1;
@@ -75,6 +77,9 @@ public class Activitychat extends AppCompatActivity {
             }
         });
 
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url ="http://"+s1+"/smd_project/notify.php";
 
         messagesArrayList = new ArrayList<>();
 
@@ -121,7 +126,7 @@ public class Activitychat extends AppCompatActivity {
                     editText1.setText("");
                     //notification
                     //============================================
-                    StringRequest request=new StringRequest(Request.Method.POST, notify, new Response.Listener<String>() {
+                    StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 

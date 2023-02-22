@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -79,11 +80,12 @@ public class Profile extends AppCompatActivity {
     //
     EditText current_password,new_password;
 
-    private static final String saveimageuser="http://"+Ip_server.getIpServer()+"/smd_project/imageupload.php";
-    private static final String update_password="http://"+Ip_server.getIpServer()+"/smd_project/update_password.php";
+//    private static final String saveimageuser="http://"+Ip_server.getIpServer()+"/smd_project/imageupload.php";
+//    private static final String update_password="http://"+Ip_server.getIpServer()+"/smd_project/update_password.php";
+//
+//    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
 
-    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
-
+    String url1="",url2="",url3="";
     // validating user id
     FirebaseAuth mAuth;
 
@@ -109,6 +111,13 @@ public class Profile extends AppCompatActivity {
         Email=findViewById(R.id.Email);
         Gender=findViewById(R.id.Gender);
         U_Type=findViewById(R.id.U_Type);
+
+
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/imageupload.php";
+        url2 ="http://"+s1+"/smd_project/update_password.php";
+        url3 ="http://"+s1+"/smd_project/user_token_delete.php";
 
         //
         current_password = findViewById(R.id.current_password);
@@ -195,7 +204,7 @@ public class Profile extends AppCompatActivity {
                                         else
                                         {
                                             Toast.makeText(getApplicationContext(),"Password updated" , Toast.LENGTH_SHORT).show();
-                                            StringRequest request=new StringRequest(Request.Method.POST, update_password, new Response.Listener<String>() {
+                                            StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
                                                 @Override
                                                 public void onResponse(String response) {
 
@@ -330,7 +339,7 @@ public class Profile extends AppCompatActivity {
         String curruserid=auth1.getUid();
         reference1.child(curruserid).updateChildren(onlinestatus);
 
-        StringRequest request=new StringRequest(Request.Method.POST, user_token_delete, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url3, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
@@ -400,7 +409,7 @@ public class Profile extends AppCompatActivity {
 
                 ///////////////////////////////////////////////////////
 
-                StringRequest request=new StringRequest(Request.Method.POST, saveimageuser, new Response.Listener<String>() {
+                StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response)
                     {

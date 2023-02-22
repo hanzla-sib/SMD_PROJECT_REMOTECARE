@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -62,8 +63,8 @@ public class Meals extends AppCompatActivity {
 
 
 
-    private static final String consumed_calories="http://"+Ip_server.getIpServer()+"/smd_project/consumed_calories.php";
-
+//    private static final String consumed_calories="http://"+Ip_server.getIpServer()+"/smd_project/consumed_calories.php";
+String url1="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,10 @@ public class Meals extends AppCompatActivity {
 
         //Initializing Firebase MAuth instance
         mAuth=FirebaseAuth.getInstance();
+
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/consumed_calories.php";
 
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
@@ -109,7 +114,7 @@ public class Meals extends AppCompatActivity {
 
                                         ////////////////////////////////////////////
 
-                                        StringRequest request=new StringRequest(Request.Method.POST, consumed_calories, new Response.Listener<String>()
+                                        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
                                         {
                                             @Override
                                             public void onResponse(String response)

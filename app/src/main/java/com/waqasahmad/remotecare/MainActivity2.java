@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -69,9 +70,9 @@ String useremail1="";
     List<MyModel> ls=new ArrayList<>();
 
     JSONObject obj;
-    private static final String consumed_calories="http://"+Ip_server.getIpServer()+"/smd_project/consumed_calories.php";
-    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
-
+//    private static final String consumed_calories="http://"+Ip_server.getIpServer()+"/smd_project/consumed_calories.php";
+//    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
+String url1="",url2="";
     CardView appointment;
     CardView steps;
     CardView step,Calories_Burnt_card,test_record,calorie;
@@ -96,6 +97,11 @@ String useremail1="";
         setContentView(R.layout.activity_main2);
         drawerLayout = findViewById(R.id.drawer_layout);
         appointment = findViewById(R.id.appointmentcard);
+
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/consumed_calories.php";
+        url2 ="http://"+s1+"/smd_project/user_token_delete.php";
 
         steps = findViewById(R.id.steps_card);
         mAuth=FirebaseAuth.getInstance();
@@ -257,7 +263,7 @@ String useremail1="";
 
                                         ////////////////////////////////////////////
 
-                                        StringRequest request=new StringRequest(Request.Method.POST, consumed_calories, new Response.Listener<String>()
+                                        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
                                         {
                                             @Override
                                             public void onResponse(String response)
@@ -383,7 +389,7 @@ String useremail1="";
         onlinestatus.put("player_id","");
         String curruserid=auth1.getUid();
         reference1.child(curruserid).updateChildren(onlinestatus);
-        StringRequest request=new StringRequest(Request.Method.POST, user_token_delete, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)

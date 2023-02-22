@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -73,10 +74,10 @@ public class Test_Record extends AppCompatActivity {
     String email1;
     String details1;
 
-    private static final String insert_img_url="http://"+Ip_server.getIpServer()+"/smd_project/insert_test_record.php";
-    private static final String retreive_img="http://"+Ip_server.getIpServer()+"/smd_project/retireveimage.php";
+//    private static final String insert_img_url="http://"+Ip_server.getIpServer()+"/smd_project/insert_test_record.php";
+//    private static final String retreive_img="http://"+Ip_server.getIpServer()+"/smd_project/retireveimage.php";
 
-
+    String url1="",url2="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +92,12 @@ public class Test_Record extends AppCompatActivity {
         btn2=findViewById(R.id.appointment_btn);
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
+
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/insert_test_record.php";
+        url2 ="http://"+s1+"/smd_project/retireveimage.php";
+
 
         //Initializing Firebase MAuth instance
         mAuth=FirebaseAuth.getInstance();
@@ -214,7 +221,7 @@ public class Test_Record extends AppCompatActivity {
                                             Log.d("p33333",uri.toString());
 
 
-                                            StringRequest request=new StringRequest(Request.Method.POST, insert_img_url, new Response.Listener<String>()
+                                            StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
                                             {
                                                 @Override
                                                 public void onResponse(String response)

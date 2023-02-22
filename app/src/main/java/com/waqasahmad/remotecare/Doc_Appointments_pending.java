@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -65,8 +66,8 @@ public class Doc_Appointments_pending extends AppCompatActivity {
     List<String> list = new ArrayList<>();
 
     //
-    private static final String doctor_appointment_pending="http://"+Ip_server.getIpServer()+"/smd_project/doctor_appointment_pending.php";
-
+//    private static final String doctor_appointment_pending="http://"+Ip_server.getIpServer()+"/smd_project/doctor_appointment_pending.php";
+String url1="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +85,11 @@ public class Doc_Appointments_pending extends AppCompatActivity {
         //
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
+
+
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/doctor_appointment_pending.php";
 
         // for logging out
         auth1=FirebaseAuth.getInstance();
@@ -141,7 +147,7 @@ public class Doc_Appointments_pending extends AppCompatActivity {
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
-        StringRequest request=new StringRequest(Request.Method.POST, doctor_appointment_pending, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)

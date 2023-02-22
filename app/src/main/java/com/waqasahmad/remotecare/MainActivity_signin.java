@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 
@@ -80,8 +81,9 @@ public class MainActivity_signin extends AppCompatActivity {
 
 
 
-    private static final String user_token="http://"+Ip_server.getIpServer()+"/smd_project/user_token.php";
+//    private static final String user_token="http://"+Ip_server.getIpServer()+"/smd_project/user_token.php";
 
+    String url1="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,10 @@ public class MainActivity_signin extends AppCompatActivity {
         //
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Users");
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/user_token.php";
+
 
         signup=findViewById(R.id.signup);
         signin=findViewById(R.id.signinbutton);
@@ -169,7 +175,7 @@ public class MainActivity_signin extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                                         DocumentSnapshot document = task.getResult();
-                                        StringRequest request=new StringRequest(Request.Method.POST, user_token, new Response.Listener<String>()
+                                        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
                                         {
                                             @Override
                                             public void onResponse(String response)

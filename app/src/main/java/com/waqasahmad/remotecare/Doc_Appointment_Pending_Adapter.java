@@ -3,6 +3,7 @@ package com.waqasahmad.remotecare;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,8 +46,8 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
     String date1="",Time1="";
 
 
-    private static final String accept_doctor_appointment="http://"+Ip_server.getIpServer()+"/smd_project/accept_doctor_appointment.php";
-    private static final String reject_doctor_appointment="http://"+Ip_server.getIpServer()+"/smd_project/reject_doctor_appointment.php";
+//    private static final String accept_doctor_appointment="http://"+Ip_server.getIpServer()+"/smd_project/accept_doctor_appointment.php";
+//    private static final String reject_doctor_appointment="http://"+Ip_server.getIpServer()+"/smd_project/reject_doctor_appointment.php";
 
 
     public Doc_Appointment_Pending_Adapter(List<Doc_Appointment_Model> ls_doc2, Context c_doc2) {
@@ -146,7 +147,12 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
                     ///////////////////////////////////////////
                      holder.itemView.setVisibility(View.GONE);
 
-                    StringRequest request=new StringRequest(Request.Method.POST, accept_doctor_appointment, new Response.Listener<String>()
+                    SharedPreferences sh =c_doc2.getSharedPreferences("MySharedPref", 0);
+                    String s1 = sh.getString("Ip", "");
+                  String url1 ="http://"+s1+"/smd_project/accept_doctor_appointment.php";
+
+
+                    StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
                     {
                         @Override
                         public void onResponse(String response)
@@ -211,7 +217,11 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
 //                    holder.itemView.setVisibility(View.GONE);
                 ///////////////////////////////////////////
                 holder.itemView.setVisibility(View.GONE);
-                StringRequest request=new StringRequest(Request.Method.POST, reject_doctor_appointment, new Response.Listener<String>()
+
+                SharedPreferences sh =c_doc2.getSharedPreferences("MySharedPref", 0);
+                String s1 = sh.getString("Ip", "");
+                String url2 ="http://"+s1+"/smd_project/reject_doctor_appointment.php";
+                StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
                 {
                     @Override
                     public void onResponse(String response)

@@ -68,7 +68,7 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
     ArrayList<String> paths = new ArrayList();
 
 
-    String insert_user_url;
+    String url;
 //
 //    private final String insert_user_url ="http://"+Ip_signup+"/smd_project/insert.php";
 //    private  final String insert_dailySteps_url ="http://"+Ip_signup+"/smd_project/insert_daily_steps.php";
@@ -140,13 +140,13 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
-
+        url ="http://"+s1+"/smd_project/insert.php";
         Log.d("s1" , s1);
 
 
 
 
-         insert_user_url ="http://"+s1+"/smd_project/insert.php";
+
        
 
 
@@ -342,7 +342,7 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
                                 Toast.LENGTH_SHORT
                         ).show();
 
-                        StringRequest request=new StringRequest(Request.Method.POST, insert_user_url, new Response.Listener<String>() {
+                        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 email.setText("");

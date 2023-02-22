@@ -1,6 +1,7 @@
 package com.waqasahmad.remotecare;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,8 +39,8 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
 
     //private
 
-    private static final String delete_appointed_appoint_from_doctorside="http://"+Ip_server.getIpServer()+"/smd_project/delete_appointed_appoint_from_doctorside.php";
-    private static final String completed_appointment_doctor_side="http://"+Ip_server.getIpServer()+"/smd_project/completed_appointment_doctor_side.php";
+//    private static final String delete_appointed_appoint_from_doctorside="http://"+Ip_server.getIpServer()+"/smd_project/delete_appointed_appoint_from_doctorside.php";
+//    private static final String completed_appointment_doctor_side="http://"+Ip_server.getIpServer()+"/smd_project/completed_appointment_doctor_side.php";
 
     public Doc_Appointments_Accepted_Adapter(List<Doc_Appointment_Model> ls_doc2, Context c_doc2) {
         this.ls_doc2 = ls_doc2;
@@ -59,6 +60,9 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
     @Override
     public void onBindViewHolder(@NonNull Doc_Appointments_Accepted_Adapter.MyViewHolder holder, int position) {
 
+        SharedPreferences sh = c_doc2.getSharedPreferences("MySharedPref", 0);
+        String s1 = sh.getString("Ip", "");
+        String url1 ="http://"+s1+"/smd_project/delete_appointed_appoint_from_doctorside.php";
         //Initializing Firebase MAuth instance
         mAuth = FirebaseAuth.getInstance();
 
@@ -83,7 +87,7 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
 
 
                 /////////////////////////////////
-                StringRequest request=new StringRequest(Request.Method.POST, delete_appointed_appoint_from_doctorside, new Response.Listener<String>()
+                StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
                 {
                     @Override
                     public void onResponse(String response)
@@ -136,8 +140,12 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
 
                 holder.itemView.setVisibility(View.GONE);
 
+                SharedPreferences sh = c_doc2.getSharedPreferences("MySharedPref", 0);
+                String s1 = sh.getString("Ip", "");
+                String url2 ="http://"+s1+"/smd_project/completed_appointment_doctor_side.php";
+
                 /////////////////////////////////
-                StringRequest request=new StringRequest(Request.Method.POST, completed_appointment_doctor_side, new Response.Listener<String>()
+                StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
                 {
                     @Override
                     public void onResponse(String response)

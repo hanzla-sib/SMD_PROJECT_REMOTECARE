@@ -8,6 +8,7 @@ package com.waqasahmad.remotecare;
         import androidx.recyclerview.widget.RecyclerView;
 
         import android.content.Intent;
+        import android.content.SharedPreferences;
         import android.os.Bundle;
         import android.util.Log;
         import android.view.View;
@@ -64,8 +65,8 @@ public class Doc_appointments_accepted extends AppCompatActivity {
     List<String> list = new ArrayList<>();
 
     //
-    private static final String doctor_appointment_accepted="http://"+Ip_server.getIpServer()+"/smd_project/doctor_appointment_accepted.php";
-
+//    private static final String doctor_appointment_accepted="http://"+Ip_server.getIpServer()+"/smd_project/doctor_appointment_accepted.php";
+String url1="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +89,9 @@ public class Doc_appointments_accepted extends AppCompatActivity {
         database1 = FirebaseDatabase.getInstance();
         reference1 = database1.getReference("Users");
 
-
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/doctor_appointment_accepted.php";
 
 
         back_btn = findViewById(R.id.back_btn);
@@ -140,7 +143,7 @@ public class Doc_appointments_accepted extends AppCompatActivity {
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
-        StringRequest request=new StringRequest(Request.Method.POST, doctor_appointment_accepted, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)

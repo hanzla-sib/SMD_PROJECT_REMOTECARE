@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,8 +54,9 @@ public class Calories_Burnt extends AppCompatActivity {
     ArrayList<String> Labelsname;
     ArrayList<BarEntry> barEntryArrayListmonthly;
     ArrayList<String> Labelsnamemonthly;
-    private static final String burnt_cal_graph="http://"+Ip_server.getIpServer()+"/smd_project/burnt_cal_graph.php";
-    private static final String burnt_cal_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyburnt_cal_graph.php";
+//    private static final String burnt_cal_graph="http://"+Ip_server.getIpServer()+"/smd_project/burnt_cal_graph.php";
+//    private static final String burnt_cal_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyburnt_cal_graph.php";
+  String url1="",url2="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,10 @@ public class Calories_Burnt extends AppCompatActivity {
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
 
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/burnt_cal_graph.php";
+        url2="http://"+s1+"/smd_project/monthlyburnt_cal_graph.php";
         //
         currentemail = mAuth.getCurrentUser().getEmail();
 
@@ -112,7 +118,7 @@ public class Calories_Burnt extends AppCompatActivity {
 
 
 //
-        StringRequest request=new StringRequest(Request.Method.POST, burnt_cal_graph, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
@@ -211,7 +217,7 @@ public class Calories_Burnt extends AppCompatActivity {
 
 
         //===================MONTHLY
-        StringRequest request1=new StringRequest(Request.Method.POST, burnt_cal_graph_month, new Response.Listener<String>()
+        StringRequest request1=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)

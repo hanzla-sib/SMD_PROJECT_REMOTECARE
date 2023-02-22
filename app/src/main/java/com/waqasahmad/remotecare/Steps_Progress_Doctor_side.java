@@ -3,6 +3,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,6 +57,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
     LinearLayout btn1,btn2,btn3,btn4;
 
 
+
     String currentemail="";
 
     ArrayList<Steps_Modal> Steps_MODAL_weekly=new ArrayList<>();
@@ -64,9 +66,10 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
     ArrayList<String> Labelsname;
     ArrayList<BarEntry> barEntryArrayListmonthly;
     ArrayList<String> Labelsnamemonthly;
-    private static final String Steps_graph="http://"+Ip_server.getIpServer()+"/smd_project/Steps_graph.php";
-    private static final String Steps_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyStepsgraph.php";
-    private static final String fetch_patient_withdocs="http://"+Ip_server.getIpServer()+"/smd_project/fetch_patient_reg_doctors.php";
+//    private static final String Steps_graph="http://"+Ip_server.getIpServer()+"/smd_project/Steps_graph.php";
+//    private static final String Steps_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyStepsgraph.php";
+//    private static final String fetch_patient_withdocs="http://"+Ip_server.getIpServer()+"/smd_project/fetch_patient_reg_doctors.php";
+    String url1="",url2="",url3="";
     ArrayList<String> paths = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +88,11 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
 
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/Steps_graph.php";
+        url2 ="http://"+s1+"/smd_project/monthlyStepsgraph.php";
+        url3 ="http://"+s1+"/smd_project/fetch_patient_reg_doctors.php";
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +130,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         });
 
 
-        StringRequest request=new StringRequest(Request.Method.POST, fetch_patient_withdocs, new Response.Listener<String>() {
+        StringRequest request=new StringRequest(Request.Method.POST, url3, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(response.equals("No entry")){
@@ -180,7 +188,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //        Toast.makeText(this, (String) adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
-        StringRequest request=new StringRequest(Request.Method.POST, Steps_graph, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
@@ -286,7 +294,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
 
 
         //===================MONTHLY
-        StringRequest request1=new StringRequest(Request.Method.POST, Steps_graph_month, new Response.Listener<String>()
+        StringRequest request1=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)

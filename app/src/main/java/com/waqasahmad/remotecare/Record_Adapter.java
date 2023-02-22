@@ -1,6 +1,7 @@
 package com.waqasahmad.remotecare;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
     FirebaseAuth mAuth;
     FirebaseFirestore db;
 
-    private static final String delete_test_record="http://"+Ip_server.getIpServer()+"/smd_project/delete_test_record.php";
+//    private static final String delete_test_record="http://"+Ip_server.getIpServer()+"/smd_project/delete_test_record.php";
 
     public Record_Adapter(Context activity, ArrayList<Record_Model> arrayList)
     {
@@ -74,8 +75,9 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
 
 
 //      holder.image_record.setImageURI(Picasso.get());
-
-        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+model.getImage_url()).into(holder.image_record);
+        SharedPreferences sh = activity.getSharedPreferences("MySharedPref", 0);
+        String s1 = sh.getString("Ip", "");
+        Picasso.get().load("http://"+s1+"/smd_project/"+model.getImage_url()).into(holder.image_record);
         holder.details.setText(model.getDetails());
         holder.record_num.setText("Record # " + (holder.getAdapterPosition()+1));
 
@@ -95,8 +97,10 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
 
                         holder.itemView.setVisibility(View.GONE);
 
-
-                        StringRequest request=new StringRequest(Request.Method.POST, delete_test_record, new Response.Listener<String>()
+                        SharedPreferences sh = activity.getSharedPreferences("MySharedPref", 0);
+                        String s1 = sh.getString("Ip", "");
+                        String url1 ="http://"+s1+"/smd_project/delete_test_record.php";
+                        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
                         {
                             @Override
                             public void onResponse(String response)

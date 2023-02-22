@@ -2,6 +2,7 @@ package com.waqasahmad.remotecare;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,8 +62,11 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
         holder.doctor_time.setText(ls_doc.get(position).getTime_doc());
         holder.doctor_date.setText(ls_doc.get(position).getDate_doc());
 
-        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
-
+        SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
+        String s1 = sh.getString("Ip", "");
+//        String url1 ="http://"+s1+"/smd_project/user_token_delete.php";
+//        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
+        Picasso.get().load("http://"+s1+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
 //        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
     }
 

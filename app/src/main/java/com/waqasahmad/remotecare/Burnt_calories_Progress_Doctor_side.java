@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -63,9 +64,11 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
     ArrayList<String> Labelsname;
     ArrayList<BarEntry> barEntryArrayListmonthly;
     ArrayList<String> Labelsnamemonthly;
-    private static final String burnt_cal_graph="http://"+Ip_server.getIpServer()+"/smd_project/burnt_cal_graph.php";
-    private static final String burnt_cal_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyburnt_cal_graph.php";
-    private static final String fetch_patient_withdocs="http://"+Ip_server.getIpServer()+"/smd_project/fetch_patient_reg_doctors.php";
+    String url1="",url2="",url3="";
+
+//    private static final String burnt_cal_graph="http://"+Ip_server.getIpServer()+"/smd_project/burnt_cal_graph.php";
+//    private static final String burnt_cal_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyburnt_cal_graph.php";
+//    private static final String fetch_patient_withdocs="http://"+Ip_server.getIpServer()+"/smd_project/fetch_patient_reg_doctors.php";
     ArrayList<String> paths = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +79,11 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
         String useremail = mAuth.getCurrentUser().getEmail();
-        
-
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/burnt_cal_graph.php";
+        url2 ="http://"+s1+"/smd_project/monthlyburnt_cal_graph.php";
+        url3 ="http://"+s1+"/smd_project/fetch_patient_reg_doctors.php";
         back_btn = findViewById(R.id.back_btn);
         btn1=findViewById(R.id.home_btn2);
         btn2=findViewById(R.id.appointment_btn);
@@ -121,7 +127,7 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
         });
 
         ///////////////////////////////////////////////////
-        StringRequest request=new StringRequest(Request.Method.POST, fetch_patient_withdocs, new Response.Listener<String>() {
+        StringRequest request=new StringRequest(Request.Method.POST, url3, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(response.equals("No entry")){
@@ -174,7 +180,7 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        StringRequest request=new StringRequest(Request.Method.POST, burnt_cal_graph, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
@@ -276,7 +282,7 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
 
 
         //===================MONTHLY
-        StringRequest request1=new StringRequest(Request.Method.POST, burnt_cal_graph_month, new Response.Listener<String>()
+        StringRequest request1=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)

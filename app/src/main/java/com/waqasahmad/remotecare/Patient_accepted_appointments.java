@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,8 +45,8 @@ public class Patient_accepted_appointments extends AppCompatActivity {
     FirebaseAuth mAuth;
 
 
-    private static final String patient_accepted_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_accepted_appointment.php";
-
+//    private static final String patient_accepted_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_accepted_appointment.php";
+String url1="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,9 @@ public class Patient_accepted_appointments extends AppCompatActivity {
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
 
-
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/patient_accepted_appointment.php";
 
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
@@ -72,7 +75,7 @@ public class Patient_accepted_appointments extends AppCompatActivity {
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
-        StringRequest request=new StringRequest(Request.Method.POST, patient_accepted_appointment, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)

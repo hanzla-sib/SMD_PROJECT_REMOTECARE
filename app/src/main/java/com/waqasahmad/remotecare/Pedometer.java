@@ -1,4 +1,5 @@
 package com.waqasahmad.remotecare;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -62,9 +63,10 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     FirebaseAuth mAuth;
 
     //
-
-    private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
-    private static final String initial_steps_from_DB ="http://"+Ip_server.getIpServer()+"/smd_project/initial_steps_from_DB.php";
+//
+//    private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
+//    private static final String initial_steps_from_DB ="http://"+Ip_server.getIpServer()+"/smd_project/initial_steps_from_DB.php";
+   String url1="",url2="";
     String ip_url = "";
     JSONArray obj;
     //
@@ -87,30 +89,35 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         paceTextView = findViewById(R.id.speed);
 
 
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/update_daily_steps.php";
+        url2 ="http://"+s1+"/smd_project/initial_steps_from_DB.php";
+
         /////////////////////////////////////////////////////////////////////////////////////////
 
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
         useremail = mAuth.getCurrentUser().getEmail();
-        OkHttpClient okHttpClient = new OkHttpClient();
-        ip_url = "http://"+Ip_server.getIpServer()+":5000/";
-        consumer_url = ip_url+"consumer";
-        consumer_url = ip_url+"one";
-        okhttp3.Request request1= new okhttp3.Request.Builder().url(consumer_url).build();
-        okHttpClient.newCall(request1).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
-            }
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
-                Log.d("valuee", "network success");
-//                tv.setText(response.body().string());
-            }
-        });
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//        ip_url = "http://"+"Ip_server".getIpServer()+":5000/";
+//        consumer_url = ip_url+"consumer";
+//        consumer_url = ip_url+"one";
+//        okhttp3.Request request1= new okhttp3.Request.Builder().url(consumer_url).build();
+//        okHttpClient.newCall(request1).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+//                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+//            }
+//            @Override
+//            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+//                Log.d("valuee", "network success");
+////                tv.setText(response.body().string());
+//            }
+//        });
 
 
-        StringRequest request=new StringRequest(Request.Method.POST, initial_steps_from_DB, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
@@ -182,7 +189,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
             /////////////////////////////////////////////////////////////////////
 
 
-            StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
+            StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
             {
                 @Override
                 public void onResponse(String response)
@@ -256,7 +263,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 
         ////////////////////////////////////////////////////////////////////////
 
-        StringRequest request=new StringRequest(Request.Method.POST, update_user_steps, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
@@ -288,21 +295,21 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         queue.add(request);
 
         //==================================================================================
-        OkHttpClient okHttpClient = new OkHttpClient();
-        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
-        //        producer_url = ip_url+ip_url+"two";
-        okhttp3.Request request2= new okhttp3.Request.Builder().url(producer_url).build();
-        okHttpClient.newCall(request2).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
-            }
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
-                Log.d("valuee", "network success");
-                //               tv.setText(response.body().string());
-            }
-        });
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
+//        //        producer_url = ip_url+ip_url+"two";
+//        okhttp3.Request request2= new okhttp3.Request.Builder().url(producer_url).build();
+//        okHttpClient.newCall(request2).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+//                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+//            }
+//            @Override
+//            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+//                Log.d("valuee", "network success");
+//                //               tv.setText(response.body().string());
+//            }
+//        });
         //===================================================================
 
 

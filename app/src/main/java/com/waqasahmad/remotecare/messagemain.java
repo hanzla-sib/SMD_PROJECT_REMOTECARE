@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -54,8 +55,8 @@ public class messagemain extends AppCompatActivity {
     FirebaseDatabase database1;
 
 
-    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
-
+//    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
+String url1="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,11 @@ public class messagemain extends AppCompatActivity {
         back_btn = findViewById(R.id.back_btn);
 
         useremail1 = auth1.getCurrentUser().getEmail();
+
+
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/user_token_delete.php";
 
 
         back_btn.setOnClickListener(new View.OnClickListener()
@@ -100,7 +106,7 @@ public class messagemain extends AppCompatActivity {
                 String curruserid=auth.getUid();
                 reference.child(curruserid).updateChildren(onlinestatus);
 
-                StringRequest request=new StringRequest(Request.Method.POST, user_token_delete, new Response.Listener<String>()
+                StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
                 {
                     @Override
                     public void onResponse(String response)

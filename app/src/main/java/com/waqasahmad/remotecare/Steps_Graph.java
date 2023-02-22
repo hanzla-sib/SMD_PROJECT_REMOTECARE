@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,8 +52,9 @@ public class Steps_Graph extends AppCompatActivity {
     ArrayList<String> Labelsname;
     ArrayList<BarEntry> barEntryArrayListmonthly;
     ArrayList<String> Labelsnamemonthly;
-    private static final String Steps_graph="http://"+Ip_server.getIpServer()+"/smd_project/Steps_graph.php";
-    private static final String Steps_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyStepsgraph.php";
+//    private static final String Steps_graph="http://"+Ip_server.getIpServer()+"/smd_project/Steps_graph.php";
+//    private static final String Steps_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyStepsgraph.php";
+    String url1="",url2="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +74,11 @@ public class Steps_Graph extends AppCompatActivity {
         btn2=findViewById(R.id.appointment_btn);
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
+
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String s1 = sh.getString("Ip", "");
+        url1 ="http://"+s1+"/smd_project/Steps_graph.php";
+        url2 ="http://"+s1+"/smd_project/monthlyStepsgraph.php";
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +111,7 @@ public class Steps_Graph extends AppCompatActivity {
             }
         });
 //
-        StringRequest request=new StringRequest(Request.Method.POST, Steps_graph, new Response.Listener<String>()
+        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
@@ -206,7 +213,7 @@ public class Steps_Graph extends AppCompatActivity {
 
 
         //===================MONTHLY
-        StringRequest request1=new StringRequest(Request.Method.POST, Steps_graph_month, new Response.Listener<String>()
+        StringRequest request1=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)

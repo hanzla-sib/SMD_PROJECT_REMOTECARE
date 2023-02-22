@@ -1,6 +1,7 @@
 package com.waqasahmad.remotecare;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,10 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
 
         //
         holder.doctor_name.setText("Dr. " + ls_doc.get(position).getName_doc());
-        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
+//        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
+        SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
+        String s1 = sh.getString("Ip", "");
+        Picasso.get().load("http://"+s1+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
 
 
 //        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
