@@ -45,7 +45,7 @@ public class Steps_Graph extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     String currentemail="";
-    JSONArray obj2;
+    JSONArray obj2, obj3;
     ArrayList<Steps_Modal> Steps_MODAL_weekly=new ArrayList<>();
     ArrayList<Steps_Modal> Steps_MODAL_monthly=new ArrayList<>();
     ArrayList<BarEntry> barEntryArrayList;
@@ -54,7 +54,10 @@ public class Steps_Graph extends AppCompatActivity {
     ArrayList<String> Labelsnamemonthly;
 //    private static final String Steps_graph="http://"+Ip_server.getIpServer()+"/smd_project/Steps_graph.php";
 //    private static final String Steps_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyStepsgraph.php";
-    String url1="",url2="";
+    String url1="",url2="", url3="";
+    String d_email_steps_recommeded = "";
+    String steps_steps_recommeded = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +82,7 @@ public class Steps_Graph extends AppCompatActivity {
         String s1 = sh.getString("Ip", "");
         url1 ="http://"+s1+"/smd_project/Steps_graph.php";
         url2 ="http://"+s1+"/smd_project/monthlyStepsgraph.php";
+        url3 ="http://"+s1+"/smd_project/get_doc_recommended_steps.php";
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,10 +137,6 @@ public class Steps_Graph extends AppCompatActivity {
                     Labelsname=new ArrayList<>();
                     barEntryArrayList.clear();
                     Labelsname.clear();
-
-
-
-
 
                     try {
                         obj2 = new JSONArray(response);
@@ -304,6 +304,67 @@ public class Steps_Graph extends AppCompatActivity {
         };
         RequestQueue queue1= Volley.newRequestQueue(getApplicationContext());
         queue1.add(request1);
+
+
+
+        //===================STEPS RECOMMENDED
+        StringRequest request2=new StringRequest(Request.Method.POST, url3, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response2)
+            {
+
+                Log.d("response222222222222222" , response2);
+                if(response2.toString().equals("No entry"))
+                {
+
+                    Log.d("response333333333" , "Noooooooooooooooooooooooooooooooooooooo");
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),response2,Toast.LENGTH_LONG).show();
+
+                    try {
+                        obj3 = new JSONArray(response2);
+
+                        for(int i=0;i<obj3.length();i++){
+                            JSONObject jsonObject = obj3.getJSONObject(i);
+                            d_email_steps_recommeded = jsonObject.getString("d_email");
+
+                            Log.d("saadsaadaf",d_email_steps_recommeded);
+
+                            steps_steps_recommeded = jsonObject.getString("steps");
+
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("p_email",currentemail);
+                return param;
+            }
+        };
+        RequestQueue queue2= Volley.newRequestQueue(getApplicationContext());
+        queue2.add(request2);
+
+
 
     }
 }
