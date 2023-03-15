@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HeartBeat_graph"
+    android:orientation="vertical"
+    android:background="#D8DAE4">
+
+
+    <LinearLayout
+        android:id="@+id/tool"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:background="#3874B5"
+        android:orientation="horizontal"
+        android:layout_weight="0.9"
+        >
+
+        <include
+            layout="@layout/back_button"
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content">
+        </include>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="HeartRate History"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Weekly"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:paddingVertical="10dp"
+                />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/graph2"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Monthly"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:paddingVertical="10dp"
+                />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/graph3"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Steps Recommended"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/d_name_steps_screen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dr. "
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/steps_steps_screen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="12345"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <include
+            layout="@layout/navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+        </include>
+    </RelativeLayout>
+</LinearLayout>

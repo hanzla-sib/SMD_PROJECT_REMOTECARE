@@ -241,6 +241,44 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="25dp"
+                    android:paddingVertical="5dp"
+                    android:orientation="vertical"
+                    android:layout_marginRight="70dp"
+                    >
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/HR_graph"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        app:cardBackgroundColor="#FFAA8282"
+                        app:cardCornerRadius="20dp"
+                        >
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/stairs_card2"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="Heart Rate Graph"
+                                android:textColor="@color/black"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </ScrollView>

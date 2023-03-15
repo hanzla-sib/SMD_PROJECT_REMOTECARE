@@ -75,7 +75,7 @@ String useremail1="";
 String url1="",url2="";
     CardView appointment;
     CardView steps;
-    CardView step,Calories_Burnt_card,test_record,calorie;
+    CardView step,Calories_Burnt_card,test_record,calorie,HR;
 
 
 //    Button but,signout;
@@ -108,6 +108,7 @@ String url1="",url2="";
 
         step = findViewById(R.id.steps_graph_card);
         Calories_Burnt_card = findViewById(R.id.Calories_Burnt_card);
+        HR=findViewById(R.id.HR_card);
         test_record = findViewById(R.id.testrecord_card);
         calorie = findViewById(R.id.calories_card);
         input_query = findViewById(R.id.input_query);
@@ -216,6 +217,12 @@ String url1="",url2="";
         });
 
 
+        HR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity2.this, HeartBeat_graph.class));
+            }
+        });
 
 
         btn2.setOnClickListener(new View.OnClickListener() {

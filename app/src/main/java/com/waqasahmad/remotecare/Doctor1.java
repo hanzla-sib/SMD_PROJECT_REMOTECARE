@@ -47,7 +47,7 @@ public class Doctor1 extends AppCompatActivity {
 
     LinearLayout btn2,btn3,btn4;
 
-    CardView appointment,chat,Steps_pat,Calories_Burnt,CaloriesConsumed;
+    CardView appointment,chat,Steps_pat,Calories_Burnt,CaloriesConsumed,HR_graph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +62,10 @@ public class Doctor1 extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
         CaloriesConsumed=findViewById(R.id.CaloriesConsumed);
-
-
+        HR_graph=findViewById(R.id.HR_graph);
         btn2=findViewById(R.id.appointment_btn);
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
-
-
-
 
         // for logging out
         auth1=FirebaseAuth.getInstance();
@@ -139,6 +135,13 @@ public class Doctor1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Doctor1.this, Consumed_calories_Progress_Doctor_side.class));
+            }
+        });
+
+        HR_graph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Doctor1.this, HeartRate_progress_doc_side.class));
             }
         });
 

@@ -24,6 +24,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".HeartRate_progress_doc_side"
+            android:exported="false" />
+        <activity
+            android:name=".HeartBeat_graph"
+            android:exported="false" />
+        <activity
             android:name=".ip_change"
             android:exported="false" />
         <activity

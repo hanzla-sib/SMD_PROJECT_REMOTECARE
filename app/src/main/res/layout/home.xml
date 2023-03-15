@@ -256,8 +256,35 @@
 
             </LinearLayout>
 
-
             <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/HR_card"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/appointments_image_card"
+                    >
+
+                    <TextView
+                        android:id="@+id/Heart_beat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Heart Beat Graph"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 app:cardCornerRadius="20dp"
