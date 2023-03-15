@@ -80,31 +80,6 @@
                 android:id="@+id/graph3"
                 />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Steps Recommended"
-                android:textSize="24sp"
-                android:textColor="@color/black"
-                />
-
-            <TextView
-                android:id="@+id/d_name_steps_screen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Dr. "
-                android:textSize="24sp"
-                android:textColor="@color/black"
-                />
-
-            <TextView
-                android:id="@+id/steps_steps_screen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="12345"
-                android:textSize="24sp"
-                android:textColor="@color/black"
-                />
 
         </LinearLayout>
     </ScrollView>

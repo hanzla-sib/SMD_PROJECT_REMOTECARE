@@ -89,6 +89,7 @@
                 />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/d_name_steps_screen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,13 +99,26 @@
                 />
 
             <TextView
-                android:id="@+id/steps_steps_screen"
+                android:visibility="gone"
+                android:id="@+id/recommended_steps_steps_screen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="12345"
+                android:text="0"
                 android:textSize="24sp"
                 android:textColor="@color/black"
                 />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/remaining_steps_steps_screen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                />
+
+
 
         </LinearLayout>
     </ScrollView>

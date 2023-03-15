@@ -157,15 +157,14 @@ INSERT INTO `daily_steps` (`id`, `Demail`, `steps_daily`, `date_log`, `motion`, 
 (2, 'bilal@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
 (3, 'umaid@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
 (4, 'hanzla@gmail.com', 12, '2023-03-10', 'Resting', 0.48, NULL, NULL, 85),
-(5, 'bilal@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
-(6, 'fozan@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
-(7, 'waqas@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
-(8, 'ahmad@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
-(9, 'taha@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
-(10, 'ali@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
-(11, 'saad@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
-(12, 'adeel@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
-(13, 'saleem@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL);
+(5, 'fozan@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
+(6, 'waqas@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
+(7, 'ahmad@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
+(8, 'taha@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
+(9, 'ali@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
+(10, 'saad@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
+(11, 'adeel@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL),
+(12, 'saleem@gmail.com', 0, NULL, 'Resting', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 

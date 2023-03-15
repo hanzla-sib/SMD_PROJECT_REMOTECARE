@@ -261,7 +261,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/stairs_card2"
+                            android:background="@drawable/hrg"
                             >
 
                             <TextView
@@ -270,7 +270,7 @@
                                 android:padding="10dp"
                                 android:text="Heart Rate Graph"
                                 android:textColor="@color/black"
-                                android:textSize="24sp"
+                                android:textSize="20sp"
                                 android:textStyle="bold" />
 
                         </RelativeLayout>

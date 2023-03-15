@@ -1,10 +1,7 @@
 <?php
 include "config.php";
 $response=array();
-
 $email=$_POST['p_email'];
-
-
 
 
 $sql = "SELECT * FROM `weekly_steps` where `Demail`= '$email' ";
