@@ -72,13 +72,10 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
     public void onBindViewHolder(@NonNull Appointment_Adapter.MyViewHolder holder, int position)
     {
 
-
-
-
         //Initializing Firebase MAuth instance
         mAuth=FirebaseAuth.getInstance();
 
-        //Initializing Firebase MAuth instance
+        //Initializing Firebase DB instance
         db = FirebaseFirestore.getInstance();
 
         //getting email of logged in user

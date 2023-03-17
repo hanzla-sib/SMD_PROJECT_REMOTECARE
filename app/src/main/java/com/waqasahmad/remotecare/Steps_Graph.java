@@ -2,6 +2,8 @@ package com.waqasahmad.remotecare;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,6 +39,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Steps_Graph extends AppCompatActivity {
@@ -49,6 +52,9 @@ public class Steps_Graph extends AppCompatActivity {
     String currentemail="";
     JSONArray obj2, obj3;
     JSONObject obj4;
+
+    RecyclerView rv;
+    List<Steps_Model_Graph_Page> ls =new ArrayList<>();
 
     TextView doc_name,recommended_steps,remaining_steps;
     Integer daily_int,recommended_int,remaining_int;
@@ -64,6 +70,16 @@ public class Steps_Graph extends AppCompatActivity {
     String url1="",url2="", url3="",url4="";
     String d_email_steps_recommeded = "";
     String steps_steps_recommeded = "";
+
+    List<String> d_name_array=new ArrayList<String>();
+    List<String> recommended_steps_array=new ArrayList<String>();
+
+//    String [] d_name_array;
+//    ArrayList<String> recommended_steps_array;
+
+    String daily_steps_global= "";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +107,10 @@ public class Steps_Graph extends AppCompatActivity {
         remaining_steps = findViewById(R.id.remaining_steps_steps_screen);
 
 
+        rv=findViewById(R.id.steps_rv);
 
-        remaining_steps.setText("Remaining Steps :"+"122222");
+
+//        remaining_steps.setText("Remaining Steps :"+"122222");
 
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
@@ -228,94 +246,98 @@ public class Steps_Graph extends AppCompatActivity {
 
 
         //===================MONTHLY
-        StringRequest request1=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
         {
-            @Override
-            public void onResponse(String response)
+            StringRequest request1=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
             {
-
-                Log.d("response111111111111111" , response);
-                if(response.toString().equals("No entry"))
+                @Override
+                public void onResponse(String response)
                 {
 
-                    Log.d("response333333333" , "Noooooooooooooooooooooooooooooooooooooo");
-                }
-                else
-                {
+                    Log.d("response111111111111111" , response);
+                    if(response.toString().equals("No entry"))
+                    {
+
+                        Log.d("response333333333" , "Noooooooooooooooooooooooooooooooooooooo");
+                    }
+                    else
+                    {
 //                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
 
-                    Steps_MODAL_monthly.clear();
-                    barEntryArrayListmonthly=new ArrayList<>();
-                    Labelsnamemonthly=new ArrayList<>();
-                    barEntryArrayListmonthly.clear();
-                    Labelsnamemonthly.clear();
+                        Steps_MODAL_monthly.clear();
+                        barEntryArrayListmonthly=new ArrayList<>();
+                        Labelsnamemonthly=new ArrayList<>();
+                        barEntryArrayListmonthly.clear();
+                        Labelsnamemonthly.clear();
 
-                    try {
-                        obj2 = new JSONArray(response);
+                        try {
+                            obj2 = new JSONArray(response);
 
-                        for(int i=0;i<obj2.length();i++){
-                            JSONObject jsonObject = obj2.getJSONObject(i);
-                            String date = jsonObject.getString("month");
-                            String Calorie = jsonObject.getString("totalStepssum");
-                            Steps_MODAL_monthly.add(new Steps_Modal(date,Integer.parseInt(Calorie)));
+                            for(int i=0;i<obj2.length();i++){
+                                JSONObject jsonObject = obj2.getJSONObject(i);
+                                String date = jsonObject.getString("month");
+                                String Calorie = jsonObject.getString("totalStepssum");
+                                Steps_MODAL_monthly.add(new Steps_Modal(date,Integer.parseInt(Calorie)));
 //
-                        }
-                        for(int i=0;i<Steps_MODAL_monthly.size();i++){
-                            String date=Steps_MODAL_monthly.get(i).getDate();
-                            int Cal=Steps_MODAL_monthly.get(i).getSteps();
-                            barEntryArrayListmonthly.add(new BarEntry(i,Cal));
-                            Labelsnamemonthly.add(date);
-                        }
+                            }
+                            for(int i=0;i<Steps_MODAL_monthly.size();i++){
+                                String date=Steps_MODAL_monthly.get(i).getDate();
+                                int Cal=Steps_MODAL_monthly.get(i).getSteps();
+                                barEntryArrayListmonthly.add(new BarEntry(i,Cal));
+                                Labelsnamemonthly.add(date);
+                            }
 
-                        //====================
+                            //====================
 
 
 //                        monthly
-                        BarDataSet barDataSet_monthly=new BarDataSet(barEntryArrayListmonthly,"Monthly Steps");
-                        barDataSet_monthly.setColors(ColorTemplate.COLORFUL_COLORS);
-                        Description description= new Description();
-                        description.setText("-");
-                        monthly_barchart.setDescription(description);
-                        BarData barData_monthly=new BarData((barDataSet_monthly));
-                        monthly_barchart.setData(barData_monthly);
-                        XAxis xAxis=monthly_barchart.getXAxis();
-                        xAxis.setValueFormatter(new IndexAxisValueFormatter(Labelsnamemonthly));
-                        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                        xAxis.setDrawGridLines(false);
-                        xAxis.setDrawAxisLine(false);
-                        xAxis.setGranularity(1f);
-                        xAxis.setLabelCount(Labelsnamemonthly.size());
-                        xAxis.setLabelRotationAngle(0);
-                        monthly_barchart.animateY(2000);
-                        monthly_barchart.invalidate();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                            BarDataSet barDataSet_monthly=new BarDataSet(barEntryArrayListmonthly,"Monthly Steps");
+                            barDataSet_monthly.setColors(ColorTemplate.COLORFUL_COLORS);
+                            Description description= new Description();
+                            description.setText("-");
+                            monthly_barchart.setDescription(description);
+                            BarData barData_monthly=new BarData((barDataSet_monthly));
+                            monthly_barchart.setData(barData_monthly);
+                            XAxis xAxis=monthly_barchart.getXAxis();
+                            xAxis.setValueFormatter(new IndexAxisValueFormatter(Labelsnamemonthly));
+                            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                            xAxis.setDrawGridLines(false);
+                            xAxis.setDrawAxisLine(false);
+                            xAxis.setGranularity(1f);
+                            xAxis.setLabelCount(Labelsnamemonthly.size());
+                            xAxis.setLabelRotationAngle(0);
+                            monthly_barchart.animateY(2000);
+                            monthly_barchart.invalidate();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
+                    }
                 }
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error)
+            }, new Response.ErrorListener()
             {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-            }
-        })
-        {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError
+                @Override
+                public void onErrorResponse(VolleyError error)
+                {
+                    Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                }
+            })
             {
-                Map<String,String> param=new HashMap<String,String>();
-                param.put("p_email",currentemail);
-                return param;
-            }
-        };
-        RequestQueue queue1= Volley.newRequestQueue(getApplicationContext());
-        queue1.add(request1);
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError
+                {
+                    Map<String,String> param=new HashMap<String,String>();
+                    param.put("p_email",currentemail);
+                    return param;
+                }
+            };
+            RequestQueue queue1= Volley.newRequestQueue(getApplicationContext());
+            queue1.add(request1);
+        }
+
 
         //===================STEPS RECOMMENDED
+
         StringRequest request2=new StringRequest(Request.Method.POST, url3, new Response.Listener<String>()
         {
             @Override
@@ -338,90 +360,136 @@ public class Steps_Graph extends AppCompatActivity {
                         for(int i=0;i<obj3.length();i++){
                             JSONObject jsonObject = obj3.getJSONObject(i);
                             d_email_steps_recommeded = jsonObject.getString("d_email");
-
-                            Log.d("saadsaadaf",d_email_steps_recommeded);
-
                             steps_steps_recommeded = jsonObject.getString("steps");
 
 
-                                doc_name.setText("Dr."+d_email_steps_recommeded);
-                                doc_name.setVisibility(View.VISIBLE);
-                                recommended_steps.setText("Recommended Steps: "+steps_steps_recommeded);
-                            recommended_steps.setVisibility(View.VISIBLE);
+//                            d_name_array.set(i, d_email_steps_recommeded);
+                            d_name_array.add(d_email_steps_recommeded);
+                            recommended_steps_array.add(steps_steps_recommeded);
+
+
+
+
+//                                doc_name.setText("Dr."+d_email_steps_recommeded);
+//                                doc_name.setVisibility(View.VISIBLE);
+//                                recommended_steps.setText("Recommended Steps: "+steps_steps_recommeded);
+//                                recommended_steps.setVisibility(View.VISIBLE);
                                 /////////////
 
                                 //===================GETTING DAILY STEPS FOR REMAINING STEPS
 
-                                StringRequest request3=new StringRequest(Request.Method.POST, url4, new Response.Listener<String>()
-                                {
-                                    @Override
-                                    public void onResponse(String response3)
-                                    {
 
-                                        Log.d("response222222222222222" , response3);
-                                        if(response3.toString().equals("No entry"))
-                                        {
-
-                                            Log.d("response333333333" , "Noooooooooooooooooooooooooooooooooooooo");
-                                        }
-                                        else
-                                        {
-                                            Toast.makeText(getApplicationContext(),response3,Toast.LENGTH_LONG).show();
-
-
-                                            String daily_steps_str = response3.trim();
-                                            Log.d("ssss",daily_steps_str);
-                                            String rem="";
-
-                                            Log.d("dailysteps",daily_steps_str);
-                                            Log.d("recommended",steps_steps_recommeded);
-
-
-                                            daily_int = Integer.parseInt(daily_steps_str);
-                                            recommended_int = Integer.parseInt(steps_steps_recommeded);
-                                            remaining_int = recommended_int-daily_int;
-
-                                            Log.d("daily_int",String.valueOf(daily_int));
-                                            Log.d("recommended_int",String.valueOf(recommended_int));
-                                            Log.d("remaining_int",String.valueOf(remaining_int));
-
-
-                                            if(String.valueOf(remaining_int).charAt(0)=='-'){
-                                                Log.d("helllooo","sadasd");
-                                                remaining_steps.setText("Remaining Steps : 0  \n you have completed the goal" );
-                                            }
-                                            else{
-                                                remaining_steps.setText("Remaining Steps : " +String.valueOf(remaining_int));
-                                            }
-                                            remaining_steps.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                }, new Response.ErrorListener()
-                                {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error)
-                                    {
-                                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                                    }
-                                })
-                                {
-                                    @Nullable
-                                    @Override
-                                    protected Map<String, String> getParams() throws AuthFailureError
-                                    {
-                                        Map<String,String> param=new HashMap<String,String>();
-                                        param.put("p_email",currentemail);
-                                        return param;
-                                    }
-                                };
-                                RequestQueue queue3= Volley.newRequestQueue(getApplicationContext());
-                                queue3.add(request3);
 
 
 
                             /////////////
 
-                        }
+                        }//for loop ends
+
+                        StringRequest request3=new StringRequest(Request.Method.POST, url4, new Response.Listener<String>()
+                        {
+                            @Override
+                            public void onResponse(String response3)
+                            {
+
+                                Log.d("response222222222222222" , response3);
+                                if(response3.toString().equals("No entry"))
+                                {
+
+                                    Log.d("response333333333" , "Noooooooooooooooooooooooooooooooooooooo");
+                                }
+                                else
+                                {
+                                    Toast.makeText(getApplicationContext(),response3,Toast.LENGTH_LONG).show();
+
+
+                                    String daily_steps_str = response3.trim();
+//                                            Log.d("ssss",daily_steps_str);
+//                                            String rem="";
+
+//                                            Log.d("dailysteps",daily_steps_str);
+//                                            Log.d("recommended",steps_steps_recommeded);
+
+
+//
+
+//                                            Log.d("daily_int",String.valueOf(daily_int));
+//                                            Log.d("recommended_int",String.valueOf(recommended_int));
+//                                            Log.d("remaining_int",String.valueOf(remaining_int));
+
+                                    daily_steps_global = daily_steps_str;
+
+//                                            if(String.valueOf(remaining_int).charAt(0)=='-'){
+//                                                Log.d("helllooo","sadasd");
+//                                                remaining_steps.setText("Remaining Steps : 0  \n you have completed the goal" );
+//                                            }
+//                                            else{
+
+//                                                Log.d("saadsaadaf",d_email_steps_recommeded);
+//                                                steps_model.setD_email("Dr."+d_email_steps_recommeded);
+//                                                steps_model.setRecommended_steps("Recommended Steps: "+recommended_int.toString());
+//                                                steps_model.setRemaining_steps(remaining_int.toString());
+//                                                ls.add(steps_model);
+//
+//
+//                                                Steps_Adapter_Graph_Page adapter = new Steps_Adapter_Graph_Page(ls, Steps_Graph.this);
+//                                                RecyclerView.LayoutManager lm = new LinearLayoutManager(Steps_Graph.this);
+//                                                rv.setLayoutManager(lm);
+//                                                rv.setAdapter(adapter);
+
+
+//                                                remaining_steps.setText("Remaining Steps : " +String.valueOf(remaining_int));
+//                                            }
+//                                            remaining_steps.setVisibility(View.VISIBLE);
+
+                                    //---------------------
+                                    int i;
+                                    for (i = 0; i<d_name_array.size(); i++)
+                                    {
+
+                                        daily_int = Integer.parseInt(daily_steps_str);
+                                        recommended_int = Integer.parseInt(recommended_steps_array.get(i));
+                                        remaining_int = recommended_int-daily_int;
+                                        Steps_Model_Graph_Page  steps_model = new Steps_Model_Graph_Page();
+                                        steps_model.setD_email("Dr."+d_name_array.get(i));
+                                        steps_model.setRecommended_steps("Recommended Steps: "+recommended_int.toString());
+                                        steps_model.setRemaining_steps(remaining_int.toString());
+                                        ls.add(steps_model);
+
+                                        Steps_Adapter_Graph_Page adapter = new Steps_Adapter_Graph_Page(ls, Steps_Graph.this);
+                                        RecyclerView.LayoutManager lm = new LinearLayoutManager(Steps_Graph.this);
+                                        rv.setLayoutManager(lm);
+                                        rv.setAdapter(adapter);
+
+
+
+
+
+
+                                    }
+                                }
+                            }
+                        }, new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error)
+                            {
+                                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        {
+                            @Nullable
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError
+                            {
+                                Map<String,String> param=new HashMap<String,String>();
+                                param.put("p_email",currentemail);
+                                return param;
+                            }
+                        };
+                        RequestQueue queue3= Volley.newRequestQueue(getApplicationContext());
+                        queue3.add(request3);
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -452,5 +520,10 @@ public class Steps_Graph extends AppCompatActivity {
 
         //////////////////////////////////////////////////
 
+
+
+
     }
+
+
 }

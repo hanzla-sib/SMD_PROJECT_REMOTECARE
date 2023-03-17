@@ -38,9 +38,10 @@
     </LinearLayout>
 
     <ScrollView
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"
+        android:layout_weight="10"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,39 +89,14 @@
                 android:textColor="@color/black"
                 />
 
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/d_name_steps_screen"
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Dr. "
-                android:textSize="24sp"
-                android:textColor="@color/black"
+                android:layout_height="300dp"
+                android:id="@+id/steps_rv"
                 />
-
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/recommended_steps_steps_screen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="24sp"
-                android:textColor="@color/black"
-                />
-
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/remaining_steps_steps_screen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="24sp"
-                android:textColor="@color/black"
-                />
-
-
 
         </LinearLayout>
+
     </ScrollView>
 
     <RelativeLayout

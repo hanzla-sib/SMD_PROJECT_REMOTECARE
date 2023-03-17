@@ -97,7 +97,6 @@ String url="";
                 try {
                     JSONArray obj2 = new JSONArray(response);
 
-
                     for(int i=0;i<obj2.length();i++){
                         JSONObject jsonObject = obj2.getJSONObject(i);
 
