@@ -378,7 +378,9 @@ String url1="",url2="";
     public void ClickChat(View view){
         MainActivity2.redirectActivity(this,messagemain.class);
     }
-
+    public void ClickVideoCapture(View view){
+        MainActivity2.redirectActivity(this,Capture_Video.class);
+    }
 
     public void ClickLogout(View view)
     {
