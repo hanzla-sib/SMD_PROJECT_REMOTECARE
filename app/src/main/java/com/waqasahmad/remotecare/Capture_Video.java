@@ -121,5 +121,3 @@ public class Capture_Video extends AppCompatActivity {
     }
 }
 
-
-
