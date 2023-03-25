@@ -8,6 +8,7 @@ $p_name=$_POST['p_name'];
 $d_email=$_POST['d_email'];
 $d_name=$_POST['d_name'];
 
+
 $sql = "INSERT INTO `patient_appointment`(`p_name`, `p_email`, `appoint_status`, `d_name` , `d_email` ) 
 VALUES ('$p_name' , '$p_email', 'Pending' , '$d_name', '$d_email'  )";
 
@@ -32,5 +33,5 @@ else
 }
 
 
-  // echo "hello Successfully";
+  echo "hello Successfully";
 ?>

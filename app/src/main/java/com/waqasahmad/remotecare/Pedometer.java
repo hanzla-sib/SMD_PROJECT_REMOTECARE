@@ -1,5 +1,6 @@
 package com.waqasahmad.remotecare;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -41,7 +44,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     private static final float RESTING_THRESHOLD = 2.0f; // km/h
     private static final float RUNNING_THRESHOLD = 8.0f; // km/h
     private static final long MILLISECONDS_IN_SECOND = 1000;
-
+    private static final int REQUEST_ACTIVITY_RECOGNITION_PERMISSION = 1;
     private SensorManager sensorManager;
     private Sensor stepDetectorSensor;
 
@@ -117,48 +120,31 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 //        });
 
 
-        StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
 
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
-                try {
-                    obj = new JSONArray(response);
-                    for(int i=0;i<obj.length()-1;i++){
-                        JSONObject jsonObject = obj.getJSONObject(i);
-                        String stepsss = jsonObject.getString("steps");
-                        stepCount=Integer.parseInt(stepsss);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACTIVITY_RECOGNITION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            // Request the permission
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACTIVITY_RECOGNITION},
+                    REQUEST_ACTIVITY_RECOGNITION_PERMISSION);
+        } else {
 
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-            }
-        })
-        {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param=new HashMap<String,String>();
-                param.put("email",useremail);
-                return param;
-            }
-        };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-        queue.add(request);
+        }
+
+
 
         ////////////////////////////////////////////////////////////////////////////////////////
 
     }
+
+
+
+
+
+
+
+
 
     @Override
     protected void onResume()

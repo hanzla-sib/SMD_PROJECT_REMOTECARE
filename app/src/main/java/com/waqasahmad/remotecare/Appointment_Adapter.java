@@ -57,22 +57,6 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
 
     public Appointment_Adapter(List<Appointment_Model> ls_doc, Context c_doc)
     {
-        this.ls_doc = ls_doc;
-        this.c_doc = c_doc;
-    }
-
-    @NonNull
-    @Override
-    public Appointment_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View row = LayoutInflater.from(c_doc).inflate(R.layout.doc_row, parent, false);
-        return new MyViewHolder(row);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull Appointment_Adapter.MyViewHolder holder, int position)
-    {
-
-        //Initializing Firebase MAuth instance
         mAuth=FirebaseAuth.getInstance();
 
         //Initializing Firebase DB instance
@@ -82,8 +66,8 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
         currentemail = mAuth.getCurrentUser().getEmail();
 
         db.collection("users")
-                        .document(currentemail)
-                                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                .document(currentemail)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
@@ -100,6 +84,49 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
 
                     }
                 });
+        this.ls_doc = ls_doc;
+        this.c_doc = c_doc;
+    }
+
+    @NonNull
+    @Override
+    public Appointment_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View row = LayoutInflater.from(c_doc).inflate(R.layout.doc_row, parent, false);
+        return new MyViewHolder(row);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull Appointment_Adapter.MyViewHolder holder, int position)
+    {
+
+//        //Initializing Firebase MAuth instance
+//        mAuth=FirebaseAuth.getInstance();
+//
+//        //Initializing Firebase DB instance
+//        db = FirebaseFirestore.getInstance();
+//
+//        //getting email of logged in user
+//        currentemail = mAuth.getCurrentUser().getEmail();
+//
+//        db.collection("users")
+//                        .document(currentemail)
+//                                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//
+//                        DocumentSnapshot document = task.getResult();
+//                        JSONObject obj;
+//                        obj = new JSONObject(document.getData());
+//
+//
+//                        try {
+//                            currentname = obj.getString("Name");
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                });
 
 
 
@@ -108,6 +135,7 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
         String s2 = sh.getString("Ip", "");
 
         holder.doctor_name.setText( "Dr. " +ls_doc.get(position).getName_doc());
+        holder.doc_profession.setText(ls_doc.get(position).getDoc_type());
 //        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
 //        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
         Picasso.get().load("http://"+s2+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
@@ -175,12 +203,13 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView doctor_name,doctor_email;
+        TextView doctor_name,doc_profession;
         CircleImageView img;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             doctor_name=itemView.findViewById(R.id.doc_name2);
             img=itemView.findViewById(R.id.doc_img);
+            doc_profession=itemView.findViewById(R.id.doc_profession);
 //            doctor_email=itemView.findViewById(R.id.doc_email2);
 
         }

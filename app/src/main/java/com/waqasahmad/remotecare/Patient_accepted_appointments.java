@@ -96,6 +96,7 @@ String url1="";
 
                         String date = jsonObject.getString("Date1");
                         String time = jsonObject.getString("Time1");
+                        String doc_type = jsonObject.getString("doc_type");
 
 
 
@@ -105,6 +106,7 @@ String url1="";
                         doc_model.setImage_doc(image);
                         doc_model.setDate_doc(date);
                         doc_model.setTime_doc(time);
+                        doc_model.setDoc_type(doc_type);
 
                         ls.add(doc_model);
 

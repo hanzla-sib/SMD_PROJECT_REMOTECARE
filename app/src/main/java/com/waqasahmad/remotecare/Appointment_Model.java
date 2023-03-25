@@ -3,7 +3,7 @@ package com.waqasahmad.remotecare;
 
 public class Appointment_Model {
 
-    String name_doc,email_doc,image_doc, time_doc, date_doc;
+    String name_doc,email_doc,image_doc, time_doc, date_doc,doc_type;
 
 
     public String getImage_doc() {
@@ -15,6 +15,13 @@ public class Appointment_Model {
     }
 
 
+    public String getDoc_type() {
+        return doc_type;
+    }
+
+    public void setDoc_type(String doc_type) {
+        this.doc_type = doc_type;
+    }
 
     public Appointment_Model(String name_doc, String email_doc, String image_doc, String doc_date, String doc_time)
     {

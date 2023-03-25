@@ -42,6 +42,7 @@ $check=FALSE;
                                     while($row2 = $result2->fetch_assoc()) 
                                     {
                                       $temp['imageurl']=$row2["imageurl"];
+                                      $temp['doc_type']=$row2["doc_type"];
                                      
                                     }
                                     array_push($response,$temp);

@@ -58,6 +58,7 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
 
         //
         holder.doctor_name.setText("Dr. " + ls_doc.get(position).getName_doc());
+        holder.doc_type.setText(ls_doc.get(position).getDoc_type());
 //        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
         SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
@@ -73,13 +74,14 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView doctor_name,doctor_email;
+        TextView doctor_name,doc_type;
         CircleImageView img;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             doctor_name=itemView.findViewById(R.id.doc_name2);
             img=itemView.findViewById(R.id.doc_img);
+            doc_type=itemView.findViewById(R.id.doc_prof);
 
 
 //            doctor_email=itemView.findViewById(R.id.doc_email2);

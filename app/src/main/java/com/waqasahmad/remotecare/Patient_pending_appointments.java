@@ -92,12 +92,13 @@ String url1="";
                         String name = jsonObject.getString("d_name");
                         String email = jsonObject.getString("d_email");
                         String image = jsonObject.getString("imageurl");
-
+                        String doc_type = jsonObject.getString("doc_type");
 
                         Appointment_Model doc_model = new Appointment_Model();
                         doc_model.setName_doc(name);
                         doc_model.setEmail_doc(email);
                         doc_model.setImage_doc(image);
+                        doc_model.setDoc_type(doc_type);
 
                         ls.add(doc_model);
 

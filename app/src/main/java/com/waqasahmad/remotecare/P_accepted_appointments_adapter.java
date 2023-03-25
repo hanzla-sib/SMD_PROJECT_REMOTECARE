@@ -61,7 +61,7 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
         holder.doctor_name.setText("Dr. " + ls_doc.get(position).getName_doc());
         holder.doctor_time.setText(ls_doc.get(position).getTime_doc());
         holder.doctor_date.setText(ls_doc.get(position).getDate_doc());
-
+        holder.doc_prof.setText(ls_doc.get(position).getDoc_type());
         SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
 //        String url1 ="http://"+s1+"/smd_project/user_token_delete.php";
@@ -77,7 +77,7 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
 
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
-        TextView doctor_name,doctor_email, doctor_date, doctor_time;
+        TextView doctor_name,doctor_email, doctor_date, doctor_time,doc_prof;
         CircleImageView img;
 
 
@@ -86,6 +86,7 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
             doctor_name=itemView.findViewById(R.id.doc_name2);
             doctor_date = itemView.findViewById(R.id.doc_date);
             doctor_time = itemView.findViewById(R.id.doc_time);
+            doc_prof=itemView.findViewById(R.id.doc_prof);
             img=itemView.findViewById(R.id.doc_img);
 
 
