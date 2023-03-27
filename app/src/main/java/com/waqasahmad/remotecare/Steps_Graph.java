@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.util.Log;
@@ -93,6 +95,9 @@ public class Steps_Graph extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         weekly_barchart = findViewById(R.id.graph2);
         monthly_barchart=findViewById(R.id.graph3);
+        weekly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
+        monthly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
+
         //
         currentemail = mAuth.getCurrentUser().getEmail();
         back_btn = findViewById(R.id.back_btn);
@@ -214,8 +219,9 @@ public class Steps_Graph extends AppCompatActivity {
                         xAxis_weekly.setGranularity(1f);
                         xAxis_weekly.setLabelCount(Labelsname.size());
                         xAxis_weekly.setLabelRotationAngle(0);
-                        weekly_barchart.animateY(2000);
+                        weekly_barchart.animateY(1500);
                         weekly_barchart.invalidate();
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();

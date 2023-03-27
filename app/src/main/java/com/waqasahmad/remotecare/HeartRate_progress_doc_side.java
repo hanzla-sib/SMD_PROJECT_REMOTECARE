@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -76,6 +77,8 @@ public class HeartRate_progress_doc_side extends AppCompatActivity implements Ad
         setContentView(R.layout.activity_heart_rate_progress_doc_side);
         weekly_barchart = findViewById(R.id.graph2);
         monthly_barchart=findViewById(R.id.graph3);
+        weekly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
+        monthly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
         String useremail = mAuth.getCurrentUser().getEmail();
@@ -147,7 +150,7 @@ public class HeartRate_progress_doc_side extends AppCompatActivity implements Ad
 
                         spinner = (Spinner)findViewById(R.id.spinner);
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(HeartRate_progress_doc_side.this,
-                                android.R.layout.simple_spinner_item,paths);
+                                R.layout.spinner_color,paths);
 
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinner.setAdapter(adapter);

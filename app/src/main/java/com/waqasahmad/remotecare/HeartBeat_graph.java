@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -67,6 +68,8 @@ public class HeartBeat_graph extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         weekly_barchart = findViewById(R.id.graph2);
         monthly_barchart=findViewById(R.id.graph3);
+        weekly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
+        monthly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
         //
         currentemail = mAuth.getCurrentUser().getEmail();
         back_btn = findViewById(R.id.back_btn);

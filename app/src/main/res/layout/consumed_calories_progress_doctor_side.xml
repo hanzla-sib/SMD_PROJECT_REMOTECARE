@@ -40,13 +40,18 @@
 
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"/>
 
+    <Spinner
+        android:layout_marginTop="20dp"
+        android:id="@+id/spinner"
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_spinner_background"
+        android:spinnerMode="dropdown"
+
+        android:padding="10dp"
+        android:textSize="16sp"/>
     <ScrollView
         android:layout_weight="9"
         android:layout_width="match_parent"
