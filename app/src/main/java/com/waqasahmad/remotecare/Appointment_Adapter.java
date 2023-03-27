@@ -34,6 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +88,10 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
         this.ls_doc = ls_doc;
         this.c_doc = c_doc;
     }
-
+    public  void setfilterlist(List<Appointment_Model> filteredlist){
+        this.ls_doc=filteredlist;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public Appointment_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -99,34 +103,6 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
     public void onBindViewHolder(@NonNull Appointment_Adapter.MyViewHolder holder, int position)
     {
 
-//        //Initializing Firebase MAuth instance
-//        mAuth=FirebaseAuth.getInstance();
-//
-//        //Initializing Firebase DB instance
-//        db = FirebaseFirestore.getInstance();
-//
-//        //getting email of logged in user
-//        currentemail = mAuth.getCurrentUser().getEmail();
-//
-//        db.collection("users")
-//                        .document(currentemail)
-//                                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//
-//                        DocumentSnapshot document = task.getResult();
-//                        JSONObject obj;
-//                        obj = new JSONObject(document.getData());
-//
-//
-//                        try {
-//                            currentname = obj.getString("Name");
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                });
 
 
 

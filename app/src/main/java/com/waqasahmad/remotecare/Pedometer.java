@@ -7,6 +7,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,9 +36,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
+//import okhttp3.Call;
+//import okhttp3.Callback;
+//import okhttp3.OkHttpClient;
 
 public class Pedometer extends AppCompatActivity implements SensorEventListener {
 
@@ -65,8 +67,8 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     FirebaseFirestore db;
     FirebaseAuth mAuth;
 
-    //
-//
+    LinearLayout back_btn;
+
 //    private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
 //    private static final String initial_steps_from_DB ="http://"+Ip_server.getIpServer()+"/smd_project/initial_steps_from_DB.php";
    String url1="",url2="";
@@ -90,7 +92,16 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         stepCountTextView = findViewById(R.id.tv_steps);
         distanceTextView = findViewById(R.id.distance);
         paceTextView = findViewById(R.id.speed);
+        back_btn = findViewById(R.id.back_btn);
 
+
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");

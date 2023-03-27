@@ -12,20 +12,23 @@
     >
 
     <LinearLayout
-        android:weightSum="9"
+        android:weightSum="10.7"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include
             layout="@layout/toolbar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"/>
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="0.7"
+
+            />
 
         <ScrollView
             android:layout_weight="9"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:padding="16dp">
 
             <include
@@ -37,7 +40,7 @@
             android:layout_weight="1"
             layout="@layout/navigation_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_alignParentBottom="true">
 
         </include>

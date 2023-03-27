@@ -119,7 +119,7 @@ public class Calories_Burnt extends AppCompatActivity {
         });
 
 
-//
+////
         StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
         {
             @Override
@@ -158,6 +158,7 @@ public class Calories_Burnt extends AppCompatActivity {
                                 halfdate+=date.charAt(j);
                             }
                             String Calorie = jsonObject.getString("burnt_cal");
+                            Log.d("calllll",Calorie);
                             burnt_cal_MODAL_weekly.add(new Calories_burnt_modal(halfdate,Float.parseFloat(Calorie)));
 //
                         }

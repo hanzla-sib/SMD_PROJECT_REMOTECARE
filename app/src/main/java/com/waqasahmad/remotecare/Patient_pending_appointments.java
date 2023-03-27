@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -39,8 +40,9 @@ public class Patient_pending_appointments extends AppCompatActivity {
     List<Appointment_Model> ls =new ArrayList<>();
     LinearLayout back_btn;
     LinearLayout btn1,btn2,btn3,btn4;
-
+    P_pending_appointments_adapter adapter;
     //
+    SearchView search;
     FirebaseFirestore db;
     FirebaseAuth mAuth;
 
@@ -61,7 +63,7 @@ String url1="";
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url1 ="http://"+s1+"/smd_project/patient_pending_appointment.php";
-
+        search=findViewById(R.id.search_view);
 
 
         db = FirebaseFirestore.getInstance();
@@ -70,7 +72,19 @@ String url1="";
         String useremail = mAuth.getCurrentUser().getEmail();
         Log.d("useremail" , useremail);
 
+        search.clearFocus();
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fileList(newText);
+                return true;
+            }
+        });
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -104,7 +118,7 @@ String url1="";
 
                     }
 
-                    P_pending_appointments_adapter adapter = new P_pending_appointments_adapter(ls, Patient_pending_appointments.this);
+                     adapter = new P_pending_appointments_adapter(ls, Patient_pending_appointments.this);
                     RecyclerView.LayoutManager lm = new LinearLayoutManager(Patient_pending_appointments.this);
                     rv.setLayoutManager(lm);
                     rv.setAdapter(adapter);
@@ -167,5 +181,21 @@ String url1="";
             }
         });
 
+    }
+
+    private void fileList(String newText) {
+        List<Appointment_Model> filterlist=new ArrayList<>();
+        for(Appointment_Model item: ls){
+            if(item.getDoc_type().toLowerCase().contains(newText.toLowerCase())){
+                filterlist.add(item);
+            }
+        }
+        if(filterlist.isEmpty()){
+            Toast.makeText(this, "no data found", Toast.LENGTH_SHORT).show();
+        }
+        else{
+
+            adapter.setfilterlist(filterlist);
+        }
     }
 }

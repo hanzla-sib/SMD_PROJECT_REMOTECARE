@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -46,13 +47,14 @@ public class Appointments_Patient extends AppCompatActivity {
     RecyclerView rv;
     List<Appointment_Model> ls =new ArrayList<>();
     ImageView req_app;
-
+SearchView search;
     FirebaseFirestore db;
     FirebaseAuth mAuth;
     String strdoctor = "Doctor";
 
     LinearLayout back_btn;
     LinearLayout btn1,btn2,btn3,btn4;
+    Appointment_Adapter adapter;
 
 //    private static final String readuser="http://"+Ip_server.getIpServer()+"/smd_project/userlist.php";
 
@@ -73,7 +75,7 @@ String url="";
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
 
-
+search=findViewById(R.id.search_view);
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
 
@@ -82,7 +84,19 @@ String url="";
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url ="http://"+s1+"/smd_project/userlist.php";
+        search.clearFocus();
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fileList(newText);
+                return true;
+            }
+        });
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -117,7 +131,7 @@ String url="";
 
                     }
 
-                    Appointment_Adapter adapter = new Appointment_Adapter(ls, Appointments_Patient.this);
+                    adapter = new Appointment_Adapter(ls, Appointments_Patient.this);
                     RecyclerView.LayoutManager lm = new LinearLayoutManager(Appointments_Patient.this);
                     rv.setLayoutManager(lm);
                     rv.setAdapter(adapter);
@@ -146,70 +160,7 @@ String url="";
         RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
-        //*********************************
 
-//        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful())
-//                {
-//                    List<String> list = new ArrayList<>();
-//                    for (QueryDocumentSnapshot document : task.getResult())
-//                    {
-//                        list.add(document.getId());
-////                        Log.d("count777", "1");
-//                    }
-////                    Log.d("TAG66666666", list.toString());
-//
-//                    for(int i=0; i<list.size(); i++)
-//                    {
-//                        String currentX = list.get(i);
-////                        Log.d("count000000", currentX);
-//
-//                        db.collection("users").
-//                                document(currentX).get().
-//                                addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//
-//                                        DocumentSnapshot document = task.getResult();
-//
-//                                        JSONObject obj;
-//                                        obj = new JSONObject(document.getData());
-//
-//                                        try {
-//                                            String usertype = obj.getString("User_Type");
-//                                            if(usertype.equals(strdoctor))
-//                                            {
-//
-//                                                Appointment_Model doc_model = new Appointment_Model();
-//                                                String name = obj.getString("Name");
-//                                                String email = obj.getString("Email");
-//                                                doc_model.setName_doc(name);
-//                                                doc_model.setEmail_doc(email);
-//                                                ls.add(doc_model);
-//
-//                                            }
-//                                            Appointment_Adapter adapter = new Appointment_Adapter(ls, Appointments_Patient.this);
-//                                            RecyclerView.LayoutManager lm = new LinearLayoutManager(Appointments_Patient.this);
-//                                            rv.setLayoutManager(lm);
-//                                            rv.setAdapter(adapter);
-//
-//                                        } catch (JSONException e) {
-//                                            e.printStackTrace();
-//                                        }
-//
-//                                    }
-//                                });
-//                    }
-//                }
-//                else
-//                {
-//                    Log.d("TAG88888888", "Error getting documents: ", task.getException());
-//                }
-//
-//            }
-//            });
 
 
 
@@ -246,5 +197,21 @@ String url="";
         });
 
 
+    }
+
+    private void fileList(String newText) {
+        List<Appointment_Model> filterlist=new ArrayList<>();
+        for(Appointment_Model item: ls){
+            if(item.getDoc_type().toLowerCase().contains(newText.toLowerCase())){
+                filterlist.add(item);
+            }
+        }
+        if(filterlist.isEmpty()){
+            Toast.makeText(this, "no data found", Toast.LENGTH_SHORT).show();
+        }
+        else{
+
+            adapter.setfilterlist(filterlist);
+        }
     }
 }

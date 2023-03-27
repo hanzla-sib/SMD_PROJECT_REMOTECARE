@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Pedometer"
@@ -7,22 +7,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/running2"
+    android:weightSum="10.7"
+
     >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-
-        >
         <LinearLayout
             android:id="@+id/tool"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="#3874B5">
-
+            android:background="#3874B5"
+            android:layout_weight="1"
+            android:paddingRight="30dp"
+            >
 
             <include
                 layout="@layout/back_button"
@@ -35,21 +32,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Remote Care"
+                android:text="Steps Counter"
                 android:textAlignment="center"
                 android:textStyle="bold"
                 android:textSize="23sp"
-                android:textColor="@color/black" />
-
-
-
+                android:textColor="@color/black"
+                android:paddingRight="20dp"/>
 
         </LinearLayout>
+
         <RelativeLayout
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -76,7 +71,7 @@
                 android:layout_centerHorizontal="true"
 
                 android:layout_marginTop="36dp"
-                android:text="DIstance"
+                android:text="Distance"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -105,6 +100,6 @@
                 android:textStyle="bold" />
 
         </RelativeLayout>
+
     </LinearLayout>
 
-</RelativeLayout>

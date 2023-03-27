@@ -115,7 +115,7 @@ String url1="",url2="";
         Query1 = input_query.getText().toString();
         Enter_button = findViewById(R.id.Enter_button);
 
-        btn1=findViewById(R.id.home_btn);
+        btn1=findViewById(R.id.back_btn);
         btn2=findViewById(R.id.appointment_btn);
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);

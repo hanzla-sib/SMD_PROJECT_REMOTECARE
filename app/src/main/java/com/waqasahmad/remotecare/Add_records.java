@@ -53,7 +53,7 @@ String url="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_records);
+        setContentView(R.layout.view_test_record);
 
         //Initializing Firebase MAuth instance
         mAuth=FirebaseAuth.getInstance();

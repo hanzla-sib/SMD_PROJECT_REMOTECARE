@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -39,13 +40,13 @@ public class Patient_accepted_appointments extends AppCompatActivity {
     LinearLayout back_btn;
     LinearLayout btn1,btn2,btn3,btn4;
 
-
+    SearchView search;
     //
     FirebaseFirestore db;
     FirebaseAuth mAuth;
 
-
-//    private static final String patient_accepted_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_accepted_appointment.php";
+    P_accepted_appointments_adapter adapter;
+    //    private static final String patient_accepted_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_accepted_appointment.php";
 String url1="";
 
     @Override
@@ -59,7 +60,7 @@ String url1="";
         btn2=findViewById(R.id.appointment_btn);
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
-
+        search=findViewById(R.id.search_view);
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url1 ="http://"+s1+"/smd_project/patient_accepted_appointment.php";
@@ -70,7 +71,19 @@ String url1="";
         String useremail = mAuth.getCurrentUser().getEmail();
         Log.d("useremail" , useremail);
 
+        search.clearFocus();
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fileList(newText);
+                return true;
+            }
+        });
 
 
         //////////////////////////////////////////////////////////////////////////////////////////
@@ -112,7 +125,7 @@ String url1="";
 
                     }
 
-                    P_accepted_appointments_adapter adapter = new P_accepted_appointments_adapter(ls, Patient_accepted_appointments.this);
+                     adapter = new P_accepted_appointments_adapter(ls, Patient_accepted_appointments.this);
                     RecyclerView.LayoutManager lm = new LinearLayoutManager(Patient_accepted_appointments.this);
                     rv.setLayoutManager(lm);
                     rv.setAdapter(adapter);
@@ -178,5 +191,22 @@ String url1="";
             }
         });
 
+    }
+
+
+    private void fileList(String newText) {
+        List<Appointment_Model> filterlist=new ArrayList<>();
+        for(Appointment_Model item: ls){
+            if(item.getDoc_type().toLowerCase().contains(newText.toLowerCase())){
+                filterlist.add(item);
+            }
+        }
+        if(filterlist.isEmpty()){
+            Toast.makeText(this, "no data found", Toast.LENGTH_SHORT).show();
+        }
+        else{
+
+            adapter.setfilterlist(filterlist);
+        }
     }
 }

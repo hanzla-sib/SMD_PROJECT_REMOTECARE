@@ -6,7 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingHorizontal="15dp"
-    android:paddingVertical="5dp">
+    android:paddingVertical="5dp"
+
+    >
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -14,7 +17,6 @@
             android:orientation="vertical"
             android:layout_marginBottom="10dp"
             >
-
             <TextView
                 android:id="@+id/patient_name"
                 android:layout_width="match_parent"
@@ -27,11 +29,11 @@
                 />
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                app:cardCornerRadius="20dp"
-                android:layout_marginTop="10dp"
                 android:id="@+id/appointmentcard"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                app:cardCornerRadius="20dp"
                 >
 
                 <RelativeLayout
@@ -59,15 +61,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
+                android:weightSum="5"
+
                 >
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/steps_card"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="130dp"
                     app:cardBackgroundColor="#81A8D3"
                     app:cardCornerRadius="20dp"
                     android:layout_marginRight="7dp"
+                    android:layout_weight="2.8"
                     >
 
                     <RelativeLayout
@@ -80,7 +85,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
-                            android:text="Steps\nCounter"
+                            android:text="Steps\ncounter"
                             android:textColor="@color/black"
                             android:textSize="24sp"
                             android:textStyle="bold" />
@@ -90,11 +95,13 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="130dp"
                     app:cardCornerRadius="20dp"
                     android:id="@+id/display_records"
-                    app:cardBackgroundColor="#81A8D3">
+                    app:cardBackgroundColor="#81A8D3"
+                    android:layout_weight="2.2"
+                    >
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -123,7 +130,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingVertical="10dp">
+                android:paddingVertical="10dp"
+                android:weightSum="5"
+                >
 
 
                 <LinearLayout
@@ -132,12 +141,13 @@
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
+                        android:layout_width="0dp"
                         android:layout_height="130dp"
                         app:cardCornerRadius="20dp"
                         android:layout_marginRight="7dp"
                         app:cardBackgroundColor="@color/purple_200"
                         android:id="@+id/steps_graph_card"
+                        android:layout_weight="2.8"
                         >
 
                         <RelativeLayout
@@ -151,7 +161,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
-                                android:text="Steps History"
+                                android:text="Steps history"
                                 android:textColor="@color/black"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -161,11 +171,12 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="130dp"
                         app:cardCornerRadius="20dp"
                         app:cardBackgroundColor="@color/purple_200"
                         android:id="@+id/Calories_Burnt_card"
+                        android:layout_weight="2.2"
                         >
 
                         <RelativeLayout
@@ -178,7 +189,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
-                                android:text="Calories Burnt Graph"
+                                android:text="Calories burnt graph"
                                 android:textColor="@color/black"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -194,15 +205,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
+                    android:weightSum="5"
                     >
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
+                        android:layout_width="0dp"
                         android:layout_height="130dp"
                         app:cardCornerRadius="20dp"
                         android:layout_marginRight="7dp"
                         app:cardBackgroundColor="@color/purple_200"
                         android:id="@+id/testrecord_card"
+                        android:layout_weight="2.8"
                         >
 
                         <RelativeLayout
@@ -226,11 +239,12 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="130dp"
                         app:cardCornerRadius="20dp"
                         app:cardBackgroundColor="@color/purple_200"
                         android:id="@+id/calories_card"
+                        android:layout_weight="2.2"
                         >
 
                         <RelativeLayout
@@ -243,7 +257,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
-                                android:text="Calories \nintake \nGraph"
+                                android:text="Calories \nintake \ngraph"
                                 android:textColor="@color/black"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -257,12 +271,12 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                app:cardCornerRadius="20dp"
-                android:layout_marginTop="10dp"
                 android:id="@+id/HR_card"
                 app:cardBackgroundColor="#FFAA8282"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                app:cardCornerRadius="20dp"
                 >
 
                 <RelativeLayout
@@ -276,7 +290,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="Heart Beat Graph"
+                        android:text="Heart beat graph"
                         android:textColor="@color/black"
                         android:textSize="24sp"
 
@@ -285,13 +299,14 @@
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 app:cardCornerRadius="20dp"
                 android:id="@+id/meals_card"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="20dp"
                 >
 
                 <RelativeLayout
@@ -321,7 +336,7 @@
                         android:textColorHint="@color/white"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="40dp"
-                        android:hint="Enter your Meal intake"
+                        android:hint="Enter your meal intake"
                         android:textColor="@color/white" />
 
                     <RelativeLayout

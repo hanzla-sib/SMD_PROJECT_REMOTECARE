@@ -38,14 +38,21 @@
 
     </LinearLayout>
 
-
+    <SearchView
+        android:layout_below="@id/tool"
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search..."
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_accepted_appointments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:padding="20dp" />
 
     <RelativeLayout

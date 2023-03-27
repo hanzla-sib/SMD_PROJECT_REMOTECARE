@@ -35,7 +35,10 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
         this.ls_doc = ls_doc;
         this.c_doc = c_doc;
     }
-
+    public void setfilterlist(List<Appointment_Model> filteredlist){
+        this.ls_doc=filteredlist;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public P_pending_appointments_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -7,19 +7,18 @@
     android:orientation="vertical"
     tools:context=".messagemain"
     android:background="#3874B5"
-    android:weightSum="10"
+    android:weightSum="10.7"
     >
 
     <LinearLayout
         android:id="@+id/mainAppBarLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.7"
         android:gravity="center_vertical"
         android:paddingRight="10dp"
         android:orientation="horizontal"
         >
-
 
         <include
             layout="@layout/back_button"
@@ -35,13 +34,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/mainAppBarSearchButton"
             android:text="@string/app_name"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:textSize="23sp"
+            android:paddingRight="20dp"
+            />
 
         <ImageView
 
@@ -56,7 +54,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="10"
         android:background="@drawable/chat_bg2"
 
         >

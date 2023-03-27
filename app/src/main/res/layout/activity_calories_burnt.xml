@@ -7,35 +7,38 @@
     tools:context=".Calories_Burnt"
     android:background="#D8DAE4"
     android:orientation="vertical"
-    android:weightSum="10">
-
+    android:weightSum="10.7"
+    >
     <LinearLayout
         android:id="@+id/tool"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:gravity="center_vertical"
         android:background="#3874B5"
         android:orientation="horizontal"
-        android:layout_weight="1"
+        android:layout_weight="0.7"
+        android:layout_height="0dp"
+        android:textStyle="bold"
         >
 
         <include
             layout="@layout/back_button"
             android:layout_width="0dp"
-            android:layout_weight="0.2"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_marginLeft="5dp"
+            >
         </include>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Calories Burnt"
-            android:textSize="24sp"
+            android:textSize="23sp"
             android:textColor="@color/black"
+            android:layout_weight="0.9"
+            android:paddingRight="30dp"
+            android:textAlignment="center"
             android:textStyle="bold"
-            android:paddingVertical="10dp"
-            android:layout_gravity="center"
-            android:gravity="center"
             />
 
     </LinearLayout>
@@ -43,13 +46,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"
+        android:layout_weight="9"
+        android:padding="15dp"
+
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="10dp"
             >
 
             <TextView
@@ -85,6 +89,7 @@
                 />
 
         </LinearLayout>
+
     </ScrollView>
 
     <RelativeLayout

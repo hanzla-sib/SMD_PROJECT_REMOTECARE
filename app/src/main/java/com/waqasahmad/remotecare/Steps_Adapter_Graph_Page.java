@@ -76,7 +76,6 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
             holder.recomm_steps.setText(ls_doc.get(position).getRecommended_steps());
             holder.rem_steps.setText("Remaining Steps : 0  \nYou have completed the goal");
 
-
         }
         else
         {
@@ -85,19 +84,7 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
             holder.rem_steps.setText("Remaining Steps: "+ls_doc.get(position).getRemaining_steps());
         }
 
-        //
-
-
-
-
-
-
-
-
-
     }
-
-
 
     @Override
     public int getItemCount() {
