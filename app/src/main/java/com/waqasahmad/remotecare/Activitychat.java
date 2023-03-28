@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,9 @@ public class Activitychat extends AppCompatActivity {
     FirebaseAuth mauth;
     FirebaseDatabase database;
     DatabaseReference mref ;
-//    private static final String notify="http://"+Ip_server.getIpServer()+"/smd_project/notify.php";
+    LinearLayout back_btn;
+
+    //    private static final String notify="http://"+Ip_server.getIpServer()+"/smd_project/notify.php";
     String url="";
     TextView username,userMainChatActivityProfileName;
     ImageButton send1;
@@ -62,6 +65,7 @@ public class Activitychat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activitychat);
+        back_btn = findViewById(R.id.back_btn);
         searchView = findViewById(R.id.searchbar);
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -113,6 +117,13 @@ public class Activitychat extends AppCompatActivity {
         mref = database.getReference("Users").child(mauth.getUid());
         DatabaseReference mref2 = database.getReference("Chats").child(send_rcv).child("messages");
 
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         send1.setOnClickListener(new View.OnClickListener() {
             @Override

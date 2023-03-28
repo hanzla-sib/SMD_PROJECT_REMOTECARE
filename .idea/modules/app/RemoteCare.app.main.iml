@@ -61,7 +61,7 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-annotations:16.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.errorprone:error_prone_annotations:2.14.0" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:4.9.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.17.5" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okio:okio:2.8.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.protobuf:protobuf-javalite:3.21.1" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-core:1.48.1" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-api:1.48.1" level="project" />

@@ -1,67 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activitychat"
     android:orientation="vertical"
-    android:weightSum="12"
+    android:weightSum="10.3"
     android:background="#D8DAE4"
     >
 
     <LinearLayout
-        android:id="@+id/userChatAppBar"
+        android:id="@+id/tool"
         android:layout_width="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
         android:gravity="center_vertical"
         android:background="#3874B5"
-        android:elevation="10dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"
         android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
+        android:layout_weight="0.7"
+        android:layout_height="0dp"
+        android:textStyle="bold"
+        >
 
-        <ImageButton
-            android:layout_weight="1"
-            android:id="@+id/userMainChatActivityBackArrowBtn"
+        <include
+            layout="@layout/back_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#3874B5"
-            android:padding="0dp"
-            android:layout_marginRight="4dp"
-            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:layout_weight="0.1"
+            android:layout_marginLeft="5dp"
+            >
+        </include>
+
+        <TextView
+            android:id="@+id/userMainChatActivityProfileName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Steps History"
+            android:textSize="23sp"
+            android:textColor="@color/black"
+            android:layout_weight="0.9"
+            android:paddingLeft="20dp"
             />
 
-        <LinearLayout
-            android:layout_weight="8"
-            android:layout_width="0dp"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/userMainChatActivityProfileName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Haris"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:layout_toRightOf="@+id/userMainChatActivityProfileImage"
-                />
-
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:background="#8692BD"
-
+        android:background="#5B38AE4C"
         >
 
         <androidx.appcompat.widget.SearchView
@@ -70,19 +57,13 @@
             app:queryHint="search"
             android:id="@+id/searchbar"
             />
-
-
-
-
-
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/L2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9.7"
+        android:layout_weight="8.3"
         >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/insidechatrv"
@@ -94,7 +75,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:padding="4dp"
+        android:padding="6dp"
         android:layout_weight="0.8"
         android:id="@+id/L3"
         android:layout_width="match_parent"
@@ -129,8 +110,11 @@
             android:background="@drawable/send_button_background_design"
             android:elevation="5dp"
             android:padding="10dp"
-            android:src="@drawable/ic_baseline_send_24" />
+            android:src="@drawable/ic_baseline_send_24"
+            android:layout_marginTop="4dp"
+            />
 
 
     </LinearLayout>
+
 </LinearLayout>

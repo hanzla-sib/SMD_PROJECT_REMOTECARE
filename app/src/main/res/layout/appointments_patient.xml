@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,59 +7,68 @@
     android:layout_height="wrap_content"
     tools:context=".Appointments_Patient"
     android:background="#D8DAE4"
-
+    android:orientation="vertical"
+    android:weightSum="10.7"
     >
 
     <LinearLayout
         android:id="@+id/tool"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="#3874B5">
-
+        android:background="#3874B5"
+        android:orientation="horizontal"
+        android:layout_weight="0.7"
+        android:layout_height="0dp"
+        android:textStyle="bold"
+        >
 
         <include
             layout="@layout/back_button"
             android:layout_width="0dp"
-            android:layout_weight="0.2"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_marginLeft="5dp"
+            >
         </include>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="All Appointments"
-            android:textAlignment="center"
-            android:textStyle="bold"
+            android:text="Request Appointment"
             android:textSize="23sp"
             android:textColor="@color/black"
+            android:layout_weight="0.9"
+            android:paddingRight="30dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
             />
 
     </LinearLayout>
+
     <SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:iconifiedByDefault="false"
         android:queryHint="Search..."
        android:layout_below="@id/tool"
+        android:layout_weight="0.7"
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_weight="8.3"
         android:id="@+id/rv_appointments"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_below="@+id/tool"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         android:padding="20dp" />
-
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:layout_height="0dp"
+        android:layout_weight="1"
         >
 
         <include
@@ -71,7 +80,8 @@
         </include>
     </RelativeLayout>
 
-</RelativeLayout>
+
+</LinearLayout>
 
 
 

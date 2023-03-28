@@ -7,9 +7,6 @@
     android:background="#D8DAE4"
     >
 
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,29 +23,44 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:weightSum="5"
+            android:paddingTop="10dp"
             >
 
-            <TextView
-                android:layout_weight="3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/doc_name2"
-                android:text="name"
-                android:textSize="24sp"
-                android:textColor="@color/black"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                />
-            <RelativeLayout
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:layout_gravity="center"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/doc_name2"
+                    android:text="name"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/doc_prof"
+                    android:text="dermatologist"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="italic"
+                    />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 >
                 <TextView
                     android:layout_centerVertical="true"
@@ -56,12 +68,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/doc_date"
                     android:text=""
-                    android:layout_centerHorizontal="true"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textColor="@color/black"
+                    android:layout_alignParentRight="true"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
+                    android:layout_centerHorizontal="true"
                     />
+
                 <TextView
                     android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
@@ -70,34 +84,20 @@
                     android:text=""
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/doc_date"
                     />
+
             </RelativeLayout>
-
-
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/doc_prof"
-            android:text="dermatologist"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-
-            android:layout_marginLeft="10dp"
-            />
-    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
