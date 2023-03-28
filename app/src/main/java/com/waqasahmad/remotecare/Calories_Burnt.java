@@ -159,7 +159,10 @@ public class Calories_Burnt extends AppCompatActivity {
                             }
                             String Calorie = jsonObject.getString("burnt_cal");
                             Log.d("calllll",Calorie);
-                            burnt_cal_MODAL_weekly.add(new Calories_burnt_modal(halfdate,Float.parseFloat(Calorie)));
+                            if(!Calorie.equals("null")){
+                                burnt_cal_MODAL_weekly.add(new Calories_burnt_modal(halfdate,Float.parseFloat(Calorie)));
+                            }
+
 //
                         }
 
@@ -254,7 +257,10 @@ public class Calories_Burnt extends AppCompatActivity {
                             JSONObject jsonObject = obj2.getJSONObject(i);
                             String date = jsonObject.getString("month");
                             String Calorie = jsonObject.getString("totalBurntcalssum");
-                            burnt_cal_MODAL_monthly.add(new Calories_burnt_modal(date, Float.parseFloat(Calorie)));
+                            if(!Calorie.equals("null")){
+                                burnt_cal_MODAL_monthly.add(new Calories_burnt_modal(date, Float.parseFloat(Calorie)));
+                            }
+
 //
                         }
                         for(int i=0;i<burnt_cal_MODAL_monthly.size();i++){

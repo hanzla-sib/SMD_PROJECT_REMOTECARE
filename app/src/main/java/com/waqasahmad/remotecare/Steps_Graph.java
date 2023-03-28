@@ -194,7 +194,10 @@ public class Steps_Graph extends AppCompatActivity {
                                 halfdate+=date.charAt(j);
                             }
                             String Calorie = jsonObject.getString("steps");
-                            Steps_MODAL_weekly.add(new Steps_Modal(halfdate,Integer.parseInt(Calorie)));
+                            if(!Calorie.equals("null")){
+                                Steps_MODAL_weekly.add(new Steps_Modal(halfdate,Integer.parseInt(Calorie)));
+                            }
+
 //
                         }
 
@@ -282,7 +285,10 @@ public class Steps_Graph extends AppCompatActivity {
                                 JSONObject jsonObject = obj2.getJSONObject(i);
                                 String date = jsonObject.getString("month");
                                 String Calorie = jsonObject.getString("totalStepssum");
-                                Steps_MODAL_monthly.add(new Steps_Modal(date,Integer.parseInt(Calorie)));
+                                if(!Calorie.equals("null")){
+                                    Steps_MODAL_monthly.add(new Steps_Modal(date,Integer.parseInt(Calorie)));
+                                }
+
 //
                             }
                             for(int i=0;i<Steps_MODAL_monthly.size();i++){

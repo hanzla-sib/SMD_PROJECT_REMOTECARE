@@ -227,7 +227,11 @@ public class Consumed_calories_Progress_Doctor_side extends AppCompatActivity im
                                 halfdate+=date.charAt(j);
                             }
                             String Calorie = jsonObject.getString("calorie");
-                            CAL_MODAL_weekly.add(new CaloriesModal(halfdate,Integer.parseInt(Calorie)));
+                            if(!Calorie.equals("null")){
+                                CAL_MODAL_weekly.add(new CaloriesModal(halfdate,Integer.parseInt(Calorie)));
+                            }
+
+
 //                            CAL_MODAL.add(new CaloriesModal(date,Integer.parseInt(Calorie)));
                         }
 
@@ -322,7 +326,10 @@ public class Consumed_calories_Progress_Doctor_side extends AppCompatActivity im
                             JSONObject jsonObject = obj2.getJSONObject(i);
                             String date = jsonObject.getString("month");
                             String Calorie = jsonObject.getString("caloriesum");
-                            CAL_MODAL_monthly.add(new CaloriesModal(date,Integer.parseInt(Calorie)));
+                            if(!Calorie.equals("null")){
+                                CAL_MODAL_monthly.add(new CaloriesModal(date,Integer.parseInt(Calorie)));
+                            }
+
 //
                         }
                         for(int i=0;i<CAL_MODAL_monthly.size();i++){

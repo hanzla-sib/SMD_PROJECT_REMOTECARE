@@ -153,7 +153,10 @@ public class HeartBeat_graph extends AppCompatActivity {
                                 halfdate+=date.charAt(j);
                             }
                             String Heartrate = jsonObject.getString("HR");
-                            HR_MODAL_weekly.add(new HeartBeat_modal(halfdate,Float.parseFloat(Heartrate)));
+                            if(!Heartrate.equals("null")){
+                                HR_MODAL_weekly.add(new HeartBeat_modal(halfdate,Float.parseFloat(Heartrate)));
+                            }
+
 //
                         }
 
@@ -242,8 +245,11 @@ public class HeartBeat_graph extends AppCompatActivity {
                         for(int i=0;i<obj2.length();i++){
                             JSONObject jsonObject = obj2.getJSONObject(i);
                             String date = jsonObject.getString("month");
-                            String Calorie = jsonObject.getString("totalStepssum");
-                            HR_MODAL_monthly.add(new HeartBeat_modal(date,Float.parseFloat(Calorie)));
+                            String Heartrate = jsonObject.getString("totalStepssum");
+                            if(!Heartrate.equals("null")){
+                                HR_MODAL_monthly.add(new HeartBeat_modal(date,Float.parseFloat(Heartrate)));
+                            }
+
 //
                         }
                         for(int i=0;i<HR_MODAL_monthly.size();i++){
@@ -300,11 +306,6 @@ public class HeartBeat_graph extends AppCompatActivity {
         };
         RequestQueue queue1= Volley.newRequestQueue(getApplicationContext());
         queue1.add(request1);
-
-
-
-
-
 
 
     }

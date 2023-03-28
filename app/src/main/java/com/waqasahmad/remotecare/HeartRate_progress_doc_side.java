@@ -227,8 +227,12 @@ public class HeartRate_progress_doc_side extends AppCompatActivity implements Ad
                                 halfdate+=date.charAt(j);
                             }
                             String Calorie = jsonObject.getString("HR");
-                            CAL_MODAL_weekly.add(new HeartBeat_modal(halfdate,Float.parseFloat(Calorie)));
-//                            CAL_MODAL.add(new CaloriesModal(date,Integer.parseInt(Calorie)));
+                            if(!Calorie.equals("null")){
+                                CAL_MODAL_weekly.add(new HeartBeat_modal(halfdate,Float.parseFloat(Calorie)));
+                            }
+
+//
+//
                         }
 
                         for(int i=0;i<CAL_MODAL_weekly.size();i++){
@@ -322,7 +326,10 @@ public class HeartRate_progress_doc_side extends AppCompatActivity implements Ad
                             JSONObject jsonObject = obj2.getJSONObject(i);
                             String date = jsonObject.getString("month");
                             String Calorie = jsonObject.getString("totalStepssum");
-                            CAL_MODAL_monthly.add(new HeartBeat_modal(date,Float.parseFloat(Calorie)));
+                            if(!Calorie.equals("null")){
+                                CAL_MODAL_monthly.add(new HeartBeat_modal(date,Float.parseFloat(Calorie)));
+                            }
+
                         }
                         for(int i=0;i<CAL_MODAL_monthly.size();i++){
                             String date=CAL_MODAL_monthly.get(i).getDate();

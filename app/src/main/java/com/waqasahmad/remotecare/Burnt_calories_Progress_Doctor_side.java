@@ -225,7 +225,10 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
                                 halfdate+=date.charAt(j);
                             }
                             String Calorie = jsonObject.getString("burnt_cal");
-                            burnt_cal_MODAL_weekly.add(new Calories_burnt_modal(halfdate,Float.parseFloat(Calorie)));
+                            if(!Calorie.equals("null")){
+                                burnt_cal_MODAL_weekly.add(new Calories_burnt_modal(halfdate,Float.parseFloat(Calorie)));
+                            }
+
 //
                         }
 
@@ -319,7 +322,10 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
                             JSONObject jsonObject = obj2.getJSONObject(i);
                             String date = jsonObject.getString("month");
                             String Calorie = jsonObject.getString("totalBurntcalssum");
-                            burnt_cal_MODAL_monthly.add(new Calories_burnt_modal(date,Float.parseFloat(Calorie)));
+                            if(!Calorie.equals("null")){
+                                burnt_cal_MODAL_monthly.add(new Calories_burnt_modal(date,Float.parseFloat(Calorie)));
+                            }
+
 //
                         }
                         for(int i=0;i<burnt_cal_MODAL_monthly.size();i++){
