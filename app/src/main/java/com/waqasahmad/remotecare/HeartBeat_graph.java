@@ -2,6 +2,7 @@ package com.waqasahmad.remotecare;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.ColorUtils;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -68,8 +69,8 @@ public class HeartBeat_graph extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         weekly_barchart = findViewById(R.id.graph2);
         monthly_barchart=findViewById(R.id.graph3);
-        weekly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
-        monthly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
+        weekly_barchart.setBackground(getResources().getDrawable(R.drawable.gradient_colors));
+        monthly_barchart.setBackground(getResources().getDrawable(R.drawable.gradient_colors));
         //
         currentemail = mAuth.getCurrentUser().getEmail();
         back_btn = findViewById(R.id.back_btn);
@@ -167,7 +168,7 @@ public class HeartBeat_graph extends AppCompatActivity {
                             Labelsname.add(date);
                         }
                         BarDataSet barDataSetweekly=new BarDataSet(barEntryArrayList,"Weekly HeartRate");
-                        barDataSetweekly.setColors(ColorTemplate.COLORFUL_COLORS);
+                        barDataSetweekly.setColors(ColorUtils.blendARGB(Color.RED, Color.YELLOW, 0.8f));
                         Description description_weekly= new Description();
                         description_weekly.setText("-");
                         weekly_barchart.setDescription(description_weekly);
@@ -264,7 +265,7 @@ public class HeartBeat_graph extends AppCompatActivity {
 
 //                        monthly
                         BarDataSet barDataSet_monthly=new BarDataSet(barEntryArrayListmonthly,"Monthly Heartrate");
-                        barDataSet_monthly.setColors(ColorTemplate.COLORFUL_COLORS);
+                        barDataSet_monthly.setColors(ColorUtils.blendARGB(Color.RED, Color.YELLOW, 0.8f));
                         Description description= new Description();
                         description.setText("-");
                         monthly_barchart.setDescription(description);

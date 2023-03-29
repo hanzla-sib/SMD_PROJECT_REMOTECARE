@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity2"
     android:id="@+id/drawer_layout"
-    android:background="#D8DAE4"
+    android:background="@drawable/gradient_colors"
 
     >
 
@@ -51,13 +51,13 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#D8DAE4"
+        android:background="#151515"
         >
 
         <include
+            layout="@layout/drawer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            layout="@layout/drawer"/>
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

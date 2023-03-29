@@ -28,7 +28,7 @@
                 android:layout_width="200dp"
                 android:layout_height="150dp"
                 android:layout_marginHorizontal="10dp"
-                android:src="@drawable/rclogo" />
+                android:src="@drawable/rc_new_logo" />
 
             <TextView
                 android:layout_width="match_parent"

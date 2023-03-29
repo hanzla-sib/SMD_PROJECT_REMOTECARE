@@ -36,6 +36,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+
 //import okhttp3.Call;
 //import okhttp3.Callback;
 //import okhttp3.OkHttpClient;
@@ -69,9 +73,9 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 
     LinearLayout back_btn;
 
-//    private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
+    //    private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
 //    private static final String initial_steps_from_DB ="http://"+Ip_server.getIpServer()+"/smd_project/initial_steps_from_DB.php";
-   String url1="",url2="";
+    String url1="",url2="";
     String ip_url = "";
     JSONArray obj;
     //
@@ -113,10 +117,59 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
         useremail = mAuth.getCurrentUser().getEmail();
+
+        StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+
+//
+
+                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
+                try {
+                    obj = new JSONArray(response);
+                    for(int i=0;i<obj.length()-1;i++){
+                        JSONObject jsonObject = obj.getJSONObject(i);
+                        String stepsss = jsonObject.getString("steps");
+                        stepCount=Integer.parseInt(stepsss);
+                    }
+
+                    stepCountTextView.setText(String.valueOf(stepCount));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//
+//
+
+
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("email",useremail);
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+        //
+
+
 //        OkHttpClient okHttpClient = new OkHttpClient();
-//        ip_url = "http://"+"Ip_server".getIpServer()+":5000/";
+//        ip_url = "http://192.168.100.53:5000/";
 //        consumer_url = ip_url+"consumer";
-//        consumer_url = ip_url+"one";
+////        consumer_url = ip_url+"one";
 //        okhttp3.Request request1= new okhttp3.Request.Builder().url(consumer_url).build();
 //        okHttpClient.newCall(request1).enqueue(new Callback() {
 //            @Override
@@ -186,12 +239,27 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
             /////////////////////////////////////////////////////////////////////
 
 
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
+//        //        producer_url = ip_url+ip_url+"two";
+//        okhttp3.Request request2= new okhttp3.Request.Builder().url(producer_url).build();
+//        okHttpClient.newCall(request2).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+//                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+//            }
+//            @Override
+//            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+//                Log.d("valuee", "network success");
+//                //               tv.setText(response.body().string());
+//            }
+//        });
             StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
             {
                 @Override
                 public void onResponse(String response)
                 {
-                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
                 }
             }, new Response.ErrorListener()
             {
@@ -260,38 +328,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 
         ////////////////////////////////////////////////////////////////////////
 
-        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                Log.d("checking",response.toString());
-//                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-            }
-        }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-            }
-        })
-        {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param=new HashMap<String,String>();
-                param.put("email",useremail);
-                param.put("steps",Integer.toString(stepCount));
-                param.put("calories_burn",Double.toString(caloriesburnt));
-                param.put("Motion","Resting");
-                return param;
-            }
-        };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-        queue.add(request);
-
-        //==================================================================================
+//
 //        OkHttpClient okHttpClient = new OkHttpClient();
 //        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
 //        //        producer_url = ip_url+ip_url+"two";
@@ -307,6 +344,40 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 //                //               tv.setText(response.body().string());
 //            }
 //        });
+
+//        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+//        {
+//            @Override
+//            public void onResponse(String response)
+//            {
+//                Log.d("checking",response.toString());
+////                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+//            }
+//        }, new Response.ErrorListener()
+//        {
+//            @Override
+//            public void onErrorResponse(VolleyError error)
+//            {
+//                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+//            }
+//        })
+//        {
+//            @Nullable
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String,String> param=new HashMap<String,String>();
+//                param.put("email",useremail);
+//                param.put("steps",Integer.toString(stepCount));
+//                param.put("calories_burn",Double.toString(caloriesburnt));
+//                param.put("Motion","Resting");
+//                return param;
+//            }
+//        };
+//        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+//        queue.add(request);
+
+//        ==================================================================================
+
         //===================================================================
 
 

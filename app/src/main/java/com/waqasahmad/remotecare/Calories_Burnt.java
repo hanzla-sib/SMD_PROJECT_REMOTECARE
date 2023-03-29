@@ -2,6 +2,7 @@ package com.waqasahmad.remotecare;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.ColorUtils;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -70,8 +71,8 @@ public class Calories_Burnt extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         weekly_barchart = findViewById(R.id.graph2);
         monthly_barchart=findViewById(R.id.graph3);
-        weekly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
-        monthly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
+        weekly_barchart.setBackground(getResources().getDrawable(R.drawable.gradient_colors));
+        monthly_barchart.setBackground(getResources().getDrawable(R.drawable.gradient_colors));
         back_btn = findViewById(R.id.back_btn);
         btn1=findViewById(R.id.home_btn2);
         btn2=findViewById(R.id.appointment_btn);
@@ -174,7 +175,7 @@ public class Calories_Burnt extends AppCompatActivity {
                             Labelsname.add(date);
                         }
                         BarDataSet barDataSetweekly=new BarDataSet(barEntryArrayList,"Weekly Calories Burnt");
-                        barDataSetweekly.setColors(ColorTemplate.COLORFUL_COLORS);
+                        barDataSetweekly.setColors(ColorUtils.blendARGB(Color.RED, Color.YELLOW, 0.8f));
                         Description description_weekly= new Description();
                         description_weekly.setText("-");
                         weekly_barchart.setDescription(description_weekly);
@@ -275,7 +276,7 @@ public class Calories_Burnt extends AppCompatActivity {
 
 //                        monthly
                         BarDataSet barDataSet_monthly=new BarDataSet(barEntryArrayListmonthly,"Monthly Calories Burnt");
-                        barDataSet_monthly.setColors(ColorTemplate.COLORFUL_COLORS);
+                        barDataSet_monthly.setColors(ColorUtils.blendARGB(Color.RED, Color.YELLOW, 0.8f));
                         Description description= new Description();
                         description.setText("-");
                         monthly_barchart.setDescription(description);

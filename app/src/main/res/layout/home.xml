@@ -23,8 +23,8 @@
                 android:layout_height="wrap_content"
                 android:text="Hi,"
                 android:textSize="30sp"
-                android:textColor="@color/black"
-                android:layout_margin="20dp"
+                android:textColor="@color/white"
+                android:layout_margin="10dp"
                 android:textStyle="italic"
                 />
 
