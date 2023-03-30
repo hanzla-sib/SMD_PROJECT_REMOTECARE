@@ -64,7 +64,7 @@ String url="";
         btn2=findViewById(R.id.appointment_btn);
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
-
+        btn3.setBackgroundResource(R.drawable.nav_btn_color);
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

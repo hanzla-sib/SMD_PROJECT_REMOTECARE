@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     tools:context=".Steps_Graph"
     android:orientation="vertical"
-    android:background="#D8DAE4"
+    android:background="@color/white"
     android:weightSum="10.7"
     >
 
@@ -15,7 +15,7 @@
         android:id="@+id/tool"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
-        android:background="#3874B5"
+        android:background="@drawable/gradient_colors"
         android:orientation="horizontal"
         android:layout_weight="0.7"
         android:layout_height="0dp"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:text="Steps History"
             android:textSize="23sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_weight="0.9"
             android:paddingRight="30dp"
             android:textAlignment="center"

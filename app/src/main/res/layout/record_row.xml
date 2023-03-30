@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#D8DAE4"
+    android:background="@color/white"
     >
 
     <TextView
@@ -16,7 +16,7 @@
         android:textSize="23dp"
         android:text="Record Number"
         android:textStyle="bold"
-        android:textColor="@color/purple_700"
+        android:textColor="#3A4373"
         android:paddingVertical="5dp"
         >
     </TextView>
@@ -32,13 +32,14 @@
 
     <TextView
             android:layout_width="match_parent"
+            android:paddingVertical="10dp"
             android:layout_height="match_parent"
             android:id="@+id/details_record"
             android:gravity="center"
             android:textSize="18dp"
             android:text="Details"
             android:textStyle="bold"
-            android:textColor="@color/purple_700"
+            android:textColor="#3A4373"
             android:paddingBottom="20dp"
             >
         </TextView>
@@ -48,6 +49,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
         >
 
         <RelativeLayout
@@ -76,6 +78,7 @@
     </LinearLayout>
 
     <View
+
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#3874B5"

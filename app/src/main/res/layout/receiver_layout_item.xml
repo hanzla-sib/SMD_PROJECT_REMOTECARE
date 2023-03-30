@@ -39,7 +39,7 @@
         android:layout_below="@+id/img1"
         android:layout_toRightOf="@+id/img1"
         android:text="time"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:paddingTop="20dp"
         android:textSize="10sp"
         android:textStyle="bold"

@@ -71,8 +71,8 @@ public class Calories_Burnt extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         weekly_barchart = findViewById(R.id.graph2);
         monthly_barchart=findViewById(R.id.graph3);
-        weekly_barchart.setBackground(getResources().getDrawable(R.drawable.gradient_colors));
-        monthly_barchart.setBackground(getResources().getDrawable(R.drawable.gradient_colors));
+        weekly_barchart.setBackgroundColor(Color.WHITE);
+        monthly_barchart.setBackgroundColor(Color.WHITE);
         back_btn = findViewById(R.id.back_btn);
         btn1=findViewById(R.id.home_btn2);
         btn2=findViewById(R.id.appointment_btn);
@@ -175,7 +175,8 @@ public class Calories_Burnt extends AppCompatActivity {
                             Labelsname.add(date);
                         }
                         BarDataSet barDataSetweekly=new BarDataSet(barEntryArrayList,"Weekly Calories Burnt");
-                        barDataSetweekly.setColors(ColorUtils.blendARGB(Color.RED, Color.YELLOW, 0.8f));
+//                        barDataSetweekly.setColors(ColorUtils.blendARGB(Color.RED, Color.YELLOW, 0.8f));
+                        barDataSetweekly.setColors(ColorTemplate.PASTEL_COLORS);
                         Description description_weekly= new Description();
                         description_weekly.setText("-");
                         weekly_barchart.setDescription(description_weekly);
@@ -276,7 +277,8 @@ public class Calories_Burnt extends AppCompatActivity {
 
 //                        monthly
                         BarDataSet barDataSet_monthly=new BarDataSet(barEntryArrayListmonthly,"Monthly Calories Burnt");
-                        barDataSet_monthly.setColors(ColorUtils.blendARGB(Color.RED, Color.YELLOW, 0.8f));
+                        barDataSet_monthly.setColors(ColorTemplate.PASTEL_COLORS);
+
                         Description description= new Description();
                         description.setText("-");
                         monthly_barchart.setDescription(description);

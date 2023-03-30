@@ -3,13 +3,50 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable-v24/blackplaylistbackground.xml" value="0.163" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable-v24/ic_baseline_add_24.xml" value="0.163" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable-v24/ic_baseline_send_24.xml" value="0.163" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable/arrow_back.xml" value="0.163" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable/custom_spinner_background.xml" value="0.163" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable/gradient_color_drawer.xml" value="0.163" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable/gradient_colors.xml" value="0.163" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable/nav_btn_color.xml" value="0.163" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable/round.xml" value="0.163" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable/roundedittext.xml" value="0.163" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable/send_button_background_design.xml" value="0.163" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_activitychat.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_calories_burnt.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_heart_beat_graph.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_heart_rate_progress_doc_side.xml" value="0.115625" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_main2.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_meals.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_messagemain.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_profile.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_steps_graph.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/appointments_patient.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/calories.xml" value="0.25435897435897437" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/consumed_calories_progress_doctor_side.xml" value="0.115625" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/doc_appointments_pending.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/doc_profile.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/doc_row.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/doctor1.xml" value="0.115625" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/home.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/messageall.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/navigation_bar.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/patient_accepted_appointments.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/patient_all_appointments.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/patient_pending_appointments.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/patient_row.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/patient_row_accept_pending.xml" value="0.25435897435897437" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/patient_row_accepted_appointments.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/profile.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/receiver_layout_item.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/record_row.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/row.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/sender_layout_item.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/startscreen.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/upload_test_record.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/view_test_record.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/Dell/OneDrive/Documents/GitHub/SMD_PROJECT_REMOTECARE/app/src/main/res/layout/activity_steps_graph.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable/appoint.xml" value="0.12" />
         <entry key="..\:/Users/Style Setters/AndroidStudioProjects/RemoteCare/SMD_PROJECT_REMOTECARE/app/src/main/res/drawable/arrow_back.xml" value="0.12" />

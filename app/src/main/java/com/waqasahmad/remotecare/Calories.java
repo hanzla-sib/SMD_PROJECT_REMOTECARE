@@ -77,8 +77,8 @@ public class Calories extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         weekly_barchart = findViewById(R.id.graph2);
         monthly_barchart=findViewById(R.id.graph3);
-        weekly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
-        monthly_barchart.setBackgroundColor(Color.parseColor("#F5F5F5"));
+        weekly_barchart.setBackgroundColor(Color.WHITE);
+        monthly_barchart.setBackgroundColor(Color.WHITE);
         //
         currentemail = mAuth.getCurrentUser().getEmail();
         back_btn = findViewById(R.id.back_btn);
@@ -179,7 +179,7 @@ public class Calories extends AppCompatActivity {
                             Labelsname.add(date);
                         }
                         BarDataSet barDataSetweekly=new BarDataSet(barEntryArrayList,"Weekly CALORIES");
-                        barDataSetweekly.setColors(ColorTemplate.COLORFUL_COLORS);
+                        barDataSetweekly.setColors(ColorTemplate.PASTEL_COLORS);
                         Description description_weekly= new Description();
                         description_weekly.setText("-");
                         weekly_barchart.setDescription(description_weekly);
@@ -280,7 +280,7 @@ public class Calories extends AppCompatActivity {
 
 //                        monthly
                         BarDataSet barDataSet_monthly=new BarDataSet(barEntryArrayListmonthly,"Monthly CALORIES");
-                        barDataSet_monthly.setColors(ColorTemplate.COLORFUL_COLORS);
+                        barDataSet_monthly.setColors(ColorTemplate.PASTEL_COLORS);
                         Description description= new Description();
                         description.setText("-");
                         monthly_barchart.setDescription(description);

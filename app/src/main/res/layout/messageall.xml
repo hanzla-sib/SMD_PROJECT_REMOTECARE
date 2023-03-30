@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/chat_row"
+                android:background="@drawable/gradient_color_drawer"
                 >
 
                 <de.hdodenhof.circleimageview.CircleImageView

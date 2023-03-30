@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".messagemain"
-    android:background="#3874B5"
+    android:background="@drawable/gradient_colors"
     android:weightSum="10.7"
     >
 
@@ -36,7 +36,7 @@
             android:textAlignment="center"
             android:text="@string/app_name"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="23sp"
             android:paddingRight="20dp"
             />
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:background="@drawable/chat_bg2"
+        android:background="@drawable/gradient_color_drawer"
 
         >
         <androidx.recyclerview.widget.RecyclerView

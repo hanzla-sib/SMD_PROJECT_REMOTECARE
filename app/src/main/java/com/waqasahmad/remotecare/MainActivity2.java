@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -115,7 +116,9 @@ String url1="",url2="";
         Query1 = input_query.getText().toString();
         Enter_button = findViewById(R.id.Enter_button);
 
-        btn1=findViewById(R.id.back_btn);
+        btn1=findViewById(R.id.home_btn2);
+//btn1.setBackgroundColor();
+        btn1.setBackgroundResource(R.drawable.nav_btn_color);
         btn2=findViewById(R.id.appointment_btn);
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);

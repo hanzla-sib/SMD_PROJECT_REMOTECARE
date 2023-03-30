@@ -9,13 +9,12 @@
     >
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/img1"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/messageprofile"
-        />
+        android:src="@drawable/messageprofile" />
 
     <TextView
         android:id="@+id/txtMessages"
@@ -40,7 +39,7 @@
         android:layout_toLeftOf="@+id/img1"
         android:paddingTop="20dp"
         android:text="time"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="10sp"
         android:textStyle="bold"
 

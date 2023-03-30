@@ -27,6 +27,7 @@ public class Patient_All_appointments extends AppCompatActivity {
         back_btn = findViewById(R.id.back_btn);
         btn1=findViewById(R.id.home_btn2);
         btn2=findViewById(R.id.appointment_btn);
+        btn2.setBackgroundResource(R.drawable.nav_btn_color);
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
 

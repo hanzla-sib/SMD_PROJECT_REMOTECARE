@@ -17,10 +17,13 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
             android:id="@+id/home_btn2"
+            android:padding="2dp"
+
+
 
             >
 
@@ -30,6 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_home"
+                android:layout_marginTop="4dp"
                 android:id="@+id/home_logo"/>
 
             <TextView
@@ -38,35 +42,11 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:text="Home"
+                android:layout_marginBottom="4dp"
+
                 />
 
         </LinearLayout>
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_weight="1"-->
-<!--            android:id="@+id/home_btn"-->
-<!--            >-->
-
-<!--            <ImageView-->
-<!--                android:layout_weight="1"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:src="@drawable/ic_home"-->
-<!--                android:id="@+id/home_logo"/>-->
-
-
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:text="Home"-->
-<!--                />-->
-
-<!--        </LinearLayout>-->
 
 
 
@@ -86,7 +66,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:src="@drawable/appoint"
-            android:id="@+id/appointments_logo"/>
+            android:id="@+id/appointments_logo"
+            android:layout_marginTop="4dp"
+            />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -94,6 +76,8 @@
                 android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:text="Appointments"
+                android:layout_marginBottom="4dp"
+
                 />
 
         </LinearLayout>
@@ -114,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/record"
+            android:layout_marginTop="4dp"
             android:id="@+id/record_logo"/>
 
             <TextView
@@ -122,13 +107,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:text="Records"
+                android:layout_marginBottom="4dp"
                 />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
             android:id="@+id/chat_btn"
@@ -140,6 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/chat"
+                android:layout_marginTop="4dp"
                 android:id="@+id/chat_logo"/>
 
             <TextView
@@ -148,6 +135,8 @@
                 android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:text="Chat"
+                android:layout_marginBottom="4dp"
+
                 />
         </LinearLayout>
     </LinearLayout>

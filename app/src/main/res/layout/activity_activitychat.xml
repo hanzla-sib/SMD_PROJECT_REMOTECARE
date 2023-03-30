@@ -8,14 +8,14 @@
     tools:context=".Activitychat"
     android:orientation="vertical"
     android:weightSum="10.3"
-    android:background="#D8DAE4"
+    android:background="@color/white"
     >
 
     <LinearLayout
         android:id="@+id/tool"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
-        android:background="#3874B5"
+        android:background="@drawable/gradient_colors"
         android:orientation="horizontal"
         android:layout_weight="0.7"
         android:layout_height="0dp"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="Steps History"
             android:textSize="23sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_weight="0.9"
             android:paddingLeft="20dp"
             />
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:background="#5B38AE4C"
+        android:background="@drawable/gradient_colors"
         >
 
         <androidx.appcompat.widget.SearchView
@@ -69,7 +69,7 @@
             android:id="@+id/insidechatrv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/chat_bg2"
+            android:background="@color/white"
             />
 
     </LinearLayout>
@@ -83,7 +83,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:weightSum="4"
-        android:background="@drawable/chat_bg2"
+        android:background="@color/white"
         >
 
 
@@ -94,6 +94,8 @@
             android:background="@drawable/roundedittext"
             android:hint="   Enter Message "
             android:paddingLeft="20dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:layout_gravity="center"
             android:layout_weight="3.9"
 
@@ -107,7 +109,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/send_button_background_design"
+            android:background="@drawable/roundedittext"
             android:elevation="5dp"
             android:padding="10dp"
             android:src="@drawable/ic_baseline_send_24"

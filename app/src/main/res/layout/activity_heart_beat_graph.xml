@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".HeartBeat_graph"
     android:orientation="vertical"
-    android:background="@drawable/gradient_colors"
+    android:background="@color/white"
     android:weightSum="10.7"
     >
 
