@@ -180,12 +180,14 @@ String url1="";
                             String status=dataSnapshot.child("status").getValue().toString();
                             String lastscene=dataSnapshot.child("time").getValue().toString();
                             String p_id=dataSnapshot.child("player_id").getValue().toString();
+                            String email=dataSnapshot.child("email").getValue().toString();
 
                             uchat.setName(name);
                             uchat.setUid(uid);
                             uchat.setOnlinestatus(status);
                             uchat.setLastseen(lastscene);
                             uchat.setP_id(p_id);
+                            uchat.setEmailadd(email);
                             userslist.add(uchat);
                         }
 

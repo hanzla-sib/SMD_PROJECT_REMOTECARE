@@ -1,7 +1,7 @@
 package com.waqasahmad.remotecare;
 public class userchat {
 
-    String name,uid,onlinestatus,lastseen,p_id;
+    String name,uid,onlinestatus,lastseen,p_id,emailadd;
 
     public String getP_id() {
         return p_id;
@@ -9,6 +9,14 @@ public class userchat {
 
     public void setP_id(String p_id) {
         this.p_id = p_id;
+    }
+
+    public String getEmailadd() {
+        return emailadd;
+    }
+
+    public void setEmailadd(String emailadd) {
+        this.emailadd = emailadd;
     }
 
     public userchat(String name, String uid, String onlinestatus, String lastseen, String p_id) {
