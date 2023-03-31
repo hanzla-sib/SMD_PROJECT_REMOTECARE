@@ -64,6 +64,7 @@ public class MainActivity_signin extends AppCompatActivity {
     EditText email,password;
     ImageView signin;
     FirebaseAuth mAuth;
+    FirebaseFirestore db;
     CheckBox bt_show;
 
     //
@@ -71,7 +72,7 @@ public class MainActivity_signin extends AppCompatActivity {
     DatabaseReference reference ;
 
     String token="";
-    FirebaseFirestore db;
+
     private static final String TAG = "PushNotification";
     private static final String CHANNEL_ID="101";
     String userstr="";

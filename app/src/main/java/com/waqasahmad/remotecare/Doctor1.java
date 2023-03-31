@@ -63,8 +63,8 @@ public class Doctor1 extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         CaloriesConsumed=findViewById(R.id.CaloriesConsumed);
         HR_graph=findViewById(R.id.HR_graph);
-        btn2=findViewById(R.id.appointment_btn);
-        btn3=findViewById(R.id.record_btn);
+        btn2=findViewById(R.id.doc_appointment_btn);
+        btn3=findViewById(R.id.profile_doc_button);
         btn4=findViewById(R.id.chat_btn);
 
         // for logging out

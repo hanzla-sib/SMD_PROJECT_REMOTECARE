@@ -147,8 +147,8 @@ public class Doc_Profile extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
 
-        btn1=findViewById(R.id.home_btn2);
-        btn2=findViewById(R.id.appointment_btn);
+        btn1=findViewById(R.id.doc_home_btn2);
+        btn2=findViewById(R.id.doc_appointment_btn);
         btn4=findViewById(R.id.chat_btn);
 
 

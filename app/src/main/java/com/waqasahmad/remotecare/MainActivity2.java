@@ -117,7 +117,6 @@ String url1="",url2="";
         Enter_button = findViewById(R.id.Enter_button);
 
         btn1=findViewById(R.id.home_btn2);
-//btn1.setBackgroundColor();
         btn1.setBackgroundResource(R.drawable.nav_btn_color);
         btn2=findViewById(R.id.appointment_btn);
         btn3=findViewById(R.id.record_btn);

@@ -56,12 +56,38 @@
         android:layout_height="0dp"
         android:layout_weight="10"
         android:background="@drawable/gradient_color_drawer"
+        android:orientation="vertical"
+        android:weightSum="10"
 
         >
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_weight="9"
             android:id="@+id/recViewbottom"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            />
+
+        <include
+            android:id="@+id/patient_nav"
+            android:visibility="gone"
+            android:layout_weight="1"
+            layout="@layout/navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true">
+
+        </include>
+
+        <include
+            android:id="@+id/doc_nav"
+            android:visibility="gone"
+            android:layout_weight="1"
+            layout="@layout/doc_navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true">
+
+        </include>
 
 
     </LinearLayout>

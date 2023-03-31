@@ -42,17 +42,18 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
     FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference reference;
-int pos=0;
+    int pos=0;
     String url1;
     String s1;
-    public UsersAdapter (ArrayList<userchat> ls, Context c) {
+
+    public UsersAdapter (ArrayList<userchat> ls, Context c)
+    {
         this.ls = ls;
         this.c = c;
 
         SharedPreferences sh = c.getSharedPreferences("MySharedPref", 0);
          s1 = sh.getString("Ip", "");
         url1 ="http://"+s1+"/smd_project/get_images_with_email.php";
-
 
     }
 
@@ -62,9 +63,6 @@ int pos=0;
         View row= LayoutInflater.from(c).inflate(R.layout.messageall,parent,false);
         return new MyViewHolder(row);
     }
-
-
-
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -113,10 +111,9 @@ int pos=0;
                             }
                         }
                     }
-
-
                 }
-                catch (Exception e){
+                catch (Exception e)
+                {
 
                 }
 
@@ -157,11 +154,6 @@ int pos=0;
                 c.startActivity(intent);
             }
         });
-
-
-
-
-
     }
 
     @Override
@@ -174,13 +166,13 @@ int pos=0;
         TextView onlinestatus;
         TextView lastseen;
         CircleImageView profileimagechat;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.nameid);
             onlinestatus=itemView.findViewById(R.id.onlinestatus);
             lastseen=itemView.findViewById(R.id.lastseen);
             profileimagechat=itemView.findViewById(R.id.messageimg);
-
 
         }
     }

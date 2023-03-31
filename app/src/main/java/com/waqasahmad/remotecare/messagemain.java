@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -22,12 +23,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +44,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class messagemain extends AppCompatActivity {
-
+LinearLayout doc_nav;
+LinearLayout pat_nav;
     FirebaseDatabase database;
     DatabaseReference reference;
     FirebaseAuth auth;
@@ -47,7 +56,13 @@ public class messagemain extends AppCompatActivity {
     FirebaseAuth auth1;
     LinearLayout back_btn;
     String useremail1="" ;
+    LinearLayout btn1,btn2,btn3,btn4;
+    FirebaseAuth mAuth;
+    FirebaseFirestore db;
+    String strdoctor = "Doctor";
+    String strpatient = "Patient";
 
+    TextView btn3txt;
 
     //for logging out
     DatabaseReference reference1;
@@ -61,7 +76,8 @@ String url1="";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messagemain);
-
+        mAuth= FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
         auth1=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -70,8 +86,103 @@ String url1="";
         userslist=new ArrayList<>();
         logout=findViewById(R.id.logout);
         back_btn = findViewById(R.id.back_btn);
-
         useremail1 = auth1.getCurrentUser().getEmail();
+pat_nav=findViewById(R.id.patient_nav);
+doc_nav=findViewById(R.id.doc_nav);
+
+
+
+
+        String useremail = mAuth.getCurrentUser().getEmail();
+        Log.d("useremail" , useremail);
+
+        db.collection("users").
+                document(useremail).get().
+                addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        DocumentSnapshot document = task.getResult();
+
+
+                        JSONObject obj;
+                        obj = new JSONObject(document.getData());
+
+                        try {
+                            String usertype = obj.getString("User_Type");
+
+                            if(usertype.equals(strpatient)){
+                                doc_nav.setVisibility(View.GONE);
+                                pat_nav.setVisibility(View.VISIBLE);
+
+                                btn1=findViewById(R.id.home_btn2);
+                                btn2=findViewById(R.id.appointment_btn);
+                                btn3=findViewById(R.id.record_btn);
+                                btn4=findViewById(R.id.chat_btn);
+                                btn4.setBackgroundResource(R.drawable.nav_btn_color);
+
+                                btn1.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        startActivity(new Intent(messagemain.this, MainActivity2.class));
+                                    }
+                                });
+
+                                btn2.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        startActivity(new Intent(messagemain.this, Patient_All_appointments.class));
+                                    }
+                                });
+
+                                btn3.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        startActivity(new Intent(messagemain.this, Add_records.class));
+                                    }
+                                });
+                            }
+
+                            else if (usertype.equals(strdoctor))
+                            {
+                                pat_nav.setVisibility(View.GONE);
+                                doc_nav.setVisibility(View.VISIBLE);
+                                btn1=findViewById(R.id.doc_home_btn2);
+                                btn2=findViewById(R.id.doc_appointment_btn);
+                                btn3=findViewById(R.id.profile_doc_button);
+                                btn4=findViewById(R.id.chat_btn);
+                                btn4.setBackgroundResource(R.drawable.nav_btn_color);
+
+
+
+                                btn1.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        startActivity(new Intent(messagemain.this, Doctor1.class ));
+                                    }
+                                });
+
+                                btn2.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        startActivity(new Intent(messagemain.this, Doc_All_Appointments.class));
+                                    }
+                                });
+
+                                btn3.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        startActivity(new Intent(messagemain.this, Doc_Profile.class));
+                                    }
+                                });
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
 
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
@@ -209,5 +320,11 @@ String url1="";
 
             }
         });
+
+
+
+
+
     }
+
 }
