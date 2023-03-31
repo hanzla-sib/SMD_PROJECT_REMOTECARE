@@ -86,10 +86,10 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
 
 
         back_btn = findViewById(R.id.back_btn);
-        btn1=findViewById(R.id.home_btn2);
-        btn2=findViewById(R.id.appointment_btn);
-        btn3=findViewById(R.id.record_btn);
-        btn4=findViewById(R.id.chat_btn);
+        btn1=findViewById(R.id.doc_home_btn2);
+        btn2=findViewById(R.id.doc_appointment_btn);
+        btn3=findViewById(R.id.profile_doc_button);
+        btn4=findViewById(R.id.doc_chat_btn);
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");

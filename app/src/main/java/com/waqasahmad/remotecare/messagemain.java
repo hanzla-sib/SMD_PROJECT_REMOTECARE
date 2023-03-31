@@ -150,7 +150,7 @@ doc_nav=findViewById(R.id.doc_nav);
                                 btn1=findViewById(R.id.doc_home_btn2);
                                 btn2=findViewById(R.id.doc_appointment_btn);
                                 btn3=findViewById(R.id.profile_doc_button);
-                                btn4=findViewById(R.id.chat_btn);
+                                btn4=findViewById(R.id.doc_chat_btn);
                                 btn4.setBackgroundResource(R.drawable.nav_btn_color);
 
 

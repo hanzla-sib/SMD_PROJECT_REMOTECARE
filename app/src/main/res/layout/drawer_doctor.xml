@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#D8DAE4"
+    android:background="#151515"
     >
 
     <LinearLayout
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:onClick="ClickLogo"
-            android:src="@drawable/rc_new_logo"
+            android:src="@drawable/grey_logo"
             android:id="@+id/rclogo"
             />
 
@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:text="Home"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:padding="12dp"
             android:layout_marginStart="16dp"
             />
@@ -51,7 +51,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
-            android:src="@drawable/ic_home"/>
+            android:src="@drawable/ic_home"
+            />
 
     </LinearLayout>
 
@@ -59,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="16dp"
-        android:background="#636363"/>
+        android:background="@color/white"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -76,7 +77,7 @@
             android:text="Profile"
             android:textStyle="bold"
             android:padding="12dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
 
             android:layout_marginStart="16dp"/>
 
@@ -92,7 +93,9 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="16dp"
-        android:background="#636363"/>
+        android:background="@color/white"
+
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -107,7 +110,7 @@
             android:layout_weight="1"
             android:text="Appointments"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
 
             android:padding="12dp"
             android:layout_marginStart="16dp" />
@@ -124,7 +127,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="16dp"
-        android:background="#636363"/>
+        android:background="@color/white"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -140,7 +144,7 @@
             android:text="Prescription Details"
             android:textStyle="bold"
             android:padding="12dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
 
             android:layout_marginStart="16dp" />
 
@@ -148,7 +152,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
-            android:src="@drawable/ic_dashboard"/>
+            android:src="@drawable/ic_dashboard"
+            android:tint="@color/white"
+
+
+            />
 
 
     </LinearLayout>
@@ -157,7 +165,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="16dp"
-        android:background="#636363"/>
+        android:background="@color/white"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -171,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Chat"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
 
             android:textStyle="bold"
             android:padding="12dp"
@@ -205,7 +213,7 @@
             android:layout_weight="1"
             android:text="Logout"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
 
             android:padding="12dp"
             android:layout_marginStart="16dp" />
@@ -223,7 +231,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="16dp"
-        android:background="#636363"/>
+        android:background="@color/white"
+        />
 
 
 

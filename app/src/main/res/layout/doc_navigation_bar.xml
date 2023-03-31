@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#8691CD"
+    android:background="@drawable/gradient_colors"
+
     >
 
     <LinearLayout
@@ -17,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
             android:id="@+id/doc_home_btn2"
@@ -30,45 +31,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_home"
-                android:id="@+id/home_logo"/>
+                android:id="@+id/home_logo"
+                android:layout_marginTop="4dp"
+
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:text="Home"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/white"
+
                 />
 
         </LinearLayout>
-
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="vertical"-->
-        <!--            android:layout_weight="1"-->
-        <!--            android:id="@+id/home_btn"-->
-        <!--            >-->
-
-        <!--            <ImageView-->
-        <!--                android:layout_weight="1"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:src="@drawable/ic_home"-->
-        <!--                android:id="@+id/home_logo"/>-->
-
-
-        <!--            <TextView-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:text="Home"-->
-        <!--                />-->
-
-        <!--        </LinearLayout>-->
-
-
-
 
         <LinearLayout
             android:layout_width="0dp"
@@ -85,17 +63,20 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:src="@drawable/appoint"
-                android:id="@+id/appointments_logo"/>
+                android:id="@+id/appointments_logo"
+                android:layout_marginTop="4dp"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Appointments"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/white"
                 />
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="0dp"
@@ -112,23 +93,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_profile"
-                android:id="@+id/profile_logo"/>
+                android:id="@+id/profile_logo"
+                android:layout_marginTop="4dp"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:text="Profile"
+
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/white"
                 />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:id="@+id/chat_btn"
+            android:id="@+id/doc_chat_btn"
             >
 
             <ImageView
@@ -137,14 +123,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/chat"
-                android:id="@+id/chat_logo"/>
+                android:id="@+id/chat_logo"
+                android:layout_marginTop="4dp"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Chat"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/white"
                 />
         </LinearLayout>
+
     </LinearLayout>
+
 </LinearLayout>

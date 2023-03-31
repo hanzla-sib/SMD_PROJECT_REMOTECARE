@@ -92,7 +92,7 @@ public class Doc_Profile extends AppCompatActivity {
     //
     private FirebaseUser user;
 
-    LinearLayout btn1,btn2,btn4;
+    LinearLayout btn1,btn2,btn3,btn4;
 
 
     Bitmap bitmap;
@@ -149,7 +149,10 @@ public class Doc_Profile extends AppCompatActivity {
 
         btn1=findViewById(R.id.doc_home_btn2);
         btn2=findViewById(R.id.doc_appointment_btn);
-        btn4=findViewById(R.id.chat_btn);
+        btn3=findViewById(R.id.profile_doc_button);
+        btn4=findViewById(R.id.doc_chat_btn);
+        btn3.setBackgroundResource(R.drawable.nav_btn_color);
+
 
 
 

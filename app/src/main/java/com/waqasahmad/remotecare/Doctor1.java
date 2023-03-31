@@ -45,7 +45,7 @@ public class Doctor1 extends AppCompatActivity {
     TextView doctor_name;
     String name;
 
-    LinearLayout btn2,btn3,btn4;
+    LinearLayout btn1,btn2,btn3,btn4;
 
     CardView appointment,chat,Steps_pat,Calories_Burnt,CaloriesConsumed,HR_graph;
 
@@ -63,9 +63,13 @@ public class Doctor1 extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         CaloriesConsumed=findViewById(R.id.CaloriesConsumed);
         HR_graph=findViewById(R.id.HR_graph);
+
+        btn1=findViewById(R.id.doc_home_btn2);
         btn2=findViewById(R.id.doc_appointment_btn);
         btn3=findViewById(R.id.profile_doc_button);
-        btn4=findViewById(R.id.chat_btn);
+        btn4=findViewById(R.id.doc_chat_btn);
+        btn1.setBackgroundResource(R.drawable.nav_btn_color);
+
 
         // for logging out
         auth1=FirebaseAuth.getInstance();
@@ -74,7 +78,7 @@ public class Doctor1 extends AppCompatActivity {
 
 
         appointment=findViewById(R.id.appointments_doc);
-        chat=findViewById(R.id.chat_doc);
+
 
         String useremail1 = auth1.getCurrentUser().getEmail();
 
@@ -160,15 +164,7 @@ public class Doctor1 extends AppCompatActivity {
                 startActivity(new Intent(Doctor1.this, Steps_Progress_Doctor_side.class));
             }
         });
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                startActivity(new Intent(Doctor1.this, messagemain.class));
-
-
-            }
-        });
 
         Calories_Burnt.setOnClickListener(new View.OnClickListener() {
             @Override

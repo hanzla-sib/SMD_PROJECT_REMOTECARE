@@ -88,10 +88,10 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
         url2 ="http://"+s1+"/smd_project/monthlyburnt_cal_graph.php";
         url3 ="http://"+s1+"/smd_project/fetch_patient_reg_doctors.php";
         back_btn = findViewById(R.id.back_btn);
-        btn1=findViewById(R.id.home_btn2);
-        btn2=findViewById(R.id.appointment_btn);
-        btn3=findViewById(R.id.record_btn);
-        btn4=findViewById(R.id.chat_btn);
+        btn1=findViewById(R.id.doc_home_btn2);
+        btn2=findViewById(R.id.doc_appointment_btn);
+        btn3=findViewById(R.id.profile_doc_button);
+        btn4=findViewById(R.id.doc_chat_btn);
 
 
         back_btn.setOnClickListener(new View.OnClickListener() {
