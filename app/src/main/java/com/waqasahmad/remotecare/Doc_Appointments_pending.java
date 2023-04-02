@@ -41,7 +41,7 @@ import java.util.Map;
 
 public class Doc_Appointments_pending extends AppCompatActivity {
 
-    DrawerLayout doc_drawerLayout;
+    LinearLayout doc_drawerLayout;
     ImageView Menu,logo;
 
     //RV
@@ -225,13 +225,7 @@ String url1="";
     }
 
 
-    public void ClickAppointmentsDoc (View view){
 
-        if (doc_drawerLayout.isDrawerOpen(GravityCompat.START)) {
-
-            doc_drawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }
 
     //next 3 functions are different for the doctor/patient
     public void ClickPro (View view) {

@@ -93,10 +93,10 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/display_records"
                     android:layout_width="0dp"
                     android:layout_height="130dp"
                     app:cardCornerRadius="20dp"
-                    android:id="@+id/display_records"
                     app:cardBackgroundColor="#81A8D3"
                     android:layout_weight="2.2"
                     >

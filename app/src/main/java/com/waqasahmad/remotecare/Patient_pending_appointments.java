@@ -59,7 +59,7 @@ String url1="";
         btn2=findViewById(R.id.appointment_btn);
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
-
+        btn2.setBackgroundResource(R.drawable.nav_btn_color);
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url1 ="http://"+s1+"/smd_project/patient_pending_appointment.php";

@@ -6,53 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".HeartRate_progress_doc_side"
     android:orientation="vertical"
-    android:background="#D8DAE4"
-    android:weightSum="10">
+    android:background="@color/white"
+    android:weightSum="10.7">
 
     <LinearLayout
         android:id="@+id/tool"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="#3874B5"
+        android:background="@drawable/gradient_colors"
         >
 
 
         <include
             layout="@layout/back_button"
             android:layout_width="0dp"
-            android:layout_weight="0.2"
+            android:layout_weight="0.1"
             android:layout_height="wrap_content">
+            android:layout_marginLeft="5dp"
+
         </include>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Heart Rate record"
+            android:text="Heart Rate Record"
+            android:textSize="23sp"
+            android:textColor="@color/white"
+            android:layout_weight="0.9"
+            android:paddingRight="30dp"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:textSize="23sp"
-            android:textColor="@color/black"
             />
 
     </LinearLayout>
 
     <Spinner
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/spinner"
         android:layout_width="350dp"
         android:layout_gravity="center"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@drawable/custom_spinner_background"
         android:spinnerMode="dropdown"
-
         android:padding="10dp"
-        android:textSize="16sp"/>
+        android:textSize="26sp"
+        android:layout_weight="0.7"
+        />
 
     <ScrollView
-        android:layout_weight="9"
+        android:layout_weight="8.3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="20dp"

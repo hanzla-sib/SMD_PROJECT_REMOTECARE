@@ -60,6 +60,7 @@ String url1="";
         btn2=findViewById(R.id.appointment_btn);
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
+        btn2.setBackgroundResource(R.drawable.nav_btn_color);
         search=findViewById(R.id.search_view);
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");

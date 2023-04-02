@@ -3,7 +3,7 @@
     <style name="Theme.RemoteCare" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#FFEB3B</item>
+        <item name="colorPrimary">#5B6C97</item>
         <item name="colorPrimaryVariant">#B5A943</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->

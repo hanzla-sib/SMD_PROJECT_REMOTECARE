@@ -7,50 +7,54 @@
     android:layout_height="match_parent"
     tools:context=".Doc_All_Appointments"
     android:orientation="vertical"
-    android:background="#D8DAE4"
+    android:background="@color/white"
+    android:weightSum="10.7"
     >
 
     <LinearLayout
         android:id="@+id/tool"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         android:paddingHorizontal="12dp"
         android:gravity="center_vertical"
-        android:background="#3874B5"
+        android:background="@drawable/gradient_colors"
+        android:layout_weight="0.7"
         >
         <include
             layout="@layout/back_button"
             android:layout_width="0dp"
-            android:layout_weight="0.2"
+            android:layout_weight="0.1"
             android:layout_height="wrap_content">
         </include>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.9"
             android:text="Appointments"
             android:textAlignment="center"
             android:textStyle="bold"
             android:textSize="23sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:paddingRight="30dp"
             />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="25dp"
+        android:layout_height="0dp"
+        android:paddingHorizontal="15dp"
         android:paddingVertical="5dp"
-        android:orientation="vertical"
-        android:layout_marginRight="70dp"
+        android:layout_marginRight="60dp"
+        android:layout_weight="3.5"
+        android:layout_marginTop="30dp"
             >
 
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="190dp"
             app:cardBackgroundColor="#FFAA8282"
             app:cardCornerRadius="20dp"
             android:id="@+id/doc_pending_appointments"
@@ -80,16 +84,17 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="25dp"
-        android:paddingVertical="5dp"
+        android:layout_height="0dp"
+        android:paddingHorizontal="15dp"
         android:orientation="vertical"
-        android:layout_marginLeft="70dp"
+        android:layout_marginLeft="60dp"
+        android:layout_weight="3.5"
+
         >
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="190dp"
             app:cardBackgroundColor="#FFAA8282"
             app:cardCornerRadius="20dp"
             android:id="@+id/doc_accepted_appointments"
@@ -120,10 +125,18 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        >
+    </LinearLayout>
+
+
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:layout_height="0dp"
+        android:layout_weight="1"
         >
 
         <include

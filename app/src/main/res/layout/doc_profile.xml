@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".Doc_Profile"
     android:id="@+id/doc_profile"
-    android:background="#D8DAE4"
+    android:background="@color/white"
 
     >
 
@@ -15,23 +15,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="10"
+        android:weightSum="10.7"
         >
 
         <include
+            android:layout_weight="0.7"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             layout="@layout/toolbar"
             />
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_weight="5"
             android:layout_height="0dp"
             android:paddingHorizontal="25dp"
-            android:paddingVertical="5dp"
+            android:paddingVertical="20dp"
             android:id="@+id/top_profile"
-            android:layout_weight="7"
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -44,7 +44,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#81A8D3"
+                app:cardBackgroundColor="#5B6C97"
                 app:cardCornerRadius="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/doc_profile_circle"
@@ -92,13 +92,12 @@
                         android:id="@+id/U_Type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/Gender"
                         android:padding="10dp"
                         android:text="User Type "
                         android:textColor="@color/white"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_below="@+id/Gender"
-                        />
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -108,11 +107,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:paddingHorizontal="25dp"
-            android:paddingVertical="5dp"
+            android:paddingVertical="10dp"
+            android:layout_weight="4"
             android:orientation="vertical"
-            android:layout_weight="2"
             >
 
             <EditText
@@ -146,9 +145,9 @@
                     android:layout_width="200dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="10dp"
-                    android:background="#D8DAE4"
+                    android:background="@color/white"
                     android:src="@drawable/roundedittext"
-                    android:layout_centerInParent="true"/>
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -165,7 +164,7 @@
             android:layout_weight="1"
             layout="@layout/doc_navigation_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_alignParentBottom="true">
 
         </include>
@@ -177,7 +176,7 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/white">
+        android:background="@color/black">
 
         <include
             android:layout_width="wrap_content"

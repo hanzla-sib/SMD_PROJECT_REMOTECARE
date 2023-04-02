@@ -42,7 +42,7 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
     @NonNull
     @Override
     public P_pending_appointments_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View row = LayoutInflater.from(c_doc).inflate(R.layout.patient_row_accept_pending, parent, false);
+        View row = LayoutInflater.from(c_doc).inflate(R.layout.patient_row_pending_appointment, parent, false);
         return new P_pending_appointments_adapter.MyViewHolder(row);
     }
 
