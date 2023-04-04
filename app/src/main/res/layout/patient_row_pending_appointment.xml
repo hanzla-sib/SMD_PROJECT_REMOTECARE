@@ -5,15 +5,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/white"
-
+    android:weightSum="10"
     >
 
     <LinearLayout
+        android:layout_weight="10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white"
-        android:weightSum="10"
         >
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -30,8 +30,8 @@
             android:layout_gravity="center"
             android:orientation="horizontal"
             android:paddingTop="10dp"
-            android:layout_weight="8"
-            android:weightSum="8"
+            android:layout_weight="7"
+            android:weightSum="6"
             >
 
             <LinearLayout
@@ -42,47 +42,50 @@
                 >
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:id="@+id/doc_name2"
                     android:text="name"
                     android:textSize="24sp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"
+                    android:layout_weight="3"
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:id="@+id/doc_prof"
                     android:text="dermatologist"
                     android:textSize="24sp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
                     android:textStyle="italic"
+                    android:layout_weight="3"
+
                     />
 
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:layout_gravity="center"
-                android:gravity="center"
 
-                >
-
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/cross" />
-
-
-            </RelativeLayout>
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/cross"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/cross" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

@@ -36,13 +36,15 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
         this.ls_doc = ls_doc;
         this.c_doc = c_doc;
     }
-    public void setfilterlist(List<Appointment_Model> filteredlist){
+    public void setfilterlist(List<Appointment_Model> filteredlist)
+    {
         this.ls_doc=filteredlist;
         notifyDataSetChanged();
     }
     @NonNull
     @Override
-    public P_accepted_appointments_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public P_accepted_appointments_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View row = LayoutInflater.from(c_doc).inflate(R.layout.patient_row_accept_pending, parent, false);
         return new P_accepted_appointments_adapter.MyViewHolder(row);
     }
@@ -67,10 +69,7 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
         holder.doc_prof.setText(ls_doc.get(position).getDoc_type());
         SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
-//        String url1 ="http://"+s1+"/smd_project/user_token_delete.php";
-//        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
         Picasso.get().load("http://"+s1+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
-//        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
     }
 
     @Override
@@ -93,7 +92,6 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
             img=itemView.findViewById(R.id.doc_img);
 
 
-//            doctor_email=itemView.findViewById(R.id.doc_email2);
         }
     }
 
