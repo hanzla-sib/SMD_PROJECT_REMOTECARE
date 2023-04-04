@@ -82,7 +82,7 @@
                 >
 
                 <ImageView
-                    android:id="@+id/cross"
+                    android:id="@+id/cross1"
                     android:layout_width="60dp"
                     android:layout_height="30dp"
                     android:layout_alignParentTop="true"
