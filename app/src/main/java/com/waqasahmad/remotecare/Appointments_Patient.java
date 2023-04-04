@@ -75,7 +75,7 @@ String url="";
         btn3=findViewById(R.id.record_btn);
         btn4=findViewById(R.id.chat_btn);
         btn2.setBackgroundResource(R.drawable.nav_btn_color);
-search=findViewById(R.id.search_view);
+        search=findViewById(R.id.search_view);
         db = FirebaseFirestore.getInstance();
         mAuth= FirebaseAuth.getInstance();
 
