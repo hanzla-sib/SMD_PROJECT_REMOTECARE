@@ -310,7 +310,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/cancel/baseline_cancel_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Style%20Setters/AppData/Local/Android/Sdk/icons/material/materialicons/access_time_filled/baseline_access_time_filled_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -320,8 +320,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="0e0d0d" />
-                            <entry key="outputName" value="cross" />
+                            <entry key="outputName" value="select_time_doc_side" />
                             <entry key="sourceFile" value="C:\Users\Style Setters\AndroidStudioProjects\RemoteCare" />
                           </map>
                         </option>
