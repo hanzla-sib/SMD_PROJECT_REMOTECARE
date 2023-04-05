@@ -33,6 +33,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,21 +44,24 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Activitychat extends AppCompatActivity {
     FirebaseAuth mauth;
     FirebaseDatabase database;
     DatabaseReference mref ;
     LinearLayout back_btn;
-
+    FirebaseAuth mAuth;
+    CircleImageView img;
     //    private static final String notify="http://"+Ip_server.getIpServer()+"/smd_project/notify.php";
-    String url="";
+    String url="",url1="";
     TextView username,userMainChatActivityProfileName;
     ImageButton send1;
     EditText editText1;
-
+String useremail1="";
     String rname , ruid , suid,P_id;
     String send_rcv,rcv_send;
-
+    String rec_email="";
     RecyclerView recyclerView;
 
     ArrayList<Messages> messagesArrayList;
@@ -68,6 +75,9 @@ public class Activitychat extends AppCompatActivity {
         back_btn = findViewById(R.id.back_btn);
         searchView = findViewById(R.id.searchbar);
         searchView.clearFocus();
+        ruid = getIntent().getStringExtra("uid");
+        P_id=getIntent().getStringExtra("p_id");
+        mAuth=FirebaseAuth.getInstance();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -84,6 +94,60 @@ public class Activitychat extends AppCompatActivity {
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url ="http://"+s1+"/smd_project/notify.php";
+        url1 ="http://"+s1+"/smd_project/get_image_for_chat_insidescreen.php";
+
+
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference userNodeRef = usersRef.child(ruid);
+
+        DatabaseReference emailNodeRef = userNodeRef.child("email");
+        emailNodeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String email = dataSnapshot.getValue(String.class);
+
+                StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+                {
+
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        Log.d("picturee",response.toString());
+                        String pic=response.toString();
+
+                        Picasso.get().load("http://"+s1+"/smd_project/"+pic).into(img);
+
+                    }
+                }, new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+//                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                })
+                {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> param=new HashMap<String,String>();
+
+                        param.put("d_email",email);
+
+
+                        return param;
+                    }
+                };
+                RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                queue.add(request);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
 
         messagesArrayList = new ArrayList<>();
 
@@ -106,9 +170,10 @@ public class Activitychat extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
 
-        ruid = getIntent().getStringExtra("uid");
-        P_id=getIntent().getStringExtra("p_id");
 
+//        rec_email=getIntent().getStringExtra("rec_email");
+        String currentemail = mAuth.getCurrentUser().getEmail();
+        useremail1=currentemail;
         suid = mauth.getUid();
 
         send_rcv = suid + ruid;
@@ -116,7 +181,7 @@ public class Activitychat extends AppCompatActivity {
 
         mref = database.getReference("Users").child(mauth.getUid());
         DatabaseReference mref2 = database.getReference("Chats").child(send_rcv).child("messages");
-
+        img=findViewById(R.id.imguser_msgtop);
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -245,6 +310,8 @@ public class Activitychat extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 

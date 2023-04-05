@@ -2,8 +2,23 @@ package com.waqasahmad.remotecare;
 import java.util.Date;
 public class Messages {
 
-    String msg, suid , timestamp;
+    String msg, suid , timestamp,profile_pic,email;
 
+    public String getProfile_pic() {
+        return profile_pic;
+    }
+
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Messages(String timestamp) {
         this.timestamp = timestamp;

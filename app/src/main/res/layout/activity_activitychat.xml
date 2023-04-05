@@ -30,7 +30,13 @@
             android:layout_marginLeft="5dp"
             >
         </include>
-
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imguser_msgtop"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/messageprofile" />
         <TextView
             android:id="@+id/userMainChatActivityProfileName"
             android:layout_width="0dp"
