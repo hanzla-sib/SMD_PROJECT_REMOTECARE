@@ -2,13 +2,13 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <solid
-        android:color="#CDBC24"/>
+        android:color="@color/black"/>
 
     <size
-        android:width="350dp"
-        android:height="70dp"/>
+        android:width="220dp"
+        android:height="50dp"/>
 
     <corners
-        android:radius="50dp"
+        android:radius="20dp"
         />
 </shape>

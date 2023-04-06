@@ -1,6 +1,8 @@
 package com.waqasahmad.remotecare;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,25 +41,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_Appointments_Accepted_Adapter.MyViewHolder>
 {
-
     List<Doc_Appointment_Model> ls_doc2;
     Context c_doc2;
-
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     String recommend_steps_string="";
     String currentemail;
-
-
-//    private static final String delete_appointed_appoint_from_doctorside="http://"+Ip_server.getIpServer()+"/smd_project/delete_appointed_appoint_from_doctorside.php";
-//    private static final String completed_appointment_doctor_side="http://"+Ip_server.getIpServer()+"/smd_project/completed_appointment_doctor_side.php";
 
     public Doc_Appointments_Accepted_Adapter(List<Doc_Appointment_Model> ls_doc2, Context c_doc2)
     {
         this.ls_doc2 = ls_doc2;
         this.c_doc2 = c_doc2;
     }
-
 
     @NonNull
     @Override
@@ -67,14 +63,13 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Doc_Appointments_Accepted_Adapter.MyViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull Doc_Appointments_Accepted_Adapter.MyViewHolder holder, int position)
+    {
         SharedPreferences sh = c_doc2.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
         String url1 ="http://"+s1+"/smd_project/delete_appointed_appoint_from_doctorside.php";
         String url2 ="http://"+s1+"/smd_project/doctor_recommended_steps.php";
         String url3 ="http://"+s1+"/smd_project/fetch_alldata_from_user.php";
-
 
         //Initializing Firebase MAuth instance
         mAuth = FirebaseAuth.getInstance();
@@ -131,105 +126,7 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
         };
         RequestQueue queue= Volley.newRequestQueue(c_doc2);
         queue.add(request);
-        ////////////////
-
-        holder.deleteappoint.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view) {
-
-                ls_doc2.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
-                notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
-
-                holder.itemView.setVisibility(View.GONE);
-
-                /////////////////////////////////
-                StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
-                    }
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-//                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
-                    }
-                })
-                {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> param=new HashMap<String,String>();
-
-                        param.put("d_email",currentemail);
-                        param.put("p_email",model.getEmail_patient());
-
-                        return param;
-                    }
-                };
-                RequestQueue queue= Volley.newRequestQueue(c_doc2);
-                queue.add(request);
-
-                //////////////////////////////////////////////
-
-            }
-        });
-
-/////////////////////
-
-        holder.completeappoint.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view) {
-
-                ls_doc2.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
-                notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
-
-                holder.itemView.setVisibility(View.GONE);
-
-                SharedPreferences sh = c_doc2.getSharedPreferences("MySharedPref", 0);
-                String s1 = sh.getString("Ip", "");
-                String url2 ="http://"+s1+"/smd_project/completed_appointment_doctor_side.php";
-
-                /////////////////////////////////
-                StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
-                    }
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-//                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
-                    }
-                })
-                {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> param=new HashMap<String,String>();
-                        param.put("d_email",currentemail);
-                        param.put("p_email",model.getEmail_patient());
-                        return param;
-                    }
-                };
-                RequestQueue queue= Volley.newRequestQueue(c_doc2);
-                queue.add(request);
-                //////////////////////////////////////////////
-            }
-        });
-
-        /////
+        //
 
         holder.enter_recommend_steps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -283,6 +180,153 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
 
             }
         });
+
+        holder.deleteappoint.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(c_doc2);
+                builder.setMessage("Do you want to delete this appointment?")
+                        .setTitle("Delete Appointment");
+
+                // Add the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User clicked OK button
+                        ls_doc2.remove(holder.getAdapterPosition());
+                        notifyItemRemoved(holder.getAdapterPosition());
+                        notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
+                        holder.itemView.setVisibility(View.GONE);
+
+                        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+                        {
+                            @Override
+                            public void onResponse(String response)
+                            {
+                                Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        }, new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error)
+                            {
+//                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        {
+                            @Nullable
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String,String> param=new HashMap<String,String>();
+
+                                param.put("d_email",currentemail);
+                                param.put("p_email",model.getEmail_patient());
+
+                                return param;
+                            }
+                        };
+                        RequestQueue queue= Volley.newRequestQueue(c_doc2);
+                        queue.add(request);
+
+                        /////////////////////////////////////
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User cancelled the dialog
+                        dialog.cancel();
+                    }
+                });
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+
+            }
+        });
+
+        holder.completeappoint.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(c_doc2);
+                builder.setMessage("Do you want to complete this appointment?")
+                        .setTitle("Complete Appointment");
+
+                // Add the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User clicked OK button
+                        ls_doc2.remove(holder.getAdapterPosition());
+                        notifyItemRemoved(holder.getAdapterPosition());
+                        notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
+
+                        holder.itemView.setVisibility(View.GONE);
+
+                        SharedPreferences sh = c_doc2.getSharedPreferences("MySharedPref", 0);
+                        String s1 = sh.getString("Ip", "");
+                        String url2 ="http://"+s1+"/smd_project/completed_appointment_doctor_side.php";
+
+                        /////////////////////////////////
+                        StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
+                        {
+                            @Override
+                            public void onResponse(String response)
+                            {
+                                Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        }, new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error)
+                            {
+//                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        {
+                            @Nullable
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String,String> param=new HashMap<String,String>();
+                                param.put("d_email",currentemail);
+                                param.put("p_email",model.getEmail_patient());
+                                return param;
+                            }
+                        };
+                        RequestQueue queue= Volley.newRequestQueue(c_doc2);
+                        queue.add(request);
+                        //////////////////////////////////////////////
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User cancelled the dialog
+                        dialog.cancel();
+                    }
+                });
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+
+            }
+        });
+
     }
 
     @Override
@@ -296,9 +340,8 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
         Button deleteappoint;
         Button completeappoint;
         EditText recommend_steps;
-        Button enter_recommend_steps;
+        ImageView enter_recommend_steps;
         CircleImageView patient_image;
-
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

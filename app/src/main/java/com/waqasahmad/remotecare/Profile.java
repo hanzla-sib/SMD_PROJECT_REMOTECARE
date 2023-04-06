@@ -179,9 +179,6 @@ public class Profile extends AppCompatActivity {
                         }
 
                         Picasso.get().load("http://"+s1+"/smd_project/"+image).into(profile_circle);
-
-
-
                     }
 
 

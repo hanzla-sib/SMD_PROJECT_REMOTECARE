@@ -34,20 +34,19 @@
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/profile_circle" />
 
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="#5B6C97"
                     app:cardCornerRadius="20dp"
-                    android:layout_marginTop="10dp"
                     android:layout_below="@+id/profile_circle"
                     android:id="@+id/details_card"
                     >
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:id="@+id/Name"
@@ -85,13 +84,12 @@
                             android:id="@+id/U_Type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/Gender"
                             android:padding="10dp"
                             android:text="User Type "
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:layout_below="@+id/Gender"
-                            />
+                            android:textStyle="bold" />
 
 
                     </RelativeLayout>

@@ -46,6 +46,7 @@
             android:textColor="@color/white"
             android:padding="12dp"
             android:layout_marginStart="16dp"
+            android:textSize="20sp"
             />
 
         <ImageView
@@ -79,7 +80,7 @@
             android:textStyle="bold"
             android:padding="12dp"
             android:textColor="@color/white"
-
+            android:textSize="20sp"
             android:layout_marginStart="16dp"/>
 
         <ImageView
@@ -112,7 +113,7 @@
             android:text="Appointments"
             android:textStyle="bold"
             android:textColor="@color/white"
-
+            android:textSize="20sp"
             android:padding="12dp"
             android:layout_marginStart="16dp" />
 
@@ -144,7 +145,7 @@
             android:layout_weight="1"
             android:text="Chat"
             android:textColor="@color/white"
-
+            android:textSize="20sp"
             android:textStyle="bold"
             android:padding="12dp"
             android:layout_marginStart="16dp" />
@@ -180,7 +181,7 @@
             android:text="Logout"
             android:textStyle="bold"
             android:textColor="@color/white"
-
+            android:textSize="20sp"
             android:padding="12dp"
             android:layout_marginStart="16dp" />
 
@@ -199,9 +200,6 @@
         android:layout_marginVertical="16dp"
         android:background="@color/white"
         />
-
-
-
 
 </LinearLayout>
 

@@ -1,8 +1,11 @@
 package com.waqasahmad.remotecare;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -127,7 +130,7 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
         RequestQueue queue= Volley.newRequestQueue(c_doc2);
         queue.add(request);
         /////////////////////////////////
-        
+
         //select date
         holder.itemView.findViewById(R.id.btn_date).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,70 +183,87 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
         //accept appointment
         holder.itemView.findViewById(R.id.accept_appointment).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if(Time1.equals("") || date1.equals("")){
-                    Toast.makeText(c_doc2.getApplicationContext(), "EMPTYYYYY",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    String pname= ls_doc2.get(holder.getAdapterPosition()).getName_patient();
-                    String pemail= ls_doc2.get(holder.getAdapterPosition()).getEmail_patient();
+            public void onClick(View v)
+            {
 
-                    ls_doc2.remove(holder.getAdapterPosition());
-                    notifyItemRemoved(holder.getAdapterPosition());
-                    notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
-//                    holder.itemView.setVisibility(View.GONE);
-                    ///////////////////////////////////////////
-                     holder.itemView.setVisibility(View.GONE);
+                AlertDialog.Builder builder = new AlertDialog.Builder(c_doc2);
+                builder.setMessage("Do you want accept appointment?")
+                        .setTitle("Accept Appointment");
 
-                    SharedPreferences sh =c_doc2.getSharedPreferences("MySharedPref", 0);
-                    String s1 = sh.getString("Ip", "");
-                  String url1 ="http://"+s1+"/smd_project/accept_doctor_appointment.php";
-
-
-                    StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+                // Add the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
                     {
-                        @Override
-                        public void onResponse(String response)
+                        // User clicked OK button
+                        if(Time1.equals("") || date1.equals(""))
                         {
-                            Log.d("respons11111111" ,response );
-
-                            Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
-
-
-
+                            Toast.makeText(c_doc2.getApplicationContext(), "EMPTYYYYY",Toast.LENGTH_SHORT).show();
                         }
-                    }, new Response.ErrorListener()
+                        else {
+                            String pname = ls_doc2.get(holder.getAdapterPosition()).getName_patient();
+                            String pemail = ls_doc2.get(holder.getAdapterPosition()).getEmail_patient();
+
+                            ls_doc2.remove(holder.getAdapterPosition());
+                            notifyItemRemoved(holder.getAdapterPosition());
+                            notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
+                            holder.itemView.setVisibility(View.GONE);
+
+                            SharedPreferences sh = c_doc2.getSharedPreferences("MySharedPref", 0);
+                            String s1 = sh.getString("Ip", "");
+                            String url1 = "http://" + s1 + "/smd_project/accept_doctor_appointment.php";
+
+
+                            StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+//                            Log.d("respons11111111" ,response );
+                                    Toast.makeText(c_doc2, response.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(c_doc2, error.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            }) {
+                                @Nullable
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    Map<String, String> param = new HashMap<String, String>();
+                                    param.put("p_name", pname);
+                                    param.put("p_email", pemail);
+                                    param.put("d_email", currentemail);
+                                    Log.d("dateeeeee", date1);
+                                    Log.d("dateeeeee", Time1);
+                                    param.put("date", date1);
+                                    param.put("time", Time1);
+                                    return param;
+                                }
+                            };
+                            RequestQueue queue = Volley.newRequestQueue(c_doc2);
+                            queue.add(request);
+                        }
+
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
                     {
-                        @Override
-                        public void onErrorResponse(VolleyError error)
-                        {
-                            Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    {
-                        @Nullable
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String,String> param=new HashMap<String,String>();
-                            param.put("p_name",pname);
-                            param.put("p_email",pemail);
-                            param.put("d_email",currentemail);
-                            Log.d("dateeeeee",date1);
-                            Log.d("dateeeeee",Time1);
-                            param.put("date",date1);
-                            param.put("time",Time1);
+                        // User cancelled the dialog
+                        dialog.cancel();
+                    }
+                });
 
-                            return param;
-                        }
-                    };
-                    RequestQueue queue= Volley.newRequestQueue(c_doc2);
-                    queue.add(request);
-                }
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
 
 
-//                ls_doc2.remove(remove_record_num);
-//                notifyItemRemoved(remove_record_num);
-                //////////////////////////////////////////////
+
+
+
 
             }
         });
@@ -251,53 +271,77 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
         //reject appointment
         holder.itemView.findViewById(R.id.reject_appointment).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
-                String pname= ls_doc2.get(holder.getAdapterPosition()).getName_patient();
-                String pemail= ls_doc2.get(holder.getAdapterPosition()).getEmail_patient();
-                ls_doc2.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
-                notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
-//                    holder.itemView.setVisibility(View.GONE);
-                ///////////////////////////////////////////
-                holder.itemView.setVisibility(View.GONE);
+                //////dialog start
+                    AlertDialog.Builder builder = new AlertDialog.Builder(c_doc2);
+                    builder.setMessage("Do you want reject appointment?")
+                            .setTitle("Reject Appointment");
 
-                SharedPreferences sh =c_doc2.getSharedPreferences("MySharedPref", 0);
-                String s1 = sh.getString("Ip", "");
-                String url2 ="http://"+s1+"/smd_project/reject_doctor_appointment.php";
-                StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
+                    // Add the buttons
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
                     {
-                        Log.d("respons11111111" ,response );
+                        public void onClick(DialogInterface dialog, int id)
+                        {
+                            // User clicked OK button
+                            String pname= ls_doc2.get(holder.getAdapterPosition()).getName_patient();
+                            String pemail= ls_doc2.get(holder.getAdapterPosition()).getEmail_patient();
+                            ls_doc2.remove(holder.getAdapterPosition());
+                            notifyItemRemoved(holder.getAdapterPosition());
+                            notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
+                            holder.itemView.setVisibility(View.GONE);
 
-                        Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
+                            SharedPreferences sh =c_doc2.getSharedPreferences("MySharedPref", 0);
+                            String s1 = sh.getString("Ip", "");
+                            String url2 ="http://"+s1+"/smd_project/reject_doctor_appointment.php";
+                            StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
+                            {
+                                @Override
+                                public void onResponse(String response)
+                                {
+                                    Log.d("respons11111111" ,response );
+
+                                    Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
 
 
-                    }
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
+                                }
+                            }, new Response.ErrorListener()
+                            {
+                                @Override
+                                public void onErrorResponse(VolleyError error)
+                                {
+                                    Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            {
+                                @Nullable
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    Map<String,String> param=new HashMap<String,String>();
+                                    param.put("p_name",pname);
+                                    param.put("p_email",pemail);
+                                    param.put("d_email",currentemail);
+                                    return param;
+                                }
+                            };
+                            RequestQueue queue= Volley.newRequestQueue(c_doc2);
+                            queue.add(request);
+
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
                     {
-                        Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
-                    }
-                })
-                {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> param=new HashMap<String,String>();
-                        param.put("p_name",pname);
-                        param.put("p_email",pemail);
-                        param.put("d_email",currentemail);
-                        return param;
-                    }
-                };
-                RequestQueue queue= Volley.newRequestQueue(c_doc2);
-                queue.add(request);
+                        public void onClick(DialogInterface dialog, int id)
+                        {
+                            // User cancelled the dialog
+                            dialog.cancel();
+                        }
+                    });
 
+                    // Create the AlertDialog
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
 
             }
         });

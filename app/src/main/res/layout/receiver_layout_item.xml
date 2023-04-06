@@ -24,7 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/img1"
-        android:background="@drawable/round"
+        android:background="@drawable/roundrec"
         android:padding="10dp"
         android:text="waqss hello"
         android:textColor="@color/white"

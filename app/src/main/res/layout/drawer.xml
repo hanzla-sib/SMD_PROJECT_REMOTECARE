@@ -59,6 +59,8 @@
                 android:padding="12dp"
                 android:layout_marginStart="16dp"
                 android:textColor="@color/white"
+                android:textSize="20sp"
+
                 />
 
             <ImageView
@@ -91,7 +93,7 @@
                 android:textStyle="bold"
                 android:padding="12dp"
                 android:textColor="@color/white"
-
+                android:textSize="20sp"
                 android:layout_marginStart="16dp"/>
 
             <ImageView
@@ -126,7 +128,7 @@
                 android:text="Overview"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-
+                android:textSize="20sp"
                 android:padding="12dp"
                 android:layout_marginStart="16dp" />
 
@@ -164,6 +166,7 @@
                 android:textStyle="bold"
                 android:padding="12dp"
                 android:textColor="@color/black"
+                android:textSize="20sp"
 
                 android:layout_marginStart="16dp"
                 />
@@ -200,6 +203,7 @@
             android:textStyle="bold"
             android:padding="12dp"
             android:textColor="@color/white"
+            android:textSize="20sp"
 
             android:layout_marginStart="16dp"
             />
@@ -235,7 +239,7 @@
             android:textStyle="bold"
             android:padding="12dp"
             android:textColor="@color/white"
-
+            android:textSize="20sp"
             android:layout_marginStart="16dp"/>
 
         <ImageView
@@ -269,7 +273,7 @@
                 android:text="Logout"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-
+                android:textSize="20sp"
                 android:padding="12dp"
                 android:layout_marginStart="16dp"
                 />
