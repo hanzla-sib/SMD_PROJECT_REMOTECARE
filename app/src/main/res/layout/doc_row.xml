@@ -12,72 +12,98 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white"
+        android:weightSum="10"
+
         >
 
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
             <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/doc_img"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:padding="8dp" android:backgroundTint="@color/black"
+                android:id="@+id/doc_img"
+                android:layout_weight="5"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:padding="8dp"
             android:src="@drawable/bigprofileimage" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
-
-            <TextView
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/doc_name2"
-                android:text="dd"
-                android:textSize="24sp"
-                android:textColor="@color/black"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textStyle="bold"
-                />
-            <TextView
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/doc_profession"
-                android:text="dd"
-                android:textSize="24sp"
-                android:textColor="@color/black"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textStyle="italic"
-                />
         </LinearLayout>
 
-            <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-
-            >
-
-            <ImageView
-
-                android:id="@+id/request_appointment"
-                android:layout_width="250dp"
-                android:layout_height="60dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/roundedittext"
-                />
+        <LinearLayout
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="5">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:text="Request"
-                android:textColor="@color/white"
+                android:id="@+id/doc_name2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="name"
                 android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:layout_weight="3"
+                android:layout_gravity="center"
+                />
+            <TextView
+
+                android:id="@+id/doc_profession"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="dermatologist"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:textStyle="italic"
+                android:layout_weight="2"
+
                 />
 
-        </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:weightSum="5"
+            android:orientation="vertical"
+            >
+            <RelativeLayout
+                android:layout_weight="5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+
+
+                >
+                <ImageView
+                    android:id="@+id/request_appointment"
+                    android:layout_width="200dp"
+                    android:layout_height="45dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/roundedittext"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="Request"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    />
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
 
 </LinearLayout>
 
@@ -89,3 +115,68 @@
         />
 
 </LinearLayout>
+
+<!--<de.hdodenhof.circleimageview.CircleImageView-->
+<!--android:id="@+id/doc_img"-->
+<!--android:layout_width="80dp"-->
+<!--android:layout_height="80dp"-->
+<!--android:padding="8dp" android:backgroundTint="@color/black"-->
+<!--android:src="@drawable/bigprofileimage" />-->
+
+<!--<LinearLayout-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:orientation="vertical"-->
+<!--android:layout_gravity="center">-->
+
+<!--<TextView-->
+<!--    android:layout_width="190dp"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:id="@+id/doc_name2"-->
+<!--    android:text="dd"-->
+<!--    android:textSize="24sp"-->
+<!--    android:textColor="@color/black"-->
+<!--    android:layout_gravity="center"-->
+<!--    android:layout_marginLeft="10dp"-->
+<!--    android:textStyle="bold"-->
+<!--    />-->
+<!--<TextView-->
+<!--    android:layout_width="190dp"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:id="@+id/doc_profession"-->
+<!--    android:text="dd"-->
+<!--    android:textSize="24sp"-->
+<!--    android:textColor="@color/black"-->
+<!--    android:layout_gravity="center"-->
+<!--    android:layout_marginLeft="10dp"-->
+<!--    android:textStyle="italic"-->
+<!--    />-->
+<!--</LinearLayout>-->
+
+<!--<RelativeLayout-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_gravity="center"-->
+
+<!--    >-->
+
+<!--<ImageView-->
+
+<!--    android:id="@+id/request_appointment"-->
+<!--    android:layout_width="250dp"-->
+<!--    android:layout_height="60dp"-->
+<!--    android:layout_centerInParent="true"-->
+<!--    android:background="@drawable/roundedittext"-->
+<!--    />-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_centerVertical="true"-->
+<!--    android:layout_centerHorizontal="true"-->
+<!--    android:text="Request"-->
+<!--    android:textColor="@color/white"-->
+<!--    android:textSize="20sp"-->
+<!--    />-->
+
+<!--</RelativeLayout>-->
