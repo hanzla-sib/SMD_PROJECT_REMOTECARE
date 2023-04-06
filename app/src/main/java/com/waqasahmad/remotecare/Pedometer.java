@@ -254,35 +254,35 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 //                //               tv.setText(response.body().string());
 //            }
 //        });
-            StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-            {
-                @Override
-                public void onResponse(String response)
-                {
-                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-                }
-            }, new Response.ErrorListener()
-            {
-                @Override
-                public void onErrorResponse(VolleyError error)
-                {
-                    Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                }
-            })
-            {
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String,String> param=new HashMap<String,String>();
-                    param.put("email",useremail);
-                    param.put("steps",Integer.toString(stepCount));
-                    param.put("calories_burn",Double.toString(caloriesburnt));
-                    param.put("Motion","Resting");
-                    return param;
-                }
-            };
-            RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-            queue.add(request);
+//            StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+//            {
+//                @Override
+//                public void onResponse(String response)
+//                {
+//                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+//                }
+//            }, new Response.ErrorListener()
+//            {
+//                @Override
+//                public void onErrorResponse(VolleyError error)
+//                {
+//                    Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+//                }
+//            })
+//            {
+//                @Nullable
+//                @Override
+//                protected Map<String, String> getParams() throws AuthFailureError {
+//                    Map<String,String> param=new HashMap<String,String>();
+//                    param.put("email",useremail);
+//                    param.put("steps",Integer.toString(stepCount));
+//                    param.put("calories_burn",Double.toString(caloriesburnt));
+//                    param.put("Motion","Resting");
+//                    return param;
+//                }
+//            };
+//            RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+//            queue.add(request);
 
 
             /////////////////////////////////////////////////////////////////////
@@ -345,36 +345,36 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 //            }
 //        });
 
-//        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-//        {
-//            @Override
-//            public void onResponse(String response)
-//            {
-//                Log.d("checking",response.toString());
-////                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-//            }
-//        }, new Response.ErrorListener()
-//        {
-//            @Override
-//            public void onErrorResponse(VolleyError error)
-//            {
-//                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-//            }
-//        })
-//        {
-//            @Nullable
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String,String> param=new HashMap<String,String>();
-//                param.put("email",useremail);
-//                param.put("steps",Integer.toString(stepCount));
-//                param.put("calories_burn",Double.toString(caloriesburnt));
-//                param.put("Motion","Resting");
-//                return param;
-//            }
-//        };
-//        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-//        queue.add(request);
+        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                Log.d("checking",response.toString());
+//                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("email",useremail);
+                param.put("steps",Integer.toString(stepCount));
+                param.put("calories_burn",Double.toString(caloriesburnt));
+                param.put("Motion","Resting");
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
 
 //        ==================================================================================
 

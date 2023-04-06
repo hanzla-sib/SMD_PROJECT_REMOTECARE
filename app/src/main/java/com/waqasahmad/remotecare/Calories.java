@@ -166,7 +166,7 @@ public class Calories extends AppCompatActivity {
                             }
                             String Calorie = jsonObject.getString("calorie");
                             if(!Calorie.equals("null")){
-                                CAL_MODAL_weekly.add(new CaloriesModal(halfdate,Integer.parseInt(Calorie)));
+                                CAL_MODAL_weekly.add(new CaloriesModal(halfdate,Float.parseFloat(Calorie)));
                             }
 
 //                            CAL_MODAL.add(new CaloriesModal(date,Integer.parseInt(Calorie)));
@@ -174,7 +174,7 @@ public class Calories extends AppCompatActivity {
 
                         for(int i=0;i<CAL_MODAL_weekly.size();i++){
                             String date=CAL_MODAL_weekly.get(i).getDate();
-                            int Cal=CAL_MODAL_weekly.get(i).getCalories();
+                            float Cal=CAL_MODAL_weekly.get(i).getCalories();
                             barEntryArrayList.add(new BarEntry(i,Cal));
                             Labelsname.add(date);
                         }
@@ -263,14 +263,14 @@ public class Calories extends AppCompatActivity {
                             String date = jsonObject.getString("month");
                             String Calorie = jsonObject.getString("caloriesum");
                             if(!Calorie.equals("null")){
-                                CAL_MODAL_monthly.add(new CaloriesModal(date,Integer.parseInt(Calorie)));
+                                CAL_MODAL_monthly.add(new CaloriesModal(date,Float.parseFloat(Calorie)));
                             }
 
 //
                         }
                         for(int i=0;i<CAL_MODAL_monthly.size();i++){
                             String date=CAL_MODAL_monthly.get(i).getDate();
-                            int Cal=CAL_MODAL_monthly.get(i).getCalories();
+                            float Cal=CAL_MODAL_monthly.get(i).getCalories();
                             barEntryArrayListmonthly.add(new BarEntry(i,Cal));
                             Labelsnamemonthly.add(date);
                         }

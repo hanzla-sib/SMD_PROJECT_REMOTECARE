@@ -3,7 +3,7 @@ public class CaloriesModal
 {
     String date;
 
-    public CaloriesModal(String date, int calories)
+    public CaloriesModal(String date, float calories)
     {
         this.date = date;
         Calories = calories;
@@ -17,14 +17,14 @@ public class CaloriesModal
         this.date = date;
     }
 
-    public int getCalories() {
+    public float getCalories() {
         return Calories;
     }
 
-    public void setCalories(int calories) {
+    public void setCalories(float calories) {
         Calories = calories;
     }
 
-    int Calories;
+    float Calories;
 
 }
