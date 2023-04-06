@@ -1,6 +1,6 @@
 package com.waqasahmad.remotecare;
 
-        import androidx.annotation.Nullable;
+import androidx.annotation.Nullable;
         import androidx.appcompat.app.AppCompatActivity;
         import androidx.core.view.GravityCompat;
         import androidx.drawerlayout.widget.DrawerLayout;

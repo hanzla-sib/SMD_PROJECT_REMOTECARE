@@ -9,7 +9,6 @@
     android:id="@+id/doc_appointments_accepted"
     android:background="@color/white"
     android:weightSum="10.7"
-
     >
 
     <LinearLayout

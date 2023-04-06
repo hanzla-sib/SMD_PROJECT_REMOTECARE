@@ -29,11 +29,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Appointment_Pending_Adapter.MyViewHolder>
 {
@@ -44,42 +51,88 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     String date1="",Time1="";
+    String currentemail;
 
-
-//    private static final String accept_doctor_appointment="http://"+Ip_server.getIpServer()+"/smd_project/accept_doctor_appointment.php";
-//    private static final String reject_doctor_appointment="http://"+Ip_server.getIpServer()+"/smd_project/reject_doctor_appointment.php";
-
-
-    public Doc_Appointment_Pending_Adapter(List<Doc_Appointment_Model> ls_doc2, Context c_doc2) {
+    public Doc_Appointment_Pending_Adapter(List<Doc_Appointment_Model> ls_doc2, Context c_doc2)
+    {
         this.ls_doc2 = ls_doc2;
         this.c_doc2 = c_doc2;
     }
 
-    String currentemail;
-
     @NonNull
     @Override
-    public Doc_Appointment_Pending_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Doc_Appointment_Pending_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View row = LayoutInflater.from(c_doc2).inflate(R.layout.patient_row, parent, false);
         return new Doc_Appointment_Pending_Adapter.MyViewHolder(row);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Doc_Appointment_Pending_Adapter.MyViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull Doc_Appointment_Pending_Adapter.MyViewHolder holder, int position)
+    {
         //Initializing Firebase MAuth instance
         mAuth = FirebaseAuth.getInstance();
 
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
 
+        SharedPreferences sh = c_doc2.getSharedPreferences("MySharedPref", 0);
+        String s1 = sh.getString("Ip", "");
+        String url3 ="http://"+s1+"/smd_project/fetch_alldata_from_user.php";
+
         //getting email of logged in user
         currentemail = mAuth.getCurrentUser().getEmail();
         holder.patient_name.setText(ls_doc2.get(position).getName_patient());
         holder.patient_email.setText(ls_doc2.get(position).getEmail_patient());
-//        int i=position;
+
+        /////////////////////////////////
+        StringRequest request=new StringRequest(Request.Method.POST, url3, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+//                Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
+                try {
+                    JSONArray obj2 = new JSONArray(response);
 
 
+                    for(int i=0;i<obj2.length();i++)
+                    {
+                        JSONObject jsonObject = obj2.getJSONObject(i);
+                        String image = jsonObject.getString("imageurl");
+                        Picasso.get().load("http://"+s1+"/smd_project/"+image).into(holder.patient_image);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+//                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("email",ls_doc2.get(holder.getAdapterPosition()).getEmail_patient());
+
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(c_doc2);
+        queue.add(request);
+        /////////////////////////////////
+
+
+
+
+
+        //select date
         holder.itemView.findViewById(R.id.btn_date).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,13 +141,12 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
 
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(c_doc2,
-                        new DatePickerDialog.OnDateSetListener() {
+                        new DatePickerDialog.OnDateSetListener()
+                        {
 
                             @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
                               holder.txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                               date1=(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
@@ -105,6 +157,7 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
             }
         });
 
+        //select time
         holder.itemView.findViewById(R.id.btn_time).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,8 +181,7 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
             }
         });
 
-
-
+        //accept appointment
         holder.itemView.findViewById(R.id.accept_appointment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,11 +252,7 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
             }
         });
 
-
-        //reject///////////
-
-
-
+        //reject appointment
         holder.itemView.findViewById(R.id.reject_appointment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -258,8 +306,6 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
             }
         });
 
-        ///////////////////////////////////
-
     }
 
     @Override
@@ -272,6 +318,9 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
         TextView patient_name,patient_email;
         ImageView btnDatePicker, btnTimePicker;
         EditText txtDate, txtTime;
+        CircleImageView patient_image;
+
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             patient_name=itemView.findViewById(R.id.patient_name2);
@@ -280,6 +329,8 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
             btnTimePicker=itemView.findViewById(R.id.btn_time);
             txtDate=itemView.findViewById(R.id.in_date);
             txtTime=itemView.findViewById(R.id.in_time);
+            patient_image=itemView.findViewById(R.id.patient_img);
+
         }
     }
 }
