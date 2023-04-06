@@ -73,7 +73,7 @@ String useremail1="";
     JSONObject obj;
 //    private static final String consumed_calories="http://"+Ip_server.getIpServer()+"/smd_project/consumed_calories.php";
 //    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
-String url1="",url2="";
+String url1="",url2="",url3="";
     CardView appointment;
     CardView steps;
     CardView step,Calories_Burnt_card,test_record,calorie,HR;
@@ -103,6 +103,7 @@ String url1="",url2="";
         String s1 = sh.getString("Ip", "");
         url1 ="http://"+s1+"/smd_project/consumed_calories.php";
         url2 ="http://"+s1+"/smd_project/user_token_delete.php";
+        url3 ="http://"+s1+"/smd_project/fetch_data_throuh_email.php";
 
         steps = findViewById(R.id.steps_card);
         mAuth=FirebaseAuth.getInstance();
@@ -141,31 +142,69 @@ String url1="",url2="";
      
         String currentemail = mAuth.getCurrentUser().getEmail();
         useremail1=currentemail;
-        db.collection("users").document(useremail1).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
 
-                        DocumentSnapshot document = task.getResult();
-
-                        JSONObject obj;
-                        obj = new JSONObject(document.getData());
-
-                        try
-                        {
-                            String dname = obj.getString("Name");
-                            patient_name.setText("Hi, " + dname);
-
-                        }
-                        catch (JSONException e)
-                        {
-                            e.printStackTrace();
-                        }
 
 
-                    }
-                });
+        StringRequest request=new StringRequest(Request.Method.POST, url3, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                Log.d("respons11111111" ,response );
+                patient_name.setText("Hi, " + response);
+
+
+
+
+
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+
+
+                param.put("d_email",useremail1);
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+//        db.collection("users").document(useremail1).get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//
+//
+//                        DocumentSnapshot document = task.getResult();
+//
+//                        JSONObject obj;
+//                        obj = new JSONObject(document.getData());
+//
+//                        try
+//                        {
+//                            String dname = obj.getString("Name");
+//                            patient_name.setText("Hi, " + dname);
+//
+//                        }
+//                        catch (JSONException e)
+//                        {
+//                            e.printStackTrace();
+//                        }
+//
+//
+//                    }
+//                });
 
         appointment.setOnClickListener(new View.OnClickListener() {
             @Override

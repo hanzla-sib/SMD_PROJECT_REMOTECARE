@@ -58,7 +58,7 @@ public class Activitychat extends AppCompatActivity {
     TextView username,userMainChatActivityProfileName;
     ImageButton send1;
     EditText editText1;
-String useremail1="";
+    String useremail1="";
     String rname , ruid , suid,P_id;
     String send_rcv,rcv_send;
     String rec_email="";

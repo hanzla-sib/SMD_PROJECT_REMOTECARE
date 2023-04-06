@@ -54,15 +54,7 @@
                 android:background="@drawable/circle"
                 />
 
-            <TextView
-                android:id="@+id/motion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Walking"
-                android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+
 
             <TextView
                 android:id="@+id/distance"

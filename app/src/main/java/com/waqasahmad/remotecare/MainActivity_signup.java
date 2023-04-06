@@ -263,6 +263,7 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
                                 SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
                                 String savetime=currentTime.format(calendar.getTime());
                                 createuserinrealtime pro=new createuserinrealtime(name.getText().toString(),email.getText().toString(),password.getText().toString(),genderstr,FirebaseAuth.getInstance().getCurrentUser().getUid(),user_type,savecurrentdate,savetime,"offline","");
+                               String UID_user=FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 FirebaseDatabase.getInstance().getReference("Users")
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(pro);
@@ -294,7 +295,7 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
                                     }
                                 });
                                 //calling function to create a new user
-                                CreateUser();
+                                CreateUser(UID_user);
 
                             }
                         })
@@ -321,7 +322,7 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
         });
     }
 
-    private void CreateUser() {
+    private void CreateUser(String uid_u) {
 
         // Create a new user with a first and last name
         Map<String, Object> user = new HashMap<>();
@@ -365,7 +366,7 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
                                 param.put("type",user_type_id);
                                 param.put("gender",genderstr);
                                 param.put("user_t",user_t);
-
+                                param.put("uid",uid_u);
                                 Log.d("user_t" , user_t.toString());
 
 

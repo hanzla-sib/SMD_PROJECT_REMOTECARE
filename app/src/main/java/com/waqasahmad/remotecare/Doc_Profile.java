@@ -47,6 +47,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -103,7 +107,7 @@ public class Doc_Profile extends AppCompatActivity {
 //    private static final String saveimagedoc = "http://" + Ip_server.getIpServer() + "/smd_project/imageupload.php";
 //    private static final String update_password_doc = "http://" + Ip_server.getIpServer() + "/smd_project/update_password.php";
 
-    String url1="",url2="";
+    String url1="",url2="",url4="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +122,7 @@ public class Doc_Profile extends AppCompatActivity {
         String s1 = sh.getString("Ip", "");
         url1 ="http://"+s1+"/smd_project/imageupload.php";
         url2 ="http://"+s1+"/smd_project/update_password.php";
-
+        url4 ="http://"+s1+"/smd_project/fetch_alldata_from_user.php";
         // for logging out
         auth1 = FirebaseAuth.getInstance();
         database1 = FirebaseDatabase.getInstance();
@@ -180,34 +184,96 @@ public class Doc_Profile extends AppCompatActivity {
             }
         });
 
-        reference = db.collection("users").document(currentemail);
-        reference.get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+        StringRequest request=new StringRequest(Request.Method.POST, url4, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 
-                        if (task.getResult().exists()) {
-                            Name.setText("Name             " + task.getResult().getString("Name"));
-                            Email.setText("Email              " + task.getResult().getString("Email"));
-                            Gender.setText("Gender           " + task.getResult().getString("Gender"));
-                            U_Type.setText("User Type      " + task.getResult().getString("User_Type"));
+                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                try {
+                    JSONArray obj2 = new JSONArray(response);
 
-                            String Dplink = task.getResult().getString("Dp");
-                            Picasso.get().load(Dplink).into(profile_circle);
+
+                    for(int i=0;i<obj2.length();i++){
+                        JSONObject jsonObject = obj2.getJSONObject(i);
+                        String name = jsonObject.getString("name");
+
+                        String image = jsonObject.getString("imageurl");
+                        String user_type = jsonObject.getString("user_type");
+                        String gender = jsonObject.getString("gender");
+
+                        Name.setText("Name             " + name);
+                        Email.setText("Email              " +currentemail);
+                        Gender.setText("Gender           " +gender);
+
+                        if(user_type.equals("1")){
+                            U_Type.setText("User Type      " +"Patient");
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(
-                                Doc_Profile.this,
-                                "No data to update",
-                                Toast.LENGTH_SHORT
-                        ).show();
+                        else {
+                            U_Type.setText("User Type      " +"Doctor");
+                        }
+
+                        Picasso.get().load("http://"+s1+"/smd_project/"+image).into(profile_circle);
+
+
 
                     }
-                });
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        error.toString(),Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+
+                param.put("email",currentemail);
+
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+
+//        reference = db.collection("users").document(currentemail);
+//        reference.get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//
+//                        if (task.getResult().exists()) {
+//                            Name.setText("Name             " + task.getResult().getString("Name"));
+//                            Email.setText("Email              " + task.getResult().getString("Email"));
+//                            Gender.setText("Gender           " + task.getResult().getString("Gender"));
+//                            U_Type.setText("User Type      " + task.getResult().getString("User_Type"));
+//
+//                            String Dplink = task.getResult().getString("Dp");
+//                            Picasso.get().load(Dplink).into(profile_circle);
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(
+//                                Doc_Profile.this,
+//                                "No data to update",
+//                                Toast.LENGTH_SHORT
+//                        ).show();
+//
+//                    }
+//                });
 
 
         update_btn.setOnClickListener(new View.OnClickListener() {

@@ -66,25 +66,64 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
         //getting email of logged in user
         currentemail = mAuth.getCurrentUser().getEmail();
 
-        db.collection("users")
-                .document(currentemail)
-                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                        DocumentSnapshot document = task.getResult();
-                        JSONObject obj;
-                        obj = new JSONObject(document.getData());
+        SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
+        String s1 = sh.getString("Ip", "");
+        url ="http://"+s1+"/smd_project/fetch_data_throuh_email.php";
 
 
-                        try {
-                            currentname = obj.getString("Name");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                Log.d("respons11111111" ,response );
+                currentname=response;
 
-                    }
-                });
+
+
+
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(c_doc,error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+
+
+                param.put("d_email",currentemail);
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(c_doc);
+        queue.add(request);
+
+//        db.collection("users")
+//                .document(currentemail)
+//                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//
+//                        DocumentSnapshot document = task.getResult();
+//                        JSONObject obj;
+//                        obj = new JSONObject(document.getData());
+//
+//
+//                        try {
+//                            currentname = obj.getString("Name");
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                });
         this.ls_doc = ls_doc;
         this.c_doc = c_doc;
     }

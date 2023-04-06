@@ -18,7 +18,7 @@
             android:id="@+id/doc_img"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:padding="8dp"
+            android:padding="8dp" android:backgroundTint="@color/black"
             android:src="@drawable/bigprofileimage" />
 
             <LinearLayout

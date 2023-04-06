@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -47,6 +49,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -85,7 +91,7 @@ public class Profile extends AppCompatActivity {
 //
 //    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
 
-    String url1="",url2="",url3="";
+    String url1="",url2="",url3="",url4="";
     // validating user id
     FirebaseAuth mAuth;
 
@@ -118,6 +124,7 @@ public class Profile extends AppCompatActivity {
         url1 ="http://"+s1+"/smd_project/imageupload.php";
         url2 ="http://"+s1+"/smd_project/update_password.php";
         url3 ="http://"+s1+"/smd_project/user_token_delete.php";
+        url4 ="http://"+s1+"/smd_project/fetch_alldata_from_user.php";
 
         //
         current_password = findViewById(R.id.current_password);
@@ -141,36 +148,99 @@ public class Profile extends AppCompatActivity {
         database1 = FirebaseDatabase.getInstance();
         reference1 = database1.getReference("Users");
 
-        reference = db.collection("users").document(currentemail);
-        reference.get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                                if(task.getResult().exists())
-                                {
-                                    Name.setText("Name             " + task.getResult().getString("Name"));
-                                    Email.setText("Email              " +task.getResult().getString("Email"));
-                                    Gender.setText("Gender           " +task.getResult().getString("Gender"));
-                                    U_Type.setText("User Type      " +task.getResult().getString("User_Type"));
 
 
-                                    String Dplink = task.getResult().getString("Dp");
-                                    Picasso.get().load(Dplink).into(profile_circle);
-                                }
-                            }
-                        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(
-                                    Profile.this,
-                                    "No data to update",
-                                    Toast.LENGTH_SHORT
-                            ).show();
+        StringRequest request=new StringRequest(Request.Method.POST, url4, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                try {
+                    JSONArray obj2 = new JSONArray(response);
+
+
+                    for(int i=0;i<obj2.length();i++){
+                        JSONObject jsonObject = obj2.getJSONObject(i);
+                        String name = jsonObject.getString("name");
+
+                        String image = jsonObject.getString("imageurl");
+                        String user_type = jsonObject.getString("user_type");
+                        String gender = jsonObject.getString("gender");
+
+                        Name.setText("Name             " + name);
+                        Email.setText("Email              " +currentemail);
+                        Gender.setText("Gender           " +gender);
+
+                        if(user_type.equals("1")){
+                            U_Type.setText("User Type      " +"Patient");
+                        }
+                        else {
+                            U_Type.setText("User Type      " +"Doctor");
+                        }
+
+                        Picasso.get().load("http://"+s1+"/smd_project/"+image).into(profile_circle);
+
+
 
                     }
-                });
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        error.toString(),Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param=new HashMap<String,String>();
+
+                param.put("email",currentemail);
+
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+
+
+//        reference = db.collection("users").document(currentemail);
+//        reference.get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//
+//                                if(task.getResult().exists())
+//                                {
+//                                    Name.setText("Name             " + task.getResult().getString("Name"));
+//                                    Email.setText("Email              " +task.getResult().getString("Email"));
+//                                    Gender.setText("Gender           " +task.getResult().getString("Gender"));
+//                                    U_Type.setText("User Type      " +task.getResult().getString("User_Type"));
+//                                    String Dplink = task.getResult().getString("Dp");
+//                                    Picasso.get().load(Dplink).into(profile_circle);
+//                                }
+//                            }
+//                        })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(
+//                                    Profile.this,
+//                                    "No data to update",
+//                                    Toast.LENGTH_SHORT
+//                            ).show();
+//
+//                    }
+//                });
 
 
 

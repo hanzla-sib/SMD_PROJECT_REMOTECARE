@@ -92,7 +92,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
 
-        motionTextView = findViewById(R.id.motion);
+
         stepCountTextView = findViewById(R.id.tv_steps);
         distanceTextView = findViewById(R.id.distance);
         paceTextView = findViewById(R.id.speed);
@@ -233,68 +233,11 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
             stepCountTextView.setText(String.valueOf(stepCount));
 
 
-            distanceCovered = STRIDE_LENGTH * stepCount;
-            distanceTextView.setText(String.format("%.2f m", distanceCovered));
-
-            /////////////////////////////////////////////////////////////////////
 
 
-//        OkHttpClient okHttpClient = new OkHttpClient();
-//        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
-//        //        producer_url = ip_url+ip_url+"two";
-//        okhttp3.Request request2= new okhttp3.Request.Builder().url(producer_url).build();
-//        okHttpClient.newCall(request2).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-//                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
-//            }
-//            @Override
-//            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
-//                Log.d("valuee", "network success");
-//                //               tv.setText(response.body().string());
-//            }
-//        });
-//            StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-//            {
-//                @Override
-//                public void onResponse(String response)
-//                {
-//                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-//                }
-//            }, new Response.ErrorListener()
-//            {
-//                @Override
-//                public void onErrorResponse(VolleyError error)
-//                {
-//                    Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-//                }
-//            })
-//            {
-//                @Nullable
-//                @Override
-//                protected Map<String, String> getParams() throws AuthFailureError {
-//                    Map<String,String> param=new HashMap<String,String>();
-//                    param.put("email",useremail);
-//                    param.put("steps",Integer.toString(stepCount));
-//                    param.put("calories_burn",Double.toString(caloriesburnt));
-//                    param.put("Motion","Resting");
-//                    return param;
-//                }
-//            };
-//            RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-//            queue.add(request);
 
+            updateMotionType();
 
-            /////////////////////////////////////////////////////////////////////
-
-            if (startTime == 0) {
-                startTime = System.currentTimeMillis();
-            } else {
-                endTime = System.currentTimeMillis();
-                elapsedTime = endTime - startTime;
-                updatePace();
-                updateMotionType();
-            }
         }
     }
 
@@ -304,27 +247,10 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         // Do nothing
     }
 
-    private void updatePace()
-    {
-        if (elapsedTime > 0 && distanceCovered > 0) {
-            pace = distanceCovered / ((float)elapsedTime / MILLISECONDS_IN_SECOND); // m/s
-            pace = pace * 3.6f; // km/h
-            pace = Math.round(pace * 100) / 100.0f; // round to two decimal places
-            paceTextView.setText(String.format("%.2f km/h", pace));
-        }
-    }
 
     private void updateMotionType()
     {
-        String motionType = "Resting";
-        if (pace > RUNNING_THRESHOLD)
-        {
-            motionType = "Running";
-        } else if (pace > RESTING_THRESHOLD)
-        {
-            motionType = "Walking";
-        }
-        motionTextView.setText(motionType);
+
 
         ////////////////////////////////////////////////////////////////////////
 
@@ -350,6 +276,12 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
             @Override
             public void onResponse(String response)
             {
+                            distanceCovered = STRIDE_LENGTH * stepCount;
+            distanceTextView.setText(String.format("%.2f m", distanceCovered));
+                pace = distanceCovered / ((float)elapsedTime / MILLISECONDS_IN_SECOND); // m/s
+                pace = pace * 3.6f; // km/h
+                pace = Math.round(pace * 100) / 100.0f; // round to two decimal places
+                paceTextView.setText(String.format("%.2f km/h", pace));
                 Log.d("checking",response.toString());
 //                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
             }
