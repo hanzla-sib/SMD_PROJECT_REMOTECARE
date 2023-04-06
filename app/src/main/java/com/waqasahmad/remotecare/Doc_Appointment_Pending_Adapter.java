@@ -127,11 +127,7 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
         RequestQueue queue= Volley.newRequestQueue(c_doc2);
         queue.add(request);
         /////////////////////////////////
-
-
-
-
-
+        
         //select date
         holder.itemView.findViewById(R.id.btn_date).setOnClickListener(new View.OnClickListener() {
             @Override
