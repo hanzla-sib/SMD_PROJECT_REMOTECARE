@@ -70,7 +70,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
 //    private static final String Steps_graph="http://"+Ip_server.getIpServer()+"/smd_project/Steps_graph.php";
 //    private static final String Steps_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyStepsgraph.php";
 //    private static final String fetch_patient_withdocs="http://"+Ip_server.getIpServer()+"/smd_project/fetch_patient_reg_doctors.php";
-    String url1="",url2="",url3="";
+    String url1="",url2="",url3="",url4="";
     ArrayList<String> paths = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         mAuth= FirebaseAuth.getInstance();
         String useremail = mAuth.getCurrentUser().getEmail();
 
-
+        currentemail=useremail;
         back_btn = findViewById(R.id.back_btn);
         btn1=findViewById(R.id.doc_home_btn2);
         btn2=findViewById(R.id.doc_appointment_btn);
@@ -96,6 +96,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         url1 ="http://"+s1+"/smd_project/Steps_graph.php";
         url2 ="http://"+s1+"/smd_project/monthlyStepsgraph.php";
         url3 ="http://"+s1+"/smd_project/fetch_patient_reg_doctors.php";
+        url4 ="http://"+s1+"/smd_project/get_steps_results_from_formula.php";
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,13 +200,16 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
 
 
                 Log.d("response111111111111111" , response);
-                if(response.toString().equals("No entry"))
+                if(response.trim().equals("No entry"))
                 {
-                    Steps_MODAL_monthly.clear();
-                    barEntryArrayListmonthly=new ArrayList<>();
-                    Labelsnamemonthly=new ArrayList<>();
-                    barEntryArrayListmonthly.clear();
-                    Labelsnamemonthly.clear();
+                    Steps_MODAL_weekly.clear();
+//                    barEntryArrayListmonthly=new ArrayList<>();
+//                    Labelsnamemonthly=new ArrayList<>();
+                    barEntryArrayList.clear();
+                    Labelsname.clear();
+                    weekly_barchart.setData(null);
+                    weekly_barchart.invalidate();
+//
                     Log.d("response333333333" , "Noooooooooooooooooooooooooooooooooooooo");
                 }
                 else
@@ -217,6 +221,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                     Labelsname=new ArrayList<>();
                     barEntryArrayList.clear();
                     Labelsname.clear();
+
 
 
 
@@ -308,13 +313,14 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
 
 
                 Log.d("response111111111111111" , response);
-                if(response.toString().equals("No entry"))
+                if(response.trim().equals("No entry"))
                 {
                     Steps_MODAL_monthly.clear();
-                    barEntryArrayListmonthly=new ArrayList<>();
-                    Labelsnamemonthly=new ArrayList<>();
+
                     barEntryArrayListmonthly.clear();
                     Labelsnamemonthly.clear();
+                    monthly_barchart.setData(null);
+                    monthly_barchart.invalidate();
                     Log.d("response333333333" , "Noooooooooooooooooooooooooooooooooooooo");
                 }
                 else
@@ -399,6 +405,87 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         RequestQueue queue1= Volley.newRequestQueue(getApplicationContext());
         queue1.add(request1);
 
+
+        //-----formulaaaa----
+        StringRequest request4=new StringRequest(Request.Method.POST, url4, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+
+
+                Log.d("response111111111111111" , response);
+                if(response.trim().equals("No entry"))
+                {
+
+                }
+                else if(response.trim().equals("no recom steps")){
+
+                }
+                else
+                {
+//                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+
+                    try {
+                        obj2 = new JSONArray(response);
+                        if(obj2.length()>=4){
+                            JSONObject jsonObject = obj2.getJSONObject(obj2.length()-2);
+                            String value1=jsonObject.getString("steps");
+                            JSONObject jsonObject1 = obj2.getJSONObject(obj2.length()-3);
+                            String value2=jsonObject1.getString("steps");
+                            JSONObject jsonObject2 = obj2.getJSONObject(obj2.length()-4);
+                            String value3=jsonObject2.getString("steps");
+                            Log.d("value1",value1);
+                            Log.d("value2",value2);
+                            Log.d("value3",value3);
+                            String recom_steps = jsonObject.getString("recom_steps");
+                            Log.d("value4",recom_steps);
+                            int sum=(Integer.parseInt(value1)+Integer.parseInt(value2)+Integer.parseInt(value3))/3;
+                            Log.d("sum",String.valueOf(sum));
+
+                            if(sum>=(Integer.parseInt(recom_steps)-50)){
+                                Log.d("likely to complete","steps");
+                            }
+                            else{
+                                Log.d("unlikely to complete","steps");
+                            }
+                        }
+                        else{
+                            Log.d("insufficeint previous record","results");
+
+                        }
+
+
+
+//
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String,String> param=new HashMap<String,String>();
+                param.put("p_email",(String) adapterView.getItemAtPosition(i));
+                 param.put("d_email",currentemail);
+
+                return param;
+            }
+        };
+        RequestQueue queue3= Volley.newRequestQueue(getApplicationContext());
+        queue3.add(request4);
 
 
     }
