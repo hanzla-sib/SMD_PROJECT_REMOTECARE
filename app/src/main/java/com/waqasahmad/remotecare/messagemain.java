@@ -87,10 +87,8 @@ String url1="";
         logout=findViewById(R.id.logout);
         back_btn = findViewById(R.id.back_btn);
         useremail1 = auth1.getCurrentUser().getEmail();
-pat_nav=findViewById(R.id.patient_nav);
-doc_nav=findViewById(R.id.doc_nav);
-
-
+        pat_nav=findViewById(R.id.patient_nav);
+        doc_nav=findViewById(R.id.doc_nav);
 
 
         String useremail = mAuth.getCurrentUser().getEmail();

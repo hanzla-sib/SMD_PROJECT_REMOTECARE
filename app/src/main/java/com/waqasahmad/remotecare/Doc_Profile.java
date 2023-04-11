@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -278,92 +280,124 @@ public class Doc_Profile extends AppCompatActivity {
 
         update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
-                current_password_str = current_password.getText().toString();
-                new_password_str = new_password.getText().toString();
+                AlertDialog.Builder builder = new AlertDialog.Builder(Doc_Profile.this);
+                builder.setMessage("Do you want to update your password?")
+                        .setTitle("Update Password");
 
-                if (!(current_password_str.equals("") && new_password_str.equals(""))) {
-                    user = FirebaseAuth.getInstance().getCurrentUser();
-                    final String email = user.getEmail();
-                    AuthCredential credential = EmailAuthProvider.getCredential(email, current_password_str);
-
-                    user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
+                // Add the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User clicked OK button
 
 
-                                user.updatePassword(new_password_str).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (!task.isSuccessful()) {
-                                            Toast.makeText(getApplicationContext(), " Password not Updated", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), "Password updated", Toast.LENGTH_SHORT).show();
-                                            StringRequest request = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
-                                                @Override
-                                                public void onResponse(String response) {
+                        current_password_str = current_password.getText().toString();
+                        new_password_str = new_password.getText().toString();
 
-                                                    Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+                        if (!(current_password_str.equals("") && new_password_str.equals(""))) {
+                            user = FirebaseAuth.getInstance().getCurrentUser();
+                            final String email = user.getEmail();
+                            AuthCredential credential = EmailAuthProvider.getCredential(email, current_password_str);
 
+                            user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+
+
+                                        user.updatePassword(new_password_str).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (!task.isSuccessful()) {
+                                                    Toast.makeText(getApplicationContext(), " Password not Updated", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(), "Password updated", Toast.LENGTH_SHORT).show();
+                                                    StringRequest request = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
+                                                        @Override
+                                                        public void onResponse(String response) {
+
+                                                            Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+
+                                                        }
+                                                    }, new Response.ErrorListener() {
+                                                        @Override
+                                                        public void onErrorResponse(VolleyError error) {
+                                                            Toast.makeText(
+                                                                    getApplicationContext(),
+                                                                    error.toString(), Toast.LENGTH_LONG).show();
+                                                        }
+                                                    }) {
+                                                        @Nullable
+                                                        @Override
+                                                        protected Map<String, String> getParams() throws AuthFailureError {
+                                                            Map<String, String> param = new HashMap<String, String>();
+                                                            param.put("password", new_password_str);
+                                                            param.put("email", email);
+                                                            return param;
+                                                        }
+                                                    };
+                                                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                                                    queue.add(request);
                                                 }
-                                            }, new Response.ErrorListener() {
-                                                @Override
-                                                public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(
-                                                            getApplicationContext(),
-                                                            error.toString(), Toast.LENGTH_LONG).show();
-                                                }
-                                            }) {
-                                                @Nullable
-                                                @Override
-                                                protected Map<String, String> getParams() throws AuthFailureError {
-                                                    Map<String, String> param = new HashMap<String, String>();
-                                                    param.put("password", new_password_str);
-                                                    param.put("email", email);
-                                                    return param;
-                                                }
-                                            };
-                                            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                                            queue.add(request);
-                                        }
 
-                                        /////////////////////
-                                        Map<String, Object> new_password_obj = new HashMap<>();
-                                        new_password_obj.put("Password", new_password_str);
+                                                /////////////////////
+                                                Map<String, Object> new_password_obj = new HashMap<>();
+                                                new_password_obj.put("Password", new_password_str);
 
-                                        // Add a new document
-                                        // reference.set(map , SetOptions.merge())
-                                        db.collection("users").document(email).set(new_password_obj, SetOptions.merge())
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void unused) {
-                                                        Toast.makeText(
-                                                                Doc_Profile.this,
-                                                                "updated in firebase",
-                                                                Toast.LENGTH_SHORT
-                                                        ).show();
-                                                    }
-                                                });
+                                                // Add a new document
+                                                // reference.set(map , SetOptions.merge())
+                                                db.collection("users").document(email).set(new_password_obj, SetOptions.merge())
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void unused) {
+                                                                Toast.makeText(
+                                                                        Doc_Profile.this,
+                                                                        "updated in firebase",
+                                                                        Toast.LENGTH_SHORT
+                                                                ).show();
+                                                            }
+                                                        });
 
-                                        ////////////////////////////////////////
+                                                ////////////////////////////////////////
 
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(
+                                                getApplicationContext(),
+                                                " Authentication Failed for password",
+                                                Toast.LENGTH_SHORT).show();
                                     }
-                                });
-                            } else {
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        " Authentication Failed for password",
-                                        Toast.LENGTH_SHORT).show();
-                            }
+                                }
+                            });
+                        } else {
+
+                            Toast.makeText(getApplicationContext(), "Password is empty", Toast.LENGTH_SHORT).show();
+
                         }
-                    });
-                } else {
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User cancelled the dialog
+                        dialog.cancel();
+                    }
+                });
 
-                    Toast.makeText(getApplicationContext(), "Password is empty", Toast.LENGTH_SHORT).show();
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
 
-                }
+
+
+
+
             }
         });
 

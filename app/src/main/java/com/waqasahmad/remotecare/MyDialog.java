@@ -24,6 +24,7 @@ public class MyDialog
             public void onClick(DialogInterface dialog, int id)
             {
                 // User cancelled the dialog
+                dialog.cancel();
             }
         });
 

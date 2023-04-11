@@ -1,6 +1,8 @@
 package com.waqasahmad.remotecare;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,54 +93,72 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
                     {
 
 
-                        arrayList.remove(holder.getAdapterPosition());
-                        notifyItemRemoved(holder.getAdapterPosition());
-                        notifyItemRangeChanged(holder.getAdapterPosition(), arrayList.size());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        builder.setMessage("Do you want to delete this test record?")
+                                .setTitle("Delete Test record");
 
-                        holder.itemView.setVisibility(View.GONE);
-
-                        SharedPreferences sh = activity.getSharedPreferences("MySharedPref", 0);
-                        String s1 = sh.getString("Ip", "");
-                        String url1 ="http://"+s1+"/smd_project/delete_test_record.php";
-                        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+                        // Add the buttons
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
                         {
-                            @Override
-                            public void onResponse(String response)
+                            public void onClick(DialogInterface dialog, int id)
                             {
-                                Toast.makeText(activity,response.toString(),Toast.LENGTH_LONG).show();
+                                // User clicked OK button
 
+                                arrayList.remove(holder.getAdapterPosition());
+                                notifyItemRemoved(holder.getAdapterPosition());
+                                notifyItemRangeChanged(holder.getAdapterPosition(), arrayList.size());
 
-//                                arrayList.remove(remove_record_num);
-//                                notifyItemRemoved(remove_record_num);
-//
-//                                arrayList.clear();
+                                holder.itemView.setVisibility(View.GONE);
+
+                                SharedPreferences sh = activity.getSharedPreferences("MySharedPref", 0);
+                                String s1 = sh.getString("Ip", "");
+                                String url1 ="http://"+s1+"/smd_project/delete_test_record.php";
+                                StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+                                {
+                                    @Override
+                                    public void onResponse(String response)
+                                    {
+                                        Toast.makeText(activity,response.toString(),Toast.LENGTH_LONG).show();
+                                    }
+                                }, new Response.ErrorListener()
+                                {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error)
+                                    {
+        //                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                                {
+                                    @Nullable
+                                    @Override
+                                    protected Map<String, String> getParams() throws AuthFailureError {
+                                        Map<String,String> param=new HashMap<String,String>();
+
+                                        param.put("p_email",currentemail);
+                                        param.put("image_url",model.getImage_url());
+
+                                        return param;
+                                    }
+                                };
+                                RequestQueue queue= Volley.newRequestQueue(activity);
+                                queue.add(request);
+
                             }
-                        }, new Response.ErrorListener()
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
                         {
-                            @Override
-                            public void onErrorResponse(VolleyError error)
+                            public void onClick(DialogInterface dialog, int id)
                             {
-//                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
+                                // User cancelled the dialog
+
+                                dialog.cancel();
+
                             }
-                        })
-                        {
-                            @Nullable
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
-                                Map<String,String> param=new HashMap<String,String>();
+                        });
 
-                                param.put("p_email",currentemail);
-                                param.put("image_url",model.getImage_url());
-
-                                return param;
-                            }
-                        };
-                        RequestQueue queue= Volley.newRequestQueue(activity);
-                        queue.add(request);
-
-                        //////////////////////////////////////////////
-
-
+                        // Create the AlertDialog
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
 
                     }
                 });
@@ -163,9 +183,6 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
             details = itemView.findViewById(R.id.details_record);
             record_num=itemView.findViewById(R.id.record_num);
             delete_record=itemView.findViewById(R.id.delete_record);
-
-
-
         }
     }
 }

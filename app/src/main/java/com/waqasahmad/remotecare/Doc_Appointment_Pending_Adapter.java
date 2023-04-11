@@ -260,11 +260,6 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-
-
-
-
-
             }
         });
 

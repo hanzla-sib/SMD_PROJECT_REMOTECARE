@@ -32,8 +32,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/profile_circle" />
-
+                    android:src="@drawable/profile_circle"
+                    android:backgroundTint="@color/black"
+                    />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"

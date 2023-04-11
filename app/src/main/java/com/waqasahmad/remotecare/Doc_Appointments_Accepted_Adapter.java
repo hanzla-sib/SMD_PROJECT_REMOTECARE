@@ -130,53 +130,94 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
 
         holder.enter_recommend_steps.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(c_doc2);
+                builder.setMessage("Do you want to recommend these steps?")
+                        .setTitle("Enter Steps");
 
-                recommend_steps_string = holder.recommend_steps.getText().toString();
-
-                if(recommend_steps_string.equals(""))
+                // Add the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
                 {
-                    Log.d("recommend_steps_string " ,"null");
-                }
-                else
-                {
-                    Log.d("recommend_steps_string " , recommend_steps_string);
-                }
-
-                /////////////////////////////////
-                StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
+                    public void onClick(DialogInterface dialog, int id)
                     {
-                        Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
-                    }
-                }, new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
+                        // User clicked OK button
+
+                        recommend_steps_string = holder.recommend_steps.getText().toString();
+                        if(recommend_steps_string.equals(""))
+                        {
+                            Log.d("recommended steps are null " ,"null");
+
+
+
+
+                        }
+                        else
+                        {
+                            Log.d("recommend_steps_string " , recommend_steps_string);
+
+                            /////////////////////////////////
+                            StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
+                            {
+                                @Override
+                                public void onResponse(String response)
+                                {
+                                    Toast.makeText(c_doc2,response.toString(),Toast.LENGTH_LONG).show();
+                                }
+                            }, new Response.ErrorListener()
+                            {
+                                @Override
+                                public void onErrorResponse(VolleyError error)
+                                {
 //                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            {
+                                @Nullable
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    Map<String,String> param=new HashMap<String,String>();
+
+                                    param.put("d_email",currentemail);
+                                    param.put("p_email",model.getEmail_patient());
+                                    param.put("steps",recommend_steps_string);
+
+                                    return param;
+                                }
+                            };
+                            RequestQueue queue= Volley.newRequestQueue(c_doc2);
+                            queue.add(request);
+
+                            ////////////////////////////////////////////
+//
+//                            ls_doc2.remove(holder.getAdapterPosition());
+//                            notifyItemRemoved(holder.getAdapterPosition());
+//                            notifyItemRangeChanged(holder.getAdapterPosition(), ls_doc2.size());
+//
+
+
+
+                        }
+
+
+
                     }
-                })
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
                 {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> param=new HashMap<String,String>();
-
-                        param.put("d_email",currentemail);
-                        param.put("p_email",model.getEmail_patient());
-                        param.put("steps",recommend_steps_string);
-
-                        return param;
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User cancelled the dialog
+                        dialog.cancel();
                     }
-                };
-                RequestQueue queue= Volley.newRequestQueue(c_doc2);
-                queue.add(request);
+                });
 
-                //////////////////////////////////////////////
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
 
             }
         });

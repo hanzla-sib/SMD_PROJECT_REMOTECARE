@@ -60,7 +60,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:weightSum="5"
-
                 >
 
                 <androidx.cardview.widget.CardView
@@ -271,7 +270,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/HR_card"
                 app:cardBackgroundColor="#FFAA8282"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 app:cardCornerRadius="20dp"
@@ -280,7 +279,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/hrg"
+                    android:background="@drawable/heartbeat_img"
                     >
 
                     <TextView
@@ -291,15 +290,15 @@
                         android:text="Heart beat graph"
                         android:textColor="@color/black"
                         android:textSize="24sp"
-
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        />
 
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 app:cardCornerRadius="20dp"
@@ -347,16 +346,13 @@
 
                         <ImageButton
                             android:id="@+id/Enter_button"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:background="@drawable/meal_tick_bg"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/accept_appointment_doc_side"
                             android:layout_centerInParent="true"
+                            android:backgroundTint="@color/black"
                             />
 
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/meal_tick" />
 
                     </RelativeLayout>
 

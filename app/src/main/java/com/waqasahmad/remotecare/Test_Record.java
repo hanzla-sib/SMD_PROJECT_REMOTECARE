@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -166,10 +168,6 @@ public class Test_Record extends AppCompatActivity {
         });
 
 
-
-
-
-
         dp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,103 +183,132 @@ public class Test_Record extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                details1 = details.getText().toString();
 
-                Log.d("detailllll",details.getText().toString());
+                AlertDialog.Builder builder = new AlertDialog.Builder(Test_Record.this);
+                builder.setMessage("Do you want to upload this record?")
+                        .setTitle("Upload Test Record");
 
-                ByteArrayOutputStream byteArrayOutputStream;
-                byteArrayOutputStream=new ByteArrayOutputStream();
-                if(bitmap != null){
-                    bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
-                    byte[] bytes=byteArrayOutputStream.toByteArray();
-                    final String base64Image= Base64.encodeToString(bytes,Base64.DEFAULT);
-                    Calendar calendar = Calendar.getInstance();
-                    SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
-                    String strDate =mdformat.format(calendar.getTime());
+                // Add the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User clicked OK button
 
 
+                        details1 = details.getText().toString();
 
-                    ////////////////////////////////////////////////////////////////////////////////
+                        Log.d("detailllll",details.getText().toString());
 
-                    Calendar c = Calendar.getInstance();
-                    FirebaseStorage storage = FirebaseStorage.getInstance();
-                    StorageReference ref = storage.getReference().child("test_record/" +c.getTimeInMillis()+ ".jpg");
-                    ref.putFile(image)
+                        ByteArrayOutputStream byteArrayOutputStream;
+                        byteArrayOutputStream=new ByteArrayOutputStream();
+                        if(bitmap != null){
+                            bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+                            byte[] bytes=byteArrayOutputStream.toByteArray();
+                            final String base64Image= Base64.encodeToString(bytes,Base64.DEFAULT);
+                            Calendar calendar = Calendar.getInstance();
+                            SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
+                            String strDate =mdformat.format(calendar.getTime());
 
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            ////////////////////////////////////////////////////////////////////////////////
 
-                                    Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
-                                    task.addOnSuccessListener(new OnSuccessListener<Uri>()
+                            Calendar c = Calendar.getInstance();
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                            StorageReference ref = storage.getReference().child("test_record/" +c.getTimeInMillis()+ ".jpg");
+                            ref.putFile(image)
+
+                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                            Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
+                                            task.addOnSuccessListener(new OnSuccessListener<Uri>()
+                                            {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+
+                                                    Log.d("p33333",uri.toString());
+
+
+                                                    StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+                                                    {
+                                                        @Override
+                                                        public void onResponse(String response)
+                                                        {
+                                                            Log.d("res1111", response.toString());
+                                                            Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(getApplicationContext(),"uploaded sucesfully",Toast.LENGTH_LONG).show();
+                                                        }
+                                                    }, new Response.ErrorListener()
+                                                    {
+                                                        @Override
+                                                        public void onErrorResponse(VolleyError error)
+                                                        {
+                                                            Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                                                        }
+                                                    })
+                                                    {
+                                                        @Nullable
+                                                        @Override
+                                                        protected Map<String, String> getParams() throws AuthFailureError
+                                                        {
+                                                            Map<String,String> param=new HashMap<String,String>();
+                                                            Log.d("detailllll222",uri.toString());
+                                                            param.put("link", uri.toString());
+                                                            param.put("image",base64Image);
+                                                            param.put("details",details1);
+                                                            param.put("email",email1);
+
+                                                            return param;
+                                                        }
+                                                    };
+                                                    RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                                                    queue.add(request);
+
+                                                }
+                                            });
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener()
                                     {
                                         @Override
-                                        public void onSuccess(Uri uri) {
-
-                                            Log.d("p33333",uri.toString());
-
-
-                                            StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-                                            {
-                                                @Override
-                                                public void onResponse(String response)
-                                                {
-                                                    Log.d("res1111", response.toString());
-                                                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-                                                    Toast.makeText(getApplicationContext(),"uploaded sucesfully",Toast.LENGTH_LONG).show();
-                                                }
-                                            }, new Response.ErrorListener()
-                                            {
-                                                @Override
-                                                public void onErrorResponse(VolleyError error)
-                                                {
-                                                    Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                                                }
-                                            })
-                                            {
-                                                @Nullable
-                                                @Override
-                                                protected Map<String, String> getParams() throws AuthFailureError
-                                                {
-                                                    Map<String,String> param=new HashMap<String,String>();
-                                                    Log.d("detailllll222",uri.toString());
-                                                    param.put("link", uri.toString());
-                                                    param.put("image",base64Image);
-                                                    param.put("details",details1);
-                                                    param.put("email",email1);
-
-                                                    return param;
-                                                }
-                                            };
-                                            RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-                                            queue.add(request);
-
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(Test_Record.this,
+                                                            "Failed to upload image ",
+                                                            Toast.LENGTH_LONG)
+                                                    .show();
                                         }
                                     });
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener()
-                            {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(Test_Record.this,
-                                                    "Failed to upload image ",
-                                                    Toast.LENGTH_LONG)
-                                            .show();
-                                }
-                            });
 
-                    ////////////////////////////////////////////////////////////////////////////////
+                            ////////////////////////////////////////////////////////////////////////////////
 
 
-                }
-                else
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(),"error uploading image",Toast.LENGTH_SHORT).show();
+                        }
+
+                        dp.setImageResource(R.drawable.add);
+                        details.setText("");
+
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
                 {
-                    Toast.makeText(getApplicationContext(),"error uploading image",Toast.LENGTH_SHORT).show();
-                }
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User cancelled the dialog
 
-                dp.setImageResource(R.drawable.add);
-                details.setText("");
+                        dialog.cancel();
+                    }
+                });
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
 
             }
         });

@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -294,85 +296,113 @@ String url1="",url2="",url3="";
             @Override
             public void onClick(View view)
             {
-                Query1 = input_query.getText().toString();
-                input_query.setText("");
-                // Concatenating header with the API and getting calories in JSON file format
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity2.this);
+                builder.setMessage("Do you want to enter this meal?")
+                        .setTitle("Enter Meal");
+
+                // Add the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
                 {
-                    StringRequest myReq = new StringRequest(Request.Method.GET,
-                            "https://api.calorieninjas.com/v1/nutrition?query=" + Query1,
-                            new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response)
-                                {
-                                    try {
-                                        obj =new JSONObject(response);
-
-                                        calorie_str = String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("calories"));
-
-                                        ////////////////////////////////////////////
-
-                                        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-                                        {
-                                            @Override
-                                            public void onResponse(String response)
-                                            {
-                                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-                                            }
-                                        }, new Response.ErrorListener()
-                                        {
-                                            @Override
-                                            public void onErrorResponse(VolleyError error)
-                                            {
-                                                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                                            }
-                                        })
-                                        {
-                                            @Nullable
-                                            @Override
-                                            protected Map<String, String> getParams() throws AuthFailureError
-                                            {
-                                                Map<String,String> param=new HashMap<String,String>();
-                                                param.put("p_email",currentemail);
-                                                param.put("calories",calorie_str);
-                                                return param;
-                                            }
-                                        };
-                                        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-                                        queue.add(request);
-
-                                        //////////////////////////////////////////////
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-
-
-
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(MainActivity2.this,error.toString(),Toast.LENGTH_LONG).show();
-                                    Log.d("dataa",error.toString());
-
-                                }
-                            })
+                    public void onClick(DialogInterface dialog, int id)
                     {
-                        @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            Map<String, String> mHeaders = new ArrayMap<String, String>();
-                            mHeaders.put("Content-Type", "application/json");
-                            mHeaders.put("X-Api-Key", "syfXOOkubhTjCgJFOr6KGQ==mYTrMBkvTiw6piBu");
-                            return mHeaders;
-                        }
-                    };
+                        // User clicked OK button
 
-                    RequestQueue requestQueue  = Volley.newRequestQueue(MainActivity2.this);
-                    requestQueue.add(myReq);
 
-                }
+                        Query1 = input_query.getText().toString();
+                        input_query.setText("");
+                        // Concatenating header with the API and getting calories in JSON file format
+
+                            StringRequest myReq = new StringRequest(Request.Method.GET,
+                                    "https://api.calorieninjas.com/v1/nutrition?query=" + Query1,
+                                    new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response)
+                                        {
+                                            try {
+                                                obj =new JSONObject(response);
+
+                                                calorie_str = String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("calories"));
+
+                                                ////////////////////////////////////////////
+
+                                                StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+                                                {
+                                                    @Override
+                                                    public void onResponse(String response)
+                                                    {
+                                                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                                                    }
+                                                }, new Response.ErrorListener()
+                                                {
+                                                    @Override
+                                                    public void onErrorResponse(VolleyError error)
+                                                    {
+                                                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                                                    }
+                                                })
+                                                {
+                                                    @Nullable
+                                                    @Override
+                                                    protected Map<String, String> getParams() throws AuthFailureError
+                                                    {
+                                                        Map<String,String> param=new HashMap<String,String>();
+                                                        param.put("p_email",currentemail);
+                                                        param.put("calories",calorie_str);
+                                                        return param;
+                                                    }
+                                                };
+                                                RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                                                queue.add(request);
+
+                                                //////////////////////////////////////////////
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+
+
+
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Toast.makeText(MainActivity2.this,error.toString(),Toast.LENGTH_LONG).show();
+                                            Log.d("dataa",error.toString());
+
+                                        }
+                                    })
+                            {
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String> mHeaders = new ArrayMap<String, String>();
+                                    mHeaders.put("Content-Type", "application/json");
+                                    mHeaders.put("X-Api-Key", "syfXOOkubhTjCgJFOr6KGQ==mYTrMBkvTiw6piBu");
+                                    return mHeaders;
+                                }
+                            };
+
+                            RequestQueue requestQueue  = Volley.newRequestQueue(MainActivity2.this);
+                            requestQueue.add(myReq);
+
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User cancelled the dialog
+                        dialog.cancel();
+                    }
+                });
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
 
 
             }

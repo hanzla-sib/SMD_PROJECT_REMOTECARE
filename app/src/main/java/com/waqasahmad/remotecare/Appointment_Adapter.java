@@ -1,5 +1,7 @@
 package com.waqasahmad.remotecare;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -161,52 +163,76 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
             @Override
             public void onClick(View v)
             {
-                int i=holder.getAdapterPosition();
-               String dname= ls_doc.get(i).getName_doc();
-               String demail= ls_doc.get(i).getEmail_doc();
 
-                ls_doc.remove(i);
-                notifyItemRemoved(i);
+                AlertDialog.Builder builder = new AlertDialog.Builder(c_doc);
+                builder.setMessage("Do you want to request appointment with this doctor?")
+                        .setTitle("Request Appointment");
 
-
-                SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
-                String s1 = sh.getString("Ip", "");
-                url ="http://"+s1+"/smd_project/patient_appointment.php";
-
-
-                StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
+                // Add the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
                 {
-                    @Override
-                    public void onResponse(String response)
+                    public void onClick(DialogInterface dialog, int id)
                     {
-                        Log.d("respons11111111" ,response );
-
-                        Toast.makeText(c_doc,response.toString(),Toast.LENGTH_LONG).show();
+                        // User clicked OK button
 
 
+                        int i=holder.getAdapterPosition();
+                        String dname= ls_doc.get(i).getName_doc();
+                        String demail= ls_doc.get(i).getEmail_doc();
+
+                        ls_doc.remove(i);
+                        notifyItemRemoved(i);
+
+                        SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
+                        String s1 = sh.getString("Ip", "");
+                        url ="http://"+s1+"/smd_project/patient_appointment.php";
+
+                        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
+                        {
+                            @Override
+                            public void onResponse(String response)
+                            {
+                                Log.d("respons11111111" ,response );
+
+                                Toast.makeText(c_doc,response.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        }, new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error)
+                            {
+                                Toast.makeText(c_doc,error.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        {
+                            @Nullable
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String,String> param=new HashMap<String,String>();
+                                param.put("p_name",currentname);
+                                param.put("p_email",currentemail);
+                                param.put("d_name",dname);
+                                param.put("d_email",demail);
+                                return param;
+                            }
+                        };
+                        RequestQueue queue= Volley.newRequestQueue(c_doc);
+                        queue.add(request);
                     }
-                }, new Response.ErrorListener()
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
                 {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
+                    public void onClick(DialogInterface dialog, int id)
                     {
-                        Toast.makeText(c_doc,error.toString(),Toast.LENGTH_LONG).show();
+                        // User cancelled the dialog
+                        dialog.cancel();
                     }
-                })
-                {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> param=new HashMap<String,String>();
-                        param.put("p_name",currentname);
-                        param.put("p_email",currentemail);
-                        param.put("d_name",dname);
-                        param.put("d_email",demail);
-                        return param;
-                    }
-                };
-                RequestQueue queue= Volley.newRequestQueue(c_doc);
-                queue.add(request);
+                });
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
 
             }
         });

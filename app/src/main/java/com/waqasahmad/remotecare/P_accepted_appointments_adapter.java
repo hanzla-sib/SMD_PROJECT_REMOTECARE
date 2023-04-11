@@ -1,7 +1,9 @@
 package com.waqasahmad.remotecare;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,45 +97,75 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
 
         holder.cross1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
-                doc_email= ls_doc.get(holder.getAdapterPosition()).email_doc;
+                AlertDialog.Builder builder = new AlertDialog.Builder(c_doc);
+                builder.setMessage("Do you want to cancel this appointment?")
+                        .setTitle("Cancel Appointment");
 
-                //removing row
-                int i=holder.getAdapterPosition();
-                ls_doc.remove(i);
-                notifyItemRemoved(i);
-                //
-
-                StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+                // Add the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
                 {
-                    @Override
-                    public void onResponse(String response)
+                    public void onClick(DialogInterface dialog, int id)
                     {
-                        Toast.makeText(c_doc,response.toString(),Toast.LENGTH_LONG).show();
+                        // User clicked OK button
+
+
+                        doc_email= ls_doc.get(holder.getAdapterPosition()).email_doc;
+
+                        //removing row
+                        int i=holder.getAdapterPosition();
+                        ls_doc.remove(i);
+                        notifyItemRemoved(i);
+                        //
+
+                        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
+                        {
+                            @Override
+                            public void onResponse(String response)
+                            {
+                                Toast.makeText(c_doc,response.toString(),Toast.LENGTH_LONG).show();
+
+                            }
+                        }, new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error)
+                            {
+                            }
+                        })
+                        {
+                            @Nullable
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String,String> param=new HashMap<String,String>();
+
+                                param.put("p_email",currentemail);
+                                param.put("d_email",doc_email);
+
+                                return param;
+                            }
+                        };
+                        RequestQueue queue= Volley.newRequestQueue(c_doc);
+                        queue.add(request);
 
                     }
-                }, new Response.ErrorListener()
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
                 {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
+                    public void onClick(DialogInterface dialog, int id)
                     {
+                        // User cancelled the dialog
+                        dialog.cancel();
                     }
-                })
-                {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> param=new HashMap<String,String>();
+                });
 
-                        param.put("p_email",currentemail);
-                        param.put("d_email",doc_email);
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
 
-                        return param;
-                    }
-                };
-                RequestQueue queue= Volley.newRequestQueue(c_doc);
-                queue.add(request);
+
             }
         });
 
