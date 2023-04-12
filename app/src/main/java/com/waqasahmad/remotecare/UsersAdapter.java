@@ -81,16 +81,28 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
                         JSONObject jsonObject = obj2.getJSONObject(i);
                          String email = jsonObject.getString("email");
                        String profile = jsonObject.getString("imageurl");
+                       Log.d("profilleee",profile);
                         if(!email.equals("null")){
                             if(ls.get(holder.getAdapterPosition()).getOnlinestatus().equals("offline")){
                                 holder.name.setText(ls.get(holder.getAdapterPosition()).getName());
                                 holder.lastseen.setText(ls.get(holder.getAdapterPosition()).getLastseen());
-                               
-                                Picasso.get().load("http://"+s1+"/smd_project/"+profile).into(holder.profileimagechat);
+                               if(profile.trim().equals("null")){
+
+                               }
+                               else{
+                                   Picasso.get().load("http://"+s1+"/smd_project/"+profile).into(holder.profileimagechat);
+                               }
+
 
                                 holder.onlinestatus.setVisibility(View.GONE);
                             }
                             else{
+                                if(profile.trim().equals("null")){
+
+                                }
+                                else{
+                                    Picasso.get().load("http://"+s1+"/smd_project/"+profile).into(holder.profileimagechat);
+                                }
                                 holder.name.setText(ls.get(holder.getAdapterPosition()).getName());
                                 holder.lastseen.setVisibility(View.GONE);
                                 holder.onlinestatus.setText(ls.get(holder.getAdapterPosition()).getOnlinestatus());

@@ -191,10 +191,17 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
 
 
                 Log.d("response111111111111111" , response);
-                if(response.toString().equals("No entry"))
+                if(response.toString().trim().equals("No entry"))
                 {
 
                     Log.d("response333333333" , "Noooooooooooooooooooooooooooooooooooooo");
+                    burnt_cal_MODAL_weekly.clear();
+//                    barEntryArrayListmonthly=new ArrayList<>();
+//                    Labelsnamemonthly=new ArrayList<>();
+                    barEntryArrayList.clear();
+                    Labelsname.clear();
+                    weekly_barchart.setData(null);
+                    weekly_barchart.invalidate();
                 }
                 else
                 {
@@ -296,10 +303,16 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
 
 
                 Log.d("response111111111111111" , response);
-                if(response.toString().equals("No entry"))
+                if(response.toString().trim().equals("No entry"))
                 {
 
-                    Log.d("response333333333" , "Noooooooooooooooooooooooooooooooooooooo");
+                    burnt_cal_MODAL_monthly.clear();
+//                    barEntryArrayListmonthly=new ArrayList<>();
+//                    Labelsnamemonthly=new ArrayList<>();
+                    barEntryArrayListmonthly.clear();
+                    Labelsnamemonthly.clear();
+                    monthly_barchart.setData(null);
+                    monthly_barchart.invalidate();
                 }
                 else
                 {

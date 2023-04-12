@@ -100,7 +100,11 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
                     {
                         JSONObject jsonObject = obj2.getJSONObject(i);
                         String image = jsonObject.getString("imageurl");
-                        Picasso.get().load("http://"+s1+"/smd_project/"+image).into(holder.patient_image);
+                        Log.d("image_a",image);
+                        if(!image.trim().equals("null")){
+                            Picasso.get().load("http://"+s1+"/smd_project/"+image).into(holder.patient_image);
+                        }
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

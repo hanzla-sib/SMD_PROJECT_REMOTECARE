@@ -214,7 +214,10 @@ public class Doc_Profile extends AppCompatActivity {
                             U_Type.setText("User Type      " +"Doctor");
                         }
 
-                        Picasso.get().load("http://"+s1+"/smd_project/"+image).into(profile_circle);
+                        if(!image.trim().equals("null")){
+                            Picasso.get().load("http://"+s1+"/smd_project/"+image).into(profile_circle);
+                        }
+
 
 
 

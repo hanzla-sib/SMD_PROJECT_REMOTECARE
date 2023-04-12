@@ -104,7 +104,10 @@ public class MessagesAdapter extends RecyclerView.Adapter {
                         {
                             Log.d("picturee",response.toString());
                             String pic=response.toString();
-                            Picasso.get().load("http://"+s1+"/smd_project/"+pic).into(viewHOlder.img);
+                            if(pic.length()>=3){
+                                Picasso.get().load("http://"+s1+"/smd_project/"+pic).into(viewHOlder.img);
+                            }
+
 
                         }
                     }, new Response.ErrorListener()
@@ -160,7 +163,10 @@ public class MessagesAdapter extends RecyclerView.Adapter {
                         {
             Log.d("picturee",response.toString());
             String pic=response.toString();
-                            Picasso.get().load("http://"+s1+"/smd_project/"+pic).into(viewHOlder.img);
+                            if(pic.length()>=3){
+                                Picasso.get().load("http://"+s1+"/smd_project/"+pic).into(viewHOlder.img);
+                            }
+
 
                         }
                     }, new Response.ErrorListener()

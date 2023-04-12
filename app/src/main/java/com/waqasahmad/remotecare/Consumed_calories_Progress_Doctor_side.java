@@ -193,9 +193,15 @@ public class Consumed_calories_Progress_Doctor_side extends AppCompatActivity im
 
 
                 Log.d("response111111111111111" , response);
-                if(response.toString().equals("No entry"))
+                if(response.toString().trim().equals("No entry"))
                 {
 
+                    CAL_MODAL_weekly.clear();
+//
+                    barEntryArrayList.clear();
+                    Labelsname.clear();
+                    weekly_barchart.setData(null);
+                    weekly_barchart.invalidate();
                     Log.d("response333333333" , "Noooooooooooooooooooooooooooooooooooooo");
                 }
                 else
@@ -300,10 +306,15 @@ public class Consumed_calories_Progress_Doctor_side extends AppCompatActivity im
 
 
                 Log.d("response111111111111111" , response);
-                if(response.toString().equals("No entry"))
+                if(response.toString().trim().equals("No entry"))
                 {
 
-                    Log.d("response333333333" , "Noooooooooooooooooooooooooooooooooooooo");
+                    CAL_MODAL_monthly.clear();
+
+                    barEntryArrayListmonthly.clear();
+                    Labelsnamemonthly.clear();
+                    monthly_barchart.setData(null);
+                    monthly_barchart.invalidate();
                 }
                 else
                 {

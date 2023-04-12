@@ -114,8 +114,13 @@ public class Activitychat extends AppCompatActivity {
                     {
                         Log.d("picturee",response.toString());
                         String pic=response.toString();
+                        if(pic.trim().length()<=3){
 
-                        Picasso.get().load("http://"+s1+"/smd_project/"+pic).into(img);
+                        }
+                        else{
+                            Picasso.get().load("http://"+s1+"/smd_project/"+pic).into(img);
+                        }
+
 
                     }
                 }, new Response.ErrorListener()

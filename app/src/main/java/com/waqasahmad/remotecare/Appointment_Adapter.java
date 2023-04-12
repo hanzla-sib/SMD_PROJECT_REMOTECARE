@@ -155,7 +155,14 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
         holder.doc_profession.setText(ls_doc.get(position).getDoc_type());
 //        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
 //        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
+    Log.d("pic_d",ls_doc.get(position).getImage_doc());
+    if(ls_doc.get(position).getImage_doc().equals("null")){
+
+    }
+    else{
         Picasso.get().load("http://"+s2+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
+    }
+
 
 
         holder.itemView.findViewById(R.id.request_appointment).

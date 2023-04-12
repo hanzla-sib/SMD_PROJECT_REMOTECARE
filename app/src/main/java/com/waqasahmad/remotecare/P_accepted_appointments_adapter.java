@@ -91,7 +91,13 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
         holder.doc_prof.setText(ls_doc.get(position).getDoc_type());
         SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
-        Picasso.get().load("http://"+s1+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
+        if(ls_doc.get(position).getImage_doc().equals("null")){
+
+        }
+        else{
+            Picasso.get().load("http://"+s1+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
+        }
+
 
 
 
