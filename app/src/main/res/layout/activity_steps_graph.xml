@@ -81,6 +81,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:paddingVertical="10dp"
+
                 />
 
             <com.github.mikephil.charting.charts.BarChart
@@ -93,10 +94,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Steps Recommended"
+                android:layout_marginBottom="10dp"
                 android:textSize="24sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 />
 
             <androidx.recyclerview.widget.RecyclerView

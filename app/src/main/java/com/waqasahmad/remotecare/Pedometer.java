@@ -277,7 +277,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
             public void onResponse(String response)
             {
                             distanceCovered = STRIDE_LENGTH * stepCount;
-            distanceTextView.setText(String.format("%.2f m", distanceCovered));
+            distanceTextView.setText(String.format("Distance\n" + "%.2f m", distanceCovered));
                 pace = distanceCovered / ((float)elapsedTime / MILLISECONDS_IN_SECOND); // m/s
                 pace = pace * 3.6f; // km/h
                 pace = Math.round(pace * 100) / 100.0f; // round to two decimal places

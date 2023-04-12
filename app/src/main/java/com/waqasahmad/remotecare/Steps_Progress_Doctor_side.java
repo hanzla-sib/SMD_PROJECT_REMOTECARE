@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -58,7 +59,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
     LinearLayout btn1,btn2,btn3,btn4;
 
 
-
+    TextView recom_steps,comp_steps,check_Ai;
     String currentemail="";
 
     ArrayList<Steps_Modal> Steps_MODAL_weekly=new ArrayList<>();
@@ -67,7 +68,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
     ArrayList<String> Labelsname;
     ArrayList<BarEntry> barEntryArrayListmonthly;
     ArrayList<String> Labelsnamemonthly;
-//    private static final String Steps_graph="http://"+Ip_server.getIpServer()+"/smd_project/Steps_graph.php";
+    //    private static final String Steps_graph="http://"+Ip_server.getIpServer()+"/smd_project/Steps_graph.php";
 //    private static final String Steps_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyStepsgraph.php";
 //    private static final String fetch_patient_withdocs="http://"+Ip_server.getIpServer()+"/smd_project/fetch_patient_reg_doctors.php";
     String url1="",url2="",url3="",url4="";
@@ -90,7 +91,9 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         btn2=findViewById(R.id.doc_appointment_btn);
         btn3=findViewById(R.id.profile_doc_button);
         btn4=findViewById(R.id.doc_chat_btn);
-
+        recom_steps=findViewById(R.id.recom_steps);
+        comp_steps=findViewById(R.id.comp_steps);
+        check_Ai=findViewById(R.id.check_ai);
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url1 ="http://"+s1+"/smd_project/Steps_graph.php";
@@ -141,7 +144,8 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
 
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+
 
                     try {
                         obj2 = new JSONArray(response);
@@ -170,7 +174,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
             }
         }){
             @Nullable
@@ -214,7 +218,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
 
                     Steps_MODAL_weekly.clear();
                     barEntryArrayList=new ArrayList<>();
@@ -287,7 +291,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
             }
         })
         {
@@ -325,7 +329,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
 
 
                     Steps_MODAL_monthly.clear();
@@ -389,7 +393,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
             }
         })
         {
@@ -406,21 +410,26 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         queue1.add(request1);
 
 
-        //-----formulaaaa----
+        //-----formula----
         StringRequest request4=new StringRequest(Request.Method.POST, url4, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
             {
-
-
                 Log.d("response111111111111111" , response);
                 if(response.trim().equals("No entry"))
                 {
-
+                    recom_steps.setVisibility(View.GONE);
+                    comp_steps.setVisibility(View.GONE);
+                    check_Ai.setVisibility(View.GONE);
                 }
-                else if(response.trim().equals("no recom steps")){
-
+                else if(response.trim().equals("no recom steps"))
+                {
+                    Log.d("recom","not recomended");
+                    recom_steps.setText("Recommendation: "+"No recommended steps yet");
+                    recom_steps.setVisibility(View.VISIBLE);
+                    comp_steps.setVisibility(View.GONE);
+                    check_Ai.setVisibility(View.GONE);
                 }
                 else
                 {
@@ -438,20 +447,41 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                             Log.d("value1",value1);
                             Log.d("value2",value2);
                             Log.d("value3",value3);
-                            String recom_steps = jsonObject.getString("recom_steps");
-                            Log.d("value4",recom_steps);
-                            int sum=(Integer.parseInt(value1)+Integer.parseInt(value2)+Integer.parseInt(value3))/3;
-                            Log.d("sum",String.valueOf(sum));
+                            JSONObject jsonObject4=obj2.getJSONObject(obj2.length()-1);
 
-                            if(sum>=(Integer.parseInt(recom_steps)-50)){
-                                Log.d("likely to complete","steps");
+                            String Completed_steps=jsonObject4.getString("steps");
+                            String recom_stepsjson = jsonObject.getString("recom_steps");
+
+                            Log.d("value4",Completed_steps);
+                            int sum=(Integer.parseInt(value1)+Integer.parseInt(value2)+Integer.parseInt(value3))/3;
+                            Log.d("sum111",String.valueOf(sum));
+                            recom_steps.setText("Recommended Steps:  "+ recom_stepsjson);
+                            recom_steps.setVisibility(View.VISIBLE);
+                            comp_steps.setText("Completed Steps:  " + Completed_steps);
+                            comp_steps.setVisibility(View.VISIBLE);
+                            if(Integer.parseInt(recom_stepsjson)<=Integer.parseInt(Completed_steps)){
+                                recom_steps.setText("Prediction: " + "Completed The goal");
+                                check_Ai.setText(recom_stepsjson);
+                                check_Ai.setVisibility(View.VISIBLE);
                             }
                             else{
-                                Log.d("unlikely to complete","steps");
+                                if(sum>=(Integer.parseInt(recom_stepsjson)-50)){
+                                    Log.d("likely to complete","steps");
+                                    check_Ai.setVisibility(View.VISIBLE);
+                                    check_Ai.setText("Prediction: "+"Likely to complete");
+                                }
+                                else{
+                                    Log.d("unlikely to complete","steps");
+                                    check_Ai.setVisibility(View.VISIBLE);
+                                    check_Ai.setText("Prediction: "+"Unlikely to complete");
+                                }
                             }
+
                         }
                         else{
                             Log.d("insufficeint previous record","results");
+                            check_Ai.setVisibility(View.VISIBLE);
+                            check_Ai.setText("Prediction: "+"insufficeint previous record");
 
                         }
 
@@ -469,7 +499,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
             }
         })
         {
@@ -479,7 +509,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
             {
                 Map<String,String> param=new HashMap<String,String>();
                 param.put("p_email",(String) adapterView.getItemAtPosition(i));
-                 param.put("d_email",currentemail);
+                param.put("d_email",currentemail);
 
                 return param;
             }

@@ -74,7 +74,9 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
            Log.d("helllooo","sadasd");
             holder.doctor_name.setText(ls_doc.get(position).getD_email());
             holder.recomm_steps.setText(ls_doc.get(position).getRecommended_steps());
-            holder.rem_steps.setText("Remaining Steps : 0  \nYou have completed the goal");
+            holder.rem_steps.setText("Remaining Steps : 0  ");
+            holder.message.setText("You have completed the goal");
+
 
         }
         else
@@ -82,6 +84,8 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
             holder.doctor_name.setText(ls_doc.get(position).getD_email());
             holder.recomm_steps.setText(ls_doc.get(position).getRecommended_steps());
             holder.rem_steps.setText("Remaining Steps: "+ls_doc.get(position).getRemaining_steps());
+            holder.message.setText("Little more steps to achieve the goal");
+
         }
 
     }
@@ -92,7 +96,7 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView doctor_name,recomm_steps,rem_steps;
+        TextView doctor_name,recomm_steps,rem_steps,message;
 
         public MyViewHolder(@NonNull View itemView)
         {
@@ -100,6 +104,8 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
             doctor_name=itemView.findViewById(R.id.d_name_steps_screen);
             recomm_steps=itemView.findViewById(R.id.recommended_steps_steps_screen);
             rem_steps=itemView.findViewById(R.id.remaining_steps_steps_screen);
+            message=itemView.findViewById(R.id.message);
+
         }
     }
 

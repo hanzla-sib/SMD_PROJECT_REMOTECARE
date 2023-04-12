@@ -83,6 +83,7 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
         holder.details.setText(model.getDetails());
         holder.record_num.setText("Record # " + (holder.getAdapterPosition()+1));
 
+
                 holder
                 .itemView
                 .findViewById(R.id.delete_record)
@@ -105,6 +106,7 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
                                 // User clicked OK button
 
                                 arrayList.remove(holder.getAdapterPosition());
+                                notifyDataSetChanged();
                                 notifyItemRemoved(holder.getAdapterPosition());
                                 notifyItemRangeChanged(holder.getAdapterPosition(), arrayList.size());
 
@@ -159,7 +161,6 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
                         // Create the AlertDialog
                         AlertDialog dialog = builder.create();
                         dialog.show();
-
                     }
                 });
     }

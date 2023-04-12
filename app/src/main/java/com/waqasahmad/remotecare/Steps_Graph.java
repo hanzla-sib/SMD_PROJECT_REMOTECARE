@@ -473,11 +473,6 @@ public class Steps_Graph extends AppCompatActivity {
                                         rv.setLayoutManager(lm);
                                         rv.setAdapter(adapter);
 
-
-
-
-
-
                                     }
                                 }
                             }

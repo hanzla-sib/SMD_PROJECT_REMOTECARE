@@ -12,30 +12,54 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
+        android:weightSum="10"
+
         >
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/patient_img"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:padding="8dp"
-            android:src="@drawable/bigprofileimage"
-            />
+
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/doc_img"
+                android:layout_weight="5"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:padding="8dp"
+                android:src="@drawable/bigprofileimage" />
+
+        </LinearLayout>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/patient_name2"
-            android:text=""
-            android:textSize="24sp"
-            android:textColor="@color/black"
+
+        <LinearLayout
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_gravity="center"
-            android:layout_marginLeft="7dp"
+            android:gravity="center"
+            >
 
-            />
 
+            <TextView
+                android:id="@+id/patient_name2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="name"
+                android:paddingTop="10dp"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+
+
+                />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

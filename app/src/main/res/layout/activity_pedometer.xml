@@ -55,18 +55,18 @@
                 />
 
 
-
             <TextView
                 android:id="@+id/distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-
-                android:layout_marginTop="36dp"
-                android:text="Distance"
+                android:layout_marginTop="40dp"
+                android:text="Distance\n     0m"
                 android:textColor="@color/black"
                 android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+
+                />
 
             <TextView
                 android:id="@+id/speed"
@@ -77,18 +77,19 @@
                 android:text="Pace"
                 android:textColor="@color/black"
                 android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
 
             <TextView
                 android:id="@+id/tv_steps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/time_set"
                 android:layout_centerInParent="true"
-                android:paddingTop="80dp"
+                android:paddingTop="70dp"
                 android:text="0"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="80sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
