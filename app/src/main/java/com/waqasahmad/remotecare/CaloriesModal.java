@@ -1,10 +1,9 @@
 package com.waqasahmad.remotecare;
-public class CaloriesModal
-{
+
+public class CaloriesModal {
     String date;
 
-    public CaloriesModal(String date, float calories)
-    {
+    public CaloriesModal(String date, float calories) {
         this.date = date;
         Calories = calories;
     }
@@ -24,6 +23,7 @@ public class CaloriesModal
     public void setCalories(float calories) {
         Calories = calories;
     }
+
 
     float Calories;
 

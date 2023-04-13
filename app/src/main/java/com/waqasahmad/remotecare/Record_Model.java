@@ -1,7 +1,6 @@
 package com.waqasahmad.remotecare;
 
-public class Record_Model
-{
+public class Record_Model {
     String image_url;
     String details;
     String Record_num;

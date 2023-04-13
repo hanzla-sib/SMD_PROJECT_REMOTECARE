@@ -1,5 +1,7 @@
-package com.waqasahmad.remotecare;public class Steps_Model_doctor_side_formula {
-    String recommended_steps,remaining_steps,check_status;
+package com.waqasahmad.remotecare;
+
+public class Steps_Model_doctor_side_formula {
+    String recommended_steps, remaining_steps, check_status;
 
     public Steps_Model_doctor_side_formula(String recommended_steps, String remaining_steps, String check_status) {
         this.recommended_steps = recommended_steps;

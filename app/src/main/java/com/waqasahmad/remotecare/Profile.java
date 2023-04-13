@@ -1,12 +1,5 @@
 package com.waqasahmad.remotecare;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,10 +12,14 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,7 +32,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,7 +39,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
@@ -73,7 +68,7 @@ public class Profile extends AppCompatActivity {
     ImageView update_btn;
 
     //
-    TextView Name,Email,Gender,U_Type;
+    TextView Name, Email, Gender, U_Type;
 
     //for logging out
     DatabaseReference reference1;
@@ -86,47 +81,47 @@ public class Profile extends AppCompatActivity {
     DatabaseHandler objectdatabasehandler;
 
     //
-    EditText current_password,new_password;
+    EditText current_password, new_password;
 
 //    private static final String saveimageuser="http://"+Ip_server.getIpServer()+"/smd_project/imageupload.php";
 //    private static final String update_password="http://"+Ip_server.getIpServer()+"/smd_project/update_password.php";
 //
 //    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
 
-    String url1="",url2="",url3="",url4="";
+    String url1 = "", url2 = "", url3 = "", url4 = "";
     // validating user id
     FirebaseAuth mAuth;
 
-//    FirebaseUser user ;
-    String currentemail ;
+    //    FirebaseUser user ;
+    String currentemail;
 
     FirebaseFirestore db;
     DocumentReference reference;
 
     //
-    String current_password_str,new_password_str;
+    String current_password_str, new_password_str;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
-        drawerLayout=findViewById(R.id.drawer_layout);
-        profile_circle=findViewById(R.id.profile_circle);
-        objectdatabasehandler=new DatabaseHandler(this);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        profile_circle = findViewById(R.id.profile_circle);
+        objectdatabasehandler = new DatabaseHandler(this);
 
         //
-        Name=findViewById(R.id.Name);
-        Email=findViewById(R.id.Email);
-        Gender=findViewById(R.id.Gender);
-        U_Type=findViewById(R.id.U_Type);
+        Name = findViewById(R.id.Name);
+        Email = findViewById(R.id.Email);
+        Gender = findViewById(R.id.Gender);
+        U_Type = findViewById(R.id.U_Type);
 
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
-        url1 ="http://"+s1+"/smd_project/imageupload.php";
-        url2 ="http://"+s1+"/smd_project/update_password.php";
-        url3 ="http://"+s1+"/smd_project/user_token_delete.php";
-        url4 ="http://"+s1+"/smd_project/fetch_alldata_from_user.php";
+        url1 = "http://" + s1 + "/smd_project/imageupload.php";
+        url2 = "http://" + s1 + "/smd_project/update_password.php";
+        url3 = "http://" + s1 + "/smd_project/user_token_delete.php";
+        url4 = "http://" + s1 + "/smd_project/fetch_alldata_from_user.php";
 
         //
         current_password = findViewById(R.id.current_password);
@@ -134,9 +129,8 @@ public class Profile extends AppCompatActivity {
         update_btn = findViewById(R.id.update_btn);
 
 
-
         //Initializing Firebase MAuth instance
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         //getting email of the logged in user for document
         currentemail = mAuth.getCurrentUser().getEmail();
@@ -146,22 +140,21 @@ public class Profile extends AppCompatActivity {
 
 
         // for logging out
-        auth1=FirebaseAuth.getInstance();
+        auth1 = FirebaseAuth.getInstance();
         database1 = FirebaseDatabase.getInstance();
         reference1 = database1.getReference("Users");
 
 
-
-        StringRequest request=new StringRequest(Request.Method.POST, url4, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, url4, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
                 try {
                     JSONArray obj2 = new JSONArray(response);
 
 
-                    for(int i=0;i<obj2.length();i++){
+                    for (int i = 0; i < obj2.length(); i++) {
                         JSONObject jsonObject = obj2.getJSONObject(i);
                         String name = jsonObject.getString("name");
 
@@ -170,21 +163,19 @@ public class Profile extends AppCompatActivity {
                         String gender = jsonObject.getString("gender");
 
                         Name.setText("Name             " + name);
-                        Email.setText("Email              " +currentemail);
-                        Gender.setText("Gender           " +gender);
+                        Email.setText("Email              " + currentemail);
+                        Gender.setText("Gender           " + gender);
 
-                        if(user_type.equals("1")){
-                            U_Type.setText("User Type      " +"Patient");
+                        if (user_type.equals("1")) {
+                            U_Type.setText("User Type      " + "Patient");
+                        } else {
+                            U_Type.setText("User Type      " + "Doctor");
                         }
-                        else {
-                            U_Type.setText("User Type      " +"Doctor");
-                        }
-                        if(!image.trim().equals("null")){
-                            Picasso.get().load("http://"+s1+"/smd_project/"+image).into(profile_circle);
+                        if (!image.trim().equals("null")) {
+                            Picasso.get().load("http://" + s1 + "/smd_project/" + image).into(profile_circle);
                         }
 
                     }
-
 
 
                 } catch (JSONException e) {
@@ -197,70 +188,61 @@ public class Profile extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(
                         getApplicationContext(),
-                        error.toString(),Toast.LENGTH_LONG).show();
+                        error.toString(), Toast.LENGTH_LONG).show();
             }
-        }){
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param=new HashMap<String,String>();
+                Map<String, String> param = new HashMap<String, String>();
 
-                param.put("email",currentemail);
+                param.put("email", currentemail);
 
                 return param;
             }
         };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
-        update_btn.setOnClickListener(new View.OnClickListener()
-        {
+        update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
                 builder.setMessage("Do you want to update your password?")
                         .setTitle("Update Password");
 
                 // Add the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
 
                         current_password_str = current_password.getText().toString();
                         new_password_str = new_password.getText().toString();
 
-                        if( !(current_password_str.equals("") && new_password_str.equals("")) )
-                        {
+                        if (!(current_password_str.equals("") && new_password_str.equals(""))) {
                             user = FirebaseAuth.getInstance().getCurrentUser();
                             final String email = user.getEmail();
-                            AuthCredential credential = EmailAuthProvider.getCredential(email,current_password_str);
+                            AuthCredential credential = EmailAuthProvider.getCredential(email, current_password_str);
 
                             user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful())
-                                    {
+                                    if (task.isSuccessful()) {
 
 
                                         user.updatePassword(new_password_str).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                if(!task.isSuccessful())
-                                                {
-                                                    Toast.makeText(getApplicationContext()," Password not Updated" , Toast.LENGTH_SHORT).show();
-                                                }
-                                                else
-                                                {
-                                                    Toast.makeText(getApplicationContext(),"Password updated" , Toast.LENGTH_SHORT).show();
-                                                    StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
+                                                if (!task.isSuccessful()) {
+                                                    Toast.makeText(getApplicationContext(), " Password not Updated", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(), "Password updated", Toast.LENGTH_SHORT).show();
+                                                    StringRequest request = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
                                                         @Override
                                                         public void onResponse(String response) {
 
-                                                            Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+//                                                            Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
 
                                                         }
                                                     }, new Response.ErrorListener() {
@@ -268,22 +250,22 @@ public class Profile extends AppCompatActivity {
                                                         public void onErrorResponse(VolleyError error) {
                                                             Toast.makeText(
                                                                     getApplicationContext(),
-                                                                    error.toString(),Toast.LENGTH_LONG).show();
+                                                                    error.toString(), Toast.LENGTH_LONG).show();
                                                         }
-                                                    }){
+                                                    }) {
                                                         @Nullable
                                                         @Override
                                                         protected Map<String, String> getParams() throws AuthFailureError {
-                                                            Map<String,String> param=new HashMap<String,String>();
+                                                            Map<String, String> param = new HashMap<String, String>();
 
-                                                            param.put("password",new_password_str);
+                                                            param.put("password", new_password_str);
 
-                                                            param.put("email",email);
+                                                            param.put("email", email);
 
                                                             return param;
                                                         }
                                                     };
-                                                    RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                                                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                                                     queue.add(request);
                                                 }
 
@@ -296,38 +278,32 @@ public class Profile extends AppCompatActivity {
                                                             public void onSuccess(Void unused) {
 
 
-                                                                Toast.makeText(
-                                                                        Profile.this,
-                                                                        "updated in firebase",
-                                                                        Toast.LENGTH_SHORT
-                                                                ).show();
+//                                                                Toast.makeText(
+//                                                                        Profile.this,
+//                                                                        "updated in firebase",
+//                                                                        Toast.LENGTH_SHORT
+//                                                                ).show();
                                                             }
                                                         });
                                             }
                                         });
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         Toast.makeText(
                                                 getApplicationContext(),
-                                                " Authentication Failed for password" ,
+                                                " Authentication Failed for password",
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
-                        }
-                        else
-                        {
+                        } else {
 
-                            Toast.makeText(getApplicationContext(),"Password is empty" , Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Password is empty", Toast.LENGTH_SHORT).show();
 
                         }
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                         dialog.cancel();
                     }
@@ -336,7 +312,6 @@ public class Profile extends AppCompatActivity {
                 // Create the AlertDialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
 
 
             }
@@ -358,78 +333,77 @@ public class Profile extends AppCompatActivity {
     }
 
     //return to same screen by redirecting
-    public void ClickProfile(View view){
+    public void ClickProfile(View view) {
         recreate();
     }
 
     //Open/Close drawer function
-    public void ClickMenu (View view){
+    public void ClickMenu(View view) {
         MainActivity2.openDrawer(drawerLayout);
     }
-    public void ClickLogo(View view){
+
+    public void ClickLogo(View view) {
         MainActivity2.closeDrawer(drawerLayout);
     }
 
     //Go to other screens by intent
-    public void ClickPro(View view){
-        MainActivity2.redirectActivity(this,MainActivity2.class);
+    public void ClickPro(View view) {
+        MainActivity2.redirectActivity(this, MainActivity2.class);
     }
-    public void ClickPrescriptionDetails (View view){
+
+    public void ClickPrescriptionDetails(View view) {
         MainActivity2.redirectActivity(this, Prescription_Details.class);
     }
-    public void ClickMeals(View view){
-        MainActivity2.redirectActivity(this,Meals.class);
-    }
-    public void ClickOverview(View view){
-        MainActivity2.redirectActivity(this,OverView.class);
-    }
-    public void ClickChat(View view){
-        MainActivity2.redirectActivity(this,messagemain.class);
+
+    public void ClickMeals(View view) {
+        MainActivity2.redirectActivity(this, Meals.class);
     }
 
-    public void ClickLogout(View view)
-    {
+    public void ClickOverview(View view) {
+        MainActivity2.redirectActivity(this, OverView.class);
+    }
+
+    public void ClickChat(View view) {
+        MainActivity2.redirectActivity(this, messagemain.class);
+    }
+
+    public void ClickLogout(View view) {
 
         String savecurrentdate;
-        Calendar calendar=Calendar.getInstance();
-        SimpleDateFormat currentdate=new SimpleDateFormat("MMM dd,yyyy");
-        savecurrentdate=currentdate.format(calendar.getTime());
-        SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
-        String savetime=currentTime.format(calendar.getTime());
-        HashMap<String,Object> onlinestatus=new HashMap<>();
-        onlinestatus.put("time",savetime);
-        onlinestatus.put("date",savecurrentdate);
-        onlinestatus.put("status","offline");
-        onlinestatus.put("player_id","");
-        String curruserid=auth1.getUid();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat currentdate = new SimpleDateFormat("MMM dd,yyyy");
+        savecurrentdate = currentdate.format(calendar.getTime());
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        String savetime = currentTime.format(calendar.getTime());
+        HashMap<String, Object> onlinestatus = new HashMap<>();
+        onlinestatus.put("time", savetime);
+        onlinestatus.put("date", savecurrentdate);
+        onlinestatus.put("status", "offline");
+        onlinestatus.put("player_id", "");
+        String curruserid = auth1.getUid();
         reference1.child(curruserid).updateChildren(onlinestatus);
 
-        StringRequest request=new StringRequest(Request.Method.POST, url3, new Response.Listener<String>()
-        {
+        StringRequest request = new StringRequest(Request.Method.POST, url3, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response)
-            {
+            public void onResponse(String response) {
 
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
             }
-        }, new Response.ErrorListener()
-        {
+        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
             }
-        })
-        {
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param=new HashMap<String,String>();
-                param.put("email",currentemail);
+                Map<String, String> param = new HashMap<String, String>();
+                param.put("email", currentemail);
                 return param;
             }
         };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
         auth1.signOut();
@@ -438,7 +412,6 @@ public class Profile extends AppCompatActivity {
 
         startActivity(new Intent(Profile.this, MainActivity_signin.class));
     }
-
 
 
     @Override
@@ -454,116 +427,113 @@ public class Profile extends AppCompatActivity {
 
             image = data.getData();
             try {
-                bitmap= MediaStore.Images.Media.getBitmap(getContentResolver(),image);
-                imagetoStore= MediaStore.Images.Media.getBitmap(getContentResolver(),image);
-                objectdatabasehandler.storeImage(new ModelClassoffline(currentemail,imagetoStore));
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), image);
+                imagetoStore = MediaStore.Images.Media.getBitmap(getContentResolver(), image);
+                objectdatabasehandler.storeImage(new ModelClassoffline(currentemail, imagetoStore));
             } catch (IOException e) {
                 e.printStackTrace();
             }
             ByteArrayOutputStream byteArrayOutputStream;
-            byteArrayOutputStream=new ByteArrayOutputStream();
-            if(bitmap != null){
-                bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
-                byte[] bytes=byteArrayOutputStream.toByteArray();
-                final String base64Image= Base64.encodeToString(bytes,Base64.DEFAULT);
+            byteArrayOutputStream = new ByteArrayOutputStream();
+            if (bitmap != null) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                byte[] bytes = byteArrayOutputStream.toByteArray();
+                final String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
-                String strDate =mdformat.format(calendar.getTime());
-
+                String strDate = mdformat.format(calendar.getTime());
 
 
                 ///////////////////////////////////////////////////////
 
-                StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
+                StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response)
-                    {
-                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-                        Toast.makeText(getApplicationContext(),"uploaded sucesfully",Toast.LENGTH_LONG).show();
+                    public void onResponse(String response) {
+//                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Uploaded successfully", Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
                     }
-                }){
+                }) {
                     @Nullable
                     @Override
-                    protected Map<String, String> getParams() throws AuthFailureError
-                    {
-                        Map<String,String> param=new HashMap<String,String>();
-                        param.put("image",base64Image);
-                        param.put("email",currentemail);
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> param = new HashMap<String, String>();
+                        param.put("image", base64Image);
+                        param.put("email", currentemail);
                         return param;
                     }
                 };
-                RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 queue.add(request);
 
 
                 ////////////////////////////////////////////////
 
-            Calendar c = Calendar.getInstance();
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference ref = storage.getReference().child("dp/" +c.getTimeInMillis()+ ".jpg");
-            ref.putFile(image)
+                Calendar c = Calendar.getInstance();
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference ref = storage.getReference().child("dp/" + c.getTimeInMillis() + ".jpg");
+                ref.putFile(image)
 
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
-                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Picasso.get().load(uri.toString()).into(profile_circle);
+                                Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
+                                task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Picasso.get().load(uri.toString()).into(profile_circle);
 
-                                    Log.d("profileeeee",uri.toString());
+                                        Log.d("profileeeee", uri.toString());
 
-                                    reference = db.collection("users").document(currentemail);
+                                        reference = db.collection("users").document(currentemail);
 
-                                    Map<String,Object> map =new HashMap<>();
-                                    map.put("Dp" , uri.toString());
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("Dp", uri.toString());
 
-                                    reference.set(map , SetOptions.merge())
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Toast.makeText(
-                                                      Profile.this,
-                                                        "Successfully uploaded image ",
-                                                             Toast.LENGTH_LONG
-                                                    ).show();
+                                        reference.set(map, SetOptions.merge())
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Toast.makeText(
+                                                                Profile.this,
+                                                                "Successfully uploaded image",
+                                                                Toast.LENGTH_LONG
+                                                        ).show();
 
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(
-                                                            Profile.this,
-                                                            "Could not upload image ",
-                                                            Toast.LENGTH_LONG
-                                                    ).show();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(
+                                                                Profile.this,
+                                                                "Could not upload image",
+                                                                Toast.LENGTH_LONG
+                                                        ).show();
 
-                                                }
-                                            });
-                                }
-                            });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Profile.this,
-                                    "Failed to upload image ",
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    });
+                                                    }
+                                                });
+                                    }
+                                });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(Profile.this,
+                                                "Failed to upload image ",
+                                                Toast.LENGTH_LONG)
+                                        .show();
+                            }
+                        });
+            }
         }
+
+
     }
-
-
-
-}}
+}

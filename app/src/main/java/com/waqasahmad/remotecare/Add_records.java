@@ -1,10 +1,5 @@
 package com.waqasahmad.remotecare;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -40,14 +40,14 @@ public class Add_records extends AppCompatActivity {
     Record_Adapter adapter;
     String email1;
     FirebaseAuth mAuth;
-    FirebaseDatabase database ;
-    DatabaseReference reference ;
+    FirebaseDatabase database;
+    DatabaseReference reference;
     FirebaseFirestore db;
 
     LinearLayout back_btn;
-    LinearLayout btn1,btn2,btn3,btn4;
+    LinearLayout btn1, btn2, btn3, btn4;
 
-String url="";
+    String url = "";
 //    private static final String retreive_img="http://"+Ip_server.getIpServer()+"/smd_project/retireveimage.php";
 
     @Override
@@ -56,14 +56,14 @@ String url="";
         setContentView(R.layout.view_test_record);
 
         //Initializing Firebase MAuth instance
-        mAuth=FirebaseAuth.getInstance();
-        arrayList= new ArrayList<>();
+        mAuth = FirebaseAuth.getInstance();
+        arrayList = new ArrayList<>();
         rv = findViewById(R.id.rv);
         back_btn = findViewById(R.id.back_btn);
-        btn1=findViewById(R.id.home_btn2);
-        btn2=findViewById(R.id.appointment_btn);
-        btn3=findViewById(R.id.record_btn);
-        btn4=findViewById(R.id.chat_btn);
+        btn1 = findViewById(R.id.home_btn2);
+        btn2 = findViewById(R.id.appointment_btn);
+        btn3 = findViewById(R.id.record_btn);
+        btn4 = findViewById(R.id.chat_btn);
         btn3.setBackgroundResource(R.drawable.nav_btn_color);
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
@@ -72,7 +72,7 @@ String url="";
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
-        url ="http://"+s1+"/smd_project/retireveimage.php";
+        url = "http://" + s1 + "/smd_project/retireveimage.php";
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,26 +106,24 @@ String url="";
         });
 
 
-
         Record_Model record = new Record_Model();
-        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
                 Log.d("msgggggg", response.toString());
                 try {
-                    int check=0;
+                    int check = 0;
 
                     JSONArray array = new JSONArray(response);
-                    for(int i=0;i<array.length();i++)
-                    {
+                    for (int i = 0; i < array.length(); i++) {
 
                         Record_Model record = new Record_Model();
-                        JSONObject object=array.getJSONObject(i);
+                        JSONObject object = array.getJSONObject(i);
                         String imageurl = object.getString("imageurl");
                         String details = object.getString("details");
-                        Log.d("iamgeurllll",imageurl);
+                        Log.d("iamgeurllll", imageurl);
 
                         record.setDetails(details);
                         record.setImage_url(imageurl);
@@ -138,37 +136,32 @@ String url="";
                     }
                     Log.d("adapterrrrr", Integer.toString(arrayList.size()));
 
-                    adapter = new Record_Adapter(Add_records.this,arrayList);
+                    adapter = new Record_Adapter(Add_records.this, arrayList);
                     RecyclerView.LayoutManager lm = new LinearLayoutManager(Add_records.this);
                     rv.setLayoutManager(lm);
                     rv.setAdapter(adapter);
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
 
                 }
 
             }
-        }, new Response.ErrorListener()
-        {
+        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
             }
-        })
-        {
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param=new HashMap<String,String>();
-                param.put("email",email1);
-                Log.d("emailll",email1);
+                Map<String, String> param = new HashMap<String, String>();
+                param.put("email", email1);
+                Log.d("emailll", email1);
 
                 return param;
             }
         };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
     }
 }

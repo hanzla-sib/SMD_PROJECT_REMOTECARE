@@ -1,7 +1,8 @@
 package com.waqasahmad.remotecare;
+
 public class userchat {
 
-    String name,uid,onlinestatus,lastseen,p_id,emailadd;
+    String name, uid, onlinestatus, lastseen, p_id, emailadd;
 
     public String getP_id() {
         return p_id;
@@ -22,9 +23,9 @@ public class userchat {
     public userchat(String name, String uid, String onlinestatus, String lastseen, String p_id) {
         this.name = name;
         this.uid = uid;
-        this.onlinestatus=onlinestatus;
-        this.lastseen=lastseen;
-        this.p_id=p_id;
+        this.onlinestatus = onlinestatus;
+        this.lastseen = lastseen;
+        this.p_id = p_id;
 
 
     }

@@ -1,8 +1,8 @@
 package com.waqasahmad.remotecare;
-import java.util.Date;
+
 public class Messages {
 
-    String msg, suid , timestamp,profile_pic,email;
+    String msg, suid, timestamp, profile_pic, email;
 
     public String getProfile_pic() {
         return profile_pic;
@@ -32,7 +32,7 @@ public class Messages {
         this.timestamp = timestamp;
     }
 
-    public Messages(String msg, String suid , String timestamp) {
+    public Messages(String msg, String suid, String timestamp) {
         this.msg = msg;
         this.suid = suid;
         this.timestamp = timestamp;

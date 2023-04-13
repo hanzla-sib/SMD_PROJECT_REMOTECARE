@@ -1,13 +1,13 @@
 package com.waqasahmad.remotecare;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +21,7 @@ public class Doc_Prescription extends AppCompatActivity {
 
 
     DrawerLayout doc_drawerLayout;
-    ImageView Menu,logo;
+    ImageView Menu, logo;
 
     //for logging out
     DatabaseReference reference1;
@@ -35,18 +35,16 @@ public class Doc_Prescription extends AppCompatActivity {
 
         doc_drawerLayout = findViewById(R.id.doc_prescription);
         Menu = findViewById(R.id.menu);
-        logo=findViewById(R.id.rclogo);
+        logo = findViewById(R.id.rclogo);
 
         // for logging out
-        auth1=FirebaseAuth.getInstance();
+        auth1 = FirebaseAuth.getInstance();
         database1 = FirebaseDatabase.getInstance();
         reference1 = database1.getReference("Users");
 
 
-
 //        String useremail = mAuth.getCurrentUser().getEmail();
 //        Log.d("useremail" , useremail);
-
 
 
         Menu.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +67,7 @@ public class Doc_Prescription extends AppCompatActivity {
         });
     }
 
-    public void ClickPrescriptionDetailsDoc (View view){
+    public void ClickPrescriptionDetailsDoc(View view) {
 
         if (doc_drawerLayout.isDrawerOpen(GravityCompat.START)) {
 
@@ -78,44 +76,45 @@ public class Doc_Prescription extends AppCompatActivity {
     }
 
     //next 3 functions are different for the doctor/patient
-    public void ClickPro (View view) {
+    public void ClickPro(View view) {
 
         Intent intent = new Intent(this, Doctor1.class);
         startActivity(intent);
     }
-    public void ClickProfile (View view){
+
+    public void ClickProfile(View view) {
 
         Intent intent = new Intent(this, Doc_Profile.class);
         startActivity(intent);
     }
 
-    public void ClickAppointmentsDoc (View view){
+    public void ClickAppointmentsDoc(View view) {
 
         Intent intent = new Intent(this, Doc_Appointments_pending.class);
         startActivity(intent);
 
     }
 
-    public void ClickChatDoc (View view){
+    public void ClickChatDoc(View view) {
 
         Intent intent = new Intent(this, messagemain.class);
         startActivity(intent);
     }
 
-    public void ClickLogoutDoc (View view){
+    public void ClickLogoutDoc(View view) {
 
         String savecurrentdate;
-        Calendar calendar=Calendar.getInstance();
-        SimpleDateFormat currentdate=new SimpleDateFormat("MMM dd,yyyy");
-        savecurrentdate=currentdate.format(calendar.getTime());
-        SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
-        String savetime=currentTime.format(calendar.getTime());
-        HashMap<String,Object> onlinestatus=new HashMap<>();
-        onlinestatus.put("time",savetime);
-        onlinestatus.put("date",savecurrentdate);
-        onlinestatus.put("status","offline");
-        onlinestatus.put("player_id","");
-        String curruserid=auth1.getUid();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat currentdate = new SimpleDateFormat("MMM dd,yyyy");
+        savecurrentdate = currentdate.format(calendar.getTime());
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        String savetime = currentTime.format(calendar.getTime());
+        HashMap<String, Object> onlinestatus = new HashMap<>();
+        onlinestatus.put("time", savetime);
+        onlinestatus.put("date", savecurrentdate);
+        onlinestatus.put("status", "offline");
+        onlinestatus.put("player_id", "");
+        String curruserid = auth1.getUid();
         reference1.child(curruserid).updateChildren(onlinestatus);
         auth1.signOut();
 
@@ -125,8 +124,6 @@ public class Doc_Prescription extends AppCompatActivity {
 
 
     }
-
-
 
 
 }

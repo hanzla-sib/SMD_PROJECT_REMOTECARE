@@ -1,18 +1,18 @@
 package com.waqasahmad.remotecare;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 public class Patient_All_appointments extends AppCompatActivity {
 
-    CardView patient_all_appointments,patient_accepted_appointments,patient_pending_appointments;
+    CardView patient_all_appointments, patient_accepted_appointments, patient_pending_appointments;
     LinearLayout back_btn;
-    LinearLayout btn1,btn2,btn3,btn4;
+    LinearLayout btn1, btn2, btn3, btn4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +21,15 @@ public class Patient_All_appointments extends AppCompatActivity {
 
 
         patient_all_appointments = findViewById(R.id.patient_all_appointments);
-        patient_accepted_appointments=findViewById(R.id.patient_accepted_appointments);
-        patient_pending_appointments=findViewById(R.id.patient_pending_appointments);
+        patient_accepted_appointments = findViewById(R.id.patient_accepted_appointments);
+        patient_pending_appointments = findViewById(R.id.patient_pending_appointments);
 
         back_btn = findViewById(R.id.back_btn);
-        btn1=findViewById(R.id.home_btn2);
-        btn2=findViewById(R.id.appointment_btn);
+        btn1 = findViewById(R.id.home_btn2);
+        btn2 = findViewById(R.id.appointment_btn);
         btn2.setBackgroundResource(R.drawable.nav_btn_color);
-        btn3=findViewById(R.id.record_btn);
-        btn4=findViewById(R.id.chat_btn);
+        btn3 = findViewById(R.id.record_btn);
+        btn4 = findViewById(R.id.chat_btn);
 
         patient_all_appointments.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +48,6 @@ public class Patient_All_appointments extends AppCompatActivity {
                 finish();
             }
         });
-
 
 
         patient_accepted_appointments.setOnClickListener(new View.OnClickListener() {

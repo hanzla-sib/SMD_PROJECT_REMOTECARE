@@ -1,4 +1,5 @@
 package com.waqasahmad.remotecare;
+
 public class Steps_Modal {
     String date;
     int steps;

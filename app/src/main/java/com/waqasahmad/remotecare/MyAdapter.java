@@ -11,47 +11,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>
-{
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     List<MyModel> ls;
     Context c;
 
-    public MyAdapter(List<MyModel> ls, Context c)
-    {
+    public MyAdapter(List<MyModel> ls, Context c) {
         this.ls = ls;
         this.c = c;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(c).inflate(R.layout.row, parent, false);
         return new MyViewHolder(row);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
-    {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.name.setText(ls.get(position).getName());
         holder.calorie.setText(ls.get(position).getCalorie());
     }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return ls.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder
-    {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, calorie;
 
-        public MyViewHolder(@NonNull View itemView)
-        {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            name=itemView.findViewById(R.id.name2);
-            calorie=itemView.findViewById(R.id.calorie2);
+            name = itemView.findViewById(R.id.name2);
+            calorie = itemView.findViewById(R.id.calorie2);
         }
     }
 

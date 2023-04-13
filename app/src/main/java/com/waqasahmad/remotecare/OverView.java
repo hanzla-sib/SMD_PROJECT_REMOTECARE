@@ -1,12 +1,12 @@
 package com.waqasahmad.remotecare;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class OverView extends AppCompatActivity {
 
-    CardView step,Calories_Burnt_card,test_record,calorie;
+    CardView step, Calories_Burnt_card, test_record, calorie;
     DrawerLayout drawerLayout;
 
     //for logging out
@@ -30,7 +30,7 @@ public class OverView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.over_view);
-        drawerLayout=findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
 
         step = findViewById(R.id.steps_graph_card);
         Calories_Burnt_card = findViewById(R.id.Calories_Burnt_card);
@@ -38,7 +38,7 @@ public class OverView extends AppCompatActivity {
         calorie = findViewById(R.id.calories_card);
 
         // for logging out
-        auth1=FirebaseAuth.getInstance();
+        auth1 = FirebaseAuth.getInstance();
         database1 = FirebaseDatabase.getInstance();
         reference1 = database1.getReference("Users");
 
@@ -75,47 +75,53 @@ public class OverView extends AppCompatActivity {
     }
 
 
-    public void ClickOverview (View view){
+    public void ClickOverview(View view) {
         recreate();
     }
 
-    public void ClickMenu (View view){
+    public void ClickMenu(View view) {
         MainActivity2.openDrawer(drawerLayout);
     }
-    public void ClickLogo(View view){
+
+    public void ClickLogo(View view) {
         MainActivity2.closeDrawer(drawerLayout);
     }
-    public void ClickPro(View view){
-        MainActivity2.redirectActivity(this,MainActivity2.class);
+
+    public void ClickPro(View view) {
+        MainActivity2.redirectActivity(this, MainActivity2.class);
     }
-    public void ClickMeals(View view){
-        MainActivity2.redirectActivity(this,Meals.class);
+
+    public void ClickMeals(View view) {
+        MainActivity2.redirectActivity(this, Meals.class);
     }
-    public void ClickProfile(View view){
+
+    public void ClickProfile(View view) {
         MainActivity2.redirectActivity(this, Profile.class);
 
     }
-    public void ClickPrescriptionDetails (View view){
+
+    public void ClickPrescriptionDetails(View view) {
         MainActivity2.redirectActivity(this, Prescription_Details.class);
     }
-    public void ClickChat(View view){
-        MainActivity2.redirectActivity(this,messagemain.class);
+
+    public void ClickChat(View view) {
+        MainActivity2.redirectActivity(this, messagemain.class);
     }
 
-    public void ClickLogout(View view){
+    public void ClickLogout(View view) {
 
         String savecurrentdate;
-        Calendar calendar=Calendar.getInstance();
-        SimpleDateFormat currentdate=new SimpleDateFormat("MMM dd,yyyy");
-        savecurrentdate=currentdate.format(calendar.getTime());
-        SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
-        String savetime=currentTime.format(calendar.getTime());
-        HashMap<String,Object> onlinestatus=new HashMap<>();
-        onlinestatus.put("time",savetime);
-        onlinestatus.put("date",savecurrentdate);
-        onlinestatus.put("status","offline");
-        onlinestatus.put("player_id","");
-        String curruserid=auth1.getUid();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat currentdate = new SimpleDateFormat("MMM dd,yyyy");
+        savecurrentdate = currentdate.format(calendar.getTime());
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        String savetime = currentTime.format(calendar.getTime());
+        HashMap<String, Object> onlinestatus = new HashMap<>();
+        onlinestatus.put("time", savetime);
+        onlinestatus.put("date", savecurrentdate);
+        onlinestatus.put("status", "offline");
+        onlinestatus.put("player_id", "");
+        String curruserid = auth1.getUid();
         reference1.child(curruserid).updateChildren(onlinestatus);
         auth1.signOut();
 
@@ -123,7 +129,6 @@ public class OverView extends AppCompatActivity {
 
         startActivity(new Intent(OverView.this, MainActivity_signin.class));
     }
-
 
 
     @Override

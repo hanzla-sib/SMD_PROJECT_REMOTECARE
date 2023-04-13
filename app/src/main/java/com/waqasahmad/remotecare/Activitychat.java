@@ -1,22 +1,21 @@
 package com.waqasahmad.remotecare;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,9 +34,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,25 +45,26 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Activitychat extends AppCompatActivity {
     FirebaseAuth mauth;
     FirebaseDatabase database;
-    DatabaseReference mref ;
+    DatabaseReference mref;
     LinearLayout back_btn;
     FirebaseAuth mAuth;
     CircleImageView img;
     //    private static final String notify="http://"+Ip_server.getIpServer()+"/smd_project/notify.php";
-    String url="",url1="";
-    TextView username,userMainChatActivityProfileName;
+    String url = "", url1 = "";
+    TextView username, userMainChatActivityProfileName;
     ImageButton send1;
     EditText editText1;
-    String useremail1="";
-    String rname , ruid , suid,P_id;
-    String send_rcv,rcv_send;
-    String rec_email="";
+    String useremail1 = "";
+    String rname, ruid, suid, P_id;
+    String send_rcv, rcv_send;
+    String rec_email = "";
     RecyclerView recyclerView;
 
     ArrayList<Messages> messagesArrayList;
 
     MessagesAdapter messagesAdapter;
     SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +73,8 @@ public class Activitychat extends AppCompatActivity {
         searchView = findViewById(R.id.searchbar);
         searchView.clearFocus();
         ruid = getIntent().getStringExtra("uid");
-        P_id=getIntent().getStringExtra("p_id");
-        mAuth=FirebaseAuth.getInstance();
+        P_id = getIntent().getStringExtra("p_id");
+        mAuth = FirebaseAuth.getInstance();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -93,8 +90,8 @@ public class Activitychat extends AppCompatActivity {
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
-        url ="http://"+s1+"/smd_project/notify.php";
-        url1 ="http://"+s1+"/smd_project/get_image_for_chat_insidescreen.php";
+        url = "http://" + s1 + "/smd_project/notify.php";
+        url1 = "http://" + s1 + "/smd_project/get_image_for_chat_insidescreen.php";
 
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
@@ -106,44 +103,38 @@ public class Activitychat extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String email = dataSnapshot.getValue(String.class);
 
-                StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-                {
+                StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
 
                     @Override
-                    public void onResponse(String response)
-                    {
-                        Log.d("picturee",response.toString());
-                        String pic=response.toString();
-                        if(pic.trim().length()<=3){
+                    public void onResponse(String response) {
+                        Log.d("picturee", response.toString());
+                        String pic = response.toString();
+                        if (pic.trim().length() <= 3) {
 
-                        }
-                        else{
-                            Picasso.get().load("http://"+s1+"/smd_project/"+pic).into(img);
+                        } else {
+                            Picasso.get().load("http://" + s1 + "/smd_project/" + pic).into(img);
                         }
 
 
                     }
-                }, new Response.ErrorListener()
-                {
+                }, new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
+                    public void onErrorResponse(VolleyError error) {
 //                                Toast.makeText(c_doc2,error.toString(),Toast.LENGTH_LONG).show();
                     }
-                })
-                {
+                }) {
                     @Nullable
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> param=new HashMap<String,String>();
+                        Map<String, String> param = new HashMap<String, String>();
 
-                        param.put("d_email",email);
+                        param.put("d_email", email);
 
 
                         return param;
                     }
                 };
-                RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 queue.add(request);
 
             }
@@ -175,10 +166,9 @@ public class Activitychat extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
 
-
 //        rec_email=getIntent().getStringExtra("rec_email");
         String currentemail = mAuth.getCurrentUser().getEmail();
-        useremail1=currentemail;
+        useremail1 = currentemail;
         suid = mauth.getUid();
 
         send_rcv = suid + ruid;
@@ -186,7 +176,7 @@ public class Activitychat extends AppCompatActivity {
 
         mref = database.getReference("Users").child(mauth.getUid());
         DatabaseReference mref2 = database.getReference("Chats").child(send_rcv).child("messages");
-        img=findViewById(R.id.imguser_msgtop);
+        img = findViewById(R.id.imguser_msgtop);
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,39 +195,36 @@ public class Activitychat extends AppCompatActivity {
                     return;
                 } else {
                     editText1.setText("");
+
                     //notification
                     //============================================
-                    StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+                    StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
 
-                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-                        Log.d("responseeeeee ",response);
+//                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+//                        Log.d("responseeeeee ",response);
 //                            if(response.equals("success")){
 
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                        @Nullable
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> param = new HashMap<String, String>();
 
-
-//
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                    }
-                }){
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> param=new HashMap<String,String>();
-
-                        param.put("tokeni",P_id);
-                        param.put("msg",message);
-                        return param;
-                    }
-                };
-                RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-                queue.add(request);
+                            param.put("tokeni", P_id);
+                            param.put("msg", message);
+                            return param;
+                        }
+                    };
+                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                    queue.add(request);
 //================================================================
 
                     Calendar calendar = Calendar.getInstance();
@@ -317,21 +304,19 @@ public class Activitychat extends AppCompatActivity {
         });
 
 
-
     }
 
     private void fileList(String newText) {
-        ArrayList<Messages> filterlist=new ArrayList<>();
-        for(Messages item: messagesArrayList){
-            if(item.getMsg().toLowerCase().contains(newText.toLowerCase())){
+        ArrayList<Messages> filterlist = new ArrayList<>();
+        for (Messages item : messagesArrayList) {
+            if (item.getMsg().toLowerCase().contains(newText.toLowerCase())) {
                 filterlist.add(item);
             }
         }
-        if(filterlist.isEmpty()){
-            Toast.makeText(this, "no data found", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        if (filterlist.isEmpty()) {
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        } else {
             messagesAdapter.setfilterlist(filterlist);
         }
     }
-    }
+}

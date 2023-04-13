@@ -1,16 +1,10 @@
 package com.waqasahmad.remotecare;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
-
-import android.media.MediaRecorder;
-
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -18,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.VideoView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -71,6 +66,7 @@ public class Capture_Video extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

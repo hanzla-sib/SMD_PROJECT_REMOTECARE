@@ -1,11 +1,5 @@
 package com.waqasahmad.remotecare;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +7,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class Doctor1 extends AppCompatActivity {
 
     DrawerLayout doc_drawerLayout;
-    ImageView Menu,logo;
+    ImageView Menu, logo;
 
     FirebaseFirestore db;
     FirebaseAuth mAuth;
@@ -45,9 +45,9 @@ public class Doctor1 extends AppCompatActivity {
     TextView doctor_name;
     String name;
 
-    LinearLayout btn1,btn2,btn3,btn4;
+    LinearLayout btn1, btn2, btn3, btn4;
 
-    CardView appointment,chat,Steps_pat,Calories_Burnt,CaloriesConsumed,HR_graph;
+    CardView appointment, chat, Steps_pat, Calories_Burnt, CaloriesConsumed, HR_graph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,37 +55,35 @@ public class Doctor1 extends AppCompatActivity {
         setContentView(R.layout.doctor1);
         doc_drawerLayout = findViewById(R.id.doctor_drawer_layout);
         Menu = findViewById(R.id.menu);
-        logo=findViewById(R.id.rclogo);
-        doctor_name=findViewById(R.id.doctor_name);
-        Steps_pat=findViewById(R.id.Steps_progress);
-        Calories_Burnt=findViewById(R.id.CaloriesBurnt);
+        logo = findViewById(R.id.rclogo);
+        doctor_name = findViewById(R.id.doctor_name);
+        Steps_pat = findViewById(R.id.Steps_progress);
+        Calories_Burnt = findViewById(R.id.CaloriesBurnt);
         db = FirebaseFirestore.getInstance();
-        mAuth= FirebaseAuth.getInstance();
-        CaloriesConsumed=findViewById(R.id.CaloriesConsumed);
-        HR_graph=findViewById(R.id.HR_graph);
+        mAuth = FirebaseAuth.getInstance();
+        CaloriesConsumed = findViewById(R.id.CaloriesConsumed);
+        HR_graph = findViewById(R.id.HR_graph);
 
-        btn1=findViewById(R.id.doc_home_btn2);
-        btn2=findViewById(R.id.doc_appointment_btn);
-        btn3=findViewById(R.id.profile_doc_button);
-        btn4=findViewById(R.id.doc_chat_btn);
+        btn1 = findViewById(R.id.doc_home_btn2);
+        btn2 = findViewById(R.id.doc_appointment_btn);
+        btn3 = findViewById(R.id.profile_doc_button);
+        btn4 = findViewById(R.id.doc_chat_btn);
         btn1.setBackgroundResource(R.drawable.nav_btn_color);
 
 
         // for logging out
-        auth1=FirebaseAuth.getInstance();
+        auth1 = FirebaseAuth.getInstance();
         database1 = FirebaseDatabase.getInstance();
         reference1 = database1.getReference("Users");
 
 
-        appointment=findViewById(R.id.appointments_doc);
+        appointment = findViewById(R.id.appointments_doc);
 
 
         String useremail1 = auth1.getCurrentUser().getEmail();
 
         String useremail = mAuth.getCurrentUser().getEmail();
-        Log.d("useremail" , useremail);
-
-
+        Log.d("useremail", useremail);
 
 
         btn2.setOnClickListener(new View.OnClickListener() {
@@ -120,14 +118,11 @@ public class Doctor1 extends AppCompatActivity {
                         JSONObject obj;
                         obj = new JSONObject(document.getData());
 
-                        try
-                        {
+                        try {
                             String dname = obj.getString("Name");
                             doctor_name.setText("Hi, Dr." + dname);
 
-                        }
-                        catch (JSONException e)
-                        {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
@@ -195,46 +190,50 @@ public class Doctor1 extends AppCompatActivity {
 
     }
 
-    public void ClickPro (View view) {
+    public void ClickPro(View view) {
         recreate();
     }
 
     //next 4 functions are different for the doctor/patient
-    public void ClickProfile (View view){
+    public void ClickProfile(View view) {
 
         Intent intent = new Intent(this, Doc_Profile.class);
         startActivity(intent);
 
     }
-    public void ClickAppointmentsDoc (View view){
+
+    public void ClickAppointmentsDoc(View view) {
 
         Intent intent = new Intent(this, Doc_All_Appointments.class);
         startActivity(intent);
     }
-    public void ClickPrescriptionDetailsDoc (View view){
+
+    public void ClickPrescriptionDetailsDoc(View view) {
 
         Intent intent = new Intent(this, Doc_Prescription.class);
         startActivity(intent);
     }
-    public void ClickChatDoc (View view){
+
+    public void ClickChatDoc(View view) {
 
         Intent intent = new Intent(this, messagemain.class);
         startActivity(intent);
     }
-    public void ClickLogoutDoc (View view){
+
+    public void ClickLogoutDoc(View view) {
 
         String savecurrentdate;
-        Calendar calendar=Calendar.getInstance();
-        SimpleDateFormat currentdate=new SimpleDateFormat("MMM dd,yyyy");
-        savecurrentdate=currentdate.format(calendar.getTime());
-        SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
-        String savetime=currentTime.format(calendar.getTime());
-        HashMap<String,Object> onlinestatus=new HashMap<>();
-        onlinestatus.put("time",savetime);
-        onlinestatus.put("date",savecurrentdate);
-        onlinestatus.put("status","offline");
-        onlinestatus.put("player_id","");
-        String curruserid=auth1.getUid();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat currentdate = new SimpleDateFormat("MMM dd,yyyy");
+        savecurrentdate = currentdate.format(calendar.getTime());
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        String savetime = currentTime.format(calendar.getTime());
+        HashMap<String, Object> onlinestatus = new HashMap<>();
+        onlinestatus.put("time", savetime);
+        onlinestatus.put("date", savecurrentdate);
+        onlinestatus.put("status", "offline");
+        onlinestatus.put("player_id", "");
+        String curruserid = auth1.getUid();
         reference1.child(curruserid).updateChildren(onlinestatus);
         auth1.signOut();
 
@@ -242,7 +241,6 @@ public class Doctor1 extends AppCompatActivity {
 
         startActivity(new Intent(Doctor1.this, MainActivity_signin.class));
     }
-
 
 
     @Override

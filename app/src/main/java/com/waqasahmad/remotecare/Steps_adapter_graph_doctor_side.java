@@ -20,7 +20,8 @@ public class Steps_adapter_graph_doctor_side extends RecyclerView.Adapter<Steps_
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
-    String currentemail="";
+    String currentemail = "";
+
     public Steps_adapter_graph_doctor_side() {
         this.ls_doc = ls_doc;
         this.c_doc = c_doc;
@@ -46,14 +47,13 @@ public class Steps_adapter_graph_doctor_side extends RecyclerView.Adapter<Steps_
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView doctor_name,recomm_steps,rem_steps;
+        TextView doctor_name, recomm_steps, rem_steps;
 
-        public MyViewHolder(@NonNull View itemView)
-        {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            doctor_name=itemView.findViewById(R.id.d_name_steps_screen);
-            recomm_steps=itemView.findViewById(R.id.recommended_steps_steps_screen);
-            rem_steps=itemView.findViewById(R.id.remaining_steps_steps_screen);
+            doctor_name = itemView.findViewById(R.id.d_name_steps_screen);
+            recomm_steps = itemView.findViewById(R.id.recommended_steps_steps_screen);
+            rem_steps = itemView.findViewById(R.id.remaining_steps_steps_screen);
         }
     }
 }

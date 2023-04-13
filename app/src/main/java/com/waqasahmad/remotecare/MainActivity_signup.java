@@ -1,7 +1,4 @@
 package com.waqasahmad.remotecare;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,11 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -32,7 +32,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,25 +44,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
 public class MainActivity_signup extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    EditText name,email,password;
+    EditText name, email, password;
     ImageView signup;
-    String genderstr,user_type;
-    TextView signin,ip_change;
+    String genderstr, user_type;
+    TextView signin, ip_change;
 
-    String name2,email2,password2;
+    String name2, email2, password2;
 
-    ImageView male,female, other;
-    ImageView patient,doctor;
+    ImageView male, female, other;
+    ImageView patient, doctor;
     String user_type_id;
     CheckBox bt_show;
 
-    FirebaseDatabase database ;
-    DatabaseReference reference ;
+    FirebaseDatabase database;
+    DatabaseReference reference;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
-    String user_t="";
+    String user_t = "";
     private Spinner spinner2;
     ArrayList<String> paths = new ArrayList();
 
@@ -83,16 +83,16 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
         reference = database.getReference("Users");
 
         //Initializing Firebase MAuth instance
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
 
-        name=findViewById(R.id.name);
-        email=findViewById(R.id.email);
-        password=findViewById(R.id.password);
-        signup=findViewById(R.id.signup);
-        signin=findViewById(R.id.signin);
+        name = findViewById(R.id.name);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        signup = findViewById(R.id.signup);
+        signin = findViewById(R.id.signin);
 
         male = findViewById(R.id.male);
         female = findViewById(R.id.female);
@@ -103,7 +103,7 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
         bt_show = findViewById(R.id.bt_show);
 
 
-        ip_change=findViewById(R.id.ip_change);
+        ip_change = findViewById(R.id.ip_change);
 
         ///////////////////////////
 
@@ -116,11 +116,11 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
         paths.add("Plastic Surgeons");
         paths.add("Radiologists");
 
-        Log.d("11111111111111111111" , paths.toString());
+        Log.d("11111111111111111111", paths.toString());
 
-        spinner2 = (Spinner)findViewById(R.id.spinner);
+        spinner2 = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity_signup.this,
-                android.R.layout.simple_spinner_dropdown_item,paths);
+                android.R.layout.simple_spinner_dropdown_item, paths);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter);
@@ -140,14 +140,8 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
-        url ="http://"+s1+"/smd_project/insert.php";
-        Log.d("s1" , s1);
-
-
-
-
-
-       
+        url = "http://" + s1 + "/smd_project/insert.php";
+        Log.d("s1", s1);
 
 
         ////////////////////////////
@@ -155,10 +149,9 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
         bt_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+                if (b) {
                     password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
-                else{
+                } else {
                     password.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
             }
@@ -169,38 +162,38 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
             @Override
             public void onClick(View v) {
 
-                genderstr="Male";
-                Toast.makeText(
-                        MainActivity_signup.this,
-                        "Male",
-                        Toast.LENGTH_SHORT
-                ).show();
+                genderstr = "Male";
+//                Toast.makeText(
+//                        MainActivity_signup.this,
+//                        "Male",
+//                        Toast.LENGTH_SHORT
+//                ).show();
             }
         });
         female.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                genderstr="Female";
+                genderstr = "Female";
 
-                Toast.makeText(
-                        MainActivity_signup.this,
-                        "female",
-                        Toast.LENGTH_SHORT
-                ).show();
+//                Toast.makeText(
+//                        MainActivity_signup.this,
+//                        "female",
+//                        Toast.LENGTH_SHORT
+//                ).show();
             }
         });
         other.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                genderstr="Other";
+                genderstr = "Other";
 
-                Toast.makeText(
-                        MainActivity_signup.this,
-                        "other",
-                        Toast.LENGTH_SHORT
-                ).show();
+//                Toast.makeText(
+//                        MainActivity_signup.this,
+//                        "other",
+//                        Toast.LENGTH_SHORT
+//                ).show();
             }
         });
 
@@ -208,28 +201,29 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
         patient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user_type="Patient";user_type_id = "1";
+                user_type = "Patient";
+                user_type_id = "1";
 
-                Toast.makeText(
-                        MainActivity_signup.this,
-                        "Patient",
-                        Toast.LENGTH_SHORT
-                ).show();
+//                Toast.makeText(
+//                        MainActivity_signup.this,
+//                        "Patient",
+//                        Toast.LENGTH_SHORT
+//                ).show();
             }
         });
         doctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user_type="Doctor";
+                user_type = "Doctor";
                 user_type_id = "2";
 
                 spinner2.setVisibility(View.VISIBLE);
 
-                Toast.makeText(
-                        MainActivity_signup.this,
-                        "Doctor",
-                        Toast.LENGTH_SHORT
-                ).show();
+//                Toast.makeText(
+//                        MainActivity_signup.this,
+//                        "Doctor",
+//                        Toast.LENGTH_SHORT
+//                ).show();
             }
         });
 
@@ -253,17 +247,17 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
 
                                 Toast.makeText(
                                         MainActivity_signup.this,
-                                        "Creating the user",
+                                        "Successfully signed-up",
                                         Toast.LENGTH_LONG
                                 ).show();
                                 String savecurrentdate;
-                                Calendar calendar=Calendar.getInstance();
-                                SimpleDateFormat currentdate=new SimpleDateFormat("MMM dd,yyyy");
-                                savecurrentdate=currentdate.format(calendar.getTime());
-                                SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
-                                String savetime=currentTime.format(calendar.getTime());
-                                createuserinrealtime pro=new createuserinrealtime(name.getText().toString(),email.getText().toString(),password.getText().toString(),genderstr,FirebaseAuth.getInstance().getCurrentUser().getUid(),user_type,savecurrentdate,savetime,"offline","");
-                               String UID_user=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                Calendar calendar = Calendar.getInstance();
+                                SimpleDateFormat currentdate = new SimpleDateFormat("MMM dd,yyyy");
+                                savecurrentdate = currentdate.format(calendar.getTime());
+                                SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+                                String savetime = currentTime.format(calendar.getTime());
+                                createuserinrealtime pro = new createuserinrealtime(name.getText().toString(), email.getText().toString(), password.getText().toString(), genderstr, FirebaseAuth.getInstance().getCurrentUser().getUid(), user_type, savecurrentdate, savetime, "offline", "");
+                                String UID_user = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 FirebaseDatabase.getInstance().getReference("Users")
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(pro);
@@ -305,7 +299,7 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
 
                                 Toast.makeText(
                                         MainActivity_signup.this,
-                                        "Failed to Create User",
+                                        "Failed to sign-up",
                                         Toast.LENGTH_LONG
                                 ).show();
                             }
@@ -315,8 +309,7 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 startActivity(new Intent(MainActivity_signup.this, MainActivity_signin.class));
             }
         });
@@ -337,46 +330,44 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(
-                                MainActivity_signup.this,
-                                "Successfully Created Account",
-                                Toast.LENGTH_SHORT
-                        ).show();
+//                        Toast.makeText(
+//                                MainActivity_signup.this,
+//                                "Successfully Created Account",
+//                                Toast.LENGTH_SHORT
+//                        ).show();
 
-                        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 email.setText("");
                                 password.setText("");
                                 name.setText("");
-                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                                //   Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
                             }
-                        }){
+                        }) {
                             @Nullable
                             protected Map getParams() throws AuthFailureError {
-                                Map<String,String> param=new HashMap<>();
-                                param.put("name",name2);
-                                param.put("email",email2);
-                                param.put("password",password2);
-                                param.put("type",user_type_id);
-                                param.put("gender",genderstr);
-                                param.put("user_t",user_t);
-                                param.put("uid",uid_u);
-                                Log.d("user_t" , user_t.toString());
+                                Map<String, String> param = new HashMap<>();
+                                param.put("name", name2);
+                                param.put("email", email2);
+                                param.put("password", password2);
+                                param.put("type", user_type_id);
+                                param.put("gender", genderstr);
+                                param.put("user_t", user_t);
+                                param.put("uid", uid_u);
+                                Log.d("user_t", user_t.toString());
 
 
                                 return param;
                             }
                         };
-                        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                         queue.add(request);
-
-
 
 
                         startActivity(new Intent(MainActivity_signup.this, MainActivity_signin.class));
@@ -385,25 +376,23 @@ public class MainActivity_signup extends AppCompatActivity implements AdapterVie
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(
-                                MainActivity_signup.this,
-                                "Failed to Create Account",
-                                Toast.LENGTH_SHORT
-                        ).show();
+//                        Toast.makeText(
+//                                MainActivity_signup.this,
+//                                "Failed to Create Account",
+//                                Toast.LENGTH_SHORT
+//                        ).show();
                     }
                 });
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-    {
-        user_t= (String) parent.getItemAtPosition(position);
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        user_t = (String) parent.getItemAtPosition(position);
 
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent)
-    {
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }

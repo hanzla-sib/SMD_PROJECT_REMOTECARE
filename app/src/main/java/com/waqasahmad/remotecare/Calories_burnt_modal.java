@@ -1,4 +1,5 @@
 package com.waqasahmad.remotecare;
+
 public class Calories_burnt_modal {
     String date;
     float calories_burnt;
@@ -23,4 +24,5 @@ public class Calories_burnt_modal {
     public void setCalories_burnt(float calories_burnt) {
         this.calories_burnt = calories_burnt;
     }
+
 }

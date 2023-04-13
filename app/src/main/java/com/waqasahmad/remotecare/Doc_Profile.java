@@ -1,11 +1,5 @@
 package com.waqasahmad.remotecare;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,11 +11,16 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -41,7 +40,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
@@ -98,7 +96,7 @@ public class Doc_Profile extends AppCompatActivity {
     //
     private FirebaseUser user;
 
-    LinearLayout btn1,btn2,btn3,btn4;
+    LinearLayout btn1, btn2, btn3, btn4;
 
 
     Bitmap bitmap;
@@ -109,7 +107,7 @@ public class Doc_Profile extends AppCompatActivity {
 //    private static final String saveimagedoc = "http://" + Ip_server.getIpServer() + "/smd_project/imageupload.php";
 //    private static final String update_password_doc = "http://" + Ip_server.getIpServer() + "/smd_project/update_password.php";
 
-    String url1="",url2="",url4="";
+    String url1 = "", url2 = "", url4 = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,9 +120,9 @@ public class Doc_Profile extends AppCompatActivity {
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
-        url1 ="http://"+s1+"/smd_project/imageupload.php";
-        url2 ="http://"+s1+"/smd_project/update_password.php";
-        url4 ="http://"+s1+"/smd_project/fetch_alldata_from_user.php";
+        url1 = "http://" + s1 + "/smd_project/imageupload.php";
+        url2 = "http://" + s1 + "/smd_project/update_password.php";
+        url4 = "http://" + s1 + "/smd_project/fetch_alldata_from_user.php";
         // for logging out
         auth1 = FirebaseAuth.getInstance();
         database1 = FirebaseDatabase.getInstance();
@@ -153,13 +151,11 @@ public class Doc_Profile extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
 
-        btn1=findViewById(R.id.doc_home_btn2);
-        btn2=findViewById(R.id.doc_appointment_btn);
-        btn3=findViewById(R.id.profile_doc_button);
-        btn4=findViewById(R.id.doc_chat_btn);
+        btn1 = findViewById(R.id.doc_home_btn2);
+        btn2 = findViewById(R.id.doc_appointment_btn);
+        btn3 = findViewById(R.id.profile_doc_button);
+        btn4 = findViewById(R.id.doc_chat_btn);
         btn3.setBackgroundResource(R.drawable.nav_btn_color);
-
-
 
 
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +174,6 @@ public class Doc_Profile extends AppCompatActivity {
         });
 
 
-
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,16 +181,16 @@ public class Doc_Profile extends AppCompatActivity {
             }
         });
 
-        StringRequest request=new StringRequest(Request.Method.POST, url4, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, url4, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
                 try {
                     JSONArray obj2 = new JSONArray(response);
 
 
-                    for(int i=0;i<obj2.length();i++){
+                    for (int i = 0; i < obj2.length(); i++) {
                         JSONObject jsonObject = obj2.getJSONObject(i);
                         String name = jsonObject.getString("name");
 
@@ -204,25 +199,21 @@ public class Doc_Profile extends AppCompatActivity {
                         String gender = jsonObject.getString("gender");
 
                         Name.setText("Name             " + name);
-                        Email.setText("Email              " +currentemail);
-                        Gender.setText("Gender           " +gender);
+                        Email.setText("Email              " + currentemail);
+                        Gender.setText("Gender           " + gender);
 
-                        if(user_type.equals("1")){
-                            U_Type.setText("User Type      " +"Patient");
-                        }
-                        else {
-                            U_Type.setText("User Type      " +"Doctor");
-                        }
-
-                        if(!image.trim().equals("null")){
-                            Picasso.get().load("http://"+s1+"/smd_project/"+image).into(profile_circle);
+                        if (user_type.equals("1")) {
+                            U_Type.setText("User Type      " + "Patient");
+                        } else {
+                            U_Type.setText("User Type      " + "Doctor");
                         }
 
-
+                        if (!image.trim().equals("null")) {
+                            Picasso.get().load("http://" + s1 + "/smd_project/" + image).into(profile_circle);
+                        }
 
 
                     }
-
 
 
                 } catch (JSONException e) {
@@ -235,20 +226,20 @@ public class Doc_Profile extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(
                         getApplicationContext(),
-                        error.toString(),Toast.LENGTH_LONG).show();
+                        error.toString(), Toast.LENGTH_LONG).show();
             }
-        }){
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param=new HashMap<String,String>();
+                Map<String, String> param = new HashMap<String, String>();
 
-                param.put("email",currentemail);
+                param.put("email", currentemail);
 
                 return param;
             }
         };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
 //        reference = db.collection("users").document(currentemail);
@@ -283,18 +274,15 @@ public class Doc_Profile extends AppCompatActivity {
 
         update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(Doc_Profile.this);
                 builder.setMessage("Do you want to update your password?")
                         .setTitle("Update Password");
 
                 // Add the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
 
 
@@ -316,14 +304,14 @@ public class Doc_Profile extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (!task.isSuccessful()) {
-                                                    Toast.makeText(getApplicationContext(), " Password not Updated", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getApplicationContext(), "Could not update password", Toast.LENGTH_SHORT).show();
                                                 } else {
-                                                    Toast.makeText(getApplicationContext(), "Password updated", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getApplicationContext(), "Password updated successfully", Toast.LENGTH_SHORT).show();
                                                     StringRequest request = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
                                                         @Override
                                                         public void onResponse(String response) {
 
-                                                            Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+//                                                            Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
 
                                                         }
                                                     }, new Response.ErrorListener() {
@@ -357,11 +345,11 @@ public class Doc_Profile extends AppCompatActivity {
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
                                                             public void onSuccess(Void unused) {
-                                                                Toast.makeText(
-                                                                        Doc_Profile.this,
-                                                                        "updated in firebase",
-                                                                        Toast.LENGTH_SHORT
-                                                                ).show();
+//                                                                Toast.makeText(
+//                                                                        Doc_Profile.this,
+//                                                                        "updated in firebase",
+//                                                                        Toast.LENGTH_SHORT
+//                                                                ).show();
                                                             }
                                                         });
 
@@ -372,7 +360,7 @@ public class Doc_Profile extends AppCompatActivity {
                                     } else {
                                         Toast.makeText(
                                                 getApplicationContext(),
-                                                " Authentication Failed for password",
+                                                "Could not update password",
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -384,10 +372,8 @@ public class Doc_Profile extends AppCompatActivity {
                         }
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                         dialog.cancel();
                     }
@@ -396,9 +382,6 @@ public class Doc_Profile extends AppCompatActivity {
                 // Create the AlertDialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
-
-
 
 
             }
@@ -505,7 +488,7 @@ public class Doc_Profile extends AppCompatActivity {
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), image);
                 imagetoStore = MediaStore.Images.Media.getBitmap(getContentResolver(), image);
-               
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -525,8 +508,8 @@ public class Doc_Profile extends AppCompatActivity {
                 StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
-                        Toast.makeText(getApplicationContext(), "uploaded sucesfully", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Uploaded successfully", Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override

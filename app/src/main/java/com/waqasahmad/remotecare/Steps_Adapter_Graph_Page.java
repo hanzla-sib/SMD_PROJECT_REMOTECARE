@@ -1,55 +1,31 @@
 package com.waqasahmad.remotecare;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter_Graph_Page.MyViewHolder>
-{
+public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter_Graph_Page.MyViewHolder> {
 
     List<Steps_Model_Graph_Page> ls_doc;
     Context c_doc;
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
-    String currentemail="";
+    String currentemail = "";
 
 
-    public Steps_Adapter_Graph_Page(List<Steps_Model_Graph_Page> ls_doc, Context c_doc)
-    {
+    public Steps_Adapter_Graph_Page(List<Steps_Model_Graph_Page> ls_doc, Context c_doc) {
         this.ls_doc = ls_doc;
         this.c_doc = c_doc;
     }
@@ -68,22 +44,19 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
         //---------------
 
 //        if(holder.rem_steps.getcharAt(0)=='-')
-        Log.d("helllooo",String.valueOf(ls_doc.get(position).getRemaining_steps()));
-        if(ls_doc.get(position).getRemaining_steps().charAt(0)=='-')
-        {
-           Log.d("helllooo","sadasd");
+        Log.d("helllooo", String.valueOf(ls_doc.get(position).getRemaining_steps()));
+        if (ls_doc.get(position).getRemaining_steps().charAt(0) == '-') {
+            Log.d("helllooo", "sadasd");
             holder.doctor_name.setText(ls_doc.get(position).getD_email());
             holder.recomm_steps.setText(ls_doc.get(position).getRecommended_steps());
             holder.rem_steps.setText("Remaining Steps : 0  ");
             holder.message.setText("You have completed the goal");
 
 
-        }
-        else
-        {
+        } else {
             holder.doctor_name.setText(ls_doc.get(position).getD_email());
             holder.recomm_steps.setText(ls_doc.get(position).getRecommended_steps());
-            holder.rem_steps.setText("Remaining Steps: "+ls_doc.get(position).getRemaining_steps());
+            holder.rem_steps.setText("Remaining Steps: " + ls_doc.get(position).getRemaining_steps());
             holder.message.setText("Little more steps to achieve the goal");
 
         }
@@ -96,20 +69,17 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView doctor_name,recomm_steps,rem_steps,message;
+        TextView doctor_name, recomm_steps, rem_steps, message;
 
-        public MyViewHolder(@NonNull View itemView)
-        {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            doctor_name=itemView.findViewById(R.id.d_name_steps_screen);
-            recomm_steps=itemView.findViewById(R.id.recommended_steps_steps_screen);
-            rem_steps=itemView.findViewById(R.id.remaining_steps_steps_screen);
-            message=itemView.findViewById(R.id.message);
+            doctor_name = itemView.findViewById(R.id.d_name_steps_screen);
+            recomm_steps = itemView.findViewById(R.id.recommended_steps_steps_screen);
+            rem_steps = itemView.findViewById(R.id.remaining_steps_steps_screen);
+            message = itemView.findViewById(R.id.message);
 
         }
     }
-
-
 
 
 }

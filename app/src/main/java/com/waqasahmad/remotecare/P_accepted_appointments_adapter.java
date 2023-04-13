@@ -9,9 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,49 +32,45 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_accepted_appointments_adapter.MyViewHolder>
-{
+public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_accepted_appointments_adapter.MyViewHolder> {
     List<Appointment_Model> ls_doc;
     Context c_doc;
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
-    String currentemail="";
-    String currentname="";
+    String currentemail = "";
+    String currentname = "";
     String doc_email;
-    String url1="";
+    String url1 = "";
 
-    public P_accepted_appointments_adapter(List<Appointment_Model> ls_doc, Context c_doc)
-    {
+    public P_accepted_appointments_adapter(List<Appointment_Model> ls_doc, Context c_doc) {
         this.ls_doc = ls_doc;
         this.c_doc = c_doc;
-        doc_email="";
+        doc_email = "";
 
         SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
-        url1 ="http://"+s1+"/smd_project/delete_pending_patient.php";
+        url1 = "http://" + s1 + "/smd_project/delete_pending_patient.php";
 
     }
-    public void setfilterlist(List<Appointment_Model> filteredlist)
-    {
-        this.ls_doc=filteredlist;
+
+    public void setfilterlist(List<Appointment_Model> filteredlist) {
+        this.ls_doc = filteredlist;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public P_accepted_appointments_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
+    public P_accepted_appointments_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(c_doc).inflate(R.layout.patient_row_accept_pending, parent, false);
         return new P_accepted_appointments_adapter.MyViewHolder(row);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull P_accepted_appointments_adapter.MyViewHolder holder, int position)
-    {
+    public void onBindViewHolder(@NonNull P_accepted_appointments_adapter.MyViewHolder holder, int position) {
 
         //Initializing Firebase MAuth instance
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
@@ -91,77 +85,64 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
         holder.doc_prof.setText(ls_doc.get(position).getDoc_type());
         SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
-        if(ls_doc.get(position).getImage_doc().equals("null")){
+        if (ls_doc.get(position).getImage_doc().equals("null")) {
 
+        } else {
+            Picasso.get().load("http://" + s1 + "/smd_project/" + ls_doc.get(position).getImage_doc()).into(holder.img);
         }
-        else{
-            Picasso.get().load("http://"+s1+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
-        }
-
-
 
 
         holder.cross1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(c_doc);
                 builder.setMessage("Do you want to cancel this appointment?")
                         .setTitle("Cancel Appointment");
 
                 // Add the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
 
 
-                        doc_email= ls_doc.get(holder.getAdapterPosition()).email_doc;
+                        doc_email = ls_doc.get(holder.getAdapterPosition()).email_doc;
 
                         //removing row
-                        int i=holder.getAdapterPosition();
+                        int i = holder.getAdapterPosition();
                         ls_doc.remove(i);
                         notifyItemRemoved(i);
                         //
 
-                        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-                        {
+                        StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                             @Override
-                            public void onResponse(String response)
-                            {
-                                Toast.makeText(c_doc,response.toString(),Toast.LENGTH_LONG).show();
+                            public void onResponse(String response) {
+//                                Toast.makeText(c_doc,response.toString(),Toast.LENGTH_LONG).show();
 
                             }
-                        }, new Response.ErrorListener()
-                        {
+                        }, new Response.ErrorListener() {
                             @Override
-                            public void onErrorResponse(VolleyError error)
-                            {
+                            public void onErrorResponse(VolleyError error) {
                             }
-                        })
-                        {
+                        }) {
                             @Nullable
                             @Override
                             protected Map<String, String> getParams() throws AuthFailureError {
-                                Map<String,String> param=new HashMap<String,String>();
+                                Map<String, String> param = new HashMap<String, String>();
 
-                                param.put("p_email",currentemail);
-                                param.put("d_email",doc_email);
+                                param.put("p_email", currentemail);
+                                param.put("d_email", doc_email);
 
                                 return param;
                             }
                         };
-                        RequestQueue queue= Volley.newRequestQueue(c_doc);
+                        RequestQueue queue = Volley.newRequestQueue(c_doc);
                         queue.add(request);
 
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                         dialog.cancel();
                     }
@@ -182,20 +163,19 @@ public class P_accepted_appointments_adapter extends RecyclerView.Adapter<P_acce
         return ls_doc.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder
-    {
-        TextView doctor_name,doctor_email, doctor_date, doctor_time,doc_prof;
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView doctor_name, doctor_email, doctor_date, doctor_time, doc_prof;
         CircleImageView img;
         ImageView cross1;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            doctor_name=itemView.findViewById(R.id.doc_name2);
+            doctor_name = itemView.findViewById(R.id.doc_name2);
             doctor_date = itemView.findViewById(R.id.doc_date);
             doctor_time = itemView.findViewById(R.id.doc_time);
-            doc_prof=itemView.findViewById(R.id.doc_prof);
-            img=itemView.findViewById(R.id.doc_img);
-            cross1=itemView.findViewById(R.id.cross1);
+            doc_prof = itemView.findViewById(R.id.doc_prof);
+            img = itemView.findViewById(R.id.doc_img);
+            cross1 = itemView.findViewById(R.id.cross1);
 
         }
     }

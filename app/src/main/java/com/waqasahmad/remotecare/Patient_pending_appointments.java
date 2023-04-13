@@ -1,10 +1,5 @@
 package com.waqasahmad.remotecare;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +8,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -37,40 +37,41 @@ public class Patient_pending_appointments extends AppCompatActivity {
 
     //
     RecyclerView rv;
-    List<Appointment_Model> ls =new ArrayList<>();
+    List<Appointment_Model> ls = new ArrayList<>();
     LinearLayout back_btn;
-    LinearLayout btn1,btn2,btn3,btn4;
+    LinearLayout btn1, btn2, btn3, btn4;
     P_pending_appointments_adapter adapter;
     //
     SearchView search;
     FirebaseFirestore db;
     FirebaseAuth mAuth;
 
-//    private static final String patient_pending_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_pending_appointment.php";
-String url1="";
+    //    private static final String patient_pending_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_pending_appointment.php";
+    String url1 = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_pending_appointments);
 
-        rv=findViewById(R.id.rv_pending_appointments);
+        rv = findViewById(R.id.rv_pending_appointments);
         back_btn = findViewById(R.id.back_btn);
-        btn1=findViewById(R.id.home_btn2);
-        btn2=findViewById(R.id.appointment_btn);
-        btn3=findViewById(R.id.record_btn);
-        btn4=findViewById(R.id.chat_btn);
+        btn1 = findViewById(R.id.home_btn2);
+        btn2 = findViewById(R.id.appointment_btn);
+        btn3 = findViewById(R.id.record_btn);
+        btn4 = findViewById(R.id.chat_btn);
         btn2.setBackgroundResource(R.drawable.nav_btn_color);
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
-        url1 ="http://"+s1+"/smd_project/patient_pending_appointment.php";
-        search=findViewById(R.id.search_view);
+        url1 = "http://" + s1 + "/smd_project/patient_pending_appointment.php";
+        search = findViewById(R.id.search_view);
 
 
         db = FirebaseFirestore.getInstance();
-        mAuth= FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         String useremail = mAuth.getCurrentUser().getEmail();
-        Log.d("useremail" , useremail);
+        Log.d("useremail", useremail);
 
         search.clearFocus();
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -88,19 +89,17 @@ String url1="";
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
-        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-        {
+        StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response)
-            {
-                Log.d("respons11111111" ,response );
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+            public void onResponse(String response) {
+                Log.d("respons11111111", response);
+//                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
 
                 try {
                     JSONArray obj2 = new JSONArray(response);
 
 
-                    for(int i=0;i<obj2.length();i++){
+                    for (int i = 0; i < obj2.length(); i++) {
                         JSONObject jsonObject = obj2.getJSONObject(i);
 
                         String name = jsonObject.getString("d_name");
@@ -118,7 +117,7 @@ String url1="";
 
                     }
 
-                     adapter = new P_pending_appointments_adapter(ls, Patient_pending_appointments.this);
+                    adapter = new P_pending_appointments_adapter(ls, Patient_pending_appointments.this);
                     RecyclerView.LayoutManager lm = new LinearLayoutManager(Patient_pending_appointments.this);
                     rv.setLayoutManager(lm);
                     rv.setAdapter(adapter);
@@ -127,24 +126,21 @@ String url1="";
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener()
-        {
+        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
             }
-        })
-        {
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param=new HashMap<String,String>();
-                param.put("email",useremail);
+                Map<String, String> param = new HashMap<String, String>();
+                param.put("email", useremail);
                 return param;
             }
         };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
         //*********************************
@@ -184,16 +180,15 @@ String url1="";
     }
 
     private void fileList(String newText) {
-        List<Appointment_Model> filterlist=new ArrayList<>();
-        for(Appointment_Model item: ls){
-            if(item.getDoc_type().toLowerCase().contains(newText.toLowerCase())){
+        List<Appointment_Model> filterlist = new ArrayList<>();
+        for (Appointment_Model item : ls) {
+            if (item.getDoc_type().toLowerCase().contains(newText.toLowerCase())) {
                 filterlist.add(item);
             }
         }
-        if(filterlist.isEmpty()){
-            Toast.makeText(this, "no data found", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        if (filterlist.isEmpty()) {
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        } else {
 
             adapter.setfilterlist(filterlist);
         }

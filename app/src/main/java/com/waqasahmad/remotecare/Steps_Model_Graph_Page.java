@@ -1,12 +1,10 @@
 package com.waqasahmad.remotecare;
 
-public class Steps_Model_Graph_Page
-{
+public class Steps_Model_Graph_Page {
 
-    String d_email,recommended_steps,remaining_steps;
+    String d_email, recommended_steps, remaining_steps;
 
-    public Steps_Model_Graph_Page()
-    {
+    public Steps_Model_Graph_Page() {
         this.d_email = d_email;
         this.recommended_steps = recommended_steps;
         this.remaining_steps = remaining_steps;

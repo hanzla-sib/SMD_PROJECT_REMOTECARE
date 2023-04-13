@@ -1,30 +1,26 @@
 package com.waqasahmad.remotecare;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,13 +29,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
@@ -54,13 +46,13 @@ import java.util.Map;
 
 
 public class MainActivity2 extends AppCompatActivity {
-String useremail1="";
+    String useremail1 = "";
     DrawerLayout drawerLayout;
-    String Query1, namefood_str, calorie_str ;
-    EditText input_query ;
+    String Query1, namefood_str, calorie_str;
+    EditText input_query;
     ImageButton Enter_button;
 
-    LinearLayout btn1,btn2,btn3,btn4;
+    LinearLayout btn1, btn2, btn3, btn4;
 
     FirebaseFirestore db;
 
@@ -70,15 +62,15 @@ String useremail1="";
     FirebaseDatabase database1;
 
     RecyclerView rv;
-    List<MyModel> ls=new ArrayList<>();
+    List<MyModel> ls = new ArrayList<>();
 
     JSONObject obj;
-//    private static final String consumed_calories="http://"+Ip_server.getIpServer()+"/smd_project/consumed_calories.php";
+    //    private static final String consumed_calories="http://"+Ip_server.getIpServer()+"/smd_project/consumed_calories.php";
 //    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
-String url1="",url2="",url3="";
+    String url1 = "", url2 = "", url3 = "";
     CardView appointment;
     CardView steps;
-    CardView step,Calories_Burnt_card,test_record,calorie,HR;
+    CardView step, Calories_Burnt_card, test_record, calorie, HR;
 
 
 //    Button but,signout;
@@ -103,84 +95,71 @@ String url1="",url2="",url3="";
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
-        url1 ="http://"+s1+"/smd_project/consumed_calories.php";
-        url2 ="http://"+s1+"/smd_project/user_token_delete.php";
-        url3 ="http://"+s1+"/smd_project/fetch_data_throuh_email.php";
+        url1 = "http://" + s1 + "/smd_project/consumed_calories.php";
+        url2 = "http://" + s1 + "/smd_project/user_token_delete.php";
+        url3 = "http://" + s1 + "/smd_project/fetch_data_throuh_email.php";
 
         steps = findViewById(R.id.steps_card);
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         step = findViewById(R.id.steps_graph_card);
         Calories_Burnt_card = findViewById(R.id.Calories_Burnt_card);
-        HR=findViewById(R.id.HR_card);
+        HR = findViewById(R.id.HR_card);
         test_record = findViewById(R.id.testrecord_card);
         calorie = findViewById(R.id.calories_card);
         input_query = findViewById(R.id.input_query);
         Query1 = input_query.getText().toString();
         Enter_button = findViewById(R.id.Enter_button);
 
-        btn1=findViewById(R.id.home_btn2);
+        btn1 = findViewById(R.id.home_btn2);
         btn1.setBackgroundResource(R.drawable.nav_btn_color);
-        btn2=findViewById(R.id.appointment_btn);
-        btn3=findViewById(R.id.record_btn);
-        btn4=findViewById(R.id.chat_btn);
-
+        btn2 = findViewById(R.id.appointment_btn);
+        btn3 = findViewById(R.id.record_btn);
+        btn4 = findViewById(R.id.chat_btn);
 
 
         // for logging out
-        auth1=FirebaseAuth.getInstance();
+        auth1 = FirebaseAuth.getInstance();
         database1 = FirebaseDatabase.getInstance();
         reference1 = database1.getReference("Users");
 
 
         db = FirebaseFirestore.getInstance();
 
-        patient_name= findViewById(R.id.patient_name);
+        patient_name = findViewById(R.id.patient_name);
 
         display_records = findViewById(R.id.display_records);
 
 
-        
-     
         String currentemail = mAuth.getCurrentUser().getEmail();
-        useremail1=currentemail;
+        useremail1 = currentemail;
 
 
-
-
-        StringRequest request=new StringRequest(Request.Method.POST, url3, new Response.Listener<String>()
-        {
+        StringRequest request = new StringRequest(Request.Method.POST, url3, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response)
-            {
-                Log.d("respons11111111" ,response );
+            public void onResponse(String response) {
+                Log.d("respons11111111", response);
                 patient_name.setText("Hi, " + response);
 
 
-
-
-
             }
-        }, new Response.ErrorListener()
-        {
+        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
             }
-        })
-        {
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param=new HashMap<String,String>();
+                Map<String, String> param = new HashMap<String, String>();
 
 
-                param.put("d_email",useremail1);
+                param.put("d_email", useremail1);
                 return param;
             }
         };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 //        db.collection("users").document(useremail1).get()
 //                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -269,11 +248,11 @@ String url1="",url2="",url3="";
 
 
         btn2.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             startActivity(new Intent(MainActivity2.this, Patient_All_appointments.class));
-         }
-     });
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity2.this, Patient_All_appointments.class));
+            }
+        });
 
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -290,21 +269,16 @@ String url1="",url2="",url3="";
         });
 
 
-
-        Enter_button.setOnClickListener(new View.OnClickListener()
-        {
+        Enter_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity2.this);
                 builder.setMessage("Do you want to enter this meal?")
                         .setTitle("Enter Meal");
 
                 // Add the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
 
 
@@ -312,87 +286,75 @@ String url1="",url2="",url3="";
                         input_query.setText("");
                         // Concatenating header with the API and getting calories in JSON file format
 
-                            StringRequest myReq = new StringRequest(Request.Method.GET,
-                                    "https://api.calorieninjas.com/v1/nutrition?query=" + Query1,
-                                    new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response)
-                                        {
-                                            try {
-                                                obj =new JSONObject(response);
+                        StringRequest myReq = new StringRequest(Request.Method.GET,
+                                "https://api.calorieninjas.com/v1/nutrition?query=" + Query1,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        try {
+                                            obj = new JSONObject(response);
 
-                                                calorie_str = String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("calories"));
+                                            calorie_str = String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("calories"));
 
-                                                ////////////////////////////////////////////
+                                            ////////////////////////////////////////////
 
-                                                StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-                                                {
-                                                    @Override
-                                                    public void onResponse(String response)
-                                                    {
-                                                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-                                                    }
-                                                }, new Response.ErrorListener()
-                                                {
-                                                    @Override
-                                                    public void onErrorResponse(VolleyError error)
-                                                    {
-                                                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                                                    }
-                                                })
-                                                {
-                                                    @Nullable
-                                                    @Override
-                                                    protected Map<String, String> getParams() throws AuthFailureError
-                                                    {
-                                                        Map<String,String> param=new HashMap<String,String>();
-                                                        param.put("p_email",currentemail);
-                                                        param.put("calories",calorie_str);
-                                                        return param;
-                                                    }
-                                                };
-                                                RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-                                                queue.add(request);
+                                            StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
+                                                @Override
+                                                public void onResponse(String response) {
+                                                    //            Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                                                }
+                                            }, new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                                                }
+                                            }) {
+                                                @Nullable
+                                                @Override
+                                                protected Map<String, String> getParams() throws AuthFailureError {
+                                                    Map<String, String> param = new HashMap<String, String>();
+                                                    param.put("p_email", currentemail);
+                                                    param.put("calories", calorie_str);
+                                                    return param;
+                                                }
+                                            };
+                                            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                                            queue.add(request);
 
-                                                //////////////////////////////////////////////
+                                            //////////////////////////////////////////////
 
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-
-
-
-
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(MainActivity2.this,error.toString(),Toast.LENGTH_LONG).show();
-                                            Log.d("dataa",error.toString());
 
-                                        }
-                                    })
-                            {
-                                @Override
-                                public Map<String, String> getHeaders() throws AuthFailureError {
-                                    Map<String, String> mHeaders = new ArrayMap<String, String>();
-                                    mHeaders.put("Content-Type", "application/json");
-                                    mHeaders.put("X-Api-Key", "syfXOOkubhTjCgJFOr6KGQ==mYTrMBkvTiw6piBu");
-                                    return mHeaders;
-                                }
-                            };
 
-                            RequestQueue requestQueue  = Volley.newRequestQueue(MainActivity2.this);
-                            requestQueue.add(myReq);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Toast.makeText(MainActivity2.this, error.toString(), Toast.LENGTH_LONG).show();
+                                        Log.d("dataa", error.toString());
+
+                                    }
+                                }) {
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                Map<String, String> mHeaders = new ArrayMap<String, String>();
+                                mHeaders.put("Content-Type", "application/json");
+                                mHeaders.put("X-Api-Key", "syfXOOkubhTjCgJFOr6KGQ==mYTrMBkvTiw6piBu");
+                                return mHeaders;
+                            }
+                        };
+
+                        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity2.this);
+                        requestQueue.add(myReq);
 
 
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                         dialog.cancel();
                     }
@@ -403,17 +365,16 @@ String url1="",url2="",url3="";
                 dialog.show();
 
 
-
-
             }
         });
-            }
+    }
 
 
     public void ClickMenu(View view) {
 
         openDrawer(drawerLayout);
     }
+
     public static void openDrawer(DrawerLayout drawerLayout) {
 
         drawerLayout.openDrawer(GravityCompat.START);
@@ -423,6 +384,7 @@ String url1="",url2="",url3="";
 
         closeDrawer(drawerLayout);
     }
+
     public static void closeDrawer(DrawerLayout drawerLayout) {
 
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -430,77 +392,77 @@ String url1="",url2="",url3="";
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
-    public void ClickPro (View view) {
+
+    public void ClickPro(View view) {
         recreate();
     }
-    public void ClickProfile (View view){
 
-        redirectActivity(this,Profile.class );
+    public void ClickProfile(View view) {
+
+        redirectActivity(this, Profile.class);
     }
-    public void ClickPrescriptionDetails (View view){
+
+    public void ClickPrescriptionDetails(View view) {
         redirectActivity(this, Prescription_Details.class);
     }
-    public void ClickMeals(View view){
-        MainActivity2.redirectActivity(this,Meals.class);
-    }
-    public void ClickOverview(View view){
-        MainActivity2.redirectActivity(this,OverView.class);
-    }
-    public void ClickChat(View view){
-        MainActivity2.redirectActivity(this,messagemain.class);
-    }
-    public void ClickVideoCapture(View view){
-        MainActivity2.redirectActivity(this,Capture_Video.class);
+
+    public void ClickMeals(View view) {
+        MainActivity2.redirectActivity(this, Meals.class);
     }
 
-    public void ClickLogout(View view)
-    {
+    public void ClickOverview(View view) {
+        MainActivity2.redirectActivity(this, OverView.class);
+    }
+
+    public void ClickChat(View view) {
+        MainActivity2.redirectActivity(this, messagemain.class);
+    }
+
+    public void ClickVideoCapture(View view) {
+        MainActivity2.redirectActivity(this, Capture_Video.class);
+    }
+
+    public void ClickLogout(View view) {
 
         String savecurrentdate;
-        Calendar calendar=Calendar.getInstance();
-        SimpleDateFormat currentdate=new SimpleDateFormat("MMM dd,yyyy");
-        savecurrentdate=currentdate.format(calendar.getTime());
-        SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
-        String savetime=currentTime.format(calendar.getTime());
-        HashMap<String,Object> onlinestatus=new HashMap<>();
-        onlinestatus.put("time",savetime);
-        onlinestatus.put("date",savecurrentdate);
-        onlinestatus.put("status","offline");
-        onlinestatus.put("player_id","");
-        String curruserid=auth1.getUid();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat currentdate = new SimpleDateFormat("MMM dd,yyyy");
+        savecurrentdate = currentdate.format(calendar.getTime());
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        String savetime = currentTime.format(calendar.getTime());
+        HashMap<String, Object> onlinestatus = new HashMap<>();
+        onlinestatus.put("time", savetime);
+        onlinestatus.put("date", savecurrentdate);
+        onlinestatus.put("status", "offline");
+        onlinestatus.put("player_id", "");
+        String curruserid = auth1.getUid();
         reference1.child(curruserid).updateChildren(onlinestatus);
-        StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
-        {
+        StringRequest request = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response)
-            {
+            public void onResponse(String response) {
 
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
             }
-        }, new Response.ErrorListener()
-        {
+        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
             }
-        })
-        {
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param=new HashMap<String,String>();
-                param.put("email",useremail1);
+                Map<String, String> param = new HashMap<String, String>();
+                param.put("email", useremail1);
 
                 return param;
             }
         };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
 
         auth1.signOut();
-
 
 
         finish();
@@ -510,10 +472,9 @@ String url1="",url2="",url3="";
     }
 
 
-
     public static void redirectActivity(Activity activity, Class aClass) {
 
-        Intent intent = new Intent(activity,aClass);
+        Intent intent = new Intent(activity, aClass);
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

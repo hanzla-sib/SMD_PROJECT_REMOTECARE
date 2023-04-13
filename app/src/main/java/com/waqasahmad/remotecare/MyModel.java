@@ -2,10 +2,9 @@ package com.waqasahmad.remotecare;
 
 public class MyModel {
 
-    String name,calorie;
+    String name, calorie;
 
-    public MyModel(String name, String calorie)
-    {
+    public MyModel(String name, String calorie) {
         this.name = name;
         this.calorie = calorie;
     }

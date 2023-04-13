@@ -1,4 +1,5 @@
 package com.waqasahmad.remotecare;
+
 public class HeartBeat_modal {
     String date;
     float HR;
@@ -23,4 +24,5 @@ public class HeartBeat_modal {
     public void setHR(float HR) {
         this.HR = HR;
     }
+
 }

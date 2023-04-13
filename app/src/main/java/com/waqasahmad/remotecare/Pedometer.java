@@ -1,4 +1,5 @@
 package com.waqasahmad.remotecare;
+
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
@@ -12,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -32,13 +32,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
 
 //import okhttp3.Call;
 //import okhttp3.Callback;
@@ -66,8 +61,8 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     private TextView distanceTextView;
     private TextView paceTextView;
 
-    String consumer_url="";
-    String producer_url="";
+    String consumer_url = "";
+    String producer_url = "";
     FirebaseFirestore db;
     FirebaseAuth mAuth;
 
@@ -75,17 +70,16 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 
     //    private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
 //    private static final String initial_steps_from_DB ="http://"+Ip_server.getIpServer()+"/smd_project/initial_steps_from_DB.php";
-    String url1="",url2="";
+    String url1 = "", url2 = "";
     String ip_url = "";
     JSONArray obj;
     //
-    double caloriesburnt=0.0;
-    String useremail="";
+    double caloriesburnt = 0.0;
+    String useremail = "";
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedometer);
 
@@ -99,7 +93,6 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         back_btn = findViewById(R.id.back_btn);
 
 
-
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,30 +102,26 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
-        url1 ="http://"+s1+"/smd_project/update_daily_steps.php";
-        url2 ="http://"+s1+"/smd_project/initial_steps_from_DB.php";
+        url1 = "http://" + s1 + "/smd_project/update_daily_steps.php";
+        url2 = "http://" + s1 + "/smd_project/initial_steps_from_DB.php";
 
         /////////////////////////////////////////////////////////////////////////////////////////
 
         db = FirebaseFirestore.getInstance();
-        mAuth= FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         useremail = mAuth.getCurrentUser().getEmail();
 
-        StringRequest request=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>()
-        {
+        StringRequest request = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response)
-            {
+            public void onResponse(String response) {
 
-//
-
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
                 try {
                     obj = new JSONArray(response);
-                    for(int i=0;i<obj.length()-1;i++){
+                    for (int i = 0; i < obj.length() - 1; i++) {
                         JSONObject jsonObject = obj.getJSONObject(i);
                         String stepsss = jsonObject.getString("steps");
-                        stepCount=Integer.parseInt(stepsss);
+                        stepCount = Integer.parseInt(stepsss);
                     }
 
                     stepCountTextView.setText(String.valueOf(stepCount));
@@ -144,24 +133,21 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 
 
             }
-        }, new Response.ErrorListener()
-        {
+        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
             }
-        })
-        {
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param=new HashMap<String,String>();
-                param.put("email",useremail);
+                Map<String, String> param = new HashMap<String, String>();
+                param.put("email", useremail);
                 return param;
             }
         };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
         //
 
@@ -184,7 +170,6 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 //        });
 
 
-
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACTIVITY_RECOGNITION)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission is not granted
@@ -197,43 +182,29 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         }
 
 
-
         ////////////////////////////////////////////////////////////////////////////////////////
 
     }
 
 
-
-
-
-
-
-
-
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this, stepDetectorSensor);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR)
-        {
+        if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
             stepCount++;
-            caloriesburnt = 0.04*stepCount;
+            caloriesburnt = 0.04 * stepCount;
             stepCountTextView.setText(String.valueOf(stepCount));
-
-
-
 
 
             updateMotionType();
@@ -242,14 +213,12 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy)
-    {
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Do nothing
     }
 
 
-    private void updateMotionType()
-    {
+    private void updateMotionType() {
 
 
         ////////////////////////////////////////////////////////////////////////
@@ -271,41 +240,36 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 //            }
 //        });
 
-        StringRequest request=new StringRequest(Request.Method.POST, url1, new Response.Listener<String>()
-        {
+        StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response)
-            {
-                            distanceCovered = STRIDE_LENGTH * stepCount;
-            distanceTextView.setText(String.format("Distance\n" + "%.2f m", distanceCovered));
-                pace = distanceCovered / ((float)elapsedTime / MILLISECONDS_IN_SECOND); // m/s
+            public void onResponse(String response) {
+                distanceCovered = STRIDE_LENGTH * stepCount;
+                distanceTextView.setText(String.format("Distance\n" + "%.2f m", distanceCovered));
+                pace = distanceCovered / ((float) elapsedTime / MILLISECONDS_IN_SECOND); // m/s
                 pace = pace * 3.6f; // km/h
                 pace = Math.round(pace * 100) / 100.0f; // round to two decimal places
                 paceTextView.setText(String.format("%.2f km/h", pace));
-                Log.d("checking",response.toString());
-//                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                Log.d("checking", response.toString());
+//              Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
             }
-        }, new Response.ErrorListener()
-        {
+        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
             }
-        })
-        {
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param=new HashMap<String,String>();
-                param.put("email",useremail);
-                param.put("steps",Integer.toString(stepCount));
-                param.put("calories_burn",Double.toString(caloriesburnt));
-                param.put("Motion","Resting");
+                Map<String, String> param = new HashMap<String, String>();
+                param.put("email", useremail);
+                param.put("steps", Integer.toString(stepCount));
+                param.put("calories_burn", Double.toString(caloriesburnt));
+                param.put("Motion", "Resting");
                 return param;
             }
         };
-        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
 //        ==================================================================================

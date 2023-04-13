@@ -3,7 +3,7 @@ package com.waqasahmad.remotecare;
 
 public class Appointment_Model {
 
-    String name_doc,email_doc,image_doc, time_doc, date_doc,doc_type;
+    String name_doc, email_doc, image_doc, time_doc, date_doc, doc_type;
 
 
     public String getImage_doc() {
@@ -23,19 +23,17 @@ public class Appointment_Model {
         this.doc_type = doc_type;
     }
 
-    public Appointment_Model(String name_doc, String email_doc, String image_doc, String doc_date, String doc_time)
-    {
+    public Appointment_Model(String name_doc, String email_doc, String image_doc, String doc_date, String doc_time) {
         this.name_doc = name_doc;
         this.email_doc = email_doc;
-        this.image_doc=image_doc;
+        this.image_doc = image_doc;
 
         this.time_doc = doc_time;
         this.date_doc = doc_date;
 
-
     }
-    public Appointment_Model()
-    {
+
+    public Appointment_Model() {
 
     }
 
@@ -70,4 +68,5 @@ public class Appointment_Model {
     public void setDate_doc(String date_doc) {
         this.date_doc = date_doc;
     }
+
 }
