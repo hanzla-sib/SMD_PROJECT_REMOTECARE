@@ -24,7 +24,7 @@ if ($result->num_rows > 0)
   {
      
      $temp=array();
-      $temp['date']=$row["date_log"];
+      $temp['date_log']=$row["date_log"];
       $temp['steps']=$row["steps_daily"];
       $temp['recom_steps']=$recom;
       array_push($response,$temp);

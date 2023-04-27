@@ -28,16 +28,18 @@ import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-//import okhttp3.Call;
-//import okhttp3.Callback;
-//import okhttp3.OkHttpClient;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 
 public class Pedometer extends AppCompatActivity implements SensorEventListener {
 
@@ -163,7 +165,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 //                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
 //            }
 //            @Override
-//            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+//            public void onResponse(@NonNull Call call, okhttp3.Response response) throws IOException {
 //                Log.d("valuee", "network success");
 ////                tv.setText(response.body().string());
 //            }
@@ -223,7 +225,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 
         ////////////////////////////////////////////////////////////////////////
 
-//
+
 //        OkHttpClient okHttpClient = new OkHttpClient();
 //        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
 //        //        producer_url = ip_url+ip_url+"two";
@@ -231,10 +233,10 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 //        okHttpClient.newCall(request2).enqueue(new Callback() {
 //            @Override
 //            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-//                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
+//
 //            }
 //            @Override
-//            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+//            public void onResponse(@NonNull Call call, okhttp3.Response response) throws IOException {
 //                Log.d("valuee", "network success");
 //                //               tv.setText(response.body().string());
 //            }
