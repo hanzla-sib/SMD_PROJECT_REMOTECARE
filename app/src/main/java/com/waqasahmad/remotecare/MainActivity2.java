@@ -419,7 +419,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void ClickVideoCapture(View view) {
-        MainActivity2.redirectActivity(this, Capture_Video.class);
+        MainActivity2.redirectActivity(this, Gpt_patient_side.class);
     }
 
     public void ClickLogout(View view) {
