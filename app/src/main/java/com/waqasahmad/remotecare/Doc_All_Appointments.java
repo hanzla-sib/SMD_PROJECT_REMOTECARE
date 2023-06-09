@@ -71,6 +71,7 @@ public class Doc_All_Appointments extends AppCompatActivity {
         });
 
 
+        // makes changes in Doc_appointments_accepted file
         accepted_appointments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

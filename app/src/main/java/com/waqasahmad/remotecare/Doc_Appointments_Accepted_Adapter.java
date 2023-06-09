@@ -81,6 +81,8 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
         Doc_Appointment_Model model = ls_doc2.get(holder.getAdapterPosition());
 
         /////////////////////////////////
+
+        // fetch all data
         StringRequest request = new StringRequest(Request.Method.POST, url3, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -122,6 +124,7 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
         queue.add(request);
         //
 
+        // recommend steps and add to holder
         holder.enter_recommend_steps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,6 +201,7 @@ public class Doc_Appointments_Accepted_Adapter extends RecyclerView.Adapter<Doc_
             }
         });
 
+        // delete appointment
         holder.deleteappoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

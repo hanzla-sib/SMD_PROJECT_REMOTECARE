@@ -66,7 +66,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     JSONObject obj;
     //    private static final String consumed_calories="http://"+Ip_server.getIpServer()+"/smd_project/consumed_calories.php";
-//    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
+    //    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
     String url1 = "", url2 = "", url3 = "";
     CardView appointment;
     CardView steps;
@@ -138,10 +138,7 @@ public class MainActivity2 extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, url3, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("respons11111111", response);
                 patient_name.setText("Hi, " + response);
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -284,8 +281,8 @@ public class MainActivity2 extends AppCompatActivity {
 
                         Query1 = input_query.getText().toString();
                         input_query.setText("");
-                        // Concatenating header with the API and getting calories in JSON file format
 
+                        // Concatenating header with the API and getting calories in JSON file format
                         StringRequest myReq = new StringRequest(Request.Method.GET,
                                 "https://api.calorieninjas.com/v1/nutrition?query=" + Query1,
                                 new Response.Listener<String>() {
@@ -297,7 +294,7 @@ public class MainActivity2 extends AppCompatActivity {
                                             calorie_str = String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("calories"));
 
                                             ////////////////////////////////////////////
-
+                                            // fetching all calories of patient
                                             StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                                                 @Override
                                                 public void onResponse(String response) {

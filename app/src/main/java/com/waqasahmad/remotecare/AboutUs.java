@@ -19,9 +19,10 @@ public class AboutUs extends AppCompatActivity {
         drawerLayout=findViewById(R.id.drawer_layout);
 
     }
-
+    // Method to handle click event on "About Us" button
     public void ClickAboutUs (View view){
-        recreate();
+        recreate();// Recreate the activity to refresh the UI
+
     }
 
     public void ClickMenu (View view){

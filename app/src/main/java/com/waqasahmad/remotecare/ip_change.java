@@ -38,20 +38,14 @@ public class ip_change extends AppCompatActivity {
                 }
                 else
                 {
+                    // setting IP address
                    Ip = ip_edit_text.getText().toString();
                     Log.d("Ip == " , Ip);
-
                     myEdit.putString("Ip", Ip);
                     myEdit.apply();
-
                     startActivity(new Intent(ip_change.this, MainActivity_signup.class));
-
-
-
-
                 }
             }
         });
-
     }
 }

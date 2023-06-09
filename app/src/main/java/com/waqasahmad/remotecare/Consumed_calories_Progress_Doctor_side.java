@@ -131,6 +131,8 @@ public class Consumed_calories_Progress_Doctor_side extends AppCompatActivity im
         });
 
         //////////////////////////////////////////////////////////////
+
+        // fetching registered patients list
         StringRequest request = new StringRequest(Request.Method.POST, url3, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -184,6 +186,8 @@ public class Consumed_calories_Progress_Doctor_side extends AppCompatActivity im
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        // setting values for calorie graph
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -227,8 +231,6 @@ public class Consumed_calories_Progress_Doctor_side extends AppCompatActivity im
                             if (!Calorie.equals("null")) {
                                 CAL_MODAL_weekly.add(new CaloriesModal(halfdate, Float.parseFloat(Calorie)));
                             }
-
-
 //                            CAL_MODAL.add(new CaloriesModal(date,Integer.parseInt(Calorie)));
                         }
 
@@ -282,7 +284,7 @@ public class Consumed_calories_Progress_Doctor_side extends AppCompatActivity im
         queue.add(request);
 
 
-        //===================MONTHLY
+        //===================MONTHLY graph
         StringRequest request1 = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

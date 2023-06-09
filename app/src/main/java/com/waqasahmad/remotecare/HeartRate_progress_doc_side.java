@@ -132,6 +132,7 @@ public class HeartRate_progress_doc_side extends AppCompatActivity implements Ad
         });
 
         //////////////////////////////////////////////////////////////
+        // fetching all patients
         StringRequest request = new StringRequest(Request.Method.POST, url3, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -159,10 +160,7 @@ public class HeartRate_progress_doc_side extends AppCompatActivity implements Ad
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -226,9 +224,6 @@ public class HeartRate_progress_doc_side extends AppCompatActivity implements Ad
                             if (!Calorie.equals("null")) {
                                 CAL_MODAL_weekly.add(new HeartBeat_modal(halfdate, Float.parseFloat(Calorie)));
                             }
-
-//
-//
                         }
 
                         for (int i = 0; i < CAL_MODAL_weekly.size(); i++) {
@@ -254,13 +249,9 @@ public class HeartRate_progress_doc_side extends AppCompatActivity implements Ad
                         xAxis_weekly.setLabelRotationAngle(0);
                         weekly_barchart.animateY(2000);
                         weekly_barchart.invalidate();
-
-
-//
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
         }, new Response.ErrorListener() {
@@ -286,11 +277,8 @@ public class HeartRate_progress_doc_side extends AppCompatActivity implements Ad
             @Override
             public void onResponse(String response) {
 
-
-                Log.d("response111111111111111", response);
                 if (response.toString().trim().equals("No entry")) {
 
-                    Log.d("response333333333", "Noooooooooooooooooooooooooooooooooooooo");
                     CAL_MODAL_monthly.clear();
 
                     barEntryArrayListmonthly.clear();
@@ -298,8 +286,6 @@ public class HeartRate_progress_doc_side extends AppCompatActivity implements Ad
                     monthly_barchart.setData(null);
                     monthly_barchart.invalidate();
                 } else {
-                    //   Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
-
 
                     CAL_MODAL_monthly.clear();
                     barEntryArrayListmonthly = new ArrayList<>();

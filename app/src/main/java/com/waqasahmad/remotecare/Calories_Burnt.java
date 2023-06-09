@@ -119,7 +119,7 @@ public class Calories_Burnt extends AppCompatActivity {
         });
 
 
-////
+////    calorie burnt weekly graph
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -212,7 +212,7 @@ public class Calories_Burnt extends AppCompatActivity {
         queue.add(request);
 
 
-        //===================MONTHLY
+        //===================MONTHLY Graph
         StringRequest request1 = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

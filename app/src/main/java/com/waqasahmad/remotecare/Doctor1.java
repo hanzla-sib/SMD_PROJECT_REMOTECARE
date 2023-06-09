@@ -86,6 +86,7 @@ public class Doctor1 extends AppCompatActivity {
         Log.d("useremail", useremail);
 
 
+        // dashboard doctor
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

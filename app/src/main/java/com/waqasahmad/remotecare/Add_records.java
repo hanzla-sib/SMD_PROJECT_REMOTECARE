@@ -107,6 +107,8 @@ public class Add_records extends AppCompatActivity {
 
 
         Record_Model record = new Record_Model();
+
+        // Create a StringRequest to retrieve data from the server
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

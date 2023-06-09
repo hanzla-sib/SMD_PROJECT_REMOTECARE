@@ -142,6 +142,7 @@ public class Doc_appointments_accepted extends AppCompatActivity {
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
+        // fetching appointments which are accepted by doctor
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

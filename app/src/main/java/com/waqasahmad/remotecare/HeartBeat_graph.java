@@ -115,6 +115,8 @@ public class HeartBeat_graph extends AppCompatActivity {
                 startActivity(new Intent(HeartBeat_graph.this, messagemain.class));
             }
         });
+
+        // weekly heart rate graph data fetching
 //
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
@@ -203,7 +205,7 @@ public class HeartBeat_graph extends AppCompatActivity {
         queue.add(request);
 
 
-        //===================MONTHLY
+        //===================Monthly heart rate graph
         StringRequest request1 = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

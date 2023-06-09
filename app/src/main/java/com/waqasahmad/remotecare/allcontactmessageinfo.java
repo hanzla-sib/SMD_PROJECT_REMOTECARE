@@ -6,6 +6,7 @@ public class allcontactmessageinfo {
     private String title, genre, year;
 
     public allcontactmessageinfo() {
+        // Default constructor required for Firebase database
     }
 
     public allcontactmessageinfo(String title, String genre, String year) {

@@ -55,11 +55,12 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
         //getting email of logged in user
         currentemail = mAuth.getCurrentUser().getEmail();
 
+        // Fetching the IP address from SharedPreferences
         SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
         url = "http://" + s1 + "/smd_project/fetch_data_throuh_email.php";
 
-
+        // Making a network request to fetch the current name of the user
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -117,6 +118,8 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
 
     @NonNull
     @Override
+
+    // showing rows
     public Appointment_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(c_doc).inflate(R.layout.doc_row, parent, false);
         return new MyViewHolder(row);
@@ -134,13 +137,15 @@ public class Appointment_Adapter extends RecyclerView.Adapter<Appointment_Adapte
 //        holder.doctor_email.setText(ls_doc.get(position).getEmail_doc());
 //        Picasso.get().load("http://"+Ip_server.getIpServer()+"/smd_project/"+ls_doc.get(position).getImage_doc()).into(holder.img);
         Log.d("pic_d", ls_doc.get(position).getImage_doc());
+
+        // Load the doctor image using Picasso library
         if (ls_doc.get(position).getImage_doc().equals("null")) {
 
         } else {
             Picasso.get().load("http://" + s2 + "/smd_project/" + ls_doc.get(position).getImage_doc()).into(holder.img);
         }
 
-
+        // row reloading after selecting
         holder.itemView.findViewById(R.id.request_appointment).
                 setOnClickListener(new View.OnClickListener() {
                     @Override

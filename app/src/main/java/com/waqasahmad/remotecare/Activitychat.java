@@ -69,11 +69,18 @@ public class Activitychat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activitychat);
+
+        // Initialize UI elements
         back_btn = findViewById(R.id.back_btn);
         searchView = findViewById(R.id.searchbar);
         searchView.clearFocus();
+
+        // Retrieve data from the previous activity
+
         ruid = getIntent().getStringExtra("uid");
         P_id = getIntent().getStringExtra("p_id");
+
+        // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -98,6 +105,8 @@ public class Activitychat extends AppCompatActivity {
         DatabaseReference userNodeRef = usersRef.child(ruid);
 
         DatabaseReference emailNodeRef = userNodeRef.child("email");
+
+        // storing a profile pic
         emailNodeRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -110,7 +119,7 @@ public class Activitychat extends AppCompatActivity {
                         Log.d("picturee", response.toString());
                         String pic = response.toString();
                         if (pic.trim().length() <= 3) {
-
+                            // Handle the case when no profile picture is available
                         } else {
                             Picasso.get().load("http://" + s1 + "/smd_project/" + pic).into(img);
                         }
@@ -174,6 +183,7 @@ public class Activitychat extends AppCompatActivity {
         send_rcv = suid + ruid;
         rcv_send = ruid + suid;
 
+        // get messages from receiver and senders side
         mref = database.getReference("Users").child(mauth.getUid());
         DatabaseReference mref2 = database.getReference("Chats").child(send_rcv).child("messages");
         img = findViewById(R.id.imguser_msgtop);
@@ -233,6 +243,7 @@ public class Activitychat extends AppCompatActivity {
 
                     Messages messages = new Messages(message, mauth.getUid(), strDate);
 
+                    // storing chats in firebase
                     database = FirebaseDatabase.getInstance();
                     database.getReference().child("Chats").child(send_rcv).child("messages").push().setValue(messages)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -247,16 +258,13 @@ public class Activitychat extends AppCompatActivity {
 
                                                 }
                                             });
-
-
                                 }
                             });
-
                 }
-
             }
         });
 
+        // Method to retrieve messages from the database
         mref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -273,8 +281,6 @@ public class Activitychat extends AppCompatActivity {
         mref2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
                 messagesArrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 

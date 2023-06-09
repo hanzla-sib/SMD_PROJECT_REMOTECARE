@@ -115,7 +115,8 @@ public class Calories extends AppCompatActivity {
                 startActivity(new Intent(Calories.this, messagemain.class));
             }
         });
-//
+
+        // fetching weekly graph values
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -207,7 +208,7 @@ public class Calories extends AppCompatActivity {
         queue.add(request);
 
 
-        //===================MONTHLY
+        //===================MONTHLY GRAPH
         StringRequest request1 = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

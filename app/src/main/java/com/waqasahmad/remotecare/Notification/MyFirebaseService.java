@@ -22,15 +22,17 @@ public class MyFirebaseService extends FirebaseMessagingService {
        showNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
     }
     private void showNotification(String title,String message){
+        // Create an intent to start the StartScreen activity
         Intent intent = new Intent(this, StartScreen.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        // Create a PendingIntent to handle the click event of the notification
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setSmallIcon(R.drawable.ic_launcher_background)// Set the small icon for the notification
+                .setContentTitle(title)// Set the title for the notification
+                .setContentText(message)// Set the content text for the notification
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT) // Set the priority of the notification
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);

@@ -44,6 +44,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    // storing images in sqlLite for faster retrieval
+
     public void storeImage(ModelClassoffline objectmodelclass) {
         try {
             SQLiteDatabase objectSqliteDatabse = this.getWritableDatabase();
@@ -66,6 +68,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    // making an array list of all images
     public ArrayList<ModelClassoffline> getAllimagesdata() {
         try {
             SQLiteDatabase objectSqliteDatabase = this.getReadableDatabase();

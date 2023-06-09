@@ -83,6 +83,8 @@ public class Doc_Appointment_Pending_Adapter extends RecyclerView.Adapter<Doc_Ap
         holder.patient_email.setText(ls_doc2.get(position).getEmail_patient());
 
         /////////////////////////////////
+
+        // fetching all data from user to extract his profile image url etc
         StringRequest request = new StringRequest(Request.Method.POST, url3, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

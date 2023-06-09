@@ -181,6 +181,7 @@ public class Doc_Profile extends AppCompatActivity {
             }
         });
 
+        // fetch all user data
         StringRequest request = new StringRequest(Request.Method.POST, url4, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -207,19 +208,13 @@ public class Doc_Profile extends AppCompatActivity {
                         } else {
                             U_Type.setText("User Type      " + "Doctor");
                         }
-
                         if (!image.trim().equals("null")) {
                             Picasso.get().load("http://" + s1 + "/smd_project/" + image).into(profile_circle);
                         }
-
-
                     }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -288,6 +283,8 @@ public class Doc_Profile extends AppCompatActivity {
 
                         current_password_str = current_password.getText().toString();
                         new_password_str = new_password.getText().toString();
+
+                        // update password
 
                         if (!(current_password_str.equals("") && new_password_str.equals(""))) {
                             user = FirebaseAuth.getInstance().getCurrentUser();
@@ -505,6 +502,7 @@ public class Doc_Profile extends AppCompatActivity {
 
                 ///////////////////////////////////////////////////////
 
+                // fetch image details
                 StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -591,6 +589,5 @@ public class Doc_Profile extends AppCompatActivity {
                         });
             }
         }
-
     }
 }

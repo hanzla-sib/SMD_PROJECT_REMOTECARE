@@ -132,6 +132,7 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
         });
 
         ///////////////////////////////////////////////////
+        // Fetch patient data from the server and populate the spinner
         StringRequest request = new StringRequest(Request.Method.POST, url3, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -190,6 +191,8 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
 
 
                 Log.d("response111111111111111", response);
+
+                // weekly graph data
                 if (response.toString().trim().equals("No entry")) {
 
                     Log.d("response333333333", "Noooooooooooooooooooooooooooooooooooooo");
@@ -217,6 +220,8 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
                         if (totalsize >= 7) {
                             starting = obj2.length() - 7;
                         }
+
+                        // setting dates at x-axis
                         for (int i = starting; i < obj2.length(); i++) {
                             JSONObject jsonObject = obj2.getJSONObject(i);
                             String date = jsonObject.getString("date");
@@ -228,8 +233,6 @@ public class Burnt_calories_Progress_Doctor_side extends AppCompatActivity imple
                             if (!Calorie.equals("null")) {
                                 burnt_cal_MODAL_weekly.add(new Calories_burnt_modal(halfdate, Float.parseFloat(Calorie)));
                             }
-
-//
                         }
 
                         for (int i = 0; i < burnt_cal_MODAL_weekly.size(); i++) {

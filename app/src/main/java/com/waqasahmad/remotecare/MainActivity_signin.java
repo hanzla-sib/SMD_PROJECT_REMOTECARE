@@ -154,6 +154,7 @@ public class MainActivity_signin extends AppCompatActivity {
                                                           String useremail = mAuth.getCurrentUser().getEmail();
                                                           Log.d("useremail", useremail);
 
+                                                          // adding user with its token in firebase as well as on storage
                                                           db.collection("users").
                                                                   document(useremail).get().
                                                                   addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -223,14 +224,6 @@ public class MainActivity_signin extends AppCompatActivity {
         );
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if(mAuth.getCurrentUser()!=null)
-//        {
-//            startActivity(new Intent( MainActivity3.this, MainActivity5.class));
-//        }
-//    }
 
 
     private void getToken() {
@@ -248,6 +241,7 @@ public class MainActivity_signin extends AppCompatActivity {
         });
     }
 
+    // generating notification
     private void createNotificationChannel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

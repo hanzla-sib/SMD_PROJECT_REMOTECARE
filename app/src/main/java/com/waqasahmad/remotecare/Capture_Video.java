@@ -81,6 +81,7 @@ public class Capture_Video extends AppCompatActivity {
         }
     }
 
+//    This method is used to convert the video to base64 format and upload it
     private void getBase64FromUri(Uri uri) {
 
 

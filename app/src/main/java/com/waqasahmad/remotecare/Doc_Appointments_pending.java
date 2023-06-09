@@ -144,6 +144,7 @@ public class Doc_Appointments_pending extends AppCompatActivity {
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
+        // fetch all doc pending appointments
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -193,26 +194,6 @@ public class Doc_Appointments_pending extends AppCompatActivity {
         queue.add(request);
 
         //*********************************
-
-
-//        Menu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                doc_drawerLayout.openDrawer(GravityCompat.START);
-//
-//            }
-//        });
-//        logo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (doc_drawerLayout.isDrawerOpen(GravityCompat.START)) {
-//
-//                    doc_drawerLayout.closeDrawer(GravityCompat.START);
-//                }
-//            }
-//        });
-
     }
 
 

@@ -66,11 +66,16 @@ public class Appointments_Patient extends AppCompatActivity {
         btn4 = findViewById(R.id.chat_btn);
         btn2.setBackgroundResource(R.drawable.nav_btn_color);
         search = findViewById(R.id.search_view);
+
+        // Initializing Firebase DB and Authentication instances
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
+        // Getting user email from Firebase Authentication
         String useremail = mAuth.getCurrentUser().getEmail();
         Log.d("useremail", useremail);
+
+        // Fetching the IP address from SharedPreferences
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url = "http://" + s1 + "/smd_project/userlist.php";
@@ -90,6 +95,7 @@ public class Appointments_Patient extends AppCompatActivity {
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
+        // Making a network request to fetch the list of doctors
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -99,6 +105,7 @@ public class Appointments_Patient extends AppCompatActivity {
                 try {
                     JSONArray obj2 = new JSONArray(response);
 
+                    // Parsing the response and creating Appointment_Model objects
                     for (int i = 0; i < obj2.length(); i++) {
                         JSONObject jsonObject = obj2.getJSONObject(i);
 
@@ -144,7 +151,7 @@ public class Appointments_Patient extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
-
+        // Setting up click listeners for navigation button
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -179,6 +186,7 @@ public class Appointments_Patient extends AppCompatActivity {
 
     }
 
+    // Filter the list based on search query
     private void fileList(String newText) {
         List<Appointment_Model> filterlist = new ArrayList<>();
         for (Appointment_Model item : ls) {
