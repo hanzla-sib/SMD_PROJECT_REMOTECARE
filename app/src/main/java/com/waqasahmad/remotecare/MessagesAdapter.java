@@ -52,6 +52,8 @@ public class MessagesAdapter extends RecyclerView.Adapter {
         url1 = "http://" + s1 + "/smd_project/get_image_for_chat_insidescreen.php";
     }
 
+
+    //  Sets the filtered list of messages and notifies the adapter about the data change.
     public void setfilterlist(ArrayList<Messages> filteredlist) {
         this.messagesArrayList = filteredlist;
         notifyDataSetChanged();
@@ -61,6 +63,7 @@ public class MessagesAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        // Create view holders based on the item view type
         if (viewType == ITEM_SEND) {
             View view = LayoutInflater.from(context).inflate(R.layout.sender_layout_item, parent, false);
             return new SenderViewHOlder(view);
@@ -78,6 +81,8 @@ public class MessagesAdapter extends RecyclerView.Adapter {
 
         Messages messages = messagesArrayList.get(position);
         if (holder.getClass() == SenderViewHOlder.class) {
+
+            // Handle sender view holder
             SenderViewHOlder viewHOlder = (SenderViewHOlder) holder;
             DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
             DatabaseReference userNodeRef = usersRef.child(messages.getSuid());
@@ -87,14 +92,12 @@ public class MessagesAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String email = dataSnapshot.getValue(String.class);
-                    Log.d("emaillll", email);
-
 
                     StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
 
                         @Override
                         public void onResponse(String response) {
-                            Log.d("picturee", response.toString());
+                           // Log.d("picturee", response.toString());
                             String pic = response.toString();
                             if (pic.length() >= 3) {
                                 Picasso.get().load("http://" + s1 + "/smd_project/" + pic).into(viewHOlder.img);
@@ -132,7 +135,10 @@ public class MessagesAdapter extends RecyclerView.Adapter {
             viewHOlder.txtmessage.setText(messages.getMsg());
             viewHOlder.timestamp.setText(messages.getTimestamp());
         } else {
+
+            // Handle receiver view holder
             ReceiverViewHolder viewHOlder = (ReceiverViewHolder) holder;
+
             DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
             DatabaseReference userNodeRef = usersRef.child(messages.getSuid());
 
@@ -203,6 +209,7 @@ public class MessagesAdapter extends RecyclerView.Adapter {
         }
     }
 
+    // View holder for sender
     class SenderViewHOlder extends RecyclerView.ViewHolder {
 
         TextView txtmessage, timestamp;
@@ -216,7 +223,7 @@ public class MessagesAdapter extends RecyclerView.Adapter {
         }
     }
 
-
+    // View holder for receiver
     class ReceiverViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtmessage, timestamp;

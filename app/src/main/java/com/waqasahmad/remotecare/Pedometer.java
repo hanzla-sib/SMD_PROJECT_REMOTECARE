@@ -43,14 +43,18 @@ import okhttp3.OkHttpClient;
 
 public class Pedometer extends AppCompatActivity implements SensorEventListener {
 
+    // Constants
     private static final float STRIDE_LENGTH = 0.7f; // in meters
     private static final float RESTING_THRESHOLD = 2.0f; // km/h
     private static final float RUNNING_THRESHOLD = 8.0f; // km/h
     private static final long MILLISECONDS_IN_SECOND = 1000;
     private static final int REQUEST_ACTIVITY_RECOGNITION_PERMISSION = 1;
+
+    // Sensor and sensor manager variables
     private SensorManager sensorManager;
     private Sensor stepDetectorSensor;
 
+    // Pedometer data variables
     private int stepCount = 0;
     private float distanceCovered = 0.0f;
     private long startTime = 0;
@@ -58,24 +62,23 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     private long elapsedTime = 0;
     private float pace = 0.0f;
 
+    // TextViews and UI elements
     private TextView motionTextView;
     private TextView stepCountTextView;
     private TextView distanceTextView;
     private TextView paceTextView;
 
+    // URLs and Firebase variables
     String consumer_url = "";
     String producer_url = "";
     FirebaseFirestore db;
     FirebaseAuth mAuth;
-
     LinearLayout back_btn;
-
-    //    private static final String update_user_steps ="http://"+Ip_server.getIpServer()+"/smd_project/update_daily_steps.php";
-//    private static final String initial_steps_from_DB ="http://"+Ip_server.getIpServer()+"/smd_project/initial_steps_from_DB.php";
     String url1 = "", url2 = "";
     String ip_url = "";
     JSONArray obj;
-    //
+
+    // Calorie tracking variables
     double caloriesburnt = 0.0;
     String useremail = "";
 
@@ -85,16 +88,17 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedometer);
 
+        // Initialize sensor manager and step detector sensor
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
 
-
+        // Initialize UI elements
         stepCountTextView = findViewById(R.id.tv_steps);
         distanceTextView = findViewById(R.id.distance);
         paceTextView = findViewById(R.id.speed);
         back_btn = findViewById(R.id.back_btn);
 
-
+        // Set click listener for the back button
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,13 +106,13 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
             }
         });
 
+        // Get the IP address from shared preferences
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url1 = "http://" + s1 + "/smd_project/update_daily_steps.php";
         url2 = "http://" + s1 + "/smd_project/initial_steps_from_DB.php";
 
-        /////////////////////////////////////////////////////////////////////////////////////////
-
+        // Retrieve initial step count from the database
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         useremail = mAuth.getCurrentUser().getEmail();
@@ -117,7 +121,6 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
             @Override
             public void onResponse(String response) {
 
-//                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
                 try {
                     obj = new JSONArray(response);
                     for (int i = 0; i < obj.length() - 1; i++) {
@@ -130,9 +133,6 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//
-//
-
 
             }
         }, new Response.ErrorListener() {
@@ -151,66 +151,47 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         };
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
-        //
 
-
-//        OkHttpClient okHttpClient = new OkHttpClient();
-//        ip_url = "http://192.168.100.53:5000/";
-//        consumer_url = ip_url+"consumer";
-////        consumer_url = ip_url+"one";
-//        okhttp3.Request request1= new okhttp3.Request.Builder().url(consumer_url).build();
-//        okHttpClient.newCall(request1).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-//                Log.d("valuee", "network faisaaaaaaaaaaaaaaaaa");
-//            }
-//            @Override
-//            public void onResponse(@NonNull Call call, okhttp3.Response response) throws IOException {
-//                Log.d("valuee", "network success");
-////                tv.setText(response.body().string());
-//            }
-//        });
-
-
+        // Check if activity recognition permission is granted
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACTIVITY_RECOGNITION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            // Request the permission
+                != PackageManager.PERMISSION_GRANTED)
+        {
+            // Permission is not granted, request the permission
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.ACTIVITY_RECOGNITION},
                     REQUEST_ACTIVITY_RECOGNITION_PERMISSION);
         } else {
 
+            // Permission is granted, continue with the app
         }
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Register the step detector sensor listener
         sensorManager.registerListener(this, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
+        // Unregister the step detector sensor listener
         sensorManager.unregisterListener(this, stepDetectorSensor);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
+
+            // Step count increased
             stepCount++;
             caloriesburnt = 0.04 * stepCount;
             stepCountTextView.setText(String.valueOf(stepCount));
-
-
             updateMotionType();
-
         }
     }
 
@@ -222,25 +203,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 
     private void updateMotionType() {
 
-
-        ////////////////////////////////////////////////////////////////////////
-
-
-//        OkHttpClient okHttpClient = new OkHttpClient();
-//        producer_url = ip_url+"producer/"+useremail+"/"+String.valueOf(stepCount);
-//        //        producer_url = ip_url+ip_url+"two";
-//        okhttp3.Request request2= new okhttp3.Request.Builder().url(producer_url).build();
-//        okHttpClient.newCall(request2).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-//
-//            }
-//            @Override
-//            public void onResponse(@NonNull Call call, okhttp3.Response response) throws IOException {
-//                Log.d("valuee", "network success");
-//                //               tv.setText(response.body().string());
-//            }
-//        });
+        // Make HTTP request to update the step count and calculate distance, pace, and calories burnt
 
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
@@ -251,8 +214,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
                 pace = pace * 3.6f; // km/h
                 pace = Math.round(pace * 100) / 100.0f; // round to two decimal places
                 paceTextView.setText(String.format("%.2f km/h", pace));
-                Log.d("checking", response.toString());
-//              Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -273,13 +235,6 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         };
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
-
-//        ==================================================================================
-
-        //===================================================================
-
-
-        ///////////////////////////////////////////////////////////////
 
     }
 }

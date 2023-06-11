@@ -4,6 +4,7 @@ public class MyModel {
 
     String name, calorie;
 
+    // Model for the food name and its calories
     public MyModel(String name, String calorie) {
         this.name = name;
         this.calorie = calorie;

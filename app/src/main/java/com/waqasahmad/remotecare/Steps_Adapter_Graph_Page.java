@@ -34,24 +34,22 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
     @NonNull
     @Override
     public Steps_Adapter_Graph_Page.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        // Inflate the layout for each item in the RecyclerView
         View row = LayoutInflater.from(c_doc).inflate(R.layout.steps_row_graph_page, parent, false);
         return new MyViewHolder(row);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        // This method binds the data to the views of each item in the RecyclerView
 
-        //---------------
-
-//        if(holder.rem_steps.getcharAt(0)=='-')
-        Log.d("helllooo", String.valueOf(ls_doc.get(position).getRemaining_steps()));
+        // Check if the remaining steps is negative
         if (ls_doc.get(position).getRemaining_steps().charAt(0) == '-') {
-            Log.d("helllooo", "sadasd");
             holder.doctor_name.setText(ls_doc.get(position).getD_email());
             holder.recomm_steps.setText(ls_doc.get(position).getRecommended_steps());
             holder.rem_steps.setText("Remaining Steps : 0  ");
             holder.message.setText("You have completed the goal");
-
 
         } else {
             holder.doctor_name.setText(ls_doc.get(position).getD_email());
@@ -60,11 +58,12 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
             holder.message.setText("Little more steps to achieve the goal");
 
         }
-
     }
 
     @Override
     public int getItemCount() {
+
+        // Return the number of items in the RecyclerView
         return ls_doc.size();
     }
 
@@ -73,6 +72,8 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            // Initialize the views for each item in the RecyclerView
             doctor_name = itemView.findViewById(R.id.d_name_steps_screen);
             recomm_steps = itemView.findViewById(R.id.recommended_steps_steps_screen);
             rem_steps = itemView.findViewById(R.id.remaining_steps_steps_screen);
@@ -80,6 +81,4 @@ public class Steps_Adapter_Graph_Page extends RecyclerView.Adapter<Steps_Adapter
 
         }
     }
-
-
 }

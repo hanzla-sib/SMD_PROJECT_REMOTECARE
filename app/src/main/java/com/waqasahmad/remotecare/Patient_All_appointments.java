@@ -19,7 +19,7 @@ public class Patient_All_appointments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_all_appointments);
 
-
+        // Initialize views
         patient_all_appointments = findViewById(R.id.patient_all_appointments);
         patient_accepted_appointments = findViewById(R.id.patient_accepted_appointments);
         patient_pending_appointments = findViewById(R.id.patient_pending_appointments);
@@ -31,17 +31,16 @@ public class Patient_All_appointments extends AppCompatActivity {
         btn3 = findViewById(R.id.record_btn);
         btn4 = findViewById(R.id.chat_btn);
 
+        // Set click listeners for different appointment categories
         patient_all_appointments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent intent = new Intent(Patient_All_appointments.this, Appointments_Patient.class);
                 startActivity(intent);
-
             }
         });
 
+        // Set click listeners for buttons
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,11 +48,9 @@ public class Patient_All_appointments extends AppCompatActivity {
             }
         });
 
-
         patient_accepted_appointments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(Patient_All_appointments.this, Patient_accepted_appointments.class);
                 startActivity(intent);
             }

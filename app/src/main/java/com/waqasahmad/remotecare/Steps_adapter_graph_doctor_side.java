@@ -31,6 +31,8 @@ public class Steps_adapter_graph_doctor_side extends RecyclerView.Adapter<Steps_
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        // Inflate the layout for each item in the RecyclerView
         View row = LayoutInflater.from(c_doc).inflate(R.layout.steps_row_graph_page, parent, false);
         return new Steps_adapter_graph_doctor_side.MyViewHolder(row);
     }
@@ -42,7 +44,10 @@ public class Steps_adapter_graph_doctor_side extends RecyclerView.Adapter<Steps_
 
     @Override
     public int getItemCount() {
+
+        // Return the number of items in the RecyclerView
         return 0;
+
     }
 
 
@@ -51,10 +56,11 @@ public class Steps_adapter_graph_doctor_side extends RecyclerView.Adapter<Steps_
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            // Initialize the views for each item in the RecyclerView
             doctor_name = itemView.findViewById(R.id.d_name_steps_screen);
             recomm_steps = itemView.findViewById(R.id.recommended_steps_steps_screen);
             rem_steps = itemView.findViewById(R.id.remaining_steps_steps_screen);
         }
     }
 }
-

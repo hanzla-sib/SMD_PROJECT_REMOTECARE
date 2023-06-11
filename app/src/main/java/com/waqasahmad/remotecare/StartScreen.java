@@ -30,8 +30,10 @@ public class StartScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startscreen);
 
+        // Delayed execution using Handler
         new Handler().postDelayed(() -> {
 
+            // Check if the user is already logged in
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
 
@@ -40,42 +42,43 @@ public class StartScreen extends AppCompatActivity {
                 String useremail = mAuth.getCurrentUser().getEmail();
                 Log.d("userrrr", useremail);
 
+                // Retrieve user document from Firestore
                 db.collection("users").
                         document(useremail).get().
                         addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
+                                // Get the document snapshot
                                 DocumentSnapshot document = task.getResult();
-                                Log.d("docccc", document.toString());
 
+                                // Convert document data to JSON object
                                 JSONObject obj;
                                 obj = new JSONObject(document.getData());
 
                                 try {
+                                    // Get the user type from the JSON object
                                     String usertype = obj.getString("User_Type");
 
-
+                                    // Check the user type and start the appropriate activity
                                     if (usertype.equals(strpatient)) {
-//                                        Log.d("USER_TYPE",usertype);
+
                                         startActivity(new Intent(StartScreen.this, MainActivity2.class)); // for patient view
 
                                     } else if (usertype.equals(strdoctor)) {
+
                                         Intent intent = new Intent(StartScreen.this, Doctor1.class);
                                         startActivity(intent);
-//
-                                        Log.d("USER_TYPE", usertype);
-                                    }
 
+                                    }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-
                             }
                         });
-
-
             } else {
+
+                // User not logged in, start the sign-in activity
                 startActivity(new Intent(StartScreen.this, MainActivity_signin.class));
             }
 

@@ -56,4 +56,5 @@ public class Messages {
     public void setSuid(String suid) {
         this.suid = suid;
     }
+
 }

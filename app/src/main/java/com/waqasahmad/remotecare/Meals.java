@@ -48,7 +48,6 @@ public class Meals extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
 
-    //for logging out
     DatabaseReference reference1;
     FirebaseAuth auth1;
     FirebaseDatabase database1;
@@ -57,9 +56,6 @@ public class Meals extends AppCompatActivity {
     List<MyModel> ls = new ArrayList<>();
 
     JSONObject obj;
-
-
-    //    private static final String consumed_calories="http://"+Ip_server.getIpServer()+"/smd_project/consumed_calories.php";
     String url1 = "";
 
     @Override
@@ -75,6 +71,7 @@ public class Meals extends AppCompatActivity {
         //Initializing Firebase MAuth instance
         mAuth = FirebaseAuth.getInstance();
 
+        // Retrieve the saved IP address from SharedPreferences
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url1 = "http://" + s1 + "/smd_project/consumed_calories.php";
@@ -82,7 +79,7 @@ public class Meals extends AppCompatActivity {
         //Initializing Firebase MAuth instance
         db = FirebaseFirestore.getInstance();
 
-        // for logging out
+        // For logging out
         auth1 = FirebaseAuth.getInstance();
         database1 = FirebaseDatabase.getInstance();
         reference1 = database1.getReference("Users");
@@ -93,6 +90,7 @@ public class Meals extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Query1 = input_query.getText().toString();
+
                 // Concatenating header with the API and getting calories in JSON file format
                 {
                     StringRequest myReq = new StringRequest(Request.Method.GET,
@@ -103,14 +101,14 @@ public class Meals extends AppCompatActivity {
                                     try {
                                         obj = new JSONObject(response);
 
+                                        // Extracting the calorie value from the JSON response
                                         calorie_str = String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("calories"));
 
-                                        ////////////////////////////////////////////
-
+                                        // Sending a POST request to the server to store consumed calories
                                         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                                             @Override
                                             public void onResponse(String response) {
-//                                                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+//
                                             }
                                         }, new Response.ErrorListener() {
                                             @Override
@@ -121,6 +119,8 @@ public class Meals extends AppCompatActivity {
                                             @Nullable
                                             @Override
                                             protected Map<String, String> getParams() throws AuthFailureError {
+
+                                                // Adding parameters to the request
                                                 Map<String, String> param = new HashMap<String, String>();
                                                 param.put("p_email", currentemail);
                                                 param.put("calories", calorie_str);
@@ -130,12 +130,11 @@ public class Meals extends AppCompatActivity {
                                         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                                         queue.add(request);
 
-                                        //////////////////////////////////////////////
-
                                         rv = findViewById(R.id.rv);
 
                                         try {
 
+                                            // Adding the retrieved data to a list
                                             ls.add(new MyModel(String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("name")),
                                                     String.valueOf(obj.getJSONArray("items").getJSONObject(0).getString("calories"))));
                                         } catch (JSONException e) {
@@ -150,8 +149,6 @@ public class Meals extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-
-
                                 }
                             },
                             new Response.ErrorListener() {
@@ -164,6 +161,8 @@ public class Meals extends AppCompatActivity {
                             }) {
                         @Override
                         public Map<String, String> getHeaders() throws AuthFailureError {
+
+                            // Adding headers to the request
                             Map<String, String> mHeaders = new ArrayMap<String, String>();
                             mHeaders.put("Content-Type", "application/json");
                             mHeaders.put("X-Api-Key", "syfXOOkubhTjCgJFOr6KGQ==mYTrMBkvTiw6piBu");
@@ -175,12 +174,9 @@ public class Meals extends AppCompatActivity {
                     requestQueue.add(myReq);
 
                 }
-
-
             }
         });
     }
-
 
     public void ClickMeals(View view) {
         recreate();
@@ -216,30 +212,40 @@ public class Meals extends AppCompatActivity {
 
     public void ClickLogout(View view) {
 
+        // Get the current date and time
         String savecurrentdate;
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat currentdate = new SimpleDateFormat("MMM dd,yyyy");
         savecurrentdate = currentdate.format(calendar.getTime());
         SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
         String savetime = currentTime.format(calendar.getTime());
+
+        // Create a HashMap to update the online status information
         HashMap<String, Object> onlinestatus = new HashMap<>();
         onlinestatus.put("time", savetime);
         onlinestatus.put("date", savecurrentdate);
         onlinestatus.put("status", "offline");
         onlinestatus.put("player_id", "");
+
+        // Update the online status information in the database for the current user
         String curruserid = auth1.getUid();
         reference1.child(curruserid).updateChildren(onlinestatus);
+
+        // Sign out the user from the FirebaseAuth
         auth1.signOut();
 
+        // Finish the current activity
         finish();
 
+        // Start the MainActivity_signin activity
         startActivity(new Intent(Meals.this, MainActivity_signin.class));
     }
-
 
     @Override
     protected void onPause() {
         super.onPause();
+
+        // Close the drawer (if open) when the activity is paused
         MainActivity2.closeDrawer(drawerLayout);
     }
 }

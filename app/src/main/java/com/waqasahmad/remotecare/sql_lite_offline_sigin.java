@@ -17,7 +17,6 @@ public class sql_lite_offline_sigin extends AppCompatActivity {
         setContentView(R.layout.activity_sql_lite_offline_sigin);
 
 
-
         signin2=findViewById(R.id.signinbutton2);
 
 

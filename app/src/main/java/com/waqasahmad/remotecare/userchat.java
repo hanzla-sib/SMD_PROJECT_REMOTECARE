@@ -2,6 +2,7 @@ package com.waqasahmad.remotecare;
 
 public class userchat {
 
+    // Declare variables
     String name, uid, onlinestatus, lastseen, p_id, emailadd;
 
     public String getP_id() {
@@ -20,14 +21,14 @@ public class userchat {
         this.emailadd = emailadd;
     }
 
+
+    // Constructor with parameters
     public userchat(String name, String uid, String onlinestatus, String lastseen, String p_id) {
         this.name = name;
         this.uid = uid;
         this.onlinestatus = onlinestatus;
         this.lastseen = lastseen;
         this.p_id = p_id;
-
-
     }
 
     public String getLastseen() {

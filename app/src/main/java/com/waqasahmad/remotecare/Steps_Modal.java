@@ -1,5 +1,6 @@
 package com.waqasahmad.remotecare;
 
+// Model class for the steps to record the date and the number of steps
 public class Steps_Modal {
     String date;
     int steps;

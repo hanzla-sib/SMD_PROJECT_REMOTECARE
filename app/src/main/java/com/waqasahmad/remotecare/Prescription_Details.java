@@ -94,7 +94,6 @@ public class Prescription_Details extends AppCompatActivity {
         startActivity(new Intent(Prescription_Details.this, MainActivity_signin.class));
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();

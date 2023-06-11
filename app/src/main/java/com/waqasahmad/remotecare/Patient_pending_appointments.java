@@ -34,19 +34,15 @@ import java.util.List;
 import java.util.Map;
 
 public class Patient_pending_appointments extends AppCompatActivity {
-
-    //
     RecyclerView rv;
     List<Appointment_Model> ls = new ArrayList<>();
     LinearLayout back_btn;
     LinearLayout btn1, btn2, btn3, btn4;
     P_pending_appointments_adapter adapter;
-    //
+
     SearchView search;
     FirebaseFirestore db;
     FirebaseAuth mAuth;
-
-    //    private static final String patient_pending_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_pending_appointment.php";
     String url1 = "";
 
     @Override
@@ -54,6 +50,7 @@ public class Patient_pending_appointments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_pending_appointments);
 
+        // Initialize views
         rv = findViewById(R.id.rv_pending_appointments);
         back_btn = findViewById(R.id.back_btn);
         btn1 = findViewById(R.id.home_btn2);
@@ -61,17 +58,17 @@ public class Patient_pending_appointments extends AppCompatActivity {
         btn3 = findViewById(R.id.record_btn);
         btn4 = findViewById(R.id.chat_btn);
         btn2.setBackgroundResource(R.drawable.nav_btn_color);
+
+        // Get the shared preferences for IP address
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url1 = "http://" + s1 + "/smd_project/patient_pending_appointment.php";
         search = findViewById(R.id.search_view);
 
-
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
         String useremail = mAuth.getCurrentUser().getEmail();
-        Log.d("useremail", useremail);
 
         search.clearFocus();
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -87,14 +84,10 @@ public class Patient_pending_appointments extends AppCompatActivity {
             }
         });
 
-        //////////////////////////////////////////////////////////////////////////////////////////
-
+        // Send a request to fetch pending appointments from the server
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("respons11111111", response);
-//                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-
                 try {
                     JSONArray obj2 = new JSONArray(response);
 
@@ -143,9 +136,7 @@ public class Patient_pending_appointments extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
 
-        //*********************************
-
-
+        // Set click listeners for buttons
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -179,6 +170,7 @@ public class Patient_pending_appointments extends AppCompatActivity {
 
     }
 
+    // Filter the appointment list based on search text
     private void fileList(String newText) {
         List<Appointment_Model> filterlist = new ArrayList<>();
         for (Appointment_Model item : ls) {

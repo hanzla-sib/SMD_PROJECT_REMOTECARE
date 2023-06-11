@@ -1,5 +1,6 @@
 package com.waqasahmad.remotecare;
 
+// Model class for steps and graph
 public class Steps_Model_Graph_Page {
 
     String d_email, recommended_steps, remaining_steps;

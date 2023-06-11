@@ -48,11 +48,14 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
         this.ls_doc = ls_doc;
         this.c_doc = c_doc;
         doc_email = "";
+
+        // Retrieve the IP address from SharedPreferences
         SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
         url1 = "http://" + s1 + "/smd_project/delete_pending_patient.php";
     }
 
+    // Method to set the filtered list for filtering appointments
     public void setfilterlist(List<Appointment_Model> filteredlist) {
         this.ls_doc = filteredlist;
         notifyDataSetChanged();
@@ -61,6 +64,8 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
     @NonNull
     @Override
     public P_pending_appointments_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        // Inflate the layout for the pending appointment row
         View row = LayoutInflater.from(c_doc).inflate(R.layout.patient_row_pending_appointment, parent, false);
         return new P_pending_appointments_adapter.MyViewHolder(row);
     }
@@ -77,10 +82,11 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
         //getting email of logged in user
         currentemail = mAuth.getCurrentUser().getEmail();
 
-        //
+        // Set the appointment details for each row
         holder.doctor_name.setText("Dr. " + ls_doc.get(position).getName_doc());
         holder.doc_type.setText(ls_doc.get(position).getDoc_type());
 
+        // Load the doctor's image using Picasso library
         SharedPreferences sh = c_doc.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
         if (ls_doc.get(position).getImage_doc().equals("null")) {
@@ -89,11 +95,12 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
             Picasso.get().load("http://" + s1 + "/smd_project/" + ls_doc.get(position).getImage_doc()).into(holder.img);
         }
 
-
+        // Set click listener for the cross icon to delete the pending appointment
         holder.cross1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                // Display confirmation dialog before deleting the pending appointment
                 AlertDialog.Builder builder = new AlertDialog.Builder(c_doc);
                 builder.setMessage("Do you want to delete this pending appointment?")
                         .setTitle("Delete Pending Appointment");
@@ -102,16 +109,15 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
-
-
+                        // Get the doctor's email
                         doc_email = ls_doc.get(holder.getAdapterPosition()).email_doc;
 
-                        //removing row
+                        // Remove the row from the list and update the UI
                         int i = holder.getAdapterPosition();
                         ls_doc.remove(i);
                         notifyItemRemoved(i);
-                        //
 
+                        // Make a request to delete the pending appointment
                         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -126,14 +132,15 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
                             @Nullable
                             @Override
                             protected Map<String, String> getParams() throws AuthFailureError {
+                                // Set the parameters for the request
                                 Map<String, String> param = new HashMap<String, String>();
-
                                 param.put("p_email", currentemail);
                                 param.put("d_email", doc_email);
-
                                 return param;
                             }
                         };
+
+                        // Add the request to the queue
                         RequestQueue queue = Volley.newRequestQueue(c_doc);
                         queue.add(request);
 
@@ -146,10 +153,9 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
                     }
                 });
 
-                // Create the AlertDialog
+                // Create and display the AlertDialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
 
             }
         });
@@ -161,6 +167,7 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
         return ls_doc.size();
     }
 
+    // View holder class for the pending appointment row
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView doctor_name, doc_type;
         CircleImageView img;
@@ -172,8 +179,6 @@ public class P_pending_appointments_adapter extends RecyclerView.Adapter<P_pendi
             img = itemView.findViewById(R.id.doc_img);
             doc_type = itemView.findViewById(R.id.doc_prof);
             cross1 = itemView.findViewById(R.id.cross);
-
-
         }
     }
 

@@ -36,8 +36,8 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder> {
-    ArrayList<userchat> ls;
-    Context c;
+    ArrayList<userchat> ls; // ArrayList to store userchat objects
+    Context c; // Context object
     FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -45,6 +45,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
     String url1;
     String s1;
 
+    // Constructor with parameters
     public UsersAdapter(ArrayList<userchat> ls, Context c) {
         this.ls = ls;
         this.c = c;
@@ -58,6 +59,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        // Inflating the layout for each item in the RecyclerView
         View row = LayoutInflater.from(c).inflate(R.layout.messageall, parent, false);
         return new MyViewHolder(row);
     }
@@ -65,20 +68,21 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        // Perform operations to bind data to the ViewHolder
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-//                Toast.makeText(c,response.toString(),Toast.LENGTH_LONG).show();
                 try {
                     JSONArray obj2 = new JSONArray(response);
 
+                    // Iterate over the JSONArray and retrieve required data
                     for (int i = 0; i < obj2.length(); i++) {
                         JSONObject jsonObject = obj2.getJSONObject(i);
                         String email = jsonObject.getString("email");
                         String profile = jsonObject.getString("imageurl");
-                        Log.d("profilleee", profile);
-                        if (!email.equals("null")) {
+                        if (!email.equals("null"))
+                        {
                             if (ls.get(holder.getAdapterPosition()).getOnlinestatus().equals("offline")) {
                                 holder.name.setText(ls.get(holder.getAdapterPosition()).getName());
                                 holder.lastseen.setText(ls.get(holder.getAdapterPosition()).getLastseen());
@@ -87,13 +91,15 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
                                 } else {
                                     Picasso.get().load("http://" + s1 + "/smd_project/" + profile).into(holder.profileimagechat);
                                 }
-
-
                                 holder.onlinestatus.setVisibility(View.GONE);
-                            } else {
+                            }
+                            else {
+
                                 if (profile.trim().equals("null")) {
 
-                                } else {
+                                }
+                                // Check if email is not null
+                                else {
                                     Picasso.get().load("http://" + s1 + "/smd_project/" + profile).into(holder.profileimagechat);
                                 }
                                 holder.name.setText(ls.get(holder.getAdapterPosition()).getName());
@@ -102,11 +108,15 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
 
                             }
                         } else {
+
+                            // Set the user's name, last seen, and profile image for offline
                             if (ls.get(holder.getAdapterPosition()).getOnlinestatus().equals("offline")) {
                                 holder.name.setText(ls.get(holder.getAdapterPosition()).getName());
                                 holder.lastseen.setText(ls.get(holder.getAdapterPosition()).getLastseen());
                                 holder.onlinestatus.setVisibility(View.GONE);
-                            } else {
+                            }
+                            // Set the user's name, last seen, and profile image for online
+                            else {
                                 holder.name.setText(ls.get(holder.getAdapterPosition()).getName());
                                 holder.lastseen.setVisibility(View.GONE);
                                 holder.onlinestatus.setText(ls.get(holder.getAdapterPosition()).getOnlinestatus());
@@ -128,6 +138,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+
+                // Set the parameters for the POST request
                 Map<String, String> param = new HashMap<String, String>();
                 Log.d("hello11", ls.get(holder.getAdapterPosition()).getEmailadd());
                 param.put("d_email", ls.get(holder.getAdapterPosition()).getEmailadd());
@@ -136,13 +148,17 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
                 return param;
             }
         };
+
+        // Add the request to the RequestQueue
         RequestQueue queue = Volley.newRequestQueue(c);
         queue.add(request);
 
-
+        // Set click listener for each item in the RecyclerView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Create an intent to open Activitychat and pass data to it
                 Intent intent = new Intent(c, Activitychat.class);
                 int i = holder.getAdapterPosition();
                 intent.putExtra("name", ls.get(i).getName());
@@ -166,6 +182,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            // Initialize views
             name = itemView.findViewById(R.id.nameid);
             onlinestatus = itemView.findViewById(R.id.onlinestatus);
             lastseen = itemView.findViewById(R.id.lastseen);

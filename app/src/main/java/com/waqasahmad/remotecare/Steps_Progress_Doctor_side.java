@@ -52,16 +52,15 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
     FirebaseFirestore db;
     FirebaseAuth mAuth;
     JSONArray obj2;
-    //for logging out
+
+    // For logging out
     DatabaseReference reference1;
     FirebaseAuth auth1;
     FirebaseDatabase database1;
-    BarChart weekly_barchart, monthly_barchart;
 
+    BarChart weekly_barchart, monthly_barchart;
     LinearLayout back_btn;
     LinearLayout btn1, btn2, btn3, btn4;
-
-
     TextView recom_steps, comp_steps, check_Ai;
     String currentemail = "";
 
@@ -71,9 +70,6 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
     ArrayList<String> Labelsname;
     ArrayList<BarEntry> barEntryArrayListmonthly;
     ArrayList<String> Labelsnamemonthly;
-    //    private static final String Steps_graph="http://"+Ip_server.getIpServer()+"/smd_project/Steps_graph.php";
-//    private static final String Steps_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyStepsgraph.php";
-//    private static final String fetch_patient_withdocs="http://"+Ip_server.getIpServer()+"/smd_project/fetch_patient_reg_doctors.php";
     String url1 = "", url2 = "", url3 = "", url4 = "";
     ArrayList<String> paths = new ArrayList<String>();
 
@@ -81,15 +77,20 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.steps_progress_doctor_side);
+
+        // Initialize bar chart views
         weekly_barchart = findViewById(R.id.graph2);
         monthly_barchart = findViewById(R.id.graph3);
         weekly_barchart.setBackgroundColor(Color.WHITE);
         monthly_barchart.setBackgroundColor(Color.WHITE);
+
+        // Initialize Firebase instances
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         String useremail = mAuth.getCurrentUser().getEmail();
-
         currentemail = useremail;
+
+        // Initialize UI elements
         back_btn = findViewById(R.id.back_btn);
         btn1 = findViewById(R.id.doc_home_btn2);
         btn2 = findViewById(R.id.doc_appointment_btn);
@@ -98,6 +99,8 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         recom_steps = findViewById(R.id.recom_steps);
         comp_steps = findViewById(R.id.comp_steps);
         check_Ai = findViewById(R.id.check_ai);
+
+        // Get the server IP from SharedPreferences
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url1 = "http://" + s1 + "/smd_project/Steps_graph.php";
@@ -105,6 +108,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         url3 = "http://" + s1 + "/smd_project/fetch_patient_reg_doctors.php";
         url4 = "http://" + s1 + "/smd_project/get_steps_results_from_formula.php";
 
+        // Set click listener for the back button
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +116,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
             }
         });
 
+        // Set click listener for button 1 (Doctor Home)
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +124,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
             }
         });
 
+        // Set click listener for button 2 (Doctor Appointments)
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,6 +132,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
             }
         });
 
+        // Set click listener for button 3 (Doctor Profile)
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,19 +153,20 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
             public void onResponse(String response) {
                 if (response.equals("No entry")) {
 
-                } else {
-//                    Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-
+                }
+                else {
 
                     try {
                         obj2 = new JSONArray(response);
 
+                        // Retrieve patient emails from JSON response
                         for (int i = 0; i < obj2.length(); i++) {
                             JSONObject jsonObject = obj2.getJSONObject(i);
                             String mail = jsonObject.getString("p_email");
                             paths.add(mail);
                         }
 
+                        // Set up spinner with patient emails
                         spinner = (Spinner) findViewById(R.id.spinner);
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(Steps_Progress_Doctor_side.this,
                                 R.layout.spinner_color, paths);
@@ -169,10 +177,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -183,6 +188,8 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+
+                // Set request parameters
                 Map<String, String> param = new HashMap<String, String>();
                 param.put("email", useremail);
                 return param;
@@ -196,26 +203,24 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//        Toast.makeText(this, (String) adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
+
+        // Request to fetch weekly steps data
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
-
-                Log.d("response111111111111111", response);
                 if (response.trim().equals("No entry")) {
+
+                    // Clear data and reset chart if no entry is found
                     Steps_MODAL_weekly.clear();
-//                    barEntryArrayListmonthly=new ArrayList<>();
-//                    Labelsnamemonthly=new ArrayList<>();
                     barEntryArrayList.clear();
                     Labelsname.clear();
                     weekly_barchart.setData(null);
                     weekly_barchart.invalidate();
-//
-                    Log.d("response333333333", "Noooooooooooooooooooooooooooooooooooooo");
-                } else {
-//                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
 
+                }
+                else {
+
+                    // Parse the JSON response and populate the chart
                     Steps_MODAL_weekly.clear();
                     barEntryArrayList = new ArrayList<>();
                     Labelsname = new ArrayList<>();
@@ -241,8 +246,6 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                             if (!Calorie.equals("null")) {
                                 Steps_MODAL_weekly.add(new Steps_Modal(halfdate, Integer.parseInt(Calorie)));
                             }
-
-//
                         }
 
                         for (int i = 0; i < Steps_MODAL_weekly.size(); i++) {
@@ -251,6 +254,7 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                             barEntryArrayList.add(new BarEntry(i, stepss));
                             Labelsname.add(date);
                         }
+
                         BarDataSet barDataSetweekly = new BarDataSet(barEntryArrayList, "Weekly Steps");
                         barDataSetweekly.setColors(ColorTemplate.PASTEL_COLORS);
                         Description description_weekly = new Description();
@@ -258,6 +262,8 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                         weekly_barchart.setDescription(description_weekly);
                         BarData barData_weekly = new BarData((barDataSetweekly));
                         weekly_barchart.setData(barData_weekly);
+
+
                         XAxis xAxis_weekly = weekly_barchart.getXAxis();
                         xAxis_weekly.setValueFormatter(new IndexAxisValueFormatter(Labelsname));
                         xAxis_weekly.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -266,15 +272,14 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                         xAxis_weekly.setGranularity(1f);
                         xAxis_weekly.setLabelCount(Labelsname.size());
                         xAxis_weekly.setLabelRotationAngle(0);
+
+
                         weekly_barchart.animateY(2000);
                         weekly_barchart.invalidate();
 
-
-//
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
         }, new Response.ErrorListener() {
@@ -296,30 +301,29 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
 
 
         //===================MONTHLY
+
+        // Request to fetch monthly steps data
         StringRequest request1 = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-
-                Log.d("response111111111111111", response);
                 if (response.trim().equals("No entry")) {
-                    Steps_MODAL_monthly.clear();
 
+                    // Clear data and reset chart if no entry is found
+                    Steps_MODAL_monthly.clear();
                     barEntryArrayListmonthly.clear();
                     Labelsnamemonthly.clear();
                     monthly_barchart.setData(null);
                     monthly_barchart.invalidate();
-                    Log.d("response333333333", "Noooooooooooooooooooooooooooooooooooooo");
-                } else {
-//                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                }
+                else {
 
-
+                    // Parse the JSON response and populate the chart
                     Steps_MODAL_monthly.clear();
                     barEntryArrayListmonthly = new ArrayList<>();
                     Labelsnamemonthly = new ArrayList<>();
                     barEntryArrayListmonthly.clear();
                     Labelsnamemonthly.clear();
-
 
                     try {
                         obj2 = new JSONArray(response);
@@ -331,8 +335,6 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                             if (!Calorie.equals("null")) {
                                 Steps_MODAL_monthly.add(new Steps_Modal(date, Integer.parseInt(Calorie)));
                             }
-
-//
                         }
                         for (int i = 0; i < Steps_MODAL_monthly.size(); i++) {
                             String date = Steps_MODAL_monthly.get(i).getDate();
@@ -352,6 +354,8 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                         monthly_barchart.setDescription(description);
                         BarData barData_monthly = new BarData((barDataSet_monthly));
                         monthly_barchart.setData(barData_monthly);
+
+
                         XAxis xAxis = monthly_barchart.getXAxis();
                         xAxis.setValueFormatter(new IndexAxisValueFormatter(Labelsnamemonthly));
                         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -360,12 +364,13 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                         xAxis.setGranularity(1f);
                         xAxis.setLabelCount(Labelsnamemonthly.size());
                         xAxis.setLabelRotationAngle(0);
+
+
                         monthly_barchart.animateY(2000);
                         monthly_barchart.invalidate();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
         }, new Response.ErrorListener() {
@@ -386,52 +391,56 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         queue1.add(request1);
 
 
-        //-----formula----
+        // Request to fetch AI prediction and completed steps
         StringRequest request4 = new StringRequest(Request.Method.POST, url4, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("response111111111111111", response);
                 if (response.trim().equals("No entry")) {
+
+                    // Hide recommendation, completed steps, and AI prediction if no entry is found
                     recom_steps.setVisibility(View.GONE);
                     comp_steps.setVisibility(View.GONE);
                     check_Ai.setVisibility(View.GONE);
-                } else if (response.trim().equals("no recom steps")) {
-                    Log.d("recom", "not recomended");
+                }
+                else if (response.trim().equals("no recom steps"))
+                {
+
+                    // Display "No recommended steps" message
                     recom_steps.setText("Recommendation: " + "No recommended steps yet");
                     recom_steps.setVisibility(View.VISIBLE);
                     comp_steps.setVisibility(View.GONE);
                     check_Ai.setVisibility(View.GONE);
+
                 } else {
-//                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
 
                     try {
                         obj2 = new JSONArray(response);
                         if (obj2.length() >= 4) {
+
+                            // Calculate the average of the last three steps values
                             JSONObject jsonObject = obj2.getJSONObject(obj2.length() - 2);
                             String value1 = jsonObject.getString("steps");
                             JSONObject jsonObject1 = obj2.getJSONObject(obj2.length() - 3);
                             String value2 = jsonObject1.getString("steps");
                             JSONObject jsonObject2 = obj2.getJSONObject(obj2.length() - 4);
+
+                            // Get the latest completed steps and recommendation values
                             String value3 = jsonObject2.getString("steps");
-                            Log.d("value1", value1);
-                            Log.d("value2", value2);
-                            Log.d("value3", value3);
                             JSONObject jsonObject4 = obj2.getJSONObject(obj2.length() - 1);
 
                             String Completed_steps = jsonObject4.getString("steps");
                             String latest_date=jsonObject4.getString("date_log");
                             String recom_stepsjson = jsonObject.getString("recom_steps");
-                            Log.d("curr_date",latest_date);
+
                             Calendar calendar = Calendar.getInstance();
                             Date currentDate = calendar.getTime();
                             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                             String dateString = format.format(currentDate);
-                            Log.d("curr_date", dateString);
 
 
-                            Log.d("value4", Completed_steps);
                             int sum = (Integer.parseInt(value1) + Integer.parseInt(value2) + Integer.parseInt(value3)) / 3;
-                            Log.d("sum111", String.valueOf(sum));
+
+                            // Display recommendation, completed steps, and AI prediction based on conditions
                             recom_steps.setText("Recommended Steps:  " + recom_stepsjson);
                             recom_steps.setVisibility(View.VISIBLE);
 
@@ -440,16 +449,15 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                                 comp_steps.setVisibility(View.VISIBLE);
                                 if (Integer.parseInt(recom_stepsjson) <= Integer.parseInt(Completed_steps)) {
 
-
                                     check_Ai.setText("Prediction: " + "Completed The goal");
                                     check_Ai.setVisibility(View.VISIBLE);
                                 } else {
                                     if (sum >= (Integer.parseInt(recom_stepsjson) - 50)) {
-                                        Log.d("likely to complete", "steps");
+//                                        Log.d("likely to complete", "steps");
                                         check_Ai.setVisibility(View.VISIBLE);
                                         check_Ai.setText("Prediction: " + "Likely to complete");
                                     } else {
-                                        Log.d("unlikely to complete", "steps");
+//                                        Log.d("unlikely to complete", "steps");
                                         check_Ai.setVisibility(View.VISIBLE);
                                         check_Ai.setText("Prediction: " + "Unlikely to complete");
                                     }
@@ -459,31 +467,22 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
                                 comp_steps.setText("Completed Steps:  " + "0");
                                 comp_steps.setVisibility(View.VISIBLE);
                                     if (sum >= (Integer.parseInt(recom_stepsjson) - 50)) {
-                                        Log.d("likely to complete", "steps");
+//                                        Log.d("likely to complete", "steps");
                                         check_Ai.setVisibility(View.VISIBLE);
                                         check_Ai.setText("Prediction: " + "Likely to complete");
                                     } else {
-                                        Log.d("unlikely to complete", "steps");
+//                                        Log.d("unlikely to complete", "steps");
                                         check_Ai.setVisibility(View.VISIBLE);
                                         check_Ai.setText("Prediction: " + "Unlikely to complete");
                                     }
-
                             }
-
-
                         } else {
-                            Log.d("insufficeint previous record", "results");
                             check_Ai.setVisibility(View.VISIBLE);
                             check_Ai.setText("Prediction: " + "insufficeint previous record");
-
                         }
-
-
-//
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
         }, new Response.ErrorListener() {
@@ -504,7 +503,6 @@ public class Steps_Progress_Doctor_side extends AppCompatActivity implements Ada
         };
         RequestQueue queue3 = Volley.newRequestQueue(getApplicationContext());
         queue3.add(request4);
-
 
     }
 

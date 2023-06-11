@@ -10,7 +10,6 @@ public class Profile_signup {
         this.email = email;
         this.gender = gender;
         this.pass = pass;
-        //  this.dp=dp;
     }
 
 

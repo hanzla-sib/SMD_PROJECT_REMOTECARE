@@ -32,17 +32,18 @@ public class OverView extends AppCompatActivity {
         setContentView(R.layout.over_view);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        // Initialize UI elements
         step = findViewById(R.id.steps_graph_card);
         Calories_Burnt_card = findViewById(R.id.Calories_Burnt_card);
         test_record = findViewById(R.id.testrecord_card);
         calorie = findViewById(R.id.calories_card);
 
-        // for logging out
+        // Initialize Firebase components for logging out
         auth1 = FirebaseAuth.getInstance();
         database1 = FirebaseDatabase.getInstance();
         reference1 = database1.getReference("Users");
 
-
+        // Set click listeners for the UI elements
         step.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +76,7 @@ public class OverView extends AppCompatActivity {
     }
 
 
+    // Method to handle the "Overview" button click
     public void ClickOverview(View view) {
         recreate();
     }
@@ -108,8 +110,10 @@ public class OverView extends AppCompatActivity {
         MainActivity2.redirectActivity(this, messagemain.class);
     }
 
+    // Method to handle the "Logout" button click
     public void ClickLogout(View view) {
 
+        // Update online status in Firebase
         String savecurrentdate;
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat currentdate = new SimpleDateFormat("MMM dd,yyyy");
@@ -123,10 +127,10 @@ public class OverView extends AppCompatActivity {
         onlinestatus.put("player_id", "");
         String curruserid = auth1.getUid();
         reference1.child(curruserid).updateChildren(onlinestatus);
+
+        // Sign out the user and navigate to the sign-in activity
         auth1.signOut();
-
         finish();
-
         startActivity(new Intent(OverView.this, MainActivity_signin.class));
     }
 

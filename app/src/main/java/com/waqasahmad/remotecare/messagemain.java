@@ -66,23 +66,24 @@ public class messagemain extends AppCompatActivity {
 
     //for logging out
     DatabaseReference reference1;
-
     FirebaseDatabase database1;
 
-
-    //    private static final String user_token_delete="http://"+Ip_server.getIpServer()+"/smd_project/user_token_delete.php";
     String url1 = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messagemain);
+
+        // Initialize Firebase instances
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         auth1 = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Users");
+
+        // Initialize views
         rv = findViewById(R.id.recViewbottom);
         userslist = new ArrayList<>();
         logout = findViewById(R.id.logout);
@@ -91,10 +92,11 @@ public class messagemain extends AppCompatActivity {
         pat_nav = findViewById(R.id.patient_nav);
         doc_nav = findViewById(R.id.doc_nav);
 
-
+        // Get the current user's email
         String useremail = mAuth.getCurrentUser().getEmail();
         Log.d("useremail", useremail);
 
+        // Retrieve user data from Firestore
         db.collection("users").
                 document(useremail).get().
                 addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -102,18 +104,18 @@ public class messagemain extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                         DocumentSnapshot document = task.getResult();
-
-
                         JSONObject obj;
                         obj = new JSONObject(document.getData());
 
                         try {
                             String usertype = obj.getString("User_Type");
 
+                            // Adjust UI based on user type (patient or doctor)
                             if (usertype.equals(strpatient)) {
                                 doc_nav.setVisibility(View.GONE);
                                 pat_nav.setVisibility(View.VISIBLE);
 
+                                // Set click listeners for patient navigation buttons
                                 btn1 = findViewById(R.id.home_btn2);
                                 btn2 = findViewById(R.id.appointment_btn);
                                 btn3 = findViewById(R.id.record_btn);
@@ -143,6 +145,8 @@ public class messagemain extends AppCompatActivity {
                             } else if (usertype.equals(strdoctor)) {
                                 pat_nav.setVisibility(View.GONE);
                                 doc_nav.setVisibility(View.VISIBLE);
+
+                                // Set click listeners for doctor navigation buttons
                                 btn1 = findViewById(R.id.doc_home_btn2);
                                 btn2 = findViewById(R.id.doc_appointment_btn);
                                 btn3 = findViewById(R.id.profile_doc_button);
@@ -180,11 +184,13 @@ public class messagemain extends AppCompatActivity {
                 });
 
 
+        // Retrieve IP address from SharedPreferences
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url1 = "http://" + s1 + "/smd_project/user_token_delete.php";
 
 
+        // Set click listener for back button
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,10 +198,12 @@ public class messagemain extends AppCompatActivity {
             }
         });
 
-
+        // Set click listener for logout button
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Update user's online status and player ID
                 String savecurrentdate;
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat currentdate = new SimpleDateFormat("MMM dd,yyyy");
@@ -210,11 +218,11 @@ public class messagemain extends AppCompatActivity {
                 String curruserid = auth.getUid();
                 reference.child(curruserid).updateChildren(onlinestatus);
 
+                // Send a request to delete user token
                 StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
-//                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -233,17 +241,19 @@ public class messagemain extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 queue.add(request);
 
+                // Sign out the user and redirect to the sign-in activity
                 auth.signOut();
-
                 startActivity(new Intent(messagemain.this, MainActivity_signin.class));
-
                 finish();
 
             }
         });
 
 
+        // Initialize user list for RecyclerView
         final String[] Typeuser = {""};
+
+        // Retrieve user data from Firebase Realtime Database
         reference.addValueEventListener(new ValueEventListener() {
             @Override
 
@@ -263,14 +273,16 @@ public class messagemain extends AppCompatActivity {
                     checkuid = dataSnapshot.child("uid").getValue().toString();
                     Type = dataSnapshot.child("type").getValue().toString();
                     mauthuid = auth.getUid();
-//                    Log.d("typesofuser",Typeuser[0]);
-                    Log.d("typesofuser", Type);
+
+
                     if (checkuid.equals(mauthuid)) {
 
                     } else {
                         if (Type.equals(Typeuser[0])) {
 
                         } else {
+
+                            // Create userchat object and populate with user data
                             userchat uchat = new userchat();
                             String name = dataSnapshot.child("name").getValue().toString();
                             String uid = dataSnapshot.child("uid").getValue().toString();
@@ -291,12 +303,11 @@ public class messagemain extends AppCompatActivity {
                     }
                 }
 
-
+                // Set up RecyclerView adapter and layout manager
                 usersAdapter = new UsersAdapter(userslist, messagemain.this);
                 RecyclerView.LayoutManager lm = new LinearLayoutManager(messagemain.this);
                 rv.setLayoutManager(lm);
                 rv.setAdapter(usersAdapter);
-
 
             }
 

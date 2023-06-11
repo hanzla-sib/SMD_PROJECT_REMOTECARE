@@ -37,19 +37,18 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
     FirebaseAuth mAuth;
     FirebaseFirestore db;
 
-//    private static final String delete_test_record="http://"+Ip_server.getIpServer()+"/smd_project/delete_test_record.php";
-
     public Record_Adapter(Context activity, ArrayList<Record_Model> arrayList) {
         this.activity = activity;
         this.arrayList = arrayList;
     }
-
 
     String currentemail;
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        // Inflate the item layout for the RecyclerView
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.record_row, parent, false);
         return new MyViewHolder(view);
@@ -68,22 +67,25 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
         //getting email of logged in user
         currentemail = mAuth.getCurrentUser().getEmail();
 
+        // Get the record model at the current position
         Record_Model model = arrayList.get(holder.getAdapterPosition());
+
+        // Set the record number
         Integer rec = Integer.valueOf(holder.getAdapterPosition() + 1);
 
-
-//      holder.image_record.setImageURI(Picasso.get());
+        // Load the image using Picasso
         SharedPreferences sh = activity.getSharedPreferences("MySharedPref", 0);
         String s1 = sh.getString("Ip", "");
         Picasso.get().load("http://" + s1 + "/smd_project/" + model.getImage_url()).into(holder.image_record);
+
+        // Set the details
         holder.details.setText(model.getDetails());
         holder.record_num.setText("Record # " + (holder.getAdapterPosition() + 1));
 
-
-        holder
-                .itemView
+        // Set click listener for the delete button
+        holder.itemView
                 .findViewById(R.id.delete_record)
-                .setOnClickListener(new View.OnClickListener() {
+                  .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -97,6 +99,7 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked OK button
 
+                                // Remove the record from the list and notify the adapter
                                 arrayList.remove(holder.getAdapterPosition());
                                 notifyDataSetChanged();
                                 notifyItemRemoved(holder.getAdapterPosition());
@@ -104,13 +107,14 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
 
                                 holder.itemView.setVisibility(View.GONE);
 
+                                // Delete the record from the server
                                 SharedPreferences sh = activity.getSharedPreferences("MySharedPref", 0);
                                 String s1 = sh.getString("Ip", "");
                                 String url1 = "http://" + s1 + "/smd_project/delete_test_record.php";
                                 StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
-//                                        Toast.makeText(activity,response.toString(),Toast.LENGTH_LONG).show();
+
                                     }
                                 }, new Response.ErrorListener() {
                                     @Override
@@ -121,11 +125,10 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
                                     @Nullable
                                     @Override
                                     protected Map<String, String> getParams() throws AuthFailureError {
+                                        // Create a parameter map for the request
                                         Map<String, String> param = new HashMap<String, String>();
-
                                         param.put("p_email", currentemail);
                                         param.put("image_url", model.getImage_url());
-
                                         return param;
                                     }
                                 };
@@ -137,9 +140,7 @@ public class Record_Adapter extends RecyclerView.Adapter<Record_Adapter.MyViewHo
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog
-
                                 dialog.cancel();
-
                             }
                         });
 

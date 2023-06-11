@@ -25,5 +25,6 @@ public class ModelClassoffline {
     public ModelClassoffline(String email, Bitmap image) {
         this.email = email;
         this.image = image;
+
     }
 }

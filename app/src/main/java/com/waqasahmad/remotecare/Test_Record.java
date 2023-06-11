@@ -73,9 +73,6 @@ public class Test_Record extends AppCompatActivity {
     String email1;
     String details1;
 
-//    private static final String insert_img_url="http://"+Ip_server.getIpServer()+"/smd_project/insert_test_record.php";
-//    private static final String retreive_img="http://"+Ip_server.getIpServer()+"/smd_project/retireveimage.php";
-
     String url1 = "", url2 = "";
 
     @Override
@@ -111,14 +108,25 @@ public class Test_Record extends AppCompatActivity {
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
+
+                // Check if the result is successful
                 if (result.getResultCode() == Activity.RESULT_OK) {
+
+                    // Get the data from the result
                     Intent data = result.getData();
+
+                    // Get the URI of the selected image
                     Uri uri = data.getData();
+
+                    // Store the URI in the "image" variable
                     image = data.getData();
+
+                    // Use Picasso library to load the image into the ImageView "dp"
                     Picasso.get().load(uri).into(dp);
-                    Log.d("pro22", uri.toString());
 
                     try {
+
+                        // Get the bitmap from the URI using the ContentResolver
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 
                     } catch (IOException e) {
@@ -135,7 +143,6 @@ public class Test_Record extends AppCompatActivity {
                 finish();
             }
         });
-
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,7 +172,6 @@ public class Test_Record extends AppCompatActivity {
             }
         });
 
-
         dp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,67 +187,88 @@ public class Test_Record extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                // Create an AlertDialog to confirm the upload
                 AlertDialog.Builder builder = new AlertDialog.Builder(Test_Record.this);
                 builder.setMessage("Do you want to upload this record?")
                         .setTitle("Upload Test Record");
 
-                // Add the buttons
+                // Add the positive button (OK)
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
-
-
+                        // Get the details entered by the user
                         details1 = details.getText().toString();
 
-                        Log.d("detailllll", details.getText().toString());
-
+                        // Create a ByteArrayOutputStream to compress the bitmap into bytes
                         ByteArrayOutputStream byteArrayOutputStream;
                         byteArrayOutputStream = new ByteArrayOutputStream();
+
+                        // Check if a bitmap is available
                         if (bitmap != null) {
+
+                            // Compress the bitmap into JPEG format with 100 quality and store it in the ByteArrayOutputStream
                             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                             byte[] bytes = byteArrayOutputStream.toByteArray();
+
+                            // Convert the compressed image bytes to base64 string
                             final String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
+
+                            // Get the current time as a string
                             Calendar calendar = Calendar.getInstance();
                             SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
                             String strDate = mdformat.format(calendar.getTime());
 
                             ////////////////////////////////////////////////////////////////////////////////
 
+                            // Get the current time as a Calendar instance
                             Calendar c = Calendar.getInstance();
+
+                            // Create a FirebaseStorage instance
                             FirebaseStorage storage = FirebaseStorage.getInstance();
+
+                            // Create a StorageReference with a unique filename for the uploaded image
                             StorageReference ref = storage.getReference().child("test_record/" + c.getTimeInMillis() + ".jpg");
+
+                            // Upload the image file to Firebase Storage
                             ref.putFile(image)
 
                                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                                            // Image upload successful
+
+                                            // Get the download URL of the uploaded image
                                             Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
                                             task.addOnSuccessListener(new OnSuccessListener<Uri>() {
                                                 @Override
                                                 public void onSuccess(Uri uri) {
-
-                                                    Log.d("p33333", uri.toString());
-
+                                                    // The download URL of the image is available
+                                                    // Create a StringRequest to make a POST request to a URL
 
                                                     StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
                                                         @Override
                                                         public void onResponse(String response) {
-                                                            Log.d("res1111", response.toString());
-//                                                            Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+
+                                                            // Handle the response from the server upon successful upload
                                                             Toast.makeText(getApplicationContext(), "Uploaded successfully", Toast.LENGTH_LONG).show();
                                                         }
                                                     }, new Response.ErrorListener() {
                                                         @Override
                                                         public void onErrorResponse(VolleyError error) {
+
+                                                            // Handle the error response from the server
                                                             Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
                                                         }
                                                     }) {
                                                         @Nullable
                                                         @Override
                                                         protected Map<String, String> getParams() throws AuthFailureError {
+
+                                                            // Create a Map to store the parameters for the POST request
                                                             Map<String, String> param = new HashMap<String, String>();
-                                                            Log.d("detailllll222", uri.toString());
+
+                                                            // Add the parameters to the Map
                                                             param.put("link", uri.toString());
                                                             param.put("image", base64Image);
                                                             param.put("details", details1);
@@ -250,6 +277,8 @@ public class Test_Record extends AppCompatActivity {
                                                             return param;
                                                         }
                                                     };
+
+                                                    // Create a RequestQueue and add the StringRequest to it
                                                     RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                                                     queue.add(request);
 
@@ -260,6 +289,8 @@ public class Test_Record extends AppCompatActivity {
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
+
+                                            // Image upload failed
                                             Toast.makeText(Test_Record.this,
                                                             "Failed to upload image ",
                                                             Toast.LENGTH_LONG)
@@ -267,19 +298,22 @@ public class Test_Record extends AppCompatActivity {
                                         }
                                     });
 
-                            ////////////////////////////////////////////////////////////////////////////////
-
 
                         } else {
+
+                            // No bitmap available
                             Toast.makeText(getApplicationContext(), "Error uploading image", Toast.LENGTH_SHORT).show();
                         }
 
+                        // Reset the ImageView and EditText after the upload
                         dp.setImageResource(R.drawable.add);
                         details.setText("");
 
 
                     }
                 });
+
+                // Add the negative button (Cancel)
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
@@ -291,8 +325,6 @@ public class Test_Record extends AppCompatActivity {
                 // Create the AlertDialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
-
             }
         });
     }

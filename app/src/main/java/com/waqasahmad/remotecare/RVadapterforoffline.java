@@ -47,5 +47,6 @@ public class RVadapterforoffline extends RecyclerView.Adapter<RVadapterforofflin
             objectiamgeview=itemView.findViewById(R.id.imagetv);
             email=itemView.findViewById(R.id.imagedetailstxtview);
         }
+
     }
 }

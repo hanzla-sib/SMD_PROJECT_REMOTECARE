@@ -41,12 +41,10 @@ public class Patient_accepted_appointments extends AppCompatActivity {
     LinearLayout btn1, btn2, btn3, btn4;
 
     SearchView search;
-    //
     FirebaseFirestore db;
     FirebaseAuth mAuth;
 
     P_accepted_appointments_adapter adapter;
-    //    private static final String patient_accepted_appointment="http://"+Ip_server.getIpServer()+"/smd_project/patient_accepted_appointment.php";
     String url1 = "";
 
     @Override
@@ -54,6 +52,7 @@ public class Patient_accepted_appointments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_accepted_appointments);
 
+        // Initialize views
         rv = findViewById(R.id.rv_accepted_appointments);
         back_btn = findViewById(R.id.back_btn);
         btn1 = findViewById(R.id.home_btn2);
@@ -62,6 +61,8 @@ public class Patient_accepted_appointments extends AppCompatActivity {
         btn4 = findViewById(R.id.chat_btn);
         btn2.setBackgroundResource(R.drawable.nav_btn_color);
         search = findViewById(R.id.search_view);
+
+        // Retrieve IP address from SharedPreferences
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
         url1 = "http://" + s1 + "/smd_project/patient_accepted_appointment.php";
@@ -72,6 +73,7 @@ public class Patient_accepted_appointments extends AppCompatActivity {
         String useremail = mAuth.getCurrentUser().getEmail();
         Log.d("useremail", useremail);
 
+        // Set up search functionality
         search.clearFocus();
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -86,19 +88,14 @@ public class Patient_accepted_appointments extends AppCompatActivity {
             }
         });
 
-
-        //////////////////////////////////////////////////////////////////////////////////////////
-
+        // Make a request to fetch accepted appointments data from the server
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("respons11111111", response);
-//                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-
                 try {
                     JSONArray obj2 = new JSONArray(response);
 
-
+                    // Parse the JSON response and create Appointment_Model objects
                     for (int i = 0; i < obj2.length(); i++) {
                         JSONObject jsonObject = obj2.getJSONObject(i);
 
@@ -123,6 +120,7 @@ public class Patient_accepted_appointments extends AppCompatActivity {
 
                     }
 
+                    // Set up the adapter and RecyclerView
                     adapter = new P_accepted_appointments_adapter(ls, Patient_accepted_appointments.this);
                     RecyclerView.LayoutManager lm = new LinearLayoutManager(Patient_accepted_appointments.this);
                     rv.setLayoutManager(lm);
@@ -141,6 +139,8 @@ public class Patient_accepted_appointments extends AppCompatActivity {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+
+                // Set the parameters for the request
                 Map<String, String> param = new HashMap<String, String>();
                 param.put("email", useremail);
                 return param;
@@ -151,7 +151,7 @@ public class Patient_accepted_appointments extends AppCompatActivity {
 
         //*********************************
 
-
+        // Set click listeners for buttons
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,7 +188,7 @@ public class Patient_accepted_appointments extends AppCompatActivity {
 
     }
 
-
+    // Method to filter the appointment list based on search query
     private void fileList(String newText) {
         List<Appointment_Model> filterlist = new ArrayList<>();
         for (Appointment_Model item : ls) {

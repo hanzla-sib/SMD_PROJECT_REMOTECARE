@@ -1,10 +1,10 @@
 package com.waqasahmad.remotecare;
 
+// Model class for the patient records
 public class Record_Model {
     String image_url;
     String details;
     String Record_num;
-
 
     public String getRecord_num() {
         return Record_num;

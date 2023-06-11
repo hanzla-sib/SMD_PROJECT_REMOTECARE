@@ -65,20 +65,14 @@ public class Steps_Graph extends AppCompatActivity {
     ArrayList<String> Labelsname;
     ArrayList<BarEntry> barEntryArrayListmonthly;
     ArrayList<String> Labelsnamemonthly;
-    //    private static final String Steps_graph="http://"+Ip_server.getIpServer()+"/smd_project/Steps_graph.php";
-//    private static final String Steps_graph_month="http://"+Ip_server.getIpServer()+"/smd_project/monthlyStepsgraph.php";
+
     String url1 = "", url2 = "", url3 = "", url4 = "";
     String d_email_steps_recommeded = "";
     String steps_steps_recommeded = "";
 
     List<String> d_name_array = new ArrayList<String>();
     List<String> recommended_steps_array = new ArrayList<String>();
-
-//    String [] d_name_array;
-//    ArrayList<String> recommended_steps_array;
-
     String daily_steps_global = "";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +89,7 @@ public class Steps_Graph extends AppCompatActivity {
         weekly_barchart.setBackgroundColor(Color.WHITE);
         monthly_barchart.setBackgroundColor(Color.WHITE);
 
-        //
+
         currentemail = mAuth.getCurrentUser().getEmail();
         back_btn = findViewById(R.id.back_btn);
         btn1 = findViewById(R.id.home_btn2);
@@ -103,17 +97,11 @@ public class Steps_Graph extends AppCompatActivity {
         btn3 = findViewById(R.id.record_btn);
         btn4 = findViewById(R.id.chat_btn);
 
-
         doc_name = findViewById(R.id.d_name_steps_screen);
         recommended_steps = findViewById(R.id.recommended_steps_steps_screen);
         remaining_steps = findViewById(R.id.remaining_steps_steps_screen);
 
-
         rv = findViewById(R.id.steps_rv);
-
-
-//        remaining_steps.setText("Remaining Steps :"+"122222");
-
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         String s1 = sh.getString("Ip", "");
@@ -152,19 +140,18 @@ public class Steps_Graph extends AppCompatActivity {
                 startActivity(new Intent(Steps_Graph.this, messagemain.class));
             }
         });
-//
+
+
         StringRequest request = new StringRequest(Request.Method.POST, url1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-
-                Log.d("response111111111111111", response);
                 if (response.toString().equals("No entry")) {
 
-                    Log.d("response333333333", "Noooooooooooooooooooooooooooooooooooooo");
-                } else {
-//                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
-
+                }
+                else
+                {
+                    // Clear previous data
                     Steps_MODAL_weekly.clear();
                     barEntryArrayList = new ArrayList<>();
                     Labelsname = new ArrayList<>();
@@ -178,27 +165,34 @@ public class Steps_Graph extends AppCompatActivity {
                         if (totalsize >= 7) {
                             starting = obj2.length() - 7;
                         }
-                        for (int i = starting; i < obj2.length(); i++) {
+
+                        // Retrieve data from JSON response
+                        for (int i = starting; i < obj2.length(); i++)
+                        {
                             JSONObject jsonObject = obj2.getJSONObject(i);
                             String date = jsonObject.getString("date");
                             String halfdate = "";
-                            for (int j = 5; j < date.length(); j++) {
-                                halfdate += date.charAt(j);
-                            }
+
+                                for (int j = 5; j < date.length(); j++)
+                                {
+                                    halfdate += date.charAt(j);
+                                }
+
                             String Calorie = jsonObject.getString("steps");
                             if (!Calorie.equals("null")) {
                                 Steps_MODAL_weekly.add(new Steps_Modal(halfdate, Integer.parseInt(Calorie)));
                             }
-
-//
                         }
 
+                        // Prepare data for bar chart
                         for (int i = 0; i < Steps_MODAL_weekly.size(); i++) {
                             String date = Steps_MODAL_weekly.get(i).getDate();
                             int stepss = Steps_MODAL_weekly.get(i).getSteps();
                             barEntryArrayList.add(new BarEntry(i, stepss));
                             Labelsname.add(date);
                         }
+
+                        // Create bar chart and set data
                         BarDataSet barDataSetweekly = new BarDataSet(barEntryArrayList, "Weekly Steps");
                         barDataSetweekly.setColors(ColorTemplate.PASTEL_COLORS);
                         Description description_weekly = new Description();
@@ -206,6 +200,8 @@ public class Steps_Graph extends AppCompatActivity {
                         weekly_barchart.setDescription(description_weekly);
                         BarData barData_weekly = new BarData((barDataSetweekly));
                         weekly_barchart.setData(barData_weekly);
+
+                        // Configure X-axis
                         XAxis xAxis_weekly = weekly_barchart.getXAxis();
                         xAxis_weekly.setValueFormatter(new IndexAxisValueFormatter(Labelsname));
                         xAxis_weekly.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -214,14 +210,14 @@ public class Steps_Graph extends AppCompatActivity {
                         xAxis_weekly.setGranularity(1f);
                         xAxis_weekly.setLabelCount(Labelsname.size());
                         xAxis_weekly.setLabelRotationAngle(0);
+
+                        // Animate and invalidate chart
                         weekly_barchart.animateY(1500);
                         weekly_barchart.invalidate();
-
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
         }, new Response.ErrorListener() {
@@ -233,6 +229,8 @@ public class Steps_Graph extends AppCompatActivity {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+
+                // Set request parameters
                 Map<String, String> param = new HashMap<String, String>();
                 param.put("p_email", currentemail);
                 return param;
@@ -248,13 +246,11 @@ public class Steps_Graph extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
 
-                    Log.d("response111111111111111", response);
                     if (response.toString().equals("No entry")) {
 
-                        Log.d("response333333333", "Noooooooooooooooooooooooooooooooooooooo");
                     } else {
-//                    Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
 
+                        // Clear previous data
                         Steps_MODAL_monthly.clear();
                         barEntryArrayListmonthly = new ArrayList<>();
                         Labelsnamemonthly = new ArrayList<>();
@@ -264,6 +260,7 @@ public class Steps_Graph extends AppCompatActivity {
                         try {
                             obj2 = new JSONArray(response);
 
+                            // Retrieve data from JSON response
                             for (int i = 0; i < obj2.length(); i++) {
                                 JSONObject jsonObject = obj2.getJSONObject(i);
                                 String date = jsonObject.getString("month");
@@ -271,9 +268,9 @@ public class Steps_Graph extends AppCompatActivity {
                                 if (!Calorie.equals("null")) {
                                     Steps_MODAL_monthly.add(new Steps_Modal(date, Integer.parseInt(Calorie)));
                                 }
-
-//
                             }
+
+                            // Prepare data for bar chart
                             for (int i = 0; i < Steps_MODAL_monthly.size(); i++) {
                                 String date = Steps_MODAL_monthly.get(i).getDate();
                                 int Cal = Steps_MODAL_monthly.get(i).getSteps();
@@ -281,10 +278,7 @@ public class Steps_Graph extends AppCompatActivity {
                                 Labelsnamemonthly.add(date);
                             }
 
-                            //====================
-
-
-//                        monthly
+                            // Create bar chart and set data
                             BarDataSet barDataSet_monthly = new BarDataSet(barEntryArrayListmonthly, "Monthly Steps");
                             barDataSet_monthly.setColors(ColorTemplate.PASTEL_COLORS);
                             Description description = new Description();
@@ -292,6 +286,8 @@ public class Steps_Graph extends AppCompatActivity {
                             monthly_barchart.setDescription(description);
                             BarData barData_monthly = new BarData((barDataSet_monthly));
                             monthly_barchart.setData(barData_monthly);
+
+                            // Configure X-axis
                             XAxis xAxis = monthly_barchart.getXAxis();
                             xAxis.setValueFormatter(new IndexAxisValueFormatter(Labelsnamemonthly));
                             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -300,6 +296,8 @@ public class Steps_Graph extends AppCompatActivity {
                             xAxis.setGranularity(1f);
                             xAxis.setLabelCount(Labelsnamemonthly.size());
                             xAxis.setLabelRotationAngle(0);
+
+                            // Animate and invalidate chart
                             monthly_barchart.animateY(2000);
                             monthly_barchart.invalidate();
                         } catch (JSONException e) {
@@ -317,6 +315,8 @@ public class Steps_Graph extends AppCompatActivity {
                 @Nullable
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
+
+                    // Set request parameters
                     Map<String, String> param = new HashMap<String, String>();
                     param.put("p_email", currentemail);
                     return param;
@@ -333,90 +333,36 @@ public class Steps_Graph extends AppCompatActivity {
             @Override
             public void onResponse(String response2) {
 
-                Log.d("response222222222222222", response2);
                 if (response2.toString().equals("user not found")) {
 
-                    Log.d("response333333333", "Noooooooooooooooooooooooooooooooooooooo");
                 } else {
-//                    Toast.makeText(getApplicationContext(),response2,Toast.LENGTH_LONG).show();
-
                     try {
                         obj3 = new JSONArray(response2);
 
-                        for (int i = 0; i < obj3.length(); i++) {
+                        // Retrieve recommended steps data from JSON response
+                        for (int i = 0; i < obj3.length(); i++)
+                        {
                             JSONObject jsonObject = obj3.getJSONObject(i);
                             d_email_steps_recommeded = jsonObject.getString("d_email");
                             steps_steps_recommeded = jsonObject.getString("steps");
 
-
-//                            d_name_array.set(i, d_email_steps_recommeded);
                             d_name_array.add(d_email_steps_recommeded);
                             recommended_steps_array.add(steps_steps_recommeded);
 
-
-//                                doc_name.setText("Dr."+d_email_steps_recommeded);
-//                                doc_name.setVisibility(View.VISIBLE);
-//                                recommended_steps.setText("Recommended Steps: "+steps_steps_recommeded);
-//                                recommended_steps.setVisibility(View.VISIBLE);
-                            /////////////
-
                             //===================GETTING DAILY STEPS FOR REMAINING STEPS
-
-
-                            /////////////
 
                         }//for loop ends
 
+                        // Request daily steps for remaining steps calculation
                         StringRequest request3 = new StringRequest(Request.Method.POST, url4, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response3) {
 
-                                Log.d("response222222222222222", response3);
                                 if (response3.toString().equals("No entry")) {
 
-                                    Log.d("response333333333", "Noooooooooooooooooooooooooooooooooooooo");
                                 } else {
-//                                    Toast.makeText(getApplicationContext(),response3,Toast.LENGTH_LONG).show();
-
-
                                     String daily_steps_str = response3.trim();
-//                                            Log.d("ssss",daily_steps_str);
-//                                            String rem="";
-
-//                                            Log.d("dailysteps",daily_steps_str);
-//                                            Log.d("recommended",steps_steps_recommeded);
-
-
-//
-
-//                                            Log.d("daily_int",String.valueOf(daily_int));
-//                                            Log.d("recommended_int",String.valueOf(recommended_int));
-//                                            Log.d("remaining_int",String.valueOf(remaining_int));
-
                                     daily_steps_global = daily_steps_str;
-
-//                                            if(String.valueOf(remaining_int).charAt(0)=='-'){
-//                                                Log.d("helllooo","sadasd");
-//                                                remaining_steps.setText("Remaining Steps : 0  \n you have completed the goal" );
-//                                            }
-//                                            else{
-
-//                                                Log.d("saadsaadaf",d_email_steps_recommeded);
-//                                                steps_model.setD_email("Dr."+d_email_steps_recommeded);
-//                                                steps_model.setRecommended_steps("Recommended Steps: "+recommended_int.toString());
-//                                                steps_model.setRemaining_steps(remaining_int.toString());
-//                                                ls.add(steps_model);
-//
-//
-//                                                Steps_Adapter_Graph_Page adapter = new Steps_Adapter_Graph_Page(ls, Steps_Graph.this);
-//                                                RecyclerView.LayoutManager lm = new LinearLayoutManager(Steps_Graph.this);
-//                                                rv.setLayoutManager(lm);
-//                                                rv.setAdapter(adapter);
-
-
-//                                                remaining_steps.setText("Remaining Steps : " +String.valueOf(remaining_int));
-//                                            }
-//                                            remaining_steps.setVisibility(View.VISIBLE);
 
                                     //---------------------
                                     int i;
@@ -435,7 +381,6 @@ public class Steps_Graph extends AppCompatActivity {
                                         RecyclerView.LayoutManager lm = new LinearLayoutManager(Steps_Graph.this);
                                         rv.setLayoutManager(lm);
                                         rv.setAdapter(adapter);
-
                                     }
                                 }
                             }
@@ -448,6 +393,8 @@ public class Steps_Graph extends AppCompatActivity {
                             @Nullable
                             @Override
                             protected Map<String, String> getParams() throws AuthFailureError {
+
+                                // Set request parameters
                                 Map<String, String> param = new HashMap<String, String>();
                                 param.put("p_email", currentemail);
                                 return param;
@@ -472,6 +419,8 @@ public class Steps_Graph extends AppCompatActivity {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+
+                // Set request parameters
                 Map<String, String> param = new HashMap<String, String>();
                 param.put("p_email", currentemail);
                 return param;
@@ -480,10 +429,5 @@ public class Steps_Graph extends AppCompatActivity {
         RequestQueue queue2 = Volley.newRequestQueue(getApplicationContext());
         queue2.add(request2);
 
-        //////////////////////////////////////////////////
-
-
     }
-
-
 }

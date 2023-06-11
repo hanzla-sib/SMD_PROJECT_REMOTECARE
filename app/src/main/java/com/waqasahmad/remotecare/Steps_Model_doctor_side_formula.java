@@ -1,5 +1,6 @@
 package com.waqasahmad.remotecare;
 
+//Model class for steps recommendation
 public class Steps_Model_doctor_side_formula {
     String recommended_steps, remaining_steps, check_status;
 
